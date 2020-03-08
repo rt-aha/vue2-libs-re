@@ -3,6 +3,7 @@
 ### 加上以下功能
 
 - network
+- mock api(waiting fix:還無法熱重載)
 
 ### 已安裝以下套件
 
