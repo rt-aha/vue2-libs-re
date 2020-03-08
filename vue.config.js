@@ -1,13 +1,19 @@
+const path = require('path');
+const Mock = require('./src/mock/tplt');
+
+console.log(Mock);
+
 module.exports = {
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/mock'
-        }
-      }
+    contentBase: path.join(__dirname, 'mock'),
+    compress: true,
+    port: 7000,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
+    before(app) {
+      Mock(app);
     }
   }
 };

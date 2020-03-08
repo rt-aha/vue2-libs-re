@@ -91,14 +91,10 @@ axios.interceptors.response.use(
 );
 
 const afterRequest = res => {
-  if (!res) {
-    return null;
-  }
+  console.log('rrr', res);
 
-  // 如果有警告訊息顯示出來
-  if (res.data.warning) {
-    // customMsgHelper('warning', res.data.warning);
-  }
+  console.log('r1', res.data);
+  console.log('r2', res.data);
 
   // 過濾出需要的內容
   return {
