@@ -6,6 +6,6 @@ export const handleTpltAPI = (payload = {}) => {
 };
 
 export const handleTpltMockAPI = (payload = {}) => {
-  const apiUrl = '/tplt/dataList';
+  const apiUrl = '/todos/1';
   return serviceRequest('get', apiUrl, payload);
 };
