@@ -1,0 +1,58 @@
+@import '~@/styles/preset/color.scss';
+@import '~@/styles/preset/font.scss';
+@import '~@/styles/preset/mixin.scss';
+@import '~@/styles/rewrite-element-ui.scss';
+/* 改变主题色变量 */
+$--color-primary: $c-main1;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import '~element-ui/packages/theme-chalk/src/index';
+
+// table
+
+.el-table th.is-leaf {
+  border-bottom: 2px solid $c-assist4;
+}
+
+.el-table td {
+  border-bottom: 0px transparent;
+}
+
+.el-table .cell,
+.el-table .cell span {
+  @include font-style($c-assist4, $t-size-14, $t-weight-400);
+}
+
+// select
+
+.el-select-dropdown__item {
+  padding: 0 12px;
+}
+
+// dialog
+
+.el-dialog__title {
+  @include font-style($c-main1, $t-size-14, $t-weight-700);
+}
+.el-dialog {
+  width: 100%;
+  max-width: 816px;
+}
+
+.el-dialog__header {
+  box-sizing: border-box;
+  padding: 23px 32px;
+}
+
+.el-dialog__body {
+  box-sizing: border-box;
+  padding: 32px 32px 0 32px;
+  background-color: $c-assist5;
+}
+
+.el-dialog__footer {
+  box-sizing: border-box;
+  padding: 0px 32px 32px 32px;
+  background-color: $c-assist5;
+}

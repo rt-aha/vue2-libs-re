@@ -1,0 +1,25 @@
+.clearfix {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+button {
+  // background-color: transparent;
+  border: 0px transparent;
+  outline: 0px transparent;
+  cursor: pointer;
+}
+
+input {
+  background-color: $c_white;
+  border: 0px transparent;
+  outline: 0px transparent;
+  box-sizing: border-box;
+
+  &:disabled {
+    background-color: $c_white;
+  }
+}

@@ -1,0 +1,48 @@
+* {
+  font-family: Microsoft JhengHei, 微軟正黑體, 'PingFang TC', Microsoft JhengHei,
+    Arial, Helvetica, sans-serif;
+}
+
+// login placeholder
+$login-ph: 14px;
+
+$t-size-60: 60px;
+$t-size-32: 32px;
+$t-size-28: 28px;
+$t-size-24: 24px;
+$t-size-20: 20px;
+$t-size-18: 18px;
+$t-size-16: 16px;
+$t-size-14: 14px;
+$t-size-12: 12px;
+$t-size-11: 11px;
+
+$t-weight-300: 300;
+$t-weight-400: 400;
+$t-weight-500: 500;
+$t-weight-600: 600;
+$t-weight-700: 700;
+
+h1 {
+  font-size: $t-size-60;
+}
+
+h2 {
+  font-size: $t-size-32;
+}
+
+h3 {
+  font-size: $t-size-28;
+}
+
+h4 {
+  font-size: $t-size-24;
+}
+
+h5 {
+  font-size: $t-size-20;
+}
+
+h6 {
+  font-size: $t-size-16;
+}
