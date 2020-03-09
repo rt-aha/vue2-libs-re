@@ -14,7 +14,7 @@ function checkMethodValue(method) {
 
 const beforeRequest = (config, apiUrl, payload) => {
   const headerConfig = {
-    headers: networkConfig[config].headers
+    headers: networkConfig[config].headers,
   };
 
   const token = localStorage.getItem('token') || '';
@@ -45,7 +45,7 @@ axios.interceptors.request.use(
   },
   function(error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 const ajaxRequest = async (method, apiUrl, payload, config) => {
@@ -68,9 +68,9 @@ const ajaxRequest = async (method, apiUrl, payload, config) => {
         method: 'delete',
         url: apiUrl,
         data: payload,
-        headers: config.headers
+        headers: config.headers,
       });
-    }
+    },
   };
 
   const res = await requstMethods[method]();
@@ -87,21 +87,16 @@ axios.interceptors.response.use(
     // loadingInstance.endLoading();
     // badResHelper(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 const afterRequest = res => {
-  console.log('rrr', res);
-
-  console.log('r1', res.data);
-  console.log('r2', res.data);
-
   // 過濾出需要的內容
   return {
     status: res.request.status,
     header: res.headers,
     code: res.data.code,
-    data: res.data.data
+    data: res.data.data,
   };
 };
 
@@ -113,12 +108,7 @@ const afterRequest = res => {
  * @param header 是否使用特別設定的頭部，預設看config檔案
  */
 
-const serviceRequest = async (
-  method,
-  apiUrl,
-  payload = {},
-  header = 'defaultConfig'
-) => {
+const serviceRequest = async (method, apiUrl, payload = {}, header = 'defaultConfig') => {
   // 檢查HTTP Verbs是否正確
   const isValidate = checkMethodValue(method);
   if (!isValidate) return;

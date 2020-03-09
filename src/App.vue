@@ -4,9 +4,21 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  metaInfo: {
+    title: 'Tplt',
+    titleTemplate: 'App-',
+    htmlAttrs: {
+      lang: 'en',
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
