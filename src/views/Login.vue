@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import BaseLayout from '@/layout/BasicLayout';
-
 export default {
   name: 'Login',
 };
