@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import CenterBox from '@/components/global/CenterBox.vue';
 
 export default {
