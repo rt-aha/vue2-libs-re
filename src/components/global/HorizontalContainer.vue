@@ -48,7 +48,7 @@ export default {
   align-items: center;
 
   .h-container-box {
-    height: 100%;
+    // height: 100%;
   }
 
   .h-container-left {

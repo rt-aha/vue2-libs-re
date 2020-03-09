@@ -5,7 +5,7 @@
                          :bottomSlotFlexConfig="'flex: none; height: 60px'">
       <template #h-container-left>
         <div class="header-left">
-          top
+          <HbgController></HbgController>
         </div>
       </template>
       <template #h-container-center>
@@ -25,11 +25,13 @@
 
 <script>
 import HorizontalContainer from '@/components/global/HorizontalContainer';
+import HbgController from '@/components/layout/HbgController';
 
 export default {
   name: 'HeaderContent',
   components: {
     HorizontalContainer,
+    HbgController,
   }
 }
 </script>
