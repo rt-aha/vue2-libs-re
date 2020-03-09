@@ -1,12 +1,17 @@
 <template>
-  <div>
-    vue js scss
-  </div>
+  <section class="layout-custom-section">
+    <aside class="layout-aside"></aside>
+    <div class="layout-main">
+      <div class="layout-content">
+        <slot></slot>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: 'vue js scss',
+  name: 'BaseLayout',
 };
 </script>
 

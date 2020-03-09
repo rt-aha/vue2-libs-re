@@ -1,13 +1,17 @@
-import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
 export default [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    redirect: '/login',
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
   },
   {
     path: '*',
     name: 'page404',
-    component: () => import('@/views/Page404.vue')
-  }
+    component: () => import(/* webpackChunkName: "Page404" */ '@/views/Page404.vue'),
+  },
 ];

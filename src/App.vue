@@ -1,14 +1,17 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div>
+    <router-view v-if="noBaseLayout" />
+
+    <!-- 自定義佈局 -->
+    <BaseLayout v-else>
+      <router-view />
+    </BaseLayout>
   </div>
 </template>
 
 <script>
+import BaseLayout from '@/layout/BasicLayout';
+
 export default {
   metaInfo: {
     title: 'Tplt',
@@ -17,28 +20,20 @@ export default {
       lang: 'en',
     },
   },
+  name: 'Login',
+  components: {
+    BaseLayout,
+  },
+  computed: {
+    noBaseLayout() {
+      // 不需要基本佈局的頁面名字寫在陣列內
+      const noBaseLayoutPages = ['login'];
+      return noBaseLayoutPages.includes(this.$route.name);
+    },
+  },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style lang="scss" scoped>
+@import '~@/styles/index';
 </style>
