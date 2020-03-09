@@ -10,6 +10,11 @@ export default [
     component: Login,
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue'),
+  },
+  {
     path: '*',
     name: 'page404',
     component: () => import(/* webpackChunkName: "Page404" */ '@/views/Page404.vue'),

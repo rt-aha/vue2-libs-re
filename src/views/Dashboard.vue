@@ -13,7 +13,7 @@ import { handleTpltAPI } from '@/services/tpltService';
 import { handleTpltMockAPI } from '@/services/tpltService';
 
 export default {
-  name: 'Home',
+  name: 'Dashboard',
   components: {
     Tplt,
   },

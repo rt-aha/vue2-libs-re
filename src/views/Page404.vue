@@ -3,10 +3,8 @@
     <CenterBox>
       <div class="content-wrapper">
         <h2 class="title-404">Oops! Page 404 ...</h2>
-        <p class="not-find-text"> Can't Find the Page !</p>
-        <router-link tag="button"
-                     class="home-link"
-                     to="/">Home</router-link>
+        <p class="not-find-text">Can't Find the Page !</p>
+        <router-link tag="button" class="home-link" to="/">Home</router-link>
       </div>
     </CenterBox>
   </div>
@@ -39,11 +37,12 @@ export default {
 
 .home-link {
   display: inline-block;
-  background-color: $c-assist1;
+  background-color: $c-main1;
   color: $c-white;
   box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 4px;
+  transition: 0.4s;
 
   &:hover {
     background-color: $c-assist2;

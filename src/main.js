@@ -7,6 +7,9 @@ import VueMeta from 'vue-meta';
 import VueI18n from 'vue-i18n';
 import i18nData from '@/i18n';
 
+// css
+import '@/styles/preset/reset.scss';
+
 // vue-meta
 Vue.use(VueMeta, {
   refreshOnceOnNavigation: true,
