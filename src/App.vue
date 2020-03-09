@@ -15,7 +15,7 @@ import BaseLayout from '@/layout/BasicLayout';
 export default {
   metaInfo: {
     title: 'Tplt',
-    titleTemplate: 'App-',
+    titleTemplate: 'App-%s',
     htmlAttrs: {
       lang: 'en',
     },

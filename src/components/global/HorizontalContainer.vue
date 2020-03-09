@@ -1,24 +1,20 @@
 
 <template>
-  <section class="horizontal-container-com"
-           :class="{
-    'margin-bottom': $attrs.mb,
-    'margin-top': $attrs.mt
-  }">
-    <div class="cttb-left"
+  <section class="h-container-com">
+    <div class="h-container-left h-container-box"
          :style="leftSlotFlexConfig"
-         v-if="showLeftSlot">
-      <slot name="tool-bar-left"></slot>
+         v-if="$slots['h-container-left']">
+      <slot name="h-container-left"></slot>
     </div>
-    <div class="cttb-center"
+    <div class="h-container-center h-container-box"
          :style="centerSlotFlexConfig"
-         v-if="showCenterSlot">
-      <slot name="tool-bar-center"></slot>
+         v-if="$slots['h-container-center']">
+      <slot name="h-container-center"></slot>
     </div>
-    <div class="cttb-right"
+    <div class="h-container-right h-container-box"
          :style="rightSlotFlexConfig"
-         v-if="showRightSlot">
-      <slot name="tool-bar-right"></slot>
+         v-if="$slots['h-container-right']">
+      <slot name="h-container-right"></slot>
     </div>
   </section>
 </template>
@@ -30,18 +26,6 @@ export default {
   // 這整個組件只是個容器，實際程式碼寫在父層的slot裡面
   name: 'HorizontalContainer',
   props: {
-    showLeftSlot: {
-      type: boolean,
-      default: false,
-    },
-    showCenterSlot: {
-      type: boolean,
-      default: false,
-    },
-    showRightSlot: {
-      type: boolean,
-      default: false,
-    },
     leftSlotFlexConfig: {
       default: '',
     },
@@ -57,30 +41,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.margin-bottom {
-  margin-bottom: 15px;
-}
-
-.margin-top {
-  margin-top: 15px;
-}
-
-.horizontal-container-com {
+.h-container-com {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  .cttb-left {
+
+  .h-container-box {
+    height: 100%;
+  }
+
+  .h-container-left {
     flex: 1;
     text-align: left;
   }
-
-  .cttb-center {
+  .h-container-center {
     flex: 1;
     text-align: center;
   }
-
-  .cttb-right {
-    display: inline-flex;
+  .h-container-right {
+    flex: 1;
     text-align: right;
   }
 }
