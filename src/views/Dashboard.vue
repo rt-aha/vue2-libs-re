@@ -12,9 +12,6 @@ import Tplt from '@/components/Tplt.vue';
 import { handleTpltAPI } from '@/services/tpltService';
 import { handleTpltMockAPI } from '@/services/tpltService';
 
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('templateStore');
-
 
 export default {
   name: 'Dashboard',
