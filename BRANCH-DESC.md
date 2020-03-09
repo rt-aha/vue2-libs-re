@@ -4,6 +4,8 @@
 
 - network
 - mock api(waiting fix:還無法熱重載)
+- vue-meta
+- vue-i18n
 
 ### 已安裝以下套件
 
