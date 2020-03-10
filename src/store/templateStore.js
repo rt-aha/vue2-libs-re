@@ -5,22 +5,23 @@ import { handleTpltAPI } from '@/services/tpltService';
 export default {
   namespaced: true,
   state: {
-    data: 0
+    tpltData: 0,
   },
   getters: {
     stateGetter(state) {
       return { getter: state.date };
-    }
+    },
   },
   mutations: {
-    [type.template](state, payload) {
-      state.data = payload;
-    }
+    [type.tplt](state, payload) {
+      state.tpltData = payload;
+    },
   },
   actions: {
-    async handleTemplate({ commit }) {
+    async handleTpltAction({ commit }) {
       const res = await handleTpltAPI();
-      commit(type.template, res);
-    }
-  }
+      console.log('res', res);
+      commit(type.tplt, res);
+    },
+  },
 };
