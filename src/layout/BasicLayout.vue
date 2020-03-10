@@ -1,6 +1,7 @@
 <template>
   <div class="app-layout">
-    <aside class="layout-aside">
+    <aside class="layout-aside"
+           :class="{'layout-aside-close':isSidebarOpen}">
       <AsideContent />
     </aside>
     <div class="layout-header-main-wrapper">
@@ -19,12 +20,18 @@
 import HeaderContent from '@/layout/HeaderContent';
 import AsideContent from '@/layout/AsideContent';
 
+import { createNamespacedHelpers } from 'vuex';
+const { mapState } = createNamespacedHelpers('layoutStore');
+
 export default {
   name: 'BaseLayout',
   components: {
     HeaderContent,
     AsideContent
-  }
+  },
+  computed: {
+    ...mapState(['isSidebarOpen'])
+  },
 };
 </script>
 
@@ -42,6 +49,14 @@ export default {
   height: 100%;
   flex: none;
   background-color: #ccc;
+
+  transition: 0.5s;
+}
+
+.layout-aside-close {
+  width: 0px;
+
+  overflow: hidden;
 }
 
 .layout-header-main-wrapper {

@@ -12,14 +12,18 @@ import Tplt from '@/components/Tplt.vue';
 import { handleTpltAPI } from '@/services/tpltService';
 import { handleTpltMockAPI } from '@/services/tpltService';
 
+
 export default {
   name: 'Dashboard',
+  metaInfo: {
+    title: 'Dashboard'
+  },
   components: {
     Tplt,
   },
   created() {
     // this.testAjax();
-    this.mockAjax();
+    // this.mockAjax();
   },
   methods: {
     async testAjax() {

@@ -15,7 +15,7 @@ import BaseLayout from '@/layout/BasicLayout';
 export default {
   metaInfo: {
     title: 'Tplt',
-    titleTemplate: 'App-',
+    titleTemplate: 'App-%s',
     htmlAttrs: {
       lang: 'en',
     },
@@ -27,7 +27,7 @@ export default {
   computed: {
     noBaseLayout() {
       // 不需要基本佈局的頁面名字寫在陣列內
-      const noBaseLayoutPages = ['login'];
+      const noBaseLayoutPages = ['login', 'page404'];
       return noBaseLayoutPages.includes(this.$route.name);
     },
   },
