@@ -28,14 +28,12 @@ import '@/styles/sharedStyle.scss';
 Vue.mixin({
   methods: {
     toXPage(pushArgs) {
-      if (arguments.length === 0 || pushArgs.name) {
-        console.log(pushArgs);
+      if (arguments.length === 0 || !pushArgs.name) {
         console.error('至少需路由名稱參數;如為動態路由，需寫動態路由參數');
       }
 
-      // 進入相同路由會報錯
+      // 避免進入相同路由報錯
       if (this.$route.name !== pushArgs.name) {
-        console.log(4);
         this.$router.push(pushArgs);
         return;
       }

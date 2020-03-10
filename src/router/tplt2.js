@@ -12,7 +12,7 @@ export default [
     name: 'tplt2_2',
     component: () => import(/* webpackChunkName: "tplt2_2" */ '@/views/tplt2/Tplt2_2.vue'),
     meta: {
-      title: '模板二之一',
+      title: '模板二之二',
     },
   },
 ];

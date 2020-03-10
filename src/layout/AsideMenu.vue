@@ -1,46 +1,78 @@
 <template>
   <div class="aside-menu">
-    <ul class="main-menu-list"
-        v-for="mainMenu of menuData"
-        :key="mainMenu.title">
-      <li class="main-menu-item">
-        <div class="main-menu-box">
-          <div class="main-menu-icon">111</div>
-          <p class="main-menu-title">{{mainMenu.title}}</p>
-          <div class="main-menu-icon">222</div>
-        </div>
-
-        <div v-if="mainMenu.subMenu"
-             class="sub-menu-box">
-          <ul class="sub-menu-list"
-              v-for="subMenu of mainMenu.subMenu"
-              :key="subMenu.title">
-            <li class="sub-menu-item"
-                @click="toXPage({name:subMenu.name})">
-              <span class="sub-menu-title">
-                {{subMenu.meta.title}}
-              </span>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
+    <MainMenu v-for="mainMenu of menuData"
+              :key="mainMenu.title"
+              :mainMenu="mainMenu"
+              @handleExpendMenu="handleExpendMenu">
+      <div v-show="menuObj[mainMenu.name]"
+           ref="ele2">
+        <SubMenu v-for="subMenu of mainMenu.subMenu"
+                 :key="subMenu.title"
+                 :subMenu="subMenu"
+                 :mainMenuName="mainMenu.name"
+                 :activeMenu="activeMenu"
+                 :menuObj="menuObj">
+          <!-- v-show="mainMenu.name === activeMenu" -->
+        </SubMenu>
+      </div>
+    </MainMenu>
   </div>
 </template>
 
 <script>
 import menuData from '@/layout/menuData';
+import SubMenu from '@/layout/SubMenu';
+import MainMenu from '@/layout/MainMenu';
+
 
 export default {
   name: 'AsideMenu',
+  components: {
+    SubMenu,
+    MainMenu
+  },
   data() {
     return {
-      menuData: menuData
+      menuData: menuData,
+      activeMenu: 'tplt1',
+      menuObj: {
+        tplt1: true,
+        tplt2: true,
+      }
     };
+  },
+
+  methods: {
+    handleExpendMenu(activeMenu) {
+      console.log(activeMenu);
+      for (const item in this.menuObj) {
+        this.menuObj[item] = false;
+      }
+
+      this.menuObj[activeMenu] = true;
+      // this.activeMenu = activeMenu;
+    },
+    handleRouteChange(name) {
+      this.toXPage({ name });
+
+    },
+    calcHeight() {
+      console.log(this.$refs.ele2);
+      console.log(this.$refs.ele2[0].clientHeight);
+      console.log(this.$refs.ele2[1].clientHeight);
+
+      this.height = this.$refs.ele2.clientHeight + 'px';
+      console.log(this.height);
+    },
   },
   created() {
     console.log('m', menuData);
+  },
+  updated() {
+    // this.calcHeight();
+  },
+  mounted() {
+    this.calcHeight();
   }
 };
 </script>
@@ -86,6 +118,46 @@ export default {
     @include box-padding(0 0 0 50px);
     background-color: #ddd;
     cursor: pointer;
+
+    &:hover {
+      background-color: #bbb;
+    }
   }
+}
+
+// transition
+
+.ver-slide-enter-active,
+.ver-slide-leave-active {
+  transition: 0.35s ease-in-out;
+}
+.ver-slide-enter {
+  height: 0px;
+}
+
+.ver-slide-enter-to {
+  height: 50px;
+}
+
+.ver-slide-leave {
+  height: auto;
+}
+
+.ver-slide-leave-to {
+  height: 0px;
+}
+
+.slide {
+  width: 300px;
+  background: blue;
+  padding-top: 20px;
+  transform-origin: left top;
+  transition: all 0.5s ease;
+}
+.slideinner {
+  width: 200px;
+  height: 200px;
+  background: #000;
+  transform-origin: left top;
 }
 </style>

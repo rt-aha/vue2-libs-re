@@ -74,7 +74,7 @@ export default {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: 0.5s ease-in-out;
+  transition: 0.35s ease-in-out;
 }
 .slide-enter {
   width: 0px;
