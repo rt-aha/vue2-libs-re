@@ -4,7 +4,7 @@ import * as type from '@/store/types';
 export default {
   namespaced: true,
   state: {
-    isSidebarOpen: false,
+    isSidebarOpen: true,
   },
   mutations: {
     [type.handleIsSidebarOpen](state, payload) {

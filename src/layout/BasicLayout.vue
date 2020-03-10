@@ -1,9 +1,11 @@
 <template>
   <div class="app-layout">
-    <aside class="layout-aside"
-           :class="{'layout-aside-close':isSidebarOpen}">
-      <AsideContent />
-    </aside>
+    <transition name="slide">
+      <aside class="layout-aside"
+             v-if="isSidebarOpen">
+        <AsideContent />
+      </aside>
+    </transition>
     <div class="layout-header-main-wrapper">
       <header class="layout-header">
         <HeaderContent />
@@ -14,7 +16,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import HeaderContent from '@/layout/HeaderContent';
@@ -49,14 +50,6 @@ export default {
   height: 100%;
   flex: none;
   background-color: #ccc;
-
-  transition: 0.5s;
-}
-
-.layout-aside-close {
-  width: 0px;
-
-  overflow: hidden;
 }
 
 .layout-header-main-wrapper {
@@ -75,5 +68,27 @@ export default {
 .layout-main {
   flex: 1;
   overflow: auto;
+}
+
+// transition
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: 0.5s ease-in-out;
+}
+.slide-enter {
+  width: 0px;
+}
+
+.slide-enter-to {
+  width: 250px;
+}
+
+.slide-leave {
+  width: 250px;
+}
+
+.slide-leave-to {
+  width: 0px;
 }
 </style>

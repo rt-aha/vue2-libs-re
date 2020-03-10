@@ -15,7 +15,7 @@
       </template>
       <template #h-container-right>
         <div class="header-right">
-          bottom
+          right
         </div>
       </template>
     </HorizontalContainer>
