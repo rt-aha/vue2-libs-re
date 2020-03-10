@@ -4,6 +4,9 @@
       <div class="login-content">
         此區域置中
       </div>
+      <button @click="toDashboard">
+        登入
+      </button>
     </CenterBox>
   </section>
 </template>
@@ -16,6 +19,11 @@ export default {
   components: {
     CenterBox,
   },
+  methods: {
+    toDashboard() {
+      this.$router.push('/dashboard');
+    }
+  }
 };
 </script>
 
