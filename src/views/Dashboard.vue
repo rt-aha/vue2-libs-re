@@ -14,6 +14,8 @@ import { handleTpltAPI } from '@/services/tpltService';
 import { handleTpltMockAPI } from '@/services/tpltService';
 import SvgIcon from '@/assets/tplt/error.svg';
 
+console.log(SvgIcon);
+
 
 export default {
   name: 'Dashboard',
