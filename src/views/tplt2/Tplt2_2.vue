@@ -1,6 +1,7 @@
 <template>
   <div>
     Tplt2_2
+    <div class="demo"></div>
   </div>
 </template>
 

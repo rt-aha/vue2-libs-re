@@ -4,7 +4,8 @@
       Toggle
     </button>
     <transition name="fade">
-      <p v-if="show">hello</p>
+      <p v-if="show"
+         class="box">hello</p>
     </transition>
   </div>
 </template>
@@ -23,11 +24,22 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
+.box {
+  width: 50px;
+  height: 50px;
+  background-color: #f00;
+}
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s;
+}
+
+.fade-leave,
+.fade-enter-to {
+  height: 50px;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  height: 0px;
 }
 </style>

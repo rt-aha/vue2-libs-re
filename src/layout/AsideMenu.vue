@@ -3,18 +3,29 @@
     <MainMenu v-for="mainMenu of menuData"
               :key="mainMenu.title"
               :mainMenu="mainMenu"
-              @handleExpendMenu="handleExpendMenu">
-      <div v-show="menuObj[mainMenu.name]"
-           ref="ele2">
-        <SubMenu v-for="subMenu of mainMenu.subMenu"
-                 :key="subMenu.title"
-                 :subMenu="subMenu"
-                 :mainMenuName="mainMenu.name"
-                 :activeMenu="activeMenu"
-                 :menuObj="menuObj">
-          <!-- v-show="mainMenu.name === activeMenu" -->
-        </SubMenu>
-      </div>
+              @handleExpendMenu="handleExpendMenu"
+              :mainMenuName="mainMenu.name"
+              :activeMenu="activeMenu"
+              :menuObj="menuObj"
+              :h="mainMenu.height ? mainMenu.height : ''">
+      <transition name="fade">
+
+        <div ref="subMenuWrapper"
+             :data-name="mainMenu.name"
+             v-if="menuObj[mainMenu.name]">
+          <SubMenu v-for="subMenu of mainMenu.subMenu"
+                   :key="subMenu.title"
+                   :subMenu="subMenu">
+          </SubMenu>
+        </div>
+        <!-- <div ref="ele2"
+             v-if="test">
+          <SubMenu v-for="subMenu of mainMenu.subMenu"
+                   :key="subMenu.title"
+                   :subMenu="subMenu">
+          </SubMenu>
+        </div> -->
+      </transition>
     </MainMenu>
   </div>
 </template>
@@ -38,46 +49,77 @@ export default {
       menuObj: {
         tplt1: true,
         tplt2: true,
-      }
+      },
+      menuHeight: {
+
+      },
+      // menuObj: {},
+      test: true
     };
   },
 
   methods: {
-    handleExpendMenu(activeMenu) {
-      console.log(activeMenu);
+    handleExpendMenu(activeMenu, currName) {
+      if (this.menuObj[activeMenu]) return;
+
+      console.log('currName', currName);
       for (const item in this.menuObj) {
         this.menuObj[item] = false;
       }
 
       this.menuObj[activeMenu] = true;
-      // this.activeMenu = activeMenu;
+
+      console.log(this.menuObj.tplt1, this.menuObj.tplt2);
+
+      this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuHeight[activeMenu]}px; overflow: hidden;}`);
+
+      this.test = !this.test;
+
     },
     handleRouteChange(name) {
       this.toXPage({ name });
-
     },
     calcHeight() {
-      console.log(this.$refs.ele2);
-      console.log(this.$refs.ele2[0].clientHeight);
-      console.log(this.$refs.ele2[1].clientHeight);
+      this.menuData = this.menuData.map((ele, index) => {
+        this.$refs.subMenuWrapper.forEach((ele) => {
+          const dataName = ele.getAttribute('data-name');
+          const eleHeight = ele.clientHeight;
 
-      this.height = this.$refs.ele2.clientHeight + 'px';
-      console.log(this.height);
+          this.menuHeight[ele.getAttribute('data-name')] = eleHeight;
+        });
+
+        return ele;
+      });
     },
+    beforeEnter() {
+      console.log('beforeEnter~');
+    },
+
+    returnFalse() {
+      for (const key in this.menuObj) {
+        this.menuObj[key] = false;
+      }
+    }
+
   },
   created() {
+    // this.generateMenuObj();
     console.log('m', menuData);
   },
   updated() {
-    // this.calcHeight();
+
   },
   mounted() {
+
     this.calcHeight();
+    this.returnFalse();
+    // this.addCSS('.demo{ width: 30px; height: 30px; background:#f00;}');
+    // this.addCSS('.fade-enter,.fade-leave-to {height: 0px;overflow: hidden;}');
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped data-custom="ttt">
 @import '~@/styles/index';
 
 .aside-menu {
@@ -127,37 +169,19 @@ export default {
 
 // transition
 
-.ver-slide-enter-active,
-.ver-slide-leave-active {
-  transition: 0.35s ease-in-out;
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.5s;
 }
-.ver-slide-enter {
+
+// .fade-leave,
+// .fade-enter-to {
+//   height: 50px;
+//   overflow: hidden;
+// }
+.fade-enter,
+.fade-leave-to {
   height: 0px;
-}
-
-.ver-slide-enter-to {
-  height: 50px;
-}
-
-.ver-slide-leave {
-  height: auto;
-}
-
-.ver-slide-leave-to {
-  height: 0px;
-}
-
-.slide {
-  width: 300px;
-  background: blue;
-  padding-top: 20px;
-  transform-origin: left top;
-  transition: all 0.5s ease;
-}
-.slideinner {
-  width: 200px;
-  height: 200px;
-  background: #000;
-  transform-origin: left top;
+  overflow: hidden;
 }
 </style>
