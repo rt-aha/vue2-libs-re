@@ -1,30 +1,20 @@
 <template>
-  <div class="aside-menu">
+  <div class="aside-menu"
+       :class="{'avoid-flash': !loaded}">
     <MainMenu v-for="mainMenu of menuData"
               :key="mainMenu.title"
               :mainMenu="mainMenu"
-              @handleExpendMenu="handleExpendMenu"
-              :mainMenuName="mainMenu.name"
-              :activeMenu="activeMenu"
-              :menuObj="menuObj"
-              :h="mainMenu.height ? mainMenu.height : ''">
+              @handleExpendMenu="handleExpendMenu">
       <transition name="fade">
 
         <div ref="subMenuWrapper"
              :data-name="mainMenu.name"
-             v-if="menuObj[mainMenu.name]">
+             v-if="menuInfo[mainMenu.name].show">
           <SubMenu v-for="subMenu of mainMenu.subMenu"
                    :key="subMenu.title"
                    :subMenu="subMenu">
           </SubMenu>
         </div>
-        <!-- <div ref="ele2"
-             v-if="test">
-          <SubMenu v-for="subMenu of mainMenu.subMenu"
-                   :key="subMenu.title"
-                   :subMenu="subMenu">
-          </SubMenu>
-        </div> -->
       </transition>
     </MainMenu>
   </div>
@@ -46,75 +36,60 @@ export default {
     return {
       menuData: menuData,
       activeMenu: 'tplt1',
-      menuObj: {
-        tplt1: true,
-        tplt2: true,
+      menuInfo: {
+        tplt1: {
+          show: true,
+          height: 0,
+        },
+        tplt2: {
+          show: true,
+          height: 0,
+        }
       },
-      menuHeight: {
-
-      },
-      // menuObj: {},
-      test: true
+      loaded: false
     };
   },
-
   methods: {
-    handleExpendMenu(activeMenu, currName) {
-      if (this.menuObj[activeMenu]) return;
-
-      console.log('currName', currName);
-      for (const item in this.menuObj) {
-        this.menuObj[item] = false;
+    handleExpendMenu(activeMenu) {
+      for (const key in this.menuInfo) {
+        this.menuInfo[key].show = false;
       }
-
-      this.menuObj[activeMenu] = true;
-
-      console.log(this.menuObj.tplt1, this.menuObj.tplt2);
-
-      this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuHeight[activeMenu]}px; overflow: hidden;}`);
-
-      this.test = !this.test;
-
+      this.menuInfo[activeMenu].show = true;
+      this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[activeMenu].height}px; overflow: hidden;}`);
     },
     handleRouteChange(name) {
       this.toXPage({ name });
     },
+
+    // 取得所有子表單高度
     calcHeight() {
-      this.menuData = this.menuData.map((ele, index) => {
+      this.menuData = this.menuData.map((ele) => {
         this.$refs.subMenuWrapper.forEach((ele) => {
           const dataName = ele.getAttribute('data-name');
           const eleHeight = ele.clientHeight;
-
-          this.menuHeight[ele.getAttribute('data-name')] = eleHeight;
+          this.menuInfo[dataName].height = eleHeight;
         });
 
         return ele;
       });
     },
-    beforeEnter() {
-      console.log('beforeEnter~');
-    },
-
-    returnFalse() {
-      for (const key in this.menuObj) {
-        this.menuObj[key] = false;
+    // 關閉所有子表單
+    closeSubMenu() {
+      for (const key in this.menuInfo) {
+        console.log(this.menuInfo[key]);
+        this.menuInfo[key].show = false;
       }
+    },
+    showMenu() {
+      this.loaded = true;
     }
-
-  },
-  created() {
-    // this.generateMenuObj();
-    console.log('m', menuData);
-  },
-  updated() {
-
   },
   mounted() {
-
+    // 為了避免渲染時閃爍，但計算高度需要渲染元素，所以一開始用透明
+    // 計算高度(透明) --> 不顯示子導覽列 --> 顯示導覽列(不透明)
     this.calcHeight();
-    this.returnFalse();
-    // this.addCSS('.demo{ width: 30px; height: 30px; background:#f00;}');
-    // this.addCSS('.fade-enter,.fade-leave-to {height: 0px;overflow: hidden;}');
+    this.closeSubMenu();
+    this.showMenu();
   }
 };
 </script>
@@ -169,19 +144,27 @@ export default {
 
 // transition
 
-.fade-enter-active,
+.fade-enter-active {
+  transition: 0.5s 0.5s;
+}
 .fade-leave-active {
   transition: 0.5s;
 }
 
+// 這段用mixin動態新增
 // .fade-leave,
 // .fade-enter-to {
 //   height: 50px;
 //   overflow: hidden;
 // }
+
 .fade-enter,
 .fade-leave-to {
   height: 0px;
   overflow: hidden;
+}
+
+.avoid-flash {
+  opacity: 0;
 }
 </style>
