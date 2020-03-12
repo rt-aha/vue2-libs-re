@@ -10,6 +10,7 @@ module.exports = {
     'no-console': 'off',
     'no-unused-vars': 'warn',
     'no-async-promise-executor': 'off',
+    'vue/no-unused-components': 'off',
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
