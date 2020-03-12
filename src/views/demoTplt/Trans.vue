@@ -4,8 +4,7 @@
       Toggle
     </button>
     <transition name="fade">
-      <p v-if="show"
-         class="box">hello</p>
+      <p v-if="show" class="box">hello</p>
     </transition>
   </div>
 </template>
@@ -17,7 +16,7 @@ export default {
     return {
       show: true,
     };
-  }
+  },
 };
 </script>
 
@@ -35,11 +34,21 @@ export default {
   transition: 0.5s;
 }
 
-.fade-leave,
-.fade-enter-to {
-  height: 50px;
+.fade-leave {
+  transform-origin: bottom center;
+  transform: scaleY(1);
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  height: 0px;
+.fade-enter-to {
+  transform-origin: bottom center;
+  transform: scaleY(1);
+  // height: 50px;
+}
+.fade-enter {
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+.fade-leave-to {
+  transform-origin: 100% 50%;
+  transform: scaleY(0);
 }
 </style>

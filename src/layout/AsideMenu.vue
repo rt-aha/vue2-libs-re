@@ -1,21 +1,24 @@
 <template>
-  <div class="aside-menu"
-       :class="{'avoid-flash': !loaded}">
-    <MainMenu v-for="mainMenu of menuData"
-              :key="mainMenu.title"
-              :mainMenu="mainMenu"
-              @handleExpendMenu="handleExpendMenu">
-      <transition name="fade">
-
-        <div ref="subMenuWrapper"
-             :data-name="mainMenu.name"
-             v-if="menuInfo[mainMenu.name].show">
-          <SubMenu v-for="subMenu of mainMenu.subMenu"
-                   :key="subMenu.title"
-                   :subMenu="subMenu">
-          </SubMenu>
+  <div class="aside-menu" :class="{ 'avoid-flash': !loaded }">
+    <MainMenu
+      v-for="mainMenu of menuData"
+      :key="mainMenu.title"
+      :mainMenu="mainMenu"
+      @handleExpendMenu="handleExpendMenu"
+    >
+      <!-- <transition
+        name="fade"
+        v-on:before-enter="beforeEnter"
+        v-on:after-enter="afterEnter"
+        v-on:enter="enter"
+        v-on:before-leave="beforeLeave"
+      > -->
+      <CollapseTransition>
+        <div ref="subMenuWrapper" :data-name="mainMenu.name" v-if="menuInfo[mainMenu.name].show">
+          <SubMenu v-for="subMenu of mainMenu.subMenu" :key="subMenu.title" :subMenu="subMenu"> </SubMenu>
         </div>
-      </transition>
+      </CollapseTransition>
+      <!-- </transition> -->
     </MainMenu>
   </div>
 </template>
@@ -24,13 +27,14 @@
 import menuData from '@/layout/menuData';
 import SubMenu from '@/layout/SubMenu';
 import MainMenu from '@/layout/MainMenu';
-
+import CollapseTransition from '@/layout/CollapseTransition';
 
 export default {
   name: 'AsideMenu',
   components: {
     SubMenu,
-    MainMenu
+    MainMenu,
+    CollapseTransition,
   },
   data() {
     return {
@@ -44,18 +48,37 @@ export default {
         tplt2: {
           show: true,
           height: 0,
-        }
+        },
       },
-      loaded: false
+      loaded: false,
     };
   },
   methods: {
+    beforeEnter(el) {
+      el.style.height = '50px';
+      el.style.overflow = 'hidden';
+    },
+    afterEnter: function(el) {
+      console.log(el);
+      // this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[this.activeMenu].height}px; overflow: hidden;}`);
+    },
+    enter: function(el) {
+      console.log(el);
+      console.log('enter');
+      // this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[this.activeMenu].height}px; overflow: hidden;}`);
+    },
+
+    beforeLeave: function(el) {
+      console.log(el);
+      // this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[this.activeMenu].height}px; overflow: hidden;}`);
+    },
     handleExpendMenu(activeMenu) {
+      this.activeMenu = activeMenu;
       for (const key in this.menuInfo) {
         this.menuInfo[key].show = false;
       }
       this.menuInfo[activeMenu].show = true;
-      this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[activeMenu].height}px; overflow: hidden;}`);
+      // this.addCSS(`.fade-leave,.fade-enter-to {height: ${this.menuInfo[activeMenu].height}px; overflow: hidden;}`);
     },
     handleRouteChange(name) {
       this.toXPage({ name });
@@ -63,8 +86,8 @@ export default {
 
     // 取得所有子表單高度
     calcHeight() {
-      this.menuData = this.menuData.map((ele) => {
-        this.$refs.subMenuWrapper.forEach((ele) => {
+      this.menuData = this.menuData.map(ele => {
+        this.$refs.subMenuWrapper.forEach(ele => {
           const dataName = ele.getAttribute('data-name');
           const eleHeight = ele.clientHeight;
           this.menuInfo[dataName].height = eleHeight;
@@ -82,7 +105,7 @@ export default {
     },
     showMenu() {
       this.loaded = true;
-    }
+    },
   },
   mounted() {
     // 為了避免渲染時閃爍，但計算高度需要渲染元素，所以一開始用透明
@@ -90,7 +113,7 @@ export default {
     this.calcHeight();
     this.closeSubMenu();
     this.showMenu();
-  }
+  },
 };
 </script>
 
@@ -140,31 +163,5 @@ export default {
       background-color: #bbb;
     }
   }
-}
-
-// transition
-
-.fade-enter-active {
-  transition: 0.5s 0.5s;
-}
-.fade-leave-active {
-  transition: 0.5s;
-}
-
-// 這段用mixin動態新增
-// .fade-leave,
-// .fade-enter-to {
-//   height: 50px;
-//   overflow: hidden;
-// }
-
-.fade-enter,
-.fade-leave-to {
-  height: 0px;
-  overflow: hidden;
-}
-
-.avoid-flash {
-  opacity: 0;
 }
 </style>
