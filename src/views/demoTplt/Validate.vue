@@ -9,7 +9,8 @@
                       :extraInfo="{a: '1',b:2}"
                       :func="() => 'hi'"
                       @funcResult="funcResult">
-      <TpltInput v-model="testValue"></TpltInput>
+      <TpltInput v-model="testValue"
+                 ref="tpltl1"></TpltInput>
     </TpltInputWrapper>
 
     <TpltInputWrapper label="標籤2"
@@ -17,8 +18,11 @@
                       :extraInfo="{a: '1',b:2}"
                       :func="() => 'hi'"
                       @funcResult="funcResult">
-      <TpltInput v-model="testValue"></TpltInput>
+      <TpltInput v-model="testValue"
+                 ref="tpltl2"></TpltInput>
     </TpltInputWrapper>
+
+    <button @click="submit">button</button>
   </div>
 </template>
 
@@ -41,6 +45,12 @@ export default {
   methods: {
     funcResult(res) {
       console.log('res', res);
+    },
+    submit() {
+      const isPass = this.validateForm(this.$refs);
+      console.log('是否全部通過', isPass);
+
+
     }
   }
 };

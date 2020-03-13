@@ -29,7 +29,7 @@ export default {
     func: Function
   },
   methods: {
-    execValidate() {
+    validateValue() {
       // 沒有驗證規則就返回
       const args = Array.from(arguments);
 
@@ -46,31 +46,39 @@ export default {
       };
 
 
-      console.log('...');
+
       validator.add(params);
 
       const result = validator.start();
 
-      if (result.errInfo !== '') {
-        this.errMsg = result.errInfo;
-        this.isPassValidate = false;
-      } else {
+
+
+      if (result.isPass) {
         this.errMsg = '';
         this.isPassValidate = true;
+      } else {
+        this.errMsg = result.errInfo;
+        this.isPassValidate = false;
       }
     },
-
-
-
+    /**
+     * args: 要驗證的值
+     */
+    execValidate(args) {
+      this.validateValue.apply(null, args);
+    },
+    execFunc() {
+      const result = this.func.apply(null);
+      this.$emit('funcResult', result);
+    },
     handleBlur(args) {
       // 驗證
       if (this.$attrs.ruleListWithMsg) {
-        this.execValidate.apply(null, args);
+        this.execValidate(args);
       }
 
       if (this.func) {
-        const execResult = this.func.apply(null, args);
-        this.$emit('funcResult', execResult);
+        this.execFunc;
       }
     }
   },

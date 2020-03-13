@@ -8,13 +8,13 @@
 - vue-i18n
 - menu
 - validator, wrapper 方式的組件
+- 純驗證 function
+- form submit 時的驗證
 
 todo:
 
 - 自訂 function 在 validator 中的執行先後順序
 - validator i18n
-- form submit 時的驗證
-- 純驗證 function
 - network 重構
 
 ### 已安裝以下套件

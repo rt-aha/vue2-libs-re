@@ -236,6 +236,8 @@ const validator = {
       errMsg = this.customErr(rule.customMsg);
     }
 
+    console.log(rule);
+
     return {
       ruleName: rule.name,
       label,
@@ -262,6 +264,8 @@ const validator = {
         customMsg,
       };
 
+      // 記錄現在驗證的資訊
+
       this.ruleList.push(() => {
         return this.formValidateStrategies[ruleName].call(this, rule, checkValue, label, extraInfo);
       });
@@ -280,28 +284,35 @@ const validator = {
     }
 
     return {
-      ruleName: '',
-      inputName: '',
-      errInfo: '',
       isPass: true,
     };
   },
 };
 
 // 可以直接引入用來驗證;
-function pureValidator(innerValue, otherValue, labelName, ruleList) {
+function pureValidator(ruleListAndErrMsg, checkValue, label = '', extraInfo = {}) {
+  console.log(arguments);
+  const isArray = Array.isArray(ruleListAndErrMsg);
+  const hasValue = typeof checkValue === 'string';
+
+  if (!isArray) {
+    throw new Error('驗證規則需為陣列');
+  }
+
+  if (!hasValue) {
+    throw new Error('缺少驗證值');
+  }
+
+  //  {規則, 規則參數, 錯誤提示},值, 標籤, 其他資訊
   const params = {
-    value: {
-      value: innerValue,
-      otherValue: otherValue || '',
-    },
-    inputName: labelName,
-    ruleList,
+    ruleListAndErrMsg,
+    checkValue,
+    label,
+    extraInfo,
   };
 
   validator.add(params);
   const result = validator.start();
-
   return result;
 }
 

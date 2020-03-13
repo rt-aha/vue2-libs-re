@@ -54,6 +54,26 @@ Vue.mixin({
 
       target.$emit(eventName, args);
     },
+    validateForm(form) {
+      const formKey = Object.keys(form);
+
+      // 觸發事件，呼叫子組件驗證function
+      // 兩個迴圈不能寫再一起是因為，要全部都驗證並提示錯誤訊息，不能只有單一個
+      for (const key of formKey) {
+        this.$refs[key].$emit('handleValidate');
+      }
+
+      // 檢查子組件驗證完成後的結果，有任一false，就是未通過
+      for (const key of formKey) {
+        const validateResult = this.$refs[key].$parent.isPassValidate;
+
+        if (!validateResult) {
+          return false;
+        }
+      }
+
+      return true;
+    },
   },
   created() {},
 });
