@@ -83,7 +83,6 @@ const validator = {
     },
     // 滿足輸入框有內容
     hasText(rule, checkValue, label) {
-      console.log('...', checkValue.trim() === '');
       if (checkValue.trim() === '') {
         return this.errMsg(rule, label);
       }
@@ -130,7 +129,7 @@ const validator = {
         return this.errMsg(rule, label);
       }
     },
-    // 滿足特定年，預設6年
+    // 滿足特定年
     isOverSomeYear(rule, checkValue, label) {
       const yearLength = Number(rule.args[0]);
       const compareDayArr = checkValue.split('-');
@@ -230,12 +229,11 @@ const validator = {
   errMsg(rule, label, extraInfo) {
     let errMsg = '';
 
-    console.log(rule, label, extraInfo);
-
-    if (rule.errMsg === undefined) {
+    // 若為
+    if (rule.customMsg === undefined) {
       errMsg = this.defaultErr(rule.name, label, extraInfo);
     } else {
-      errMsg = this.customErr(rule.errMsg);
+      errMsg = this.customErr(rule.customMsg);
     }
 
     return {
@@ -253,16 +251,15 @@ const validator = {
     const { ruleListAndErrMsg, checkValue, label, extraInfo } = params;
 
     ruleListAndErrMsg.forEach(item => {
-      console.log('hi');
       const ruleAndErrMsg = item.split('-'); // 分離規則和錯誤訊息
       const ruleList = ruleAndErrMsg[0]; // 規則名稱(與參數)
       const ruleName = ruleList.split(':').shift(); // 將規則名稱取出
       const ruleArgs = ruleList.split(':').slice(1) || []; // 去除規則，是一個陣列
-      const errMsg = ruleAndErrMsg[1] || undefined; // 有自訂錯誤訊息才有值
+      const customMsg = ruleAndErrMsg[1] || undefined; // 有自訂錯誤訊息才有值
       const rule = {
         name: ruleName,
         args: ruleArgs,
-        errMsg,
+        customMsg,
       };
 
       this.ruleList.push(() => {
