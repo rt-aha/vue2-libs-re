@@ -3,7 +3,7 @@
     <label class="input-label">{{ $attrs.label }}</label>
     <div class="input-err-wrapper">
       <slot></slot>
-      <ErrMsg v-if="$attrs.ruleList"
+      <ErrMsg v-if="$attrs.ruleListWithMsg"
               :errMsg="errMsg"></ErrMsg>
     </div>
   </div>
@@ -11,7 +11,8 @@
 
 <script>
 import ErrMsg from '@/views/demoTplt/ErrMsg.vue';
-import { Validator } from '@/utils/validator';
+// import { Validator } from '@/utils/validator';
+import { validator } from '@/utils/validator';
 
 export default {
   name: 'TpltInputWrapper',
@@ -36,13 +37,16 @@ export default {
         throw new Error('參數至少應有一個驗證的值');
       }
 
-      const validator = new Validator();
+      //  {規則, 規則參數, 錯誤提示},值, 標籤, 其他資訊
       const params = {
-        value: args[0],
-        inputName: this.$attrs.label,
-        ruleList: this.$attrs.ruleList,
+        ruleListAndErrMsg: this.$attrs.ruleListWithMsg,
+        checkValue: args[0],
+        label: this.$attrs.label,
+        extraInfo: this.$attrs.extraInfo || {}
       };
 
+
+      console.log('...');
       validator.add(params);
 
       const result = validator.start();
@@ -55,11 +59,12 @@ export default {
         this.isPassValidate = true;
       }
     },
-    handleBlur(args) {
 
-      console.log(args);
+
+
+    handleBlur(args) {
       // 驗證
-      if (this.$attrs.ruleList) {
+      if (this.$attrs.ruleListWithMsg) {
         this.execValidate.apply(null, args);
       }
 
@@ -69,6 +74,8 @@ export default {
       }
     }
   },
+
+
   beforeMount() {
     this.$on('handleBlur', this.handleBlur);
   }
