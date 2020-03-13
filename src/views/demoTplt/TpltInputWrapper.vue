@@ -3,8 +3,7 @@
     <label class="input-label">{{ $attrs.label }}</label>
     <div class="input-err-wrapper">
       <slot></slot>
-      <ErrMsg v-if="$attrs.ruleList"
-              :errMsg="errMsg"></ErrMsg>
+      <ErrMsg v-if="$attrs.ruleList" :errMsg="errMsg"></ErrMsg>
     </div>
   </div>
 </template>
@@ -16,7 +15,7 @@ import { Validator } from '@/utils/validator';
 export default {
   name: 'TpltInputWrapper',
   components: {
-    ErrMsg
+    ErrMsg,
   },
   data() {
     return {
@@ -25,7 +24,7 @@ export default {
     };
   },
   props: {
-    func: Function
+    func: Function,
   },
   methods: {
     execValidate() {
@@ -36,42 +35,52 @@ export default {
         throw new Error('參數至少應有一個驗證的值');
       }
 
-      const validator = new Validator();
       const params = {
+        // value: {
+        //   value: args[0],
+        //   otherValue: this.$attrs.otherValue || '',
+        // },
+        // inputName: this.$attrs.label,
+        // ruleList: this.$attrs.ruleList,
+
         value: args[0],
-        inputName: this.$attrs.label,
-        ruleList: this.$attrs.ruleList,
+        ruleAndErr: this.$attrs.ruleAndErr,
+        label: this.$attrs.label,
+        info: this.$attrs.info,
       };
 
+      const validator = new Validator();
       validator.add(params);
 
       const result = validator.start();
 
-      if (result.errInfo !== '') {
-        this.errMsg = result.errInfo;
-        this.isPassValidate = false;
-      } else {
-        this.errMsg = '';
+      if (result.isPass) {
         this.isPassValidate = true;
+        this.errMsg = '';
+      } else {
+        this.isPassValidate = false;
+        this.errMsg = result.errInfo;
       }
     },
-    handleBlur(args) {
 
+    // blur時觸發
+    handleBlur(args) {
       console.log(args);
       // 驗證
       if (this.$attrs.ruleList) {
         this.execValidate.apply(null, args);
       }
 
+      // 如果有傳入function
       if (this.func) {
         const execResult = this.func.apply(null, args);
         this.$emit('funcResult', execResult);
       }
-    }
+    },
   },
   beforeMount() {
     this.$on('handleBlur', this.handleBlur);
-  }
+  },
 };
 </script>
 

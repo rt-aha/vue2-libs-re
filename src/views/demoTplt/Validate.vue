@@ -4,10 +4,25 @@
       1. 沒有ruleList就不會觸發驗證
       2. func和funcResult是成對的，會在blur觸發，沒有func就不觸發
      -->
-    <TpltInputWrapper label="標籤"
-                      :ruleList="['hasText']"
-                      :func="() => 'hi'"
-                      @funcResult="funcResult">
+    <TpltInputWrapper
+      label="標籤1"
+      :ruleList="['overStringLength']"
+      :info="{ info1: '1', info2: 2 }"
+      :func="() => 'hi'"
+      @funcResult="funcResult"
+    >
+      <TpltInput v-model="testValue"></TpltInput>
+    </TpltInputWrapper>
+
+    <div style="padding: 20px 0;"></div>
+
+    <TpltInputWrapper
+      label="標籤2"
+      :ruleList="['overStringLength']"
+      :info="{ info1: '1', info2: 2 }"
+      :func="() => 'bye'"
+      @funcResult="funcResult"
+    >
       <TpltInput v-model="testValue"></TpltInput>
     </TpltInputWrapper>
   </div>
@@ -26,14 +41,14 @@ export default {
   data() {
     return {
       infos: { haha: 'haha', byebye: 'byebye' },
-      testValue: ''
+      testValue: '',
     };
   },
   methods: {
     funcResult(res) {
       console.log('res', res);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,69 +1,67 @@
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
+import { IvalidateParams, IvalidateResult } from '@/interface/validateTyping';
 
 // 引入i18n中的所有 validator.ts
+import VueI18n from 'vue-i18n';
+import { validatorMsg } from '@/i18n';
+import Vue from 'vue';
+import cookie from 'cookiejs';
+Vue.use(VueI18n);
 
-// import VueI18n from 'vue-i18n';
-// import { validatorMsg } from '@/i18n';
-// import Vue from 'vue';
-// Vue.use(VueI18n);
+let lang = location.pathname.split('/')[1];
 
-// let lang = location.pathname.split('/')[1];
+const availableLangList = ['zh-tw', 'zh-cn', 'en', 'id', 'my', 'th', 'vn'];
+// 若lang取出失敗，預設zh-cn
+if (!availableLangList.includes(lang)) {
+  lang = 'zh-cn';
+}
 
-// const availableLangList = ['zh-tw', 'zh-cn', 'en', 'id', 'my', 'th', 'vn'];
-// // 若lang取出失敗，預設zh-cn
-// if (!availableLangList.includes(lang)) {
-//   lang = 'zh-cn';
-// }
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+  locale: lang, // set locale
+  messages: {
+    [lang]: validatorMsg[lang],
+  },
+});
 
-// // Create VueI18n instance with options
-// const i18n = new VueI18n({
-//   locale: lang, // set locale
-//   messages: {
-//     [lang]: validatorMsg[lang],
-//   },
-// });
+// 暫時沒有function用到
+// const validationRegex = {
+//   Email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+//   PasswordLength: /.{6,16}/, // 密碼長度
+//   PasswordMix: /^(?=.*\d)(?=.*[a-z])/, // 密碼可用字元(數字與大小寫字母)
+//   PasswordLetter: /[A-Z]/, // 至少一個大寫字母
+//   PasswordContent: /^(?=.{6,16})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, // 密碼組合(必須有數字與大小寫字母)
+// };
 
 // 取得i18n翻譯
-// function warningValueI18n(key) {
-//   const firstLetter = key.slice(0, 1).toUpperCase();
-//   const splitKeys = key.split('');
-//   splitKeys.splice(0, 1, firstLetter);
-//   const warningText = splitKeys.join('');
+function warningValueI18n(key) {
+  const firstLetter = key.slice(0, 1).toUpperCase();
+  const splitKeys = key.split('');
+  splitKeys.splice(0, 1, firstLetter);
+  const warningText = splitKeys.join('');
 
-//   const errMsgObj = {};
+  const errMsgObj = {};
 
-//   // 表示沒有語言要翻譯
-//   const hasKey = warningText in validatorMsg[lang].validator;
-//   if (!hasKey) {
-//     return '';
-//   }
+  // 表示沒有語言要翻譯
+  const hasKey = warningText in validatorMsg[lang].validator;
+  if (!hasKey) {
+    return '';
+  }
 
-//   // 如果i18n的值是字串直接返回
-//   if (typeof validatorMsg[lang].validator[warningText] === 'string') {
-//     return i18n.tc(`validator.${warningText}`);
-//   }
+  // 如果i18n的值是字串直接返回
+  if (typeof validatorMsg[lang].validator[warningText] === 'string') {
+    return i18n.tc(`validator.${warningText}`);
+  }
 
-//   // 如果i18n的值是物件
-//   for (const key in validatorMsg[lang].validator[warningText]) {
-//     if (key) {
-//       errMsgObj[key] = i18n.tc(`validator.${warningText}.${key}`);
-//     }
-//   }
+  // 如果i18n的值是物件
+  for (const key in validatorMsg[lang].validator[warningText]) {
+    if (key) {
+      errMsgObj[key] = i18n.tc(`validator.${warningText}.${key}`);
+    }
+  }
 
-//   return errMsgObj;
-// }
-
-const regExpList = {
-  YMD: /\d{4}-\d{2}-\d{2}/, // 日期格式必須是 'YYYY-MM-DD'
-  phoneNumber: /^09\d{8}$/,
-  mamdarin: /[^\u4E00-\u9FA5]/g,
-  english: /[a-zA-Z]/g,
-  email: /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
-  passwordLength: /.{6,16}/, // 密碼長度，長度需要時在自訂
-  passwordMix: /^(?=.*\d)(?=.*[a-z])/, // 密碼可用字元(數字與大小寫字母)
-  passwordLetter: /[A-Z]/, // 至少一個大寫字母
-  passwordContent: /^(?=.{6,16})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, // 密碼組合(必須有數字與大小寫字母)
-};
+  return errMsgObj;
+}
 
 class Validator {
   ruleList = [];
@@ -85,7 +83,6 @@ class Validator {
     },
     // 滿足輸入框有內容
     hasText(ruleName, value, inputName) {
-      console.log(value);
       if (value.trim() === '') {
         return this.errMsg(ruleName, inputName);
       }
@@ -125,7 +122,7 @@ class Validator {
     },
     // 滿足email格式
     emailFormat(ruleName, value, inputName) {
-      const isPass = regExpList.email.test(value);
+      const isPass = regExpList.english.test(value);
       if (!isPass) {
         return this.errMsg(ruleName, inputName);
       }
@@ -170,15 +167,14 @@ class Validator {
       },
     };
 
-    // const warningText = warningValueI18n(errMsg);
+    const warningText = warningValueI18n(errMsg);
 
-    // return shareExampleErr[errMsg](warningText);
-    return shareExampleErr[errMsg]();
+    return shareExampleErr[errMsg](warningText);
   }
 
   // 預設錯誤訊息
   defaultErr(ruleName, inputName, otherInfo = '') {
-    // const warningText = warningValueI18n(ruleName);
+    const warningText = warningValueI18n(ruleName);
 
     const defaultErrMsg = {
       legal4Y4M2D() {
@@ -213,8 +209,7 @@ class Validator {
       },
     };
 
-    // return defaultErrMsg[ruleName](warningText);
-    return defaultErrMsg[ruleName]();
+    return defaultErrMsg[ruleName](warningText);
   }
 
   // 回傳錯誤訊息
@@ -240,18 +235,11 @@ class Validator {
     // 第三個參數有多少個規則，就跑幾次迴圈
     const { value, inputName, ruleList } = args;
 
-    ruleList.forEach(item => {
-      // 分離規則和錯誤提示，若沒有錯誤提示，即用預設提示
+    ruleList.forEach((item, index) => {
       const ruleAndMsg = item.split('-');
       const rule = ruleAndMsg[0];
       const msg = ruleAndMsg[1] || undefined;
       const argsArr = rule.split(':'); // 如果規則帶有參數(冒號後面)
-
-      console.log('ruleAndMsg', ruleAndMsg);
-      console.log('rule', rule);
-      console.log('msg', msg);
-      console.log('argsArr', argsArr);
-      console.log('------');
 
       this.ruleList.push(() => {
         const strategy = argsArr[0];
@@ -260,11 +248,6 @@ class Validator {
         argsArr.push(value);
         argsArr.push(inputName);
 
-        // 'hasText', 'hasText:10','hasText-cusErr', 'hasText:10-cusErr';
-        // label
-        // otherInfo
-
-        // 值, {規則, 規則參數, 錯誤提示}, 標籤名稱, 其他訊息
         return this.formValidateStrategies[strategy].apply(this, argsArr);
       });
     });
@@ -309,4 +292,4 @@ function pureValidator(innerValue, otherValue, labelName = '', ruleList) {
 
 //
 
-export { Validator, pureValidator };
+export { Validator };
