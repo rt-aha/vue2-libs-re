@@ -75,9 +75,10 @@ serviceRequest.writeheader = function(headerConfigName) {
   config.headers = this.setHeader(headerConfigName);
 
   // 設定token，如果有就返回，沒有回傳false
-  const token = this.checkTokenExist();
+  const token = this.checkTokenExist(headerConfigName);
+
   if (token) {
-    config.Authorization = token;
+    config.headers.Authorization = 'Bearer ' + token;
   }
 
   return config;
@@ -89,10 +90,14 @@ serviceRequest.setHeader = function(headerConfigName) {
 };
 
 // 如果有token返回token，如果沒有返回false
-serviceRequest.checkTokenExist = function() {
+serviceRequest.checkTokenExist = function(headerConfigName) {
   const token = localStorage.getItem('token');
+  const hasToken = token && token !== '';
 
-  if (token && token !== '') {
+  // 如果設定檔有對應的key值才允許寫入
+  const needAuthKey = 'Authorization' in networkConfig[headerConfigName].headers;
+
+  if (hasToken && needAuthKey) {
     return token;
   }
 
