@@ -1,72 +1,124 @@
 import axios from 'axios';
 import networkConfig from '@/network/headerConfig';
 
-function checkMethodValue(method) {
-  const positionMethods = ['get', 'post', 'put', 'delete', 'patch'];
-  const isValidate = positionMethods.includes(method);
-
-  if (!isValidate) {
-    return false;
-  }
-
-  return true;
-}
-
-const beforeRequest = (config, apiUrl, payload) => {
-  const headerConfig = {
-    headers: networkConfig[config].headers,
-  };
-
-  const token = localStorage.getItem('token') || '';
-
-  // 若有 token 且 設定檔中有 Authorization 這個 key
-  if (token && networkConfig[config].headers.Authorization) {
-    headerConfig.headers.Authorization = 'Bearer ' + token;
-  }
-
-  // 專門寫給AWS S3的 ...
-  if (config === 'uploadImage') {
-    headerConfig.headers['Content-Type'] = payload.type;
-  }
-
-  let fullApiUrl = '';
-  if (typeof config === 'string') {
-    fullApiUrl = networkConfig[config].rootUrl + apiUrl;
-  }
-
-  return { headerConfig, fullApiUrl };
-};
-
 // 請求攔截器
 axios.interceptors.request.use(
   function(config) {
-    // loadingInstance.startLoading();
+    // console.log('axios-interceptor-request---success');
     return config;
   },
   function(error) {
+    // console.log('axios-interceptor-request---fail');
     return Promise.reject(error);
   },
 );
 
-const ajaxRequest = async (method, apiUrl, payload, config) => {
+// 回應攔截器
+axios.interceptors.response.use(
+  function(config) {
+    // console.log('axios-interceptor-response---success');
+    return config;
+  },
+  function(error) {
+    // console.log('axios-interceptor-response---fail');
+    return Promise.reject(error);
+  },
+);
+
+/**
+ *
+ * @param method ajax方法
+ * @param apiUrl api路徑(去除根url，從/開始)
+ * @param payload 參數
+ * @param header 是否使用特別設定的頭部，預設看config檔案
+ */
+
+const serviceRequest = async (method, apiUrl, payload = {}, headerConfig = 'defaultConfig') => {
+  // 檢查HTTP Verbs是否正，不正確就返回
+  const isValidate = serviceRequest.checkHttpMethod(method);
+  if (!isValidate) return;
+
+  // 設定頭部
+  const header = serviceRequest.writeheader(headerConfig);
+
+  // 設定url
+  const reqUrl = serviceRequest.setUrl(apiUrl, headerConfig);
+
+  // 送出request
+  const response = await serviceRequest.ajaxRequest(method, reqUrl, payload, header);
+
+  // 回傳data
+  return serviceRequest.afterRequest(response);
+};
+
+serviceRequest.checkHttpMethod = function(httpMethod) {
+  const allowedMethods = ['get', 'post', 'put', 'delete', 'patch'];
+  const isValidate = allowedMethods.includes(httpMethod);
+
+  if (!isValidate) {
+    return false;
+  }
+  return true;
+};
+
+// 設定api url
+serviceRequest.setUrl = function(apiUrl, headerConfigName) {
+  let fullApiUrl = networkConfig[headerConfigName].rootUrl + apiUrl;
+  return fullApiUrl;
+};
+
+// 設定 header
+serviceRequest.writeheader = function(headerConfigName) {
+  const config = {};
+
+  // 設定頭部
+  config.headers = this.setHeader(headerConfigName);
+
+  // 設定token，如果有就返回，沒有回傳false
+  const token = this.checkTokenExist();
+  if (token) {
+    config.Authorization = token;
+  }
+
+  return config;
+};
+
+// 設定頭部，設定檔寫在 '@/network/headerConfig'
+serviceRequest.setHeader = function(headerConfigName) {
+  return networkConfig[headerConfigName].headers;
+};
+
+// 如果有token返回token，如果沒有返回false
+serviceRequest.checkTokenExist = function() {
+  const token = localStorage.getItem('token');
+
+  if (token && token !== '') {
+    return token;
+  }
+
+  return false;
+};
+
+// 發送request
+serviceRequest.ajaxRequest = async (method, fullApiUrl, payload, config) => {
   const requstMethods = {
     async get() {
-      return await axios.get(apiUrl, config);
+      return await axios.get(fullApiUrl, config);
     },
     async post() {
-      return await axios.post(apiUrl, payload, config);
+      return await axios.post(fullApiUrl, payload, config);
     },
     async patch() {
-      return await axios.patch(apiUrl, payload, config);
+      return await axios.patch(fullApiUrl, payload, config);
     },
     async put() {
-      return await axios.put(apiUrl, payload, config);
+      return await axios.put(fullApiUrl, payload, config);
     },
     // axios的delete不支援帶資料 ...
     async delete() {
       return await axios.request({
         method: 'delete',
-        url: apiUrl,
+        url: fullApiUrl,
         data: payload,
         headers: config.headers,
       });
@@ -77,50 +129,14 @@ const ajaxRequest = async (method, apiUrl, payload, config) => {
   return res;
 };
 
-// 回應攔截器
-axios.interceptors.response.use(
-  function(configParams) {
-    // loadingInstance.endLoading();
-    return configParams;
-  },
-  function(error) {
-    // loadingInstance.endLoading();
-    // badResHelper(error);
-    return Promise.reject(error);
-  },
-);
-
-const afterRequest = res => {
+serviceRequest.afterRequest = function(res) {
   // 過濾出需要的內容
   return {
     status: res.request.status,
     header: res.headers,
-    code: res.data.code,
-    data: res.data.data,
+    code: res.data,
+    data: res.data,
   };
-};
-
-/**
- *
- * @param method ajax方法
- * @param apiUrl api路徑(去除根url)
- * @param payload 參數
- * @param header 是否使用特別設定的頭部，預設看config檔案
- */
-
-const serviceRequest = async (method, apiUrl, payload = {}, header = 'defaultConfig') => {
-  // 檢查HTTP Verbs是否正確
-  const isValidate = checkMethodValue(method);
-  if (!isValidate) return;
-
-  // 設定header和api url
-  const { headerConfig, fullApiUrl } = beforeRequest(header, apiUrl, payload);
-
-  // 送出request
-  const response = await ajaxRequest(method, fullApiUrl, payload, headerConfig);
-
-  // 回傳data
-  return afterRequest(response);
 };
 
 export default serviceRequest;

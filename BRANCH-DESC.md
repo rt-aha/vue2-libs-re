@@ -15,7 +15,7 @@ todo:
 
 - 自訂 function 在 validator 中的執行先後順序
 - validator i18n
-- network 重構
+- mock-api 另起本地 koa2 server
 
 ### 已安裝以下套件
 
