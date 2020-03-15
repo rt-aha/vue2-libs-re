@@ -1,34 +1,30 @@
 # template
 
-## Project setup
+## 開發，開發環境
 
-```
-npm install
-```
+`yarn dev`
 
-### Compiles and hot-reloads for development
+## 開發，mock 環境
 
-```
-npm run serve
-```
+`yarn dev_mock`
 
-### Compiles and minifies for production
+## 開發，test 環境
 
-```
-npm run build
-```
+`yarn dev_test`
 
-### Lints and fixes files
+## 打包
 
-```
-npm run lint
-```
+`yarn build`
 
-### Customize configuration
+## 檢查語法
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+`yarn lint`
 
-# other
+## 單獨啟動 mock server
+
+`yarn mock_server`
+
+---
 
 ### Dart-Scss 和 Node-Scss 的差異
 

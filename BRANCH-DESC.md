@@ -10,12 +10,12 @@
 - validator, wrapper 方式的組件
 - 純驗證 function
 - form submit 時的驗證
+- mock-api 另起本地 koa2 server
 
 todo:
 
 - 自訂 function 在 validator 中的執行先後順序
 - validator i18n
-- mock-api 另起本地 koa2 server
 
 ### 已安裝以下套件
 

@@ -6,10 +6,11 @@
     "lang": "zh-tw"
   },
   "scripts": {
-    "dev": "vue-cli-service serve --silent",
-    "dev_env_mock": "vue-cli-service serve --mode development_mock",
+    "dev": "vue-cli-service serve",
+    "dev_mock": "concurrently \"yarn dev_env:mock\" \"yarn mock_server\"",
+    "dev_test": "vue-cli-service serve --mode development_test",
+    "dev_env:mock": "vue-cli-service serve --mode development_mock",
     "mock_server": "nodemon mock_server/index.js",
-    "dev_mock": "concurrently \"yarn dev_env_mock\" \"yarn mock_server\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
