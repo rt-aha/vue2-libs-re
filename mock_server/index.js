@@ -1,22 +1,23 @@
-import Koa from 'koa';
-import koajwt from 'koa-jwt';
+const Koa = require('koa');
+const koajwt = require('koa-jwt');
 const app = new Koa();
-import jwtPrivateKey from '@m/config/keys';
+const jwtPrivateKey = require('./config/keys');
 
 // 錯誤回應
-import { resError } from '@m/utils/responseFormat';
+const { resError } = require('./utils/responseFormat');
 // 錯誤代碼
-import errMsg from '@m/utils/errMsg';
+const errMsg = require('./utils/errMsg');
 
-import cors from '@koa/cors';
+// 跨域
+const cors = require('@koa/cors');
 app.use(cors());
 
 // 預設解析為json
-import bodyParser from 'koa-bodyparser';
+const bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 
 // 引入路由
-import router from '@m/router';
+const router = require('./router');
 
 // 錯誤處理
 app.use((ctx, next) => {
@@ -35,17 +36,16 @@ app.use((ctx, next) => {
  *
  * 符合path中正規表達的router不會被驗證
  * */
-
-app.use(
-  koajwt({
-    secret: jwtPrivateKey,
-  }).unless({
-    path: [/login/, /test/],
-  }),
-);
+// app.use(
+//   koajwt({
+//     secret: jwtPrivateKey,
+//   }).unless({
+//     path: [/tplt.router/],
+//   }),
+// );
 
 app.use(router.routes());
 
-app.listen(9091, () => {
-  console.log('listen on 9091 port ...');
+app.listen(11111, () => {
+  console.log('listen on 11111 port ...');
 });

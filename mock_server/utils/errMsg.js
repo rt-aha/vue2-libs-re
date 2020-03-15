@@ -12,4 +12,4 @@ function errMsg(errCode) {
   return errMsgCollection[code];
 }
 
-export default errMsg;
+module.exports = errMsg;

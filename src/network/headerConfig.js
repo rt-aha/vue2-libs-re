@@ -1,6 +1,4 @@
-// 有 VUE_APP_BASE_PORT 表示有自定義port
-const baseApiPORT = process.env.VUE_APP_BASE_PORT ? process.env.VUE_APP_BASE_PORT : '';
-const baseApiUrl = process.env.VUE_APP_BASE_API + baseApiPORT;
+const baseApiUrl = process.env.VUE_APP_BASE_API;
 
 const networkConfig = {
   defaultConfig: {

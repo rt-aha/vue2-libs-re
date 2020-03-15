@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import jwtKey from '@m/config/keys';
+const jwt = require('jsonwebtoken');
+const jwtKey = require('../config/keys');
 
 async function getUser(headerToken) {
   const token = headerToken.split(' ')[1];
@@ -10,4 +10,4 @@ async function getUser(headerToken) {
   } catch (e) {}
 }
 
-export { getUser };
+exports.getUser = getUser;

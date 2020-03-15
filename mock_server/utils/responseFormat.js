@@ -26,4 +26,6 @@ function resOkWithPage(items, pageInfo, summary = {}) {
   };
 }
 
-export { resError, resOk, resOkWithPage };
+exports.resError = resError;
+exports.resOk = resOk;
+exports.resOkWithPage = resOkWithPage;

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "commonjs",
     "strict": true,
     "jsx": "preserve",
-    "moduleResolution": "node",
     "strictPropertyInitialization": false,
     "noImplicitThis": false,
     "esModuleInterop": true,

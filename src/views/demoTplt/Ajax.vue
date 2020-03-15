@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import { handleTpltAPI } from '@/services/tpltService';
+import { handleTpltMockAPI } from '@/services/tpltService';
 export default {
   name: 'Ajax',
   methods: {
     tpltAjax() {
       console.log('tplt is working ...');
-      handleTpltAPI();
+      handleTpltMockAPI();
     }
   },
   created() {

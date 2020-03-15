@@ -1,3 +1,3 @@
 const jwtPrivateKey = 'mock-auth-jwt';
 
-export default jwtPrivateKey;
+module.exports = jwtPrivateKey;

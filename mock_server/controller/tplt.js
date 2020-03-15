@@ -1,14 +1,27 @@
 // 錯誤碼
-import errMsg from '@m/utils/errMsg';
+// const errMsg = require('@m/utils/errMsg');
+
 // 回應
-import { resOk, resError, resOkWithPage, resOkWithZeroMatch } from '@m/utils/responseFormat';
+// 根據後端api spec撰寫相應的格式
+const { resOk, resError, resOkWithPage, resOkWithZeroMatch } = require('../utils/responseFormat');
 
-class TpltController {
-  async tplt(ctx) {
+const Mockjs = require('mockjs');
+
+const tpltController = {
+  async tplt1(ctx) {
     ctx.status = 200;
-    ctx.body = { test: 'hello ' };
-    return;
-  }
-}
+    ctx.body = 'hi this is return by /api/tplt1 !';
+  },
+  async tplt2(ctx) {
+    // tpltData 是一個物件
+    const tpltData = Mockjs.mock({
+      'data|1-10': [{ 'id|+1': 1 }],
+      code: 0,
+    });
 
-export default TpltController;
+    ctx.status = 200;
+    ctx.body = resOk(tpltData);
+  },
+};
+
+module.exports = tpltController;
