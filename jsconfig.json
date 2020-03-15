@@ -2,11 +2,9 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "noImplicitAny": true,
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
-    "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "noImplicitThis": false,
     "esModuleInterop": true,
@@ -18,12 +16,6 @@
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.vue",
-    "tests/**/*.js",
-    "tests/**/*.jsx"
-  ],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.vue", "tests/**/*.js", "tests/**/*.jsx"],
   "exclude": ["node_modules"]
 }

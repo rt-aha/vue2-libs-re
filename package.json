@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "dev_mock": "vue-cli-service serve --mode development_mock",
+    "mock": "lala",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -31,6 +32,9 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
     "mockjs": "^1.1.0",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
