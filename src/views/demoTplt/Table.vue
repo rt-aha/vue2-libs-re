@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import CustomTable from '@/components/reElement/CustomTable.vue';
+import CustomTable from '@/components/customElement/CustomTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
 
@@ -34,6 +34,7 @@ export default {
         pageInfo: {
           pageIndex: 1,
           pageSize: 10,
+          totalCounts: 100,
         },
       },
     };
@@ -52,13 +53,17 @@ export default {
     },
 
     handleJumpPage(targetPage) {
-      this.payload.pager.pageIndex = targetPage;
-      this.fetchNewsList();
+      console.log('targetPage---', targetPage);
+      // 更新payload api --> 送出api
+      // this.payload.pager.pageIndex = targetPage;
+      // this.fetchNewsList();
     },
 
     handleAdjustPageSize(pageSize) {
-      this.payload.pager.pageSize = pageSize;
-      this.fetchNewsList();
+      console.log('pageSize---', pageSize);
+      // 更新payload api --> 送出api
+      // this.payload.pager.pageSize = pageSize;
+      // this.fetchNewsList();
     },
   },
 };

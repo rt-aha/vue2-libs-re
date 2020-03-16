@@ -50,7 +50,7 @@ function formatValueHelper(convertStrategyName, value, column = {}) {
     weekDayCode(value) {
       return dayjs(value).day();
     },
-    weekDay(value, column) {
+    weekDay(value) {
       const weekDayCode = dayjs(value).day();
 
       switch (weekDayCode) {
@@ -74,7 +74,7 @@ function formatValueHelper(convertStrategyName, value, column = {}) {
     },
 
     // 00:00:00 --> -
-    timeZero(value, column) {
+    timeZero(value) {
       if (value !== '00:00:00') {
         return value;
       } else {
@@ -82,7 +82,7 @@ function formatValueHelper(convertStrategyName, value, column = {}) {
       }
     },
 
-    timeYMDHms(value, column) {
+    timeYMDHms(value) {
       if (value === null) {
         return '';
       }
@@ -90,7 +90,7 @@ function formatValueHelper(convertStrategyName, value, column = {}) {
       return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
     },
 
-    timeYMD(value, column) {
+    timeYMD(value) {
       if (value === null) {
         return '';
       }

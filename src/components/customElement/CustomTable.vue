@@ -13,7 +13,7 @@
         :summary-method="summaryMethod"
         @sort-change="handleSort"
       >
-        <!-- 如果沒有傳入 radioColumnConfig 這個Prop就不顯示 -->
+        <!-- radioColumnConfig === true -->
         <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
           <template slot-scope="scope">
             <el-radio
@@ -26,12 +26,12 @@
           </template>
         </ElTableColumn>
 
-        <!-- 如果沒有傳入selectorColumnConfig這個Prop就不顯示 -->
+        <!-- multiSelectorConfig === true -->
         <ElTableColumn
-          v-if="selectorColumnConfig"
+          v-if="multiSelectorConfig"
           type="selection"
-          :width="selectorColumnConfig.width"
-          :align="selectorColumnConfig.align"
+          :width="multiSelectorConfig.width"
+          :align="multiSelectorConfig.align"
         >
         </ElTableColumn>
 
@@ -74,6 +74,7 @@
           </template>
         </ElTableColumn>
 
+        <!-- 操作按鈕 -->
         <ElTableColumn
           v-if="operationConfig !== null"
           :prop="operationConfig.prop"
@@ -111,7 +112,7 @@
 
 <script>
 import CustomRenderComponent from '@/utils/renderFunction';
-import CustomPagination from '@/components/reElement/CustomPagination.vue';
+import CustomPagination from '@/components/customElement/CustomPagination.vue';
 // import { cssClass } from '@/utils/getCsshelper';
 
 export default {
@@ -126,7 +127,7 @@ export default {
     },
     showPagination: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     columnConfig: {
       default: {},
@@ -137,14 +138,14 @@ export default {
     height: {
       default: 'auto',
     },
-    // radio欄位的設定檔案，如果有傳此值，radio欄位會自動顯示
+
     useRadio: {
-      type: Object,
-      default: null,
+      type: Boolean,
+      default: false,
     },
-    selectorColumnConfig: {
-      type: Object,
-      default: null,
+    useMultiSelector: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -156,44 +157,41 @@ export default {
         label: 'text',
         showLabel: false,
       },
+      multiSelectorConfig: {
+        align: 'center',
+        width: '80',
+      },
     };
   },
   methods: {
     handleJumpPage(targetPage) {
-      this.emitEvent('handleJumpPage', targetPage);
+      this.$emit('handleJumpPage', targetPage);
     },
     handleAdjustPageSize(pageSize) {
-      this.emitEvent('handleAdjustPageSize', pageSize);
-    },
-    judgeAuth(authCode) {
-      // 無條件一定顯示的操作
-      if (authCode === 'has') {
-        return true;
-      }
-
-      if (this.hasAuth[authCode]) {
-        return true;
-      } else {
-        return false;
-      }
+      this.$emit('handleAdjustPageSize', pageSize);
     },
     handleSelectRadio(rowIndex, rowData) {
       const row = {
         rowIndex,
         rowData,
       };
-
-      this.emitEvent('handleSelectRadio', row);
+      this.$emit('handleSelectRadio', row);
     },
     handleSelectRow(selectRows) {
-      this.emitEvent('handleSelectRow', selectRows);
-    },
-    emitEvent(eventName, emitData) {
-      this.$emit(eventName, emitData);
+      this.$emit('handleSelectRow', selectRows);
     },
     handleSort(sortInfo) {
       const { order, prop } = sortInfo;
-      this.emitEvent('handleSort', { order, prop });
+      this.$emit('handleSort', { order, prop });
+    },
+    handleSelectChange(selection) {
+      this.$emit('handleSelectChange', selection);
+    },
+    handleRadioChange(selection) {
+      this.$emit('handleRadioChange', selection);
+    },
+    handleBtn(row, index, columnConfig) {
+      this.$emit('handleBtn', { row, index, columnConfig });
     },
     rowClassName(row, index) {
       if (index === 1) {
@@ -212,7 +210,7 @@ export default {
 
       let sums = {};
 
-      columns.forEach((column, index) => {
+      columns.forEach(column => {
         //取出當前欄位的key
         const { key, summary } = column;
 
@@ -244,15 +242,6 @@ export default {
         }
       });
       return sums;
-    },
-    handleSelectChange(selection) {
-      this.$emit('handleSelectChange', selection);
-    },
-    handleRadioChange(selection) {
-      this.$emit('handleRadioChange', selection);
-    },
-    handleBtn(row, index, columnConfig) {
-      this.$emit('handleBtn', { row, index });
     },
 
     // 計算當前表格內容總和
