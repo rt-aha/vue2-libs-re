@@ -3,14 +3,23 @@
     <label class="input-label">{{ $attrs.label }}</label>
     <div class="input-err-wrapper">
       <slot></slot>
-      <ErrMsg v-if="$attrs.ruleList" :errMsg="errMsg"></ErrMsg>
+      <<<<<<< HEAD
+              <ErrMsg
+              v-if="$attrs.ruleList"
+              :errMsg="errMsg">
+        </ErrMsg>
+        =======
+        <ErrMsg v-if="$attrs.ruleListWithMsg"
+                :errMsg="errMsg"></ErrMsg>
+        >>>>>>> 37f97acf38a7a2cf89eb6d38ad3b3501bdd84af6
     </div>
   </div>
 </template>
 
 <script>
 import ErrMsg from '@/views/demoTplt/ErrMsg.vue';
-import { Validator } from '@/utils/validator';
+// import { Validator } from '@/utils/validator';
+import { validator } from '@/utils/validator';
 
 export default {
   name: 'TpltInputWrapper',
@@ -27,7 +36,7 @@ export default {
     func: Function,
   },
   methods: {
-    execValidate() {
+    validateValue() {
       // 沒有驗證規則就返回
       const args = Array.from(arguments);
 
@@ -35,49 +44,54 @@ export default {
         throw new Error('參數至少應有一個驗證的值');
       }
 
+      //  {規則, 規則參數, 錯誤提示},值, 標籤, 其他資訊
       const params = {
-        // value: {
-        //   value: args[0],
-        //   otherValue: this.$attrs.otherValue || '',
-        // },
-        // inputName: this.$attrs.label,
-        // ruleList: this.$attrs.ruleList,
-
-        value: args[0],
-        ruleAndErr: this.$attrs.ruleAndErr,
+        ruleListAndErrMsg: this.$attrs.ruleListWithMsg,
+        checkValue: args[0],
         label: this.$attrs.label,
-        info: this.$attrs.info,
+        extraInfo: this.$attrs.extraInfo || {}
       };
 
-      const validator = new Validator();
+
+
       validator.add(params);
 
       const result = validator.start();
 
+
+
       if (result.isPass) {
-        this.isPassValidate = true;
         this.errMsg = '';
+        this.isPassValidate = true;
       } else {
-        this.isPassValidate = false;
         this.errMsg = result.errInfo;
+        this.isPassValidate = false;
       }
     },
-
-    // blur時觸發
+    /**
+     * args: 要驗證的值
+     */
+    execValidate(args) {
+      this.validateValue.apply(null, args);
+    },
+    execFunc() {
+      const result = this.func.apply(null);
+      this.$emit('funcResult', result);
+    },
     handleBlur(args) {
-      console.log(args);
       // 驗證
-      if (this.$attrs.ruleList) {
-        this.execValidate.apply(null, args);
+      if (this.$attrs.ruleListWithMsg) {
+        this.execValidate(args);
       }
 
       // 如果有傳入function
       if (this.func) {
-        const execResult = this.func.apply(null, args);
-        this.$emit('funcResult', execResult);
+        this.execFunc;
       }
     },
   },
+
+
   beforeMount() {
     this.$on('handleBlur', this.handleBlur);
   },

@@ -7,7 +7,10 @@
   },
   "scripts": {
     "dev": "vue-cli-service serve",
-    "dev_mock": "vue-cli-service serve --mode development_mock",
+    "dev_mock": "concurrently \"yarn dev_env:mock\" \"yarn mock_server\"",
+    "dev_test": "vue-cli-service serve --mode development_test",
+    "dev_env:mock": "vue-cli-service serve --mode development_mock",
+    "mock_server": "nodemon mock_server/index.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -23,6 +26,7 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
+    "@koa/cors": "^3.0.0",
     "@vue/cli-plugin-babel": "^4.2.0",
     "@vue/cli-plugin-eslint": "^4.2.0",
     "@vue/cli-plugin-pwa": "^4.2.0",
@@ -30,9 +34,17 @@
     "@vue/cli-plugin-vuex": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
     "babel-eslint": "^10.0.3",
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-jwt": "^3.6.0",
+    "koa-router": "^8.0.8",
     "mockjs": "^1.1.0",
+    "nodemon": "^2.0.2",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "vue-svg-loader": "^0.16.0",

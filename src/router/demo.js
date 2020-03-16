@@ -7,11 +7,16 @@ export default [
   {
     path: '/demo/validate',
     name: 'demoValidate',
-    component: () => import(/* webpackChunkName: "uiDemo" */ '@/views/demoTplt/Validate.vue'),
+    component: () => import(/* webpackChunkName: "validate" */ '@/views/demoTplt/Validate.vue'),
   },
   {
     path: '/demo/trans',
     name: 'trans',
     component: () => import(/* webpackChunkName: "trans" */ '@/views/demoTplt/Trans.vue'),
+  },
+  {
+    path: '/demo/ajax',
+    name: 'ajax',
+    component: () => import(/* webpackChunkName: "ajax" */ '@/views/demoTplt/Ajax.vue'),
   },
 ];
