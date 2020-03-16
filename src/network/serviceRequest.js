@@ -34,21 +34,22 @@ axios.interceptors.response.use(
  */
 
 const serviceRequest = async (method, apiUrl, payload = {}, headerConfig = 'defaultConfig') => {
+  let self = serviceRequest;
   // 檢查HTTP Verbs是否正，不正確就返回
-  const isValidate = serviceRequest.checkHttpMethod(method);
+  const isValidate = self.checkHttpMethod(method);
   if (!isValidate) return;
 
   // 設定頭部
-  const header = serviceRequest.writeheader(headerConfig);
+  const header = self.writeheader(headerConfig);
 
   // 設定url
-  const reqUrl = serviceRequest.setUrl(apiUrl, headerConfig);
+  const reqUrl = self.setUrl(apiUrl, headerConfig);
 
   // 送出request
-  const response = await serviceRequest.ajaxRequest(method, reqUrl, payload, header);
+  const response = await self.ajaxRequest(method, reqUrl, payload, header);
 
   // 回傳data
-  return serviceRequest.afterRequest(response);
+  return self.afterRequest(response);
 };
 
 serviceRequest.checkHttpMethod = function(httpMethod) {

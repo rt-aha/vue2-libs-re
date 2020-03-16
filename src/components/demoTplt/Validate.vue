@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import TpltInput from '@/views/demoTplt/TpltInput.vue';
-import TpltInputWrapper from '@/views/demoTplt/TpltInputWrapper.vue';
+import TpltInput from '@/components/demoTplt/TpltInput.vue';
+import TpltInputWrapper from '@/components/demoTplt/TpltInputWrapper.vue';
 
 export default {
   name: 'Validate',

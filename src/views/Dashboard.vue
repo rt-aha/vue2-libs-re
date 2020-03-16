@@ -1,15 +1,12 @@
 <template>
   <div class="home">
     <h1>home tplt</h1>
-    <Tplt msg="Welcome to Your Vue.js App" />
     <p>i18n: {{ $t('tplt.lang') }}</p>
     <SvgIcon />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Tplt from '@/components/Tplt.vue';
 import { handleTpltAPI } from '@/services/tpltService';
 import { handleTpltMockAPI } from '@/services/tpltService';
 import SvgIcon from '@/assets/tplt/error.svg';
@@ -23,7 +20,6 @@ export default {
     title: 'Dashboard'
   },
   components: {
-    Tplt,
     SvgIcon
   },
   created() {

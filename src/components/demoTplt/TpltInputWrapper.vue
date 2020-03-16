@@ -3,22 +3,20 @@
     <label class="input-label">{{ $attrs.label }}</label>
     <div class="input-err-wrapper">
       <slot></slot>
-      <<<<<<< HEAD
-              <ErrMsg
-              v-if="$attrs.ruleList"
+
+      <ErrMsg v-if="$attrs.ruleList"
               :errMsg="errMsg">
-        </ErrMsg>
-        =======
-        <ErrMsg v-if="$attrs.ruleListWithMsg"
-                :errMsg="errMsg"></ErrMsg>
-        >>>>>>> 37f97acf38a7a2cf89eb6d38ad3b3501bdd84af6
+      </ErrMsg>
+
+      <ErrMsg v-if="$attrs.ruleListWithMsg"
+              :errMsg="errMsg"></ErrMsg>
+
     </div>
   </div>
 </template>
 
 <script>
-import ErrMsg from '@/views/demoTplt/ErrMsg.vue';
-// import { Validator } from '@/utils/validator';
+import ErrMsg from '@/components/demoTplt/ErrMsg.vue';
 import { validator } from '@/utils/validator';
 
 export default {
