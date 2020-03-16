@@ -12,6 +12,7 @@ const tpltController = {
     ctx.status = 200;
     ctx.body = 'hi this is return by /api/tplt1 !';
   },
+
   async tplt2(ctx) {
     // tpltData 是一個物件
     const tpltData = Mockjs.mock({
