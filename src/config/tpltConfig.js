@@ -38,7 +38,7 @@ const columnConfig = [
   {
     prop: 'age',
     label: '年紀',
-    minWidth: 170,
+    minWidth: 100,
     sortable: false,
     fixed: false,
     align: 'center',
@@ -48,11 +48,45 @@ const columnConfig = [
   {
     prop: 'gender',
     label: '性別',
-    minWidth: 170,
+    minWidth: 100,
     sortable: false,
     fixed: false,
     align: 'center',
     headerAlign: 'center',
+    show: 1,
+  },
+  {
+    prop: 'imageUrl',
+    label: '圖片',
+    minWidth: 150,
+    sortable: false,
+    fixed: false,
+    align: 'center',
+    headerAlign: 'center',
+    show: 1,
+    render: (h, params) => {
+      return h('img', {
+        class: 'img-wrapper',
+        attrs: {
+          src: params.row.imageUrl,
+        },
+        on: {
+          click: () => {
+            console.log('params---', params);
+          },
+        },
+      });
+    },
+  },
+  {
+    prop: 'multiRow',
+    label: '多行',
+    minWidth: 150,
+    sortable: false,
+    fixed: false,
+    align: 'center',
+    headerAlign: 'center',
+    cssStyle: 'multiRow',
     show: 1,
   },
 ];

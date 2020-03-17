@@ -14,9 +14,9 @@
 
 priority: high:
 
-- tableCom: show image in column
-- tableCom: summary
-- tableCom: renderFunc
+- (v) tableCom: show image in column
+- (v) tableCom: summary
+- (v) tableCom: renderFunc
 - inputCom, selectorCom ...
 - breadCrumbCom
 

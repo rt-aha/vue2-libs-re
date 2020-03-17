@@ -1,6 +1,7 @@
 import { checkStrategyExist } from '@/utils/usefulHelper';
 
 const cssClass = (convertStrategyName, data) => {
+  console.log(convertStrategyName, data);
   const cssStrategy = {
     statusColor(data) {
       switch (data.row.statusColorStyle) {
@@ -11,6 +12,9 @@ const cssClass = (convertStrategyName, data) => {
         default:
           return '';
       }
+    },
+    multiRow() {
+      return 'white-space';
     },
   };
 

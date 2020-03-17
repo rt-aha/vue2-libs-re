@@ -3,35 +3,39 @@
              :visible.sync="dialogSwitch"
              @close="closeDialog">
     <FreeContainer :padding="'0 0 60 0'">
-      <slot> </slot>
-    </FreeContainer>
+      <slot>
 
+      </slot>
+    </FreeContainer>
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
                  class="re-normal-btn"
-                 @click="handleEvent">{{ $attrs.btnName }}</el-button>
+                 @click="handleEvent">{{$attrs.btnName}}</el-button>
     </span>
   </el-dialog>
+
 </template>
 
 <script>
-import SubTitle from '@/components/global/SubTitle.vue';
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator';
+
 import FreeContainer from '@/components/global/FreeContainer.vue';
 
 export default {
   name: 'CustomDialog',
   components: {
-    SubTitle,
-    FreeContainer,
+    FreeContainer
   },
   props: {
-    type: boolean,
-    default: false
+    propDialogSwitch: {
+      type: boolean,
+      default: false
+    },
   },
   data() {
     return {
-      dialogSwitch: false
+      dialogSwitch: false,
     };
   },
   methods: {
@@ -40,14 +44,14 @@ export default {
     },
     handleEvent() {
       this.$emit('handleEvent', this.$attrs.type);
-    }
+    },
   },
   watch: {
     propDialogSwitch() {
       this.dialogSwitch = this.propDialogSwitch;
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

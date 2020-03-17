@@ -1,28 +1,26 @@
 <template>
   <div>
-    <CustomTable
-      stripe
-      :showSummary="false"
-      :tableData="tpltData"
-      :columnConfig="columnConfig"
-      :operationConfig="operationConfig"
-      @handleOperate="handleOperate"
-      @handleJumpPage="handleJumpPage"
-      @handleAdjustPageSize="handleAdjustPageSize"
-    >
+    <CustomTable stripe
+                 :showSummary="false"
+                 :tableData="tpltData"
+                 :columnConfig="columnConfig"
+                 :operationConfig="operationConfig"
+                 @handleOperate="handleOperate"
+                 @handleJumpPage="handleJumpPage"
+                 @handleAdjustPageSize="handleAdjustPageSize">
     </CustomTable>
   </div>
 </template>
 
 <script>
-import CustomTable from '@/components/customElement/CustomTable.vue';
+import CusEleTable from '@/components/customElement/CusEleTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
 
 export default {
   name: 'Table',
   components: {
-    CustomTable,
+    CusEleTable,
   },
   data() {
     return {
@@ -71,4 +69,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index';
+</style>
+
+<style>
+.white-space {
+  white-space: pre-line;
+}
 </style>

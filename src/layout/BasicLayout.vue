@@ -1,8 +1,7 @@
 <template>
   <div class="app-layout">
     <transition name="slide">
-      <aside class="layout-aside"
-             v-if="isSidebarOpen">
+      <aside class="layout-aside" v-if="isSidebarOpen">
         <AsideContent />
       </aside>
     </transition>
@@ -28,10 +27,10 @@ export default {
   name: 'BaseLayout',
   components: {
     HeaderContent,
-    AsideContent
+    AsideContent,
   },
   computed: {
-    ...mapState(['isSidebarOpen'])
+    ...mapState(['isSidebarOpen']),
   },
 };
 </script>
@@ -57,6 +56,7 @@ export default {
   background-color: #eee;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .layout-header {
