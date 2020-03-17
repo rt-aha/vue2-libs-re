@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'CusEleSelector',
+  name: 'SearchEleSelector',
   props: {
     value: {
       default: ''

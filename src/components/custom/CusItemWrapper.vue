@@ -3,11 +3,8 @@
     <label class="input-label">{{ $attrs.label }}</label>
     <div class="input-err-wrapper">
       <slot></slot>
-      <ErrMsg v-if="$attrs.ruleList"
-              :errMsg="errMsg">
-      </ErrMsg>
       <ErrMsg v-if="$attrs.ruleListWithMsg"
-              :errMsg="errMsg"></ErrMsg>
+              :errMsg="errMsg" />
     </div>
   </div>
 </template>
@@ -34,12 +31,11 @@ export default {
     validateValue() {
       // 沒有驗證規則就返回
       const args = Array.from(arguments);
-
       if (typeof args === 'undefined' || args.length === 0) {
         throw new Error('參數至少應有一個驗證的值');
       }
 
-      //  {規則, 規則參數, 錯誤提示},值, 標籤, 其他資訊
+      //  {規則, 規則參數, 錯誤提示}, 值, 標籤, 其他資訊
       const params = {
         ruleListAndErrMsg: this.$attrs.ruleListWithMsg,
         checkValue: args[0],
@@ -47,14 +43,8 @@ export default {
         extraInfo: this.$attrs.extraInfo || {}
       };
 
-
-
       validator.add(params);
-
       const result = validator.start();
-
-
-
       if (result.isPass) {
         this.errMsg = '';
         this.isPassValidate = true;
@@ -86,7 +76,6 @@ export default {
     },
   },
 
-
   beforeMount() {
     this.$on('handleBlur', this.handleBlur);
   },
@@ -99,4 +88,19 @@ export default {
 .input-err-wrapper {
   position: relative;
 }
+
+// label 在左邊，細節依專案調整
+// .input-wrapper {
+//   display: flex;
+// }
+
+// .input-label {
+//   flex: none;
+//   width: 120px;
+//   line-height: 40px;
+// }
+
+// .input-err-wrapper {
+//   flex: 1;
+// }
 </style>

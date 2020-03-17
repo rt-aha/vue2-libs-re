@@ -17,7 +17,7 @@
 import { setTime } from '@/utils/usefulHelper';
 
 export default {
-  name: 'CusEleDateRangePicker',
+  name: 'SearchEleDateRangePicker',
   props: {
     value: {
       default: ''

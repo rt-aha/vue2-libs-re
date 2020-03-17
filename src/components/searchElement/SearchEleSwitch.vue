@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'CusEleSwitch',
+  name: 'SearchEleSwitch',
   data() {
     return {
       innerValue: '',

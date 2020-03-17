@@ -8,9 +8,6 @@
 </template>
 
 <script>
-
-
-
 export default {
   name: 'CusEleInput',
   data() {

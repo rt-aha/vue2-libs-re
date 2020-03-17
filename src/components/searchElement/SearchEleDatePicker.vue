@@ -11,7 +11,7 @@
 
 
 export default {
-  name: 'CusEleDatePicker',
+  name: 'SearchEleDatePicker',
   props: {
     value: {
       type: String,

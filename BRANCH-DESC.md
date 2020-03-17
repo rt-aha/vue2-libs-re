@@ -14,11 +14,14 @@
 
 priority: high:
 
-- (v) tableCom: show image in column
-- (v) tableCom: summary
-- (v) tableCom: renderFunc
-- inputCom, selectorCom ...
+- CusSearch
 - breadCrumbCom
+- table 總計
+
+prority: medium:
+
+- unit test
+- e2e test
 
 priority: low:
 
