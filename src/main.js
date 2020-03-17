@@ -22,6 +22,12 @@ const i18n = new VueI18n({
   messages: i18nData,
 });
 
+// element-ui
+import ElementUI from 'element-ui';
+import '@/styles/preset/reset.scss';
+import '@/styles/element-variables.scss';
+Vue.use(ElementUI);
+
 Vue.config.productionTip = false;
 import '@/styles/sharedStyle.scss';
 
