@@ -1,6 +1,10 @@
 <template>
   <div>
-    <CustomTable stripe
+    <CusSearch :searchConfig="searchConfig"
+               @handlSearch="handlSearch">
+
+    </CusSearch>
+    <CusEleTable stripe
                  :showSummary="false"
                  :tableData="tpltData"
                  :columnConfig="columnConfig"
@@ -8,18 +12,21 @@
                  @handleOperate="handleOperate"
                  @handleJumpPage="handleJumpPage"
                  @handleAdjustPageSize="handleAdjustPageSize">
-    </CustomTable>
+    </CusEleTable>
   </div>
 </template>
 
 <script>
+import CusSearch from '@/components/custom/CusSearch.vue';
 import CusEleTable from '@/components/customElement/CusEleTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
 
+
 export default {
   name: 'Table',
   components: {
+    CusSearch,
     CusEleTable,
   },
   data() {
@@ -63,6 +70,9 @@ export default {
       // this.payload.pager.pageSize = pageSize;
       // this.fetchNewsList();
     },
+    handlSearch(searchParams) {
+      console.log('searchParams---', searchParams);
+    }
   },
 };
 </script>

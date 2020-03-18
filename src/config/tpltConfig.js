@@ -1,16 +1,41 @@
-// import { setTime } from '@/utils/usefulHelper';
+import { setTime } from '@/utils/usefulHelper';
 
 const searchConfig = [
   {
-    key: 'dateRange',
-    type: 'dateRangePicker',
-    defaultValue: '',
+    key: 'name',
+    type: 'input',
+    placeholder: '姓名',
+    defaultValue: 'nnn',
   },
   {
-    key: 'title',
-    type: 'input',
-    placeholder: '文章標題',
-    defaultValue: '',
+    key: 'gender',
+    type: 'selector',
+    placeholder: '選擇性別',
+    defaultValue: 2,
+    options: [
+      {
+        label: '男生',
+        value: 1,
+      },
+      {
+        label: '女生',
+        value: 2,
+      },
+      {
+        label: '其他',
+        value: 3,
+      },
+    ],
+  },
+  {
+    key: 'dateRange',
+    type: 'dateRangePicker',
+    defaultValue: [setTime('month-subtract-1'), setTime('day-0-0')],
+  },
+  {
+    key: 'datePicker',
+    type: 'datePicker',
+    defaultValue: setTime('day-0-0'),
   },
 ];
 

@@ -3,7 +3,7 @@
     {{ $route.name }}
 
     <!--
-      CusEleXXX: 都是再次封裝element-ui的組件，讓觸發blur或change事件時走自訂的驗證處理(因為element 有點bug)，封裝後也比較script簡潔
+      CusEleXXX: 都是再次封裝element-ui的組件，讓觸發blur或change事件時走自訂的驗證處理(因為element 有點bug)
       CusItemWrapper: 幫CusEleXXX增加附加功能的一個wrapper，目前有兩種功能 1.增加label, 2.觸發驗證後顯示的錯誤訊息
      -->
 
@@ -12,6 +12,7 @@
                     :extraInfo="{a: '1',b:2}"
                     :func="() => 'hi'">
       <CusEleInput v-model="form.input"
+                   :inputConfig="inputConfig"
                    ref="input" />
     </CusItemWrapper>
     <CusItemWrapper label="下拉"
@@ -49,7 +50,6 @@
 import CusItemWrapper from '@/components/custom/CusItemWrapper';
 import CusEleInput from '@/components/customElement/CusEleInput.vue';
 import CusEleSelector from '@/components/customElement/CusEleSelector.vue';
-import CusEleSwitch from '@/components/customElement/CusEleSwitch.vue';
 import CusEleDatePicker from '@/components/customElement/CusEleDatePicker.vue';
 import CusEleDateRangePicker from '@/components/customElement/CusEleDateRangePicker.vue';
 
@@ -63,7 +63,7 @@ export default {
     CusItemWrapper,
     CusEleInput,
     CusEleSelector,
-    CusEleSwitch,
+    // CusEleSwitch,
     CusEleDatePicker,
     CusEleDateRangePicker
   },
@@ -75,6 +75,12 @@ export default {
         switch: '',
         date: '',
         dateRange: '',
+      },
+      inputConfig: {
+        key: 'name',
+        type: 'input',
+        placeholder: '姓名',
+        defaultValue: '',
       },
       selectorConfig: {
         key: 'age',

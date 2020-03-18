@@ -3,6 +3,7 @@
     <el-input v-model="innerValue"
               @input="$emit('input',innerValue)"
               @blur="handleValidate"
+              :placeholder="inputConfig.placeholder"
               :type="$attrs.type" />
   </div>
 </template>
@@ -17,7 +18,16 @@ export default {
     };
   },
   props: {
-    value: String
+    value: String,
+    inputConfig: {
+      type: Object,
+      default() {
+        return {
+          defaultValue: '123',
+          placeholder: '請輸入'
+        };
+      }
+    }
   },
   methods: {
     handleValidate() {
@@ -26,6 +36,7 @@ export default {
     }
   },
   created() {
+    this.innerValue = this.inputConfig.defaultValue;
     this.$on('handleValidate', this.handleValidate);
   }
 }

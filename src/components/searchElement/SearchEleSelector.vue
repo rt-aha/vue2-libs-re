@@ -23,7 +23,7 @@ export default {
     },
     selectorConfig: {
       type: Object,
-      default() { return { placeholder: '請輸入', options: [] }; }
+      default() { return { placeholder: '請輸入', defaultValue: -1, options: [] }; }
     }
   },
   data() {
@@ -36,18 +36,15 @@ export default {
     handleValidate() {
       // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
       this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
-
     },
-
   },
   computed: {
     allOptions() {
-
       console.log(this.selectorConfig);
       let defaultOptions = [
         {
           label: '請選擇',
-          value: null,
+          value: -1,
           disabled: true,
         },
       ];
@@ -61,6 +58,7 @@ export default {
 
   },
   created() {
+    this.innerValue = this.selectorConfig.defaultValue;
     this.$on('handleValidate', this.handleValidate);
   }
 }

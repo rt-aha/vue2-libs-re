@@ -55,7 +55,9 @@ Vue.mixin({
 
       // 若沒有相應被註冊的事件，拋錯
       if (!target._events[eventName]) {
-        throw new Error('emit對象沒有對應事件');
+        // 只是提示，不會發生什麼事
+        console.log('emit對象沒有對應事件');
+        return;
       }
 
       target.$emit(eventName, args);

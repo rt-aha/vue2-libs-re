@@ -43,7 +43,7 @@ export default {
   computed: {
     allOptions() {
 
-      console.log(this.selectorConfig);
+
       let defaultOptions = [
         {
           label: '請選擇',
