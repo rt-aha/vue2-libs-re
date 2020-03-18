@@ -19,15 +19,13 @@
 
 - 純驗證 function
 - form submit 時的驗證
+- 驗證特定幾個的篩選器
 
 其他
 
 - network
 
 ### priority: high:
-
-- 驗證特定幾個的篩選器
-- table 總計
 
 ### prority: medium:
 
