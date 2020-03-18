@@ -9,7 +9,7 @@ export default [
   },
   {
     path: '/demo/table',
-    name: 'demoTable',
+    name: 'table',
     component: () => import(/* webpackChunkName: "Table" */ '@/views/demoTplt/Table.vue'),
     meta: {
       title: 'demo-table',

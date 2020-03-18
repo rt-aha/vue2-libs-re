@@ -35,7 +35,7 @@ Vue.mixin({
   methods: {
     toXPage(pushArgs) {
       if (arguments.length === 0 || !pushArgs.name) {
-        console.error('至少需路由名稱參數;如為動態路由，需寫動態路由參數');
+        console.error('至少需路由名稱參數; 如為動態路由，需寫動態路由參數');
       }
 
       // 避免進入相同路由報錯

@@ -28,7 +28,6 @@ const getModuleFiles = currFolderFiles.keys().filter(item => {
 });
 
 const routes = [];
-
 getModuleFiles.forEach(path => {
   routes.push(...currFolderFiles(path).default);
 });
