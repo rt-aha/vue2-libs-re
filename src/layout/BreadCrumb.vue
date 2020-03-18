@@ -24,7 +24,6 @@ export default {
       const currRoute = this.$route.path;
       let splitRoute = currRoute.slice(1).split('/'); // 清除第一個斜線
 
-      console.log(111);
       let newBreadCrumbs = splitRoute.map(ele => {
         return {
           title: routerNameInfo[ele].title,
