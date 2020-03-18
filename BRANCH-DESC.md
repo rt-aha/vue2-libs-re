@@ -12,10 +12,10 @@
 - form submit 時的驗證
 - mock-api 另起本地 koas2 server
 - cusSearch
+- breadCrumbCom
 
 priority: high:
 
-- breadCrumbCom
 - table 總計
 
 prority: medium:
