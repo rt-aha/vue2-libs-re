@@ -14,35 +14,62 @@ Vue.use(VueRouter);
 // 取的目錄下所有檔案
 const currFolderFiles = require.context('./', false, /\.js$/);
 
-// 取得目錄下所有檔案名稱，並過濾不需要的檔案
-const getModuleFiles = currFolderFiles.keys().filter(item => {
-  // 不需要的檔案寫進來
-  const removeFile = ['./index.js'];
-  let isRemain = true;
+const allRouteFunc = {
+  getFilesWithoutIndex() {
+    const allFileKeys = currFolderFiles.keys();
+    // 將要移除的檔案名稱放到陣列
+    const removeFile = ['./index.js'];
+    return allFileKeys.filter(item => {
+      return !removeFile.includes(item);
+    });
+  },
+  getRouteData() {
+    const moduleFiles = this.getFilesWithoutIndex();
+    return getFilesDefaultExport(moduleFiles);
+  },
+};
 
-  if (removeFile.indexOf(item) > -1) {
-    isRemain = false;
-  }
+const menuRouteFunc = {
+  // 將要渲染在menu名稱檔案寫進來，不用副檔名
+  menuOrder: ['tplt1', 'tplt2', 'demo'],
+  menuInfoList: [],
+  getMenuFiles() {
+    return this.menuOrder.map(ele => `./${ele}.js`);
+  },
+  getMenuData() {
+    const moduleFiles = this.getMenuFiles();
+    this.menuInfoList = getFilesDefaultExport(moduleFiles);
+    return this;
+  },
+  takeMatchRouteInfo(name) {
+    for (const item of this.menuInfoList) {
+      if (item.name === name) {
+        return item;
+      }
+    }
+  },
+  getMenuRouteData() {
+    let menuRouteWithOrder = [];
+    this.menuOrder.forEach(name => {
+      const matchRouteInfo = this.takeMatchRouteInfo(name);
+      menuRouteWithOrder.push(matchRouteInfo);
+    });
 
-  return isRemain;
-});
+    this.menuInfoList = []; // 清空陣列，避免無意間重複執行時陣列持續增長
+    return menuRouteWithOrder;
+  },
+};
 
-const routes = [];
-getModuleFiles.forEach(path => {
-  routes.push(...currFolderFiles(path).default);
-});
+function getFilesDefaultExport(fileList) {
+  const files = [];
+  fileList.forEach(path => {
+    files.push(...currFolderFiles(path).default);
+  });
+  return files;
+}
 
-// 取得menu路由
-const getMenuFiles = currFolderFiles.keys().filter(item => {
-  // 將要渲染在menu的檔案寫進來
-  const remainList = ['./tplt1.js', './tplt2.js'];
-  return remainList.indexOf(item) > -1;
-});
-
-let menuRoute = [];
-getMenuFiles.forEach(path => {
-  menuRoute.push(...currFolderFiles(path).default);
-});
+const routes = allRouteFunc.getRouteData();
+const menuRoutes = menuRouteFunc.getMenuData().getMenuRouteData();
 
 const router = new VueRouter({
   mode: 'history',
@@ -50,5 +77,5 @@ const router = new VueRouter({
   routes,
 });
 
-export { menuRoute, routes };
+export { menuRoutes, routes };
 export default router;

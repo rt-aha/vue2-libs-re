@@ -2,17 +2,28 @@ export default [
   {
     path: '/demo',
     name: 'demo',
-    component: () => import(/* webpackChunkName: "Demo" */ '@/views/demoTplt/Demo.vue'),
+    redirect: { name: 'tplt2_1' },
+    component: () => import(/* webpackChunkName: "viewsIndex" */ '@/views/index.vue'),
     meta: {
-      title: 'demo',
+      title: 'DEMO',
     },
-  },
-  {
-    path: '/demo/table',
-    name: 'table',
-    component: () => import(/* webpackChunkName: "Table" */ '@/views/demoTplt/Table.vue'),
-    meta: {
-      title: 'demo-table',
-    },
+    children: [
+      {
+        path: 'uiAndValidate',
+        name: 'uiAndValidate',
+        component: () => import(/* webpackChunkName: "uiAndValidate" */ '@/views/demoTplt/Demo.vue'),
+        meta: {
+          title: 'demo-ui-validate',
+        },
+      },
+      {
+        path: 'table',
+        name: 'table',
+        component: () => import(/* webpackChunkName: "Table" */ '@/views/demoTplt/Table.vue'),
+        meta: {
+          title: 'demo-table',
+        },
+      },
+    ],
   },
 ];

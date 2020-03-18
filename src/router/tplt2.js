@@ -3,7 +3,7 @@ export default [
     path: '/tplt2',
     name: 'tplt2',
     redirect: { name: 'tplt2_1' },
-    component: () => import(/* webpackChunkName: "views-index" */ '@/views/index.vue'),
+    component: () => import(/* webpackChunkName: "viewsIndex" */ '@/views/index.vue'),
     meta: {
       title: '主頁二',
     },
