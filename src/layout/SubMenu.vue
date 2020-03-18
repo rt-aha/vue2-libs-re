@@ -1,15 +1,13 @@
 <template>
   <div>
     <ul class="sub-menu-list">
-      <li class="sub-menu-item"
-          @click="handleRouteChange($attrs.subMenu.name)">
+      <li class="sub-menu-item" @click="handleRouteChange($attrs.subMenu.name)">
         <span class="sub-menu-title">
-          {{$attrs.subMenu.meta.title}}
+          {{ $attrs.subMenu.meta.title }}
         </span>
       </li>
     </ul>
   </div>
-
 </template>
 
 <script>
@@ -17,7 +15,7 @@ export default {
   name: 'SubMenu',
   methods: {
     handleRouteChange(name) {
-      this.toXPage({ name });
+      this.$router.push({ name });
     },
   },
 };

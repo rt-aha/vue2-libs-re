@@ -7,46 +7,24 @@
       CusItemWrapper: 幫CusEleXXX增加附加功能的一個wrapper，目前有兩種功能 1.增加label, 2.觸發驗證後顯示的錯誤訊息
      -->
 
-    <CusItemWrapper label="輸入"
-                    :ruleListWithMsg="['hasText']"
-                    :extraInfo="{a: '1',b:2}"
-                    :func="() => 'hi'">
-      <CusEleInput v-model="form.input"
-                   :inputConfig="inputConfig"
-                   ref="input" />
+    <CusItemWrapper label="輸入" :ruleListWithMsg="['hasText']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
+      <CusEleInput v-model="form.input" :inputConfig="inputConfig" ref="input" />
     </CusItemWrapper>
-    <CusItemWrapper label="下拉"
-                    :ruleListWithMsg="['isSelect']"
-                    :extraInfo="{a: '1',b:2}"
-                    :func="() => 'hi'">
-      <CusEleSelector :selectorConfig="selectorConfig"
-                      v-model="form.selector"
-                      ref="selector" />
+    <CusItemWrapper label="下拉" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
+      <CusEleSelector :selectorConfig="selectorConfig" v-model="form.selector" ref="selector" />
     </CusItemWrapper>
-    <CusItemWrapper label="日期"
-                    :ruleListWithMsg="['isSelect']"
-                    :extraInfo="{a: '1',b:2}"
-                    :func="() => 'hi'">
-      <CusEleDatePicker :datePickerConfig="datePickerConfig"
-                        v-model="form.date"
-                        ref="date" />
+    <CusItemWrapper label="日期" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
+      <CusEleDatePicker :datePickerConfig="datePickerConfig" v-model="form.date" ref="date" />
     </CusItemWrapper>
-    <CusItemWrapper label="日期範圍"
-                    :ruleListWithMsg="['isSelect']"
-                    :extraInfo="{a: '1',b:2}"
-                    :func="() => 'hi'">
-      <CusEleDateRangePicker :dateRangePickerConfig="dateRangePickerConfig"
-                             v-model="form.dateRange"
-                             ref="dateRange" />
+    <CusItemWrapper label="日期範圍" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
+      <CusEleDateRangePicker :dateRangePickerConfig="dateRangePickerConfig" v-model="form.dateRange" ref="dateRange" />
     </CusItemWrapper>
 
     <button @click="submit">SUBMIT</button>
-
   </div>
 </template>
 
 <script>
-
 import CusItemWrapper from '@/components/custom/CusItemWrapper';
 import CusEleInput from '@/components/customElement/CusEleInput.vue';
 import CusEleSelector from '@/components/customElement/CusEleSelector.vue';
@@ -54,8 +32,6 @@ import CusEleDatePicker from '@/components/customElement/CusEleDatePicker.vue';
 import CusEleDateRangePicker from '@/components/customElement/CusEleDateRangePicker.vue';
 
 import { setTime } from '@/utils/usefulHelper';
-
-
 
 export default {
   name: 'Validate',
@@ -65,7 +41,7 @@ export default {
     CusEleSelector,
     // CusEleSwitch,
     CusEleDatePicker,
-    CusEleDateRangePicker
+    CusEleDateRangePicker,
   },
   data() {
     return {
@@ -119,17 +95,16 @@ export default {
     };
   },
   methods: {
-    handleSwitchChange() {
-      console.log('handleSwitchChange');
-    },
     submit() {
-      console.log(this.$refs);
-      const isPass = this.validateForm(this.$refs);
-      console.log('是否全部通過', isPass);
-    }
-  }
-
-}
+      // 有指定驗證哪幾個的時候，把要驗證的ref放到陣列
+      // const refList = this.explicitRefList(['input', 'selector']);
+      // const isPass = this.validateForm(refList);
+      // 不然就整個$refs丟進去
+      // const isPass = this.validateForm(this.$refs);
+      // console.log('是否全部通過', isPass);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
