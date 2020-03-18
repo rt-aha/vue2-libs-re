@@ -1,29 +1,41 @@
-## 當前 bv-with-element 分支說明
-
 ### 加上以下功能
 
-- network
-- mock api(waiting fix:還無法熱重載)
 - vue-meta
 - vue-i18n
-- menu
-- validator, wrapper 方式的組件
-- 純驗證 function
-- form submit 時的驗證
-- mock-api 另起本地 koas2 server
+- element
+
+組件類
+
 - cusSearch
 - breadCrumbCom
+- validator, wrapper 方式的組件
+- menu
 
-priority: high:
+測試類
 
+- mock-api(koa2 server)
+
+驗證類
+
+- 純驗證 function
+- form submit 時的驗證
+
+其他
+
+- network
+
+### priority: high:
+
+- 驗證特定幾個的篩選器
 - table 總計
 
-prority: medium:
+### prority: medium:
 
 - unit test
 - e2e test
+- menu rwd
 
-priority: low:
+### priority: low:
 
 - 自訂 function 在 validator 中的執行先後順序
 - validator i18n
