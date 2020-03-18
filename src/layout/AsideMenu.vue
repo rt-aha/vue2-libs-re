@@ -8,9 +8,9 @@
 
       <CollapseTransition>
         <div ref="subMenuWrapper"
-             :data-name="mainMenu.name"
+             :data-name="mainMenu.children"
              v-if="menuInfo[mainMenu.name].show">
-          <SubMenu v-for="subMenu of mainMenu.subMenu"
+          <SubMenu v-for="subMenu of mainMenu.children"
                    :key="subMenu.title"
                    :subMenu="subMenu"> </SubMenu>
         </div>
@@ -20,10 +20,12 @@
 </template>
 
 <script>
-import menuData from '@/layout/menuData';
+import { menuRoute } from '@/router';
 import SubMenu from '@/layout/SubMenu';
 import MainMenu from '@/layout/MainMenu';
 import CollapseTransition from '@/layout/CollapseTransition';
+
+console.log(menuRoute);
 
 export default {
   name: 'AsideMenu',
@@ -34,7 +36,7 @@ export default {
   },
   data() {
     return {
-      menuData: menuData,
+      menuData: menuRoute,
       activeMenu: 'tplt1',
       menuInfo: {
         tplt1: {

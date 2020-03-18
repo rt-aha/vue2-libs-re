@@ -11,10 +11,10 @@
 - 純驗證 function
 - form submit 時的驗證
 - mock-api 另起本地 koas2 server
+- cusSearch
 
 priority: high:
 
-- CusSearch
 - breadCrumbCom
 - table 總計
 

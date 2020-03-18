@@ -5,7 +5,7 @@
       <div class="main-menu-box"
            @click="handleExpendMenu($attrs.mainMenu.name)">
         <div class="main-menu-icon">111</div>
-        <p class="main-menu-title">{{$attrs.mainMenu.title}}</p>
+        <p class="main-menu-title">{{$attrs.mainMenu.meta.title}}</p>
         <div class="main-menu-icon">222</div>
       </div>
       <slot></slot>

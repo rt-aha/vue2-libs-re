@@ -1,6 +1,8 @@
 <template>
   <div>
     Tplt1_1
+    <router-view />
+
   </div>
 </template>
 

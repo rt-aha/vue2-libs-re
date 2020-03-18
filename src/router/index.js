@@ -27,16 +27,29 @@ const getModuleFiles = currFolderFiles.keys().filter(item => {
   return isRemain;
 });
 
-let routes = [];
+const routes = [];
 
 getModuleFiles.forEach(path => {
   routes.push(...currFolderFiles(path).default);
 });
 
+// 取得menu路由
+const getMenuFiles = currFolderFiles.keys().filter(item => {
+  // 將要渲染在menu的檔案寫進來
+  const remainList = ['./tplt1.js', './tplt2.js'];
+  return remainList.indexOf(item) > -1;
+});
+
+let menuRoute = [];
+getMenuFiles.forEach(path => {
+  menuRoute.push(...currFolderFiles(path).default);
+});
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
+export { menuRoute, routes };
 export default router;
