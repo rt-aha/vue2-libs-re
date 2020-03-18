@@ -69,6 +69,7 @@ const columnConfig = [
     align: 'center',
     headerAlign: 'center',
     show: 1,
+    summary: 'table-number',
   },
   {
     prop: 'gender',

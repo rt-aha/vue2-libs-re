@@ -1,60 +1,72 @@
 <template>
   <div class="table-pagination-wrapper">
     <div class="table-wrapper">
-      <ElTable ref="multipleTable"
-               :stripe="$attrs.stripe"
-               :max-height="height"
-               :show-summary="$attrs.showSummary"
-               :data="tableData.items || []"
-               :row-class-name="rowClassName"
-               @selection-change="handleSelectRow"
-               empty-text="無資料"
-               :summary-method="summaryMethod"
-               @sort-change="handleSort">
+      <ElTable
+        ref="multipleTable"
+        :stripe="$attrs.stripe"
+        :max-height="height"
+        :show-summary="$attrs.showSummary"
+        :data="tableData.items || []"
+        :row-class-name="rowClassName"
+        @selection-change="handleSelectRow"
+        empty-text="無資料"
+        :summary-method="summaryMethod"
+        @sort-change="handleSort"
+      >
         <!-- radioColumnConfig === true -->
-        <ElTableColumn v-if="useRadio"
-                       :width="radioColumnConfig.width"
-                       :align="radioColumnConfig.align">
+        <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
           <template slot-scope="scope">
-            <el-radio :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
-                      :label="scope.$index"
-                      v-model="columnRadio"
-                      @change.native="handleSelectRadio(scope.$index, scope.row)">{{ radioColumnConfig.label }}</el-radio>
+            <el-radio
+              :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
+              :label="scope.$index"
+              v-model="columnRadio"
+              @change.native="handleSelectRadio(scope.$index, scope.row)"
+              >{{ radioColumnConfig.label }}</el-radio
+            >
           </template>
         </ElTableColumn>
 
         <!-- multiSelectorConfig === true -->
-        <ElTableColumn v-if="multiSelectorConfig"
-                       type="selection"
-                       :width="multiSelectorConfig.width"
-                       :align="multiSelectorConfig.align">
+        <ElTableColumn
+          v-if="useMultiSelector"
+          type="selection"
+          :width="multiSelectorConfig.width"
+          :align="multiSelectorConfig.align"
+        >
         </ElTableColumn>
 
         <!-- 主要table設定 -->
-        <ElTableColumn v-for="(config, index) in columnConfig"
-                       :key="config.prop"
-                       :prop="config.prop"
-                       :label="config.label"
-                       width="auto"
-                       :min-width="config.minWidth"
-                       :sortable="config.sortable"
-                       :align="config.align"
-                       :header-align="config.headerAlign"
-                       :render="config.render"
-                       :cssStyle="config.cssStyle"
-                       :fixed="config.fixed">
+        <ElTableColumn
+          v-for="(config, index) in columnConfig"
+          :key="config.prop"
+          :prop="config.prop"
+          :label="config.label"
+          width="auto"
+          :min-width="config.minWidth"
+          :sortable="config.sortable"
+          :align="config.align"
+          :header-align="config.headerAlign"
+          :render="config.render"
+          :cssStyle="config.cssStyle"
+          :fixed="config.fixed"
+        >
           <template v-slot="scope">
             <!-- 有自定義(render function) 走這 -->
-            <CustomRenderComponent v-if="config.render"
-                                   :render="config.render"
-                                   :row="scope.row"
-                                   :index="index"
-                                   :config="config" />
+            <CustomRenderComponent
+              v-if="config.render"
+              :render="config.render"
+              :row="scope.row"
+              :index="index"
+              :config="config"
+            />
             <!-- 不然就照舊 -->
             <span v-else>
-              <span v-if="config.cssStyle"
-                    :class="cssClass(config.cssStyle, { column: scope.row[config.prop], row: scope.row })">
-                {{ scope.row[config.prop] }}</span>
+              <span
+                v-if="config.cssStyle"
+                :class="cssClass(config.cssStyle, { column: scope.row[config.prop], row: scope.row })"
+              >
+                {{ scope.row[config.prop] }}</span
+              >
               <span v-else>
                 {{ scope.row[config.prop] }}
               </span>
@@ -63,22 +75,19 @@
         </ElTableColumn>
 
         <!-- 操作按鈕 -->
-        <ElTableColumn v-if="operationConfig !== null"
-                       :prop="operationConfig.prop"
-                       :label="operationConfig.label"
-                       width="auto"
-                       :min-width="operationConfig.minWidth"
-                       :align="operationConfig.align"
-                       :fixed="operationConfig.fixed"
-                       :header-align="operationConfig.headerAlign">
+        <ElTableColumn
+          v-if="operationConfig !== null"
+          :prop="operationConfig.prop"
+          :label="operationConfig.label"
+          width="auto"
+          :min-width="operationConfig.minWidth"
+          :align="operationConfig.align"
+          :fixed="operationConfig.fixed"
+          :header-align="operationConfig.headerAlign"
+        >
           <template v-slot="scope">
-            <div class="operate-same"
-                 v-for="(operate, index) of operationConfig.operationSetting"
-                 :key="index">
-              <el-button round
-                         type="primary"
-                         class="operate-icon"
-                         @click="handleOperate({ operate, row: scope.row })">
+            <div class="operate-same" v-for="(operate, index) of operationConfig.operationSetting" :key="index">
+              <el-button round type="primary" class="operate-icon" @click="handleOperate({ operate, row: scope.row })">
                 {{ operate.label }}
               </el-button>
             </div>
@@ -86,15 +95,16 @@
         </ElTableColumn>
       </ElTable>
     </div>
-    <div class="pagination-wrapper"
-         v-if="showPagination">
-      <el-pagination @size-change="handleAdjustPageSize"
-                     @current-change="handleJumpPage"
-                     :current-page="tableData.pageInfo.pageIndex"
-                     :page-sizes="[10, 20, 50, 100]"
-                     :page-size="tableData.pageInfo.pageSize"
-                     layout="total, sizes, prev, pager, next, jumper"
-                     :total="tableData.pageInfo.totalCounts">
+    <div class="pagination-wrapper" v-if="showPagination">
+      <el-pagination
+        @size-change="handleAdjustPageSize"
+        @current-change="handleJumpPage"
+        :current-page="tableData.pageInfo.pageIndex"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="tableData.pageInfo.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.pageInfo.totalCounts"
+      >
       </el-pagination>
     </div>
   </div>
@@ -102,13 +112,13 @@
 
 <script>
 import CustomRenderComponent from '@/utils/renderFunction';
-import CusElePagination from '@/components/customElement/CusElePagination.vue';
+// import CusElePagination from '@/components/customElement/CusElePagination.vue';
 import { cssClass } from '@/utils/getCsshelper';
 
 export default {
   name: 'CusEleTable',
   components: {
-    CusElePagination,
+    // CusElePagination,
     CustomRenderComponent,
   },
   props: {
@@ -195,43 +205,55 @@ export default {
     handleOperate(info) {
       this.$emit('handleOperate', info);
     },
-    summaryMethod({ columns, data }) {
-      // columns 設定檔物件的陣列
-      // data 每一個row資料的陣列
+    getKeyInfoObj() {
+      const obj = {};
 
-      let sums = {};
+      for (const item of this.columnConfig) {
+        obj[item.prop] = {
+          key: item.prop,
+          summary: item.summary,
+        };
+      }
 
-      columns.forEach(column => {
-        //取出當前欄位的key
-        const { key, summary } = column;
+      return obj;
+    },
+    summaryMethod({ data }) {
+      let sums = []; // 按照順序推入合計欄位
 
+      const cloneColumnConfig = Object.assign([], this.columnConfig);
+
+      // 因為合計是按照陣列排序，所以如果有使用radio或多選checkbox 要多推入空物件讓位置對齊
+      if (this.useRadio) {
+        cloneColumnConfig.splice(0, 0, {});
+      }
+
+      if (this.useMultiSelector) {
+        cloneColumnConfig.splice(0, 0, {});
+      }
+
+      cloneColumnConfig.forEach((column, index) => {
         // 1.是否有summary
-        if (!summary) {
-          sums[key] = {
-            key,
-            value: '',
-          };
+        if (!column.summary) {
+          sums[index] = '';
         } else {
           // 2.是否有tabl還是api
-          const calcSummaryMethod = summary.split('-');
+          const calcSummaryMethod = column.summary.split('-');
           // 2-1
           if (calcSummaryMethod[0] === 'table') {
-            sums[key] = this.summaryByTable(calcSummaryMethod[1], column, data, key);
+            sums[index] = this.summaryByTable(calcSummaryMethod[1], column, data, column.prop);
           }
           // 2-2
           if (calcSummaryMethod[0] === 'api') {
-            sums[key] = this.summaryByAPI(key);
+            sums[index] = this.summaryByAPI(column.prop);
           }
 
           // 避免格式寫錯防雷
           if (calcSummaryMethod[0] !== 'table' && calcSummaryMethod[0] !== 'api') {
-            sums[key] = {
-              key,
-              value: '不可能會走到這個if!',
-            };
+            sums[index] = '看到這個表示寫錯了什麼 ... 不可能會走到這個if';
           }
         }
       });
+
       return sums;
     },
 
@@ -248,12 +270,8 @@ export default {
             total += value;
           }
 
-          return {
-            key,
-            value: total,
-          };
+          return total;
         },
-
         // 其他合計規則 ... 往下寫方法
       };
 
@@ -263,20 +281,15 @@ export default {
       if (hasMethod) {
         return calcMethodStratgey[calcMethod].call(this);
       } else {
-        return {
-          key,
-          value: '???',
-        };
+        return '';
       }
     },
 
     // 顯示透過api返回的總和
     summaryByAPI(key) {
+      console.log(key);
       // 等接了api再回來寫
-      return {
-        key,
-        value: 'summaryByAPI',
-      };
+      return '';
     },
   },
 };

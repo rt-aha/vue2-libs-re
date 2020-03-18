@@ -1,17 +1,17 @@
 <template>
   <div>
-    <CusSearch :searchConfig="searchConfig"
-               @handlSearch="handlSearch">
-
-    </CusSearch>
-    <CusEleTable stripe
-                 :showSummary="false"
-                 :tableData="tpltData"
-                 :columnConfig="columnConfig"
-                 :operationConfig="operationConfig"
-                 @handleOperate="handleOperate"
-                 @handleJumpPage="handleJumpPage"
-                 @handleAdjustPageSize="handleAdjustPageSize">
+    <CusSearch :searchConfig="searchConfig" @handlSearch="handlSearch"> </CusSearch>
+    <CusEleTable
+      stripe
+      :showSummary="true"
+      sum-text="合計!"
+      :tableData="tpltData"
+      :columnConfig="columnConfig"
+      :operationConfig="operationConfig"
+      @handleOperate="handleOperate"
+      @handleJumpPage="handleJumpPage"
+      @handleAdjustPageSize="handleAdjustPageSize"
+    >
     </CusEleTable>
   </div>
 </template>
@@ -21,7 +21,6 @@ import CusSearch from '@/components/custom/CusSearch.vue';
 import CusEleTable from '@/components/customElement/CusEleTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
-
 
 export default {
   name: 'Table',
@@ -40,6 +39,10 @@ export default {
           pageIndex: 1,
           pageSize: 10,
           totalCounts: 100,
+        },
+        summary: {
+          genderTotal: 2,
+          scoreTotal: 300,
         },
       },
     };
@@ -72,7 +75,7 @@ export default {
     },
     handlSearch(searchParams) {
       console.log('searchParams---', searchParams);
-    }
+    },
   },
 };
 </script>
