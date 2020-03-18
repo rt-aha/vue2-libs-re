@@ -39,6 +39,7 @@
 
 - 自訂 function 在 validator 中的執行先後順序
 - validator i18n
+- customPagination
 
 ### 已安裝以下套件
 
