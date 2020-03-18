@@ -1,14 +1,18 @@
 <template>
   <div>
-    <el-select v-model="innerValue"
-               @input="$emit('input', innerValue);"
-               @change="handleValidate"
-               :placeholder="selectorConfig.placeholder">
-      <el-option v-for="item in allOptions"
-                 :key="item.value"
-                 :label="item.label"
-                 :value="item.value"
-                 :disabled="item.disabled">
+    <el-select
+      v-model="innerValue"
+      @input="$emit('input', innerValue)"
+      @change="handleValidate"
+      :placeholder="selectorConfig.placeholder"
+    >
+      <el-option
+        v-for="item in allOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+        :disabled="item.disabled"
+      >
       </el-option>
     </el-select>
   </div>
@@ -19,12 +23,14 @@ export default {
   name: 'SearchEleSelector',
   props: {
     value: {
-      default: ''
+      default: '',
     },
     selectorConfig: {
       type: Object,
-      default() { return { placeholder: '請輸入', defaultValue: -1, options: [] }; }
-    }
+      default() {
+        return { placeholder: '請輸入', defaultValue: -1, options: [] };
+      },
+    },
   },
   data() {
     return {
@@ -34,13 +40,12 @@ export default {
   },
   methods: {
     handleValidate() {
-      // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
-      this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
+      // 搜尋暫時不需要
+      // this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
     },
   },
   computed: {
     allOptions() {
-      console.log(this.selectorConfig);
       let defaultOptions = [
         {
           label: '請選擇',
@@ -54,14 +59,13 @@ export default {
       }
 
       return defaultOptions;
-    }
-
+    },
   },
   created() {
     this.innerValue = this.selectorConfig.defaultValue;
-    this.$on('handleValidate', this.handleValidate);
-  }
-}
+    // this.$on('handleValidate', this.handleValidate);
+  },
+};
 </script>
 
 <style lang="scss" scoped>

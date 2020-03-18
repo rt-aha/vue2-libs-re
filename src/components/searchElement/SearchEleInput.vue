@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-input v-model="innerValue"
-              @input="$emit('input',innerValue)"
-              @blur="handleValidate"
-              :type="$attrs.type" />
+    <el-input v-model="innerValue" @input="$emit('input', innerValue)" @blur="handleValidate" :type="$attrs.type" />
   </div>
 </template>
 
@@ -23,23 +20,22 @@ export default {
       default() {
         return {
           defaultValue: '123',
-          placeholder: '請輸入'
+          placeholder: '請輸入',
         };
-      }
-    }
+      },
+    },
   },
   methods: {
-    // 搜尋暫時不需要
     handleValidate() {
-      // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
-      this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
-    }
+      // 搜尋暫時不需要
+      // this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
+    },
   },
   created() {
     this.innerValue = this.inputConfig.defaultValue;
-    this.$on('handleValidate', this.handleValidate);
-  }
-}
+    // this.$on('handleValidate', this.handleValidate);
+  },
+};
 </script>
 
 <style lang="scss" scoped>

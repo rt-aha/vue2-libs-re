@@ -1,7 +1,6 @@
 <template>
   <div>
-    <el-switch v-model="innerValue"
-               @change="handleSwitchChange" />
+    <el-switch v-model="innerValue" @change="handleSwitchChange" />
   </div>
 </template>
 
@@ -15,18 +14,18 @@ export default {
     };
   },
   props: {
-    value: String
+    value: String,
   },
   methods: {
     handleSwitchChange(value) {
       console.log('handleSwitchChange...CusEleSwitch');
       this.$emit('handleSwitchChange', value);
-    }
+    },
   },
   created() {
     // this.$on('handleValidate', this.handleValidate);
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

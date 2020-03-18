@@ -1,15 +1,17 @@
 <template>
   <div>
-    <el-date-picker v-model="innerValue"
-                    @input="$emit('input', innerValue);"
-                    type="daterange"
-                    align="right"
-                    unlink-panels
-                    range-separator="至"
-                    start-placeholder="開始日期"
-                    end-placeholder="結束日期"
-                    @change="handleValidate"
-                    :picker-options="pickerOptions" />
+    <el-date-picker
+      v-model="innerValue"
+      @input="$emit('input', innerValue)"
+      type="daterange"
+      align="right"
+      unlink-panels
+      range-separator="至"
+      start-placeholder="開始日期"
+      end-placeholder="結束日期"
+      @change="handleValidate"
+      :picker-options="pickerOptions"
+    />
   </div>
 </template>
 
@@ -20,12 +22,14 @@ export default {
   name: 'SearchEleDateRangePicker',
   props: {
     value: {
-      default: ''
+      default: '',
     },
     dateRangePickerConfig: {
       type: Object,
-      default() { return { placeholder: '請輸入', options: [] }; }
-    }
+      default() {
+        return { placeholder: '請輸入', options: [] };
+      },
+    },
   },
   data() {
     return {
@@ -67,16 +71,15 @@ export default {
 
   methods: {
     handleValidate() {
-      // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
-      this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
+      // 搜尋暫時不需要
+      // this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
     },
-
   },
   created() {
     this.innerValue = this.dateRangePickerConfig.defaultValue;
-    this.$on('handleValidate', this.handleValidate);
-  }
-}
+    // this.$on('handleValidate', this.handleValidate);
+  },
+};
 </script>
 
 <style lang="scss" scoped>
