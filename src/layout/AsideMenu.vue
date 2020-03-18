@@ -1,18 +1,9 @@
 <template>
-  <div class="aside-menu"
-       :class="{ 'avoid-flash': !loaded }">
-    <MainMenu v-for="mainMenu of menuData"
-              :key="mainMenu.title"
-              :mainMenu="mainMenu"
-              @handleExpendMenu="handleExpendMenu">
-
+  <div class="aside-menu">
+    <MainMenu v-for="menu of menuData" :key="menu.title" :menu="menu" @expendMenu="expendMenu">
       <CollapseTransition>
-        <div ref="subMenuWrapper"
-             :data-name="mainMenu.children"
-             v-if="menuInfo[mainMenu.name].show">
-          <SubMenu v-for="subMenu of mainMenu.children"
-                   :key="subMenu.title"
-                   :subMenu="subMenu"> </SubMenu>
+        <div ref="subMenuWrapper" :data-name="menu.children" v-if="menuSwitch[menu.name]">
+          <SubMenu v-for="subMenu of menu.children" :key="subMenu.title" :subMenu="subMenu"> </SubMenu>
         </div>
       </CollapseTransition>
     </MainMenu>
@@ -20,12 +11,10 @@
 </template>
 
 <script>
-import { menuRoute } from '@/router';
+import { menuRoutes } from '@/router';
 import SubMenu from '@/layout/SubMenu';
 import MainMenu from '@/layout/MainMenu';
 import CollapseTransition from '@/layout/CollapseTransition';
-
-console.log(menuRoute);
 
 export default {
   name: 'AsideMenu',
@@ -36,29 +25,44 @@ export default {
   },
   data() {
     return {
-      menuData: menuRoute,
+      menuData: menuRoutes,
       activeMenu: 'tplt1',
-      menuInfo: {
-        tplt1: {
-          show: false,
-          height: 0,
-        },
-        tplt2: {
-          show: false,
-          height: 0,
-        },
-      },
+      menuSwitch: {},
+      allowMultiExpand: false, // 是否允許同時開多個menu
       loaded: false,
     };
   },
   methods: {
-    handleExpendMenu(activeMenu) {
-      this.activeMenu = activeMenu;
-      for (const key in this.menuInfo) {
-        this.menuInfo[key].show = false;
+    expendMenu(activeMenu) {
+      if (this.allowMultiExpand) {
+        this.expendMultiMenu(activeMenu);
+      } else {
+        this.expendSingleMenu(activeMenu);
       }
-      this.menuInfo[activeMenu].show = true;
     },
+    expendSingleMenu(activeMenu) {
+      this.activeMenu = activeMenu;
+      for (const key in this.menuSwitch) {
+        this.menuSwitch[key] = false;
+      }
+      this.menuSwitch[activeMenu] = true;
+    },
+    expendMultiMenu(activeMenu) {
+      this.menuSwitch[activeMenu] = !this.menuSwitch[activeMenu];
+    },
+    // 動態生成開關
+    generateMenuSwitch() {
+      const obj = {};
+      for (const item of menuRoutes) {
+        obj[item.name] = false;
+      }
+
+      this.menuSwitch = obj;
+    },
+  },
+
+  created() {
+    this.generateMenuSwitch();
   },
 };
 </script>

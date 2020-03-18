@@ -1,17 +1,14 @@
 <template>
-
   <ul class="main-menu-list">
     <li class="main-menu-item">
-      <div class="main-menu-box"
-           @click="handleExpendMenu($attrs.mainMenu.name)">
+      <div class="main-menu-box" @click="handleExpendMenu($attrs.menu.name)">
         <div class="main-menu-icon">111</div>
-        <p class="main-menu-title">{{$attrs.mainMenu.meta.title}}</p>
+        <p class="main-menu-title">{{ $attrs.menu.meta.title }}</p>
         <div class="main-menu-icon">222</div>
       </div>
       <slot></slot>
     </li>
   </ul>
-
 </template>
 
 <script>
@@ -19,9 +16,9 @@ export default {
   name: 'MainMenu',
   methods: {
     handleExpendMenu(activeMenu) {
-      this.$emit('handleExpendMenu', activeMenu);
+      this.$emit('expendMenu', activeMenu);
     },
-  }
+  },
 };
 </script>
 
