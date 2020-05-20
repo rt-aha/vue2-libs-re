@@ -7,7 +7,7 @@
       CusItemWrapper: 幫CusEleXXX增加附加功能的一個wrapper，目前有兩種功能 1.增加label, 2.觸發驗證後顯示的錯誤訊息
      -->
 
-    <CusItemWrapper label="輸入" :ruleListWithMsg="['hasText']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
+    <CusItemWrapper label="輸入" :ruleListWithMsg="['hasText-tplt']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
       <CusEleInput v-model="form.input" :inputConfig="inputConfig" ref="input" />
     </CusItemWrapper>
     <CusItemWrapper label="下拉" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">

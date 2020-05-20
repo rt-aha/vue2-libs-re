@@ -8,6 +8,18 @@ const searchConfig = [
     defaultValue: 'nnn',
   },
   {
+    key: 'age',
+    type: 'input',
+    placeholder: '年紀',
+    defaultValue: '35',
+  },
+  {
+    key: 'age2',
+    type: 'input',
+    placeholder: '年紀2',
+    defaultValue: '35',
+  },
+  {
     key: 'gender',
     type: 'selector',
     placeholder: '選擇性別',

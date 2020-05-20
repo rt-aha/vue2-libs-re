@@ -220,7 +220,12 @@ const validator = {
       isOverSomeYear() {
         return `需滿${extraInfo}年`;
       },
+      test() {
+        return 'test err msg'
+      }
     };
+
+    console.log('ruleName',ruleName);
 
     return defaultErrMsg[ruleName]();
   },
