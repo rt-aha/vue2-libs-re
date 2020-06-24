@@ -4,11 +4,11 @@ import networkConfig from '@/network/headerConfig';
 // 請求攔截器
 axios.interceptors.request.use(
   function(config) {
-    // console.log('axios-interceptor-request---success');
+    // console.log('發送請求成功');
     return config;
   },
   function(error) {
-    // console.log('axios-interceptor-request---fail');
+    // console.log('發送請求失敗');
     return Promise.reject(error);
   },
 );
@@ -16,11 +16,11 @@ axios.interceptors.request.use(
 // 回應攔截器
 axios.interceptors.response.use(
   function(res) {
-    // console.log('axios-interceptor-response---success');
+    // console.log('回應請求成功');
     return res;
   },
   function(res) {
-    // console.log('axios-interceptor-response---fail');
+    // console.log('回應請求失敗');
     if (res.status > 204) {
       // badResHelper(some erro msg ...);
       // do something ...
@@ -37,7 +37,8 @@ axios.interceptors.response.use(
  * @param header 是否使用特別設定的頭部，預設看config檔案
  */
 
-const serviceRequest = (function() {
+const serviceRequest = (() => {
+  // 檢查HTTP Verbs是否正，不正確就返回
   function checkHttpMethod(httpMethod) {
     const allowedMethods = ['get', 'post', 'put', 'delete', 'patch'];
     const isValidate = allowedMethods.includes(httpMethod);
@@ -48,12 +49,7 @@ const serviceRequest = (function() {
     return true;
   }
 
-  // 設定api url
-  function setUrl(apiUrl, headerConfigName) {
-    return networkConfig[headerConfigName].rootUrl + apiUrl;
-  }
-
-  // 設定 header
+  // 設定頭部，使用哪一種header設定檔，寫在'@/network/headerConfig'
   function writeheader(headerConfigName) {
     const config = {};
 
@@ -78,6 +74,11 @@ const serviceRequest = (function() {
     }
 
     return token;
+  }
+
+  // 設定api url
+  function setUrl(apiUrl, headerConfigName) {
+    return networkConfig[headerConfigName].rootUrl + apiUrl;
   }
 
   // 發送request
@@ -110,33 +111,28 @@ const serviceRequest = (function() {
     return res;
   }
 
+  // 回傳data，只擷取需要的部分，如有需要再擴充
   function afterRequest(res) {
     // 過濾出需要的內容
     return {
       status: res.status,
-      code: res.data.code || '-1', // 錯誤訊息code
+      code: res.data.code || '-2', // -1:後端錯誤時返回, -2:沒有code
       header: res.headers,
       data: res.data,
     };
   }
 
+  // 發送前檢查 --> 增加header --> 設定api url --> 發起 http request --> 回傳需要的資料
   return async function(method, reqUrl, payload, options = {}) {
-    // 檢查HTTP Verbs是否正，不正確就返回
     const isValidate = checkHttpMethod(method);
     if (!isValidate) {
       throw new Error(`Http Method需為, 'get', 'post', 'put', 'patch' or 'delete'`);
     }
 
-    // 設定頭部，使用哪一種header設定檔，寫在'@/network/headerConfig'
     const header = writeheader(options.usedHeaderConfigName);
-
-    // 設定url
     const apiUrl = setUrl(reqUrl, options.usedHeaderConfigName);
-
-    // 送出request
     const response = await ajaxRequest(method, apiUrl, payload, header);
 
-    // 回傳data
     return afterRequest(response);
   };
 })();
