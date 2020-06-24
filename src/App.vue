@@ -27,7 +27,7 @@ export default {
   computed: {
     noBaseLayout() {
       // 不需要基本佈局的頁面名字寫在陣列內
-      const noBaseLayoutPages = ['login', 'page404'];
+      const noBaseLayoutPages = ['login', 'page404', 'test'];
       return noBaseLayoutPages.includes(this.$route.name);
     },
   },

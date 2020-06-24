@@ -24,6 +24,14 @@ export default [
           title: 'demo-table',
         },
       },
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import(/* webpackChunkName: "Test" */ '@/views/demoTplt/Test.vue'),
+        meta: {
+          title: 'demo-test',
+        },
+      },
     ],
   },
 ];
