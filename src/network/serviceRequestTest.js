@@ -141,4 +141,6 @@ const serviceRequest = (function() {
   };
 })();
 
+console.log('serviceRequest', serviceRequest);
+
 export default serviceRequest;
