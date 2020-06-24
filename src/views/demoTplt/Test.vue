@@ -5,10 +5,14 @@
 </template>
 
 <script>
-import fas from '@/services/tpltService';
+import { handleTpltAPI, handleTpltMockAPI } from '@/services/tpltService';
 
 export default {
-  name: 'Test'
+  name: 'Test',
+  created() {
+    handleTpltAPI();
+    handleTpltMockAPI();
+  }
 }
 </script>
 

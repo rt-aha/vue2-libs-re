@@ -8,11 +8,18 @@ const networkConfig = {
       Authorization: 'Bearer ',
     },
   },
+  // 測試
+  testConfig: {
+    rootUrl: baseApiUrl,
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  },
   // 自行設定
   placeholderConfig: {
     rootUrl: baseApiUrl,
     headers: {
-      'Content-Type': 'text/json;charset=utf-8',
+      'Content-Type': 'application/json;charset=utf-8',
     },
   },
 };
