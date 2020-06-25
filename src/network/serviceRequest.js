@@ -53,7 +53,6 @@ const serviceRequest = (() => {
   function writeheader(headerConfigName) {
     const config = {};
 
-    console.log('headerConfigName', headerConfigName);
     // 設定頭部
     config.headers = networkConfig[headerConfigName].headers;
     // 設定token
@@ -122,7 +121,7 @@ const serviceRequest = (() => {
     };
   }
 
-  // 發送前檢查 --> 增加header --> 設定api url --> 發起 http request --> 回傳需要的資料
+  // 發送前檢查 --> 設定header --> 設定api url --> 發起 http request --> 回傳需要的資料
   return async function(method, reqUrl, payload, options = {}) {
     const isValidate = checkHttpMethod(method);
     if (!isValidate) {
