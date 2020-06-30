@@ -17,6 +17,14 @@ export default [
         },
       },
       {
+        path: 'demo2',
+        name: 'demo2',
+        component: () => import(/* webpackChunkName: "demo2" */ '@/views/demoTplt/Demo2.vue'),
+        meta: {
+          title: 'demo2',
+        },
+      },
+      {
         path: 'table',
         name: 'table',
         component: () => import(/* webpackChunkName: "Table" */ '@/views/demoTplt/Table.vue'),
