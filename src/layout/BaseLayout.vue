@@ -42,8 +42,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .app-layout {
   display: flex;
   width: 100vw;

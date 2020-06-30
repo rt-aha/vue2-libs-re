@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .sub-menu {
   &__item {
     height: 50px;

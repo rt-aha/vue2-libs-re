@@ -1,43 +1,63 @@
 <template>
   <div class="custom-search">
-    <div class="search-type-box"
-         v-for="(config,index) of configList"
-         :key="index">
+    <div
+      class="search-type-box"
+      v-for="(config,index) of configList"
+      :key="index"
+    >
 
-      <CusItemWrapper label="輸入框"
-                      v-if="config.type === 'input'">
-        <SearchEleInput v-model="config.value"
-                        :inputConfig="config" />
+      <CusItemWrapper
+        label="輸入框"
+        v-if="config.type === 'input'"
+      >
+        <SearchEleInput
+          v-model="config.value"
+          :inputConfig="config"
+        />
       </CusItemWrapper>
 
-      <CusItemWrapper label="下拉"
-                      v-if="config.type === 'selector'">
-        <SearchEleSelector v-model="config.value"
-                           :selectorConfig="config" />
+      <CusItemWrapper
+        label="下拉"
+        v-if="config.type === 'selector'"
+      >
+        <SearchEleSelector
+          v-model="config.value"
+          :selectorConfig="config"
+        />
       </CusItemWrapper>
 
-      <CusItemWrapper label="日期"
-                      v-if="config.type === 'datePicker'">
-        <SearchEleDatePicker v-model="config.value"
-                             :datePickerConfig="config" />
+      <CusItemWrapper
+        label="日期"
+        v-if="config.type === 'datePicker'"
+      >
+        <SearchEleDatePicker
+          v-model="config.value"
+          :datePickerConfig="config"
+        />
       </CusItemWrapper>
 
-      <CusItemWrapper label="日期範圍"
-                      v-if="config.type === 'dateRangePicker'">
-        <SearchEleDateRangePicker v-model="config.value"
-                                  :dateRangePickerConfig="config" />
+      <CusItemWrapper
+        label="日期範圍"
+        v-if="config.type === 'dateRangePicker'"
+      >
+        <SearchEleDateRangePicker
+          v-model="config.value"
+          :dateRangePickerConfig="config"
+        />
       </CusItemWrapper>
     </div>
 
     <!-- <i class="el-icon-search icon-search"
      >搜尋</i> -->
 
-    <el-button type="primary"
-               round
-               plain
-               class="icon-search"
-               icon="el-icon-search"
-               @click="handleSearchValue">搜尋</el-button>
+    <el-button
+      type="primary"
+      round
+      plain
+      class="icon-search"
+      icon="el-icon-search"
+      @click="handleSearchValue"
+    >搜尋</el-button>
 
   </div>
 </template>
@@ -116,5 +136,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

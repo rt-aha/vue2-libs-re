@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p class="err-text"
-       v-show="$attrs.errMsg !== ''">{{ $attrs.errMsg }}</p>
+    <p
+      class="err-text"
+      v-show="$attrs.errMsg !== ''"
+    >{{ $attrs.errMsg }}</p>
   </div>
 </template>
 
@@ -12,9 +14,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .err-text {
+  margin-top: 5px;
   color: #f00;
 }
 </style>

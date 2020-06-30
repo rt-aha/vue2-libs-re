@@ -1,11 +1,15 @@
 <template>
   <!-- 只是個容器 -->
-  <section class="alert-box-section"
-           @click="closeAlertBox">
+  <section
+    class="alert-box-section"
+    @click="closeAlertBox"
+  >
     <div class="alert-box-content">
       <div class="alert-box-main">
-        <div class="alert-box"
-             @click.stop>
+        <div
+          class="alert-box"
+          @click.stop
+        >
           <slot>alert box slot area</slot>
         </div>
       </div>
@@ -24,8 +28,6 @@ export default {
 
 
 <style scoped lang="scss">
-@import '~@/styles/index';
-
 .alert-box-section {
   position: fixed;
   top: 0;

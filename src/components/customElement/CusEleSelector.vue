@@ -1,14 +1,18 @@
 <template>
   <div>
-    <el-select v-model="innerValue"
-               @input="$emit('input', innerValue);"
-               @change="handleValidate"
-               :placeholder="selectorConfig.placeholder">
-      <el-option v-for="item in allOptions"
-                 :key="item.value"
-                 :label="item.label"
-                 :value="item.value"
-                 :disabled="item.disabled">
+    <el-select
+      v-model="innerValue"
+      @input="$emit('input', innerValue);"
+      @change="handleValidate"
+      :placeholder="selectorConfig.placeholder"
+    >
+      <el-option
+        v-for="item in allOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+        :disabled="item.disabled"
+      >
       </el-option>
     </el-select>
   </div>
@@ -67,5 +71,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

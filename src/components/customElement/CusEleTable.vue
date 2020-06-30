@@ -14,15 +14,18 @@
         @sort-change="handleSort"
       >
         <!-- radioColumnConfig === true -->
-        <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
+        <ElTableColumn
+          v-if="useRadio"
+          :width="radioColumnConfig.width"
+          :align="radioColumnConfig.align"
+        >
           <template slot-scope="scope">
             <el-radio
               :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
               :label="scope.$index"
               v-model="columnRadio"
               @change.native="handleSelectRadio(scope.$index, scope.row)"
-              >{{ radioColumnConfig.label }}</el-radio
-            >
+            >{{ radioColumnConfig.label }}</el-radio>
           </template>
         </ElTableColumn>
 
@@ -65,8 +68,7 @@
                 v-if="config.cssStyle"
                 :class="cssClass(config.cssStyle, { column: scope.row[config.prop], row: scope.row })"
               >
-                {{ scope.row[config.prop] }}</span
-              >
+                {{ scope.row[config.prop] }}</span>
               <span v-else>
                 {{ scope.row[config.prop] }}
               </span>
@@ -86,8 +88,17 @@
           :header-align="operationConfig.headerAlign"
         >
           <template v-slot="scope">
-            <div class="operate-same" v-for="(operate, index) of operationConfig.operationSetting" :key="index">
-              <el-button round type="primary" class="operate-icon" @click="handleOperate({ operate, row: scope.row })">
+            <div
+              class="operate-same"
+              v-for="(operate, index) of operationConfig.operationSetting"
+              :key="index"
+            >
+              <el-button
+                round
+                type="primary"
+                class="operate-icon"
+                @click="handleOperate({ operate, row: scope.row })"
+              >
                 {{ operate.label }}
               </el-button>
             </div>
@@ -95,7 +106,10 @@
         </ElTableColumn>
       </ElTable>
     </div>
-    <div class="pagination-wrapper" v-if="showPagination">
+    <div
+      class="pagination-wrapper"
+      v-if="showPagination"
+    >
       <el-pagination
         @size-change="handleAdjustPageSize"
         @current-change="handleJumpPage"
@@ -296,8 +310,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .table-pagination-wrapper {
   .table-wrapper {
     flex: 1;

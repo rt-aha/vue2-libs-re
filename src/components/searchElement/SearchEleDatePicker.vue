@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-date-picker v-model="innerValue" @change="handleValidate" type="date" placeholder="選擇日期" />
+    <el-date-picker
+      v-model="innerValue"
+      @change="handleValidate"
+      type="date"
+      placeholder="選擇日期"
+    />
   </div>
 </template>
 
@@ -39,5 +44,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

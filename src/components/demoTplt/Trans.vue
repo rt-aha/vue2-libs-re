@@ -4,7 +4,10 @@
       Toggle
     </button>
     <transition name="fade">
-      <p v-if="show" class="box">hello</p>
+      <p
+        v-if="show"
+        class="box"
+      >hello</p>
     </transition>
   </div>
 </template>
@@ -21,8 +24,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .box {
   width: 50px;
   height: 50px;

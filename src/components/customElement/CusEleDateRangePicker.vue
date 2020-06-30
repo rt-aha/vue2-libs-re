@@ -1,15 +1,17 @@
 <template>
   <div>
-    <el-date-picker v-model="innerValue"
-                    @input="$emit('input', innerValue);"
-                    type="daterange"
-                    align="right"
-                    unlink-panels
-                    range-separator="至"
-                    start-placeholder="開始日期"
-                    end-placeholder="結束日期"
-                    @change="handleValidate"
-                    :picker-options="pickerOptions" />
+    <el-date-picker
+      v-model="innerValue"
+      @input="$emit('input', innerValue);"
+      type="daterange"
+      align="right"
+      unlink-panels
+      range-separator="至"
+      start-placeholder="開始日期"
+      end-placeholder="結束日期"
+      @change="handleValidate"
+      :picker-options="pickerOptions"
+    />
   </div>
 </template>
 
@@ -80,5 +82,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

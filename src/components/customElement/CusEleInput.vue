@@ -1,10 +1,12 @@
 <template>
   <div>
-    <el-input v-model="innerValue"
-              @input="$emit('input',innerValue)"
-              @blur="handleValidate"
-              :placeholder="inputConfig.placeholder"
-              :type="$attrs.type" />
+    <el-input
+      v-model="innerValue"
+      @input="$emit('input',innerValue)"
+      @blur="handleValidate"
+      :placeholder="inputConfig.placeholder"
+      :type="$attrs.type"
+    />
   </div>
 </template>
 
@@ -43,5 +45,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

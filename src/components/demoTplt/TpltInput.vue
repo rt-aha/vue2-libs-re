@@ -1,8 +1,10 @@
 <template>
   <div>
-    <input v-model="innerValue"
-           @input="$emit('input',innerValue)"
-           @blur="handleValidate" />
+    <input
+      v-model="innerValue"
+      @input="$emit('input',innerValue)"
+      @blur="handleValidate"
+    />
     <p>{{ errMsg }}</p>
   </div>
 </template>
@@ -32,5 +34,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

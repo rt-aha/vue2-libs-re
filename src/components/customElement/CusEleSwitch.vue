@@ -1,7 +1,9 @@
 <template>
   <div>
-    <el-switch v-model="innerValue"
-               @change="handleSwitchChange" />
+    <el-switch
+      v-model="innerValue"
+      @change="handleSwitchChange"
+    />
   </div>
 </template>
 
@@ -30,5 +32,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

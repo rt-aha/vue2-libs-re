@@ -1,17 +1,23 @@
 <template>
-  <el-dialog :title="$attrs.title"
-             :visible.sync="dialogSwitch"
-             @close="closeDialog">
+  <el-dialog
+    :title="$attrs.title"
+    :visible.sync="dialogSwitch"
+    @close="closeDialog"
+  >
     <FreeContainer :padding="'0 0 60 0'">
       <slot>
 
       </slot>
     </FreeContainer>
-    <span slot="footer"
-          class="dialog-footer">
-      <el-button type="primary"
-                 class="re-normal-btn"
-                 @click="handleEvent">{{$attrs.btnName}}</el-button>
+    <span
+      slot="footer"
+      class="dialog-footer"
+    >
+      <el-button
+        type="primary"
+        class="re-normal-btn"
+        @click="handleEvent"
+      >{{$attrs.btnName}}</el-button>
     </span>
   </el-dialog>
 
@@ -55,8 +61,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 /deep/ .row-wrapper {
   width: 100%;
   display: flex;

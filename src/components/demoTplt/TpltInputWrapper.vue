@@ -4,19 +4,23 @@
     <div class="input-err-wrapper">
       <slot></slot>
 
-      <ErrMsg v-if="$attrs.ruleList"
-              :errMsg="errMsg">
+      <ErrMsg
+        v-if="$attrs.ruleList"
+        :errMsg="errMsg"
+      >
       </ErrMsg>
 
-      <ErrMsg v-if="$attrs.ruleListWithMsg"
-              :errMsg="errMsg"></ErrMsg>
+      <ErrMsg
+        v-if="$attrs.ruleListWithMsg"
+        :errMsg="errMsg"
+      ></ErrMsg>
 
     </div>
   </div>
 </template>
 
 <script>
-import ErrMsg from '@/components/demoTplt/ErrMsg.vue';
+import ErrMsg from '@/components/customElement/ErrMsg.vue';
 import { validator } from '@/utils/validator';
 
 export default {
@@ -97,8 +101,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .input-err-wrapper {
   position: relative;
 }

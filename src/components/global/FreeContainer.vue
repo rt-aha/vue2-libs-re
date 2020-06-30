@@ -1,7 +1,9 @@
 <template>
-  <div class="free-container"
-       :style="`padding: ${paddingValue}; margin: ${marginValue}; background-color: ${bgc}; box-shadow:${shadow}; border:${border}; border-radius:${radius}`"
-       :class="{'isInlineBlock': isInlineBlock}">
+  <div
+    class="free-container"
+    :style="`padding: ${paddingValue}; margin: ${marginValue}; background-color: ${bgc}; box-shadow:${shadow}; border:${border}; border-radius:${radius}`"
+    :class="{'isInlineBlock': isInlineBlock}"
+  >
     <slot></slot>
   </div>
 </template>
@@ -61,8 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .free-container {
   width: 100%;
   box-sizing: border-box;

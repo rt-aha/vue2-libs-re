@@ -5,12 +5,10 @@
 </template>
 
 <script>
-export default class SectionContainer extends Vue {}
+export default class SectionContainer extends Vue { }
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .section-container {
   width: 100%;
   box-sizing: border-box;

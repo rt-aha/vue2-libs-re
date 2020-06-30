@@ -1,6 +1,9 @@
 <template>
   <div>
-    <CusSearch :searchConfig="searchConfig" @handlSearch="handlSearch"> </CusSearch>
+    <CusSearch
+      :searchConfig="searchConfig"
+      @handlSearch="handlSearch"
+    > </CusSearch>
     <CusEleTable
       stripe
       :showSummary="true"
@@ -81,7 +84,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>
 
 <style>

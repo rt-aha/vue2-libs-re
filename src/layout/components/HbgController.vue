@@ -1,6 +1,8 @@
 <template>
-  <div class="hbg-controller"
-       @click="handleHbgController">
+  <div
+    class="hbg-controller"
+    @click="handleHbgController"
+  >
     <div class="hbg-line"></div>
   </div>
 </template>
@@ -27,8 +29,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .hbg-controller {
   width: 30px;
   height: 30px;

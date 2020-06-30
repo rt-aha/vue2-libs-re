@@ -1,56 +1,3 @@
-// 引入i18n中的所有 validator.ts
-// import VueI18n from 'vue-i18n';
-// import { validatorMsg } from '@/i18n';
-// import Vue from 'vue';
-
-// Vue.use(VueI18n);
-
-// let lang = location.pathname.split('/')[1];
-
-// const availableLangList[] = ['zh-tw', 'zh-cn', 'en', 'id', 'my', 'th', 'vn'];
-// // 若lang取出失敗，預設zh-cn
-// if (!availableLangList.includes(lang)) {
-//   lang = 'zh-cn';
-// }
-
-// // Create VueI18n instance with options
-// const i18n = new VueI18n({
-//   locale: lang, // set locale
-//   messages: {
-//     [lang]: validatorMsg[lang],
-//   },
-// });
-
-// 取得i18n翻譯
-// function warningValueI18n(key) {
-//   const firstLetter = key.slice(0, 1).toUpperCase();
-//   const splitKeys = key.split('');
-//   splitKeys.splice(0, 1, firstLetter);
-//   const warningText = splitKeys.join('');
-
-//   const errMsgObj: { [key] } | string = {};
-
-//   // 表示沒有語言要翻譯
-//   const hasKey: boolean = warningText in validatorMsg[lang].validator;
-//   if (!hasKey) {
-//     return '';
-//   }
-
-//   // 如果i18n的值是字串直接返回
-//   if (typeof validatorMsg[lang].validator[warningText] === 'string') {
-//     return i18n.tc(`validator.${warningText}`);
-//   }
-
-//   // 如果i18n的值是物件
-//   for (const key in validatorMsg[lang].validator[warningText]) {
-//     if (key) {
-//       errMsgObj[key] = i18n.tc(`validator.${warningText}.${key}`);
-//     }
-//   }
-
-//   return errMsgObj;
-// }
-
 const regExpList = {
   YMD: /\d{4}-\d{2}-\d{2}/, // 日期格式必須是 'YYYY-MM-DD'
   phoneNumber: /^09\d{8}$/,
@@ -61,6 +8,8 @@ const regExpList = {
   passwordMix: /^(?=.*\d)(?=.*[a-z])/, // 密碼可用字元(數字與大小寫字母)
   passwordLetter: /[A-Z]/, // 至少一個大寫字母
   passwordContent: /^(?=.{6,16})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, // 密碼組合(必須有數字與大小寫字母)
+  isEnglishNorNumber: /[^A-Za-z0-9]/, // 不是英文也不是數字
+  normalSignAndAlpabat: /^[\u4e00-\u9fa5\w~!@#$%^&*()_+{}|:"<>?[\]\\;',. /]+$/,
 };
 
 const validator = {
@@ -77,13 +26,15 @@ const validator = {
     },
     // 滿足必須被選取
     isSelect(rule, checkValue, label) {
+      console.log('isSelect', checkValue === null || checkValue === -1 || checkValue === '', checkValue);
       if (checkValue === null || checkValue === -1 || checkValue === '') {
         return this.errMsg(rule, label);
       }
     },
     // 滿足輸入框有內容
     hasText(rule, checkValue, label) {
-      if (checkValue.trim() === '') {
+      console.log('checkValue', checkValue);
+      if (checkValue === '') {
         return this.errMsg(rule, label);
       }
     },
@@ -99,6 +50,17 @@ const validator = {
       const limitedLength = rule.args[0];
       if (checkValue.trim().length < limitedLength) {
         return this.errMsg(rule, label, limitedLength);
+      }
+    },
+    // 滿足多於多少字且滿足少於多少字
+    // e.g. 'limitStringLength:5~20'
+    limitStringLength(rule, checkValue, label) {
+      const stringLimited = rule.args[0].split('~');
+      const lowLimit = +stringLimited[0];
+      const highLimit = +stringLimited[1];
+
+      if (checkValue.length < 5 || checkValue.length > 20) {
+        return this.errMsg(rule, label, { lowLimit, highLimit });
       }
     },
     // 滿足電話格式
@@ -122,9 +84,23 @@ const validator = {
         return this.errMsg(rule, label);
       }
     },
+    // 必須是英文或數字
+    isMamdarinOrEnglish(rule, checkValue, label) {
+      const isPass = regExpList.isEnglishNorNumber.test(checkValue);
+      if (isPass) {
+        return this.errMsg(rule, label);
+      }
+    },
+    // 滿足正常字母與標點符號
+    isNormalSignAndAlpabat(rule, checkValue, label) {
+      const isPass = regExpList.normalSignAndAlpabat.test(checkValue);
+      if (!isPass) {
+        return this.errMsg(rule, label);
+      }
+    },
     // 滿足email格式
     emailFormat(rule, checkValue, label) {
-      const isPass = regExpList.english.test(checkValue);
+      const isPass = regExpList.email.test(checkValue);
       if (!isPass) {
         return this.errMsg(rule, label);
       }
@@ -167,6 +143,11 @@ const validator = {
         return this.errMsg(rule, label, rule.args[0]);
       }
     },
+    comfirmPwd(rule, checkValue, label, extraInfo) {
+      if (checkValue.trim() !== extraInfo.confirmPwd.trim()) {
+        return this.errMsg(rule, label);
+      }
+    },
   },
 
   // 自定義錯誤訊息
@@ -191,41 +172,48 @@ const validator = {
 
     const defaultErrMsg = {
       legal4Y4M2D() {
-        return `請選擇`;
+        return `请选择`;
       },
       isSelect() {
-        return `請選擇`;
+        return `请选择`;
       },
       hasText() {
-        return `請輸入`;
+        return `请输入${label}`;
       },
       lessStringLenth() {
-        return `長度不可超過${extraInfo}位數`;
+        return `长度不可超过${extraInfo}位数`;
       },
       overStringLength() {
-        return `長度需至少${extraInfo}位數`;
+        return `长度需至少${extraInfo}位数`;
       },
       phoneFormat() {
-        return `格式錯誤`;
+        return `格式错误`;
       },
       isMamdarin() {
-        return `僅可輸入中文`;
+        return `仅可输入中文`;
       },
       isEnglish() {
-        return `僅可輸入英文`;
+        return `仅可输入英文`;
+      },
+      isMamdarinOrEnglish() {
+        return `請輸入英文或數字`;
       },
       emailFormat() {
-        return `僅可使用E-mail`;
+        return `请填写正确的Email格式`;
       },
       isOverSomeYear() {
-        return `需滿${extraInfo}年`;
+        return `需满${extraInfo}年`;
       },
-      test() {
-        return 'test err msg'
-      }
+      comfirmPwd() {
+        return `确认密码错误`;
+      },
+      isNormalSignAndAlpabat() {
+        return '請輸入英数及常见特殊符号';
+      },
+      limitStringLength() {
+        return `請輸入${extraInfo.lowLimit}~${extraInfo.highLimit}字的英文或數字`;
+      },
     };
-
-    console.log('ruleName',ruleName);
 
     return defaultErrMsg[ruleName]();
   },
@@ -240,8 +228,6 @@ const validator = {
     } else {
       errMsg = this.customErr(rule.customMsg);
     }
-
-    console.log(rule);
 
     return {
       ruleName: rule.name,

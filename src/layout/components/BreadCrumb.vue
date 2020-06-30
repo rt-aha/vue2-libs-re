@@ -67,8 +67,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .bread-crumb-layout-com {
   height: 50px;
   line-height: 50px;

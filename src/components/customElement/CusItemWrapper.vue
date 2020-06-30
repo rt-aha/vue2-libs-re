@@ -1,33 +1,43 @@
 <template>
-  <div class="input-wrapper">
-    <label class="input-label">{{ $attrs.label }}</label>
-    <div class="input-err-wrapper">
-      <slot></slot>
-      <ErrMsg
-        v-if="$attrs.ruleListWithMsg"
-        :errMsg="errMsg"
-      />
-    </div>
+  <div class="cus-item">
+    <label
+      class="cus-item__label"
+      v-if="$attrs.label"
+    >{{ $attrs.label }}</label>
+    <slot></slot>
+    <ErrMsg
+      v-if="$attrs.ruleListWithMsg"
+      :errMsg="errMsg"
+    />
   </div>
 </template>
 
 <script>
 import ErrMsg from '@/components/customElement/ErrMsg.vue';
+import ErrStatus from '@/components/customElement/ErrStatus.vue';
 import { validator } from '@/utils/validator';
 
 export default {
   name: 'CusItemWrapper',
   components: {
     ErrMsg,
+    ErrStatus
   },
   data() {
     return {
-      errMsg: 'this is err msg',
+      errMsg: '',
+      errStatus: 'none',
       isPassValidate: false,
+      identification: 'cus-wrapper'
     };
   },
   props: {
-    func: Function,
+    func: Function
+  },
+  provide() {
+    return {
+      errMsgText: () => this.errMsg
+    };
   },
   methods: {
     validateValue() {
@@ -49,11 +59,15 @@ export default {
       const result = validator.start();
       if (result.isPass) {
         this.errMsg = '';
+        this.errStatus = 'ok';
         this.isPassValidate = true;
       } else {
         this.errMsg = result.errInfo;
+        this.errStatus = 'error';
         this.isPassValidate = false;
       }
+
+      return result;
     },
     /**
      * args: 要驗證的值
@@ -65,7 +79,7 @@ export default {
       const result = this.func.apply(null);
       this.$emit('funcResult', result);
     },
-    handleBlur(args) {
+    handleValidate(args) {
       // 驗證
       if (this.$attrs.ruleListWithMsg) {
         this.execValidate(args);
@@ -73,34 +87,44 @@ export default {
 
       // 如果有傳入function
       if (this.func) {
-        this.execFunc;
+        this.execFunc();
       }
     },
+    cleanErrMsg() {
+      this.errStatus = 'none';
+      this.errMsg = '';
+    }
   },
 
   beforeMount() {
-    this.$on('handleBlur', this.handleBlur);
-  },
+    this.$on('handleValidate', this.handleValidate);
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.cus-item {
+  width: 100%;
+  @include box-padding(0 10px);
+
+  & + & {
+    margin-top: 10px;
+  }
+}
+
+.cus-item__label {
+  display: inline-block;
+  margin-bottom: 5px;
+  @include font-style(#999, $fs-14, 400);
+}
+
 .input-err-wrapper {
+  width: 100%;
+  display: inline-block;
   position: relative;
 }
 
-// label 在左邊，細節依專案調整
-// .input-wrapper {
-//   display: flex;
-// }
-
-// .input-label {
-//   flex: none;
-//   width: 120px;
-//   line-height: 40px;
-// }
-
-// .input-err-wrapper {
-//   flex: 1;
-// }
+.err-status {
+  border: 1px solid $c-error;
+}
 </style>

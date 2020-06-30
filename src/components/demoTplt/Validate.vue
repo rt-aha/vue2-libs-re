@@ -7,17 +7,53 @@
       CusItemWrapper: 幫CusEleXXX增加附加功能的一個wrapper，目前有兩種功能 1.增加label, 2.觸發驗證後顯示的錯誤訊息
      -->
 
-    <CusItemWrapper label="輸入" :ruleListWithMsg="['hasText-tplt']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
-      <CusEleInput v-model="form.input" :inputConfig="inputConfig" ref="input" />
+    <CusItemWrapper
+      label="輸入"
+      :ruleListWithMsg="['hasText-tplt']"
+      :extraInfo="{ a: '1', b: 2 }"
+      :func="() => 'hi'"
+    >
+      <CusEleInput
+        v-model="form.input"
+        :inputConfig="inputConfig"
+        ref="input"
+      />
     </CusItemWrapper>
-    <CusItemWrapper label="下拉" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
-      <CusEleSelector :selectorConfig="selectorConfig" v-model="form.selector" ref="selector" />
+    <CusItemWrapper
+      label="下拉"
+      :ruleListWithMsg="['isSelect']"
+      :extraInfo="{ a: '1', b: 2 }"
+      :func="() => 'hi'"
+    >
+      <CusEleSelector
+        :selectorConfig="selectorConfig"
+        v-model="form.selector"
+        ref="selector"
+      />
     </CusItemWrapper>
-    <CusItemWrapper label="日期" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
-      <CusEleDatePicker :datePickerConfig="datePickerConfig" v-model="form.date" ref="date" />
+    <CusItemWrapper
+      label="日期"
+      :ruleListWithMsg="['isSelect']"
+      :extraInfo="{ a: '1', b: 2 }"
+      :func="() => 'hi'"
+    >
+      <CusEleDatePicker
+        :datePickerConfig="datePickerConfig"
+        v-model="form.date"
+        ref="date"
+      />
     </CusItemWrapper>
-    <CusItemWrapper label="日期範圍" :ruleListWithMsg="['isSelect']" :extraInfo="{ a: '1', b: 2 }" :func="() => 'hi'">
-      <CusEleDateRangePicker :dateRangePickerConfig="dateRangePickerConfig" v-model="form.dateRange" ref="dateRange" />
+    <CusItemWrapper
+      label="日期範圍"
+      :ruleListWithMsg="['isSelect']"
+      :extraInfo="{ a: '1', b: 2 }"
+      :func="() => 'hi'"
+    >
+      <CusEleDateRangePicker
+        :dateRangePickerConfig="dateRangePickerConfig"
+        v-model="form.dateRange"
+        ref="dateRange"
+      />
     </CusItemWrapper>
 
     <button @click="submit">SUBMIT</button>
@@ -108,5 +144,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
 </style>

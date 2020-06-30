@@ -12,8 +12,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .sub-title-wrapper {
   margin-top: 20px;
 }

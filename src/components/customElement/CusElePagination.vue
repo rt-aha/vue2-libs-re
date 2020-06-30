@@ -1,28 +1,38 @@
 <template>
   <div class="custom-pagination">
-    <ul class="custom-pager-list"
-        v-if="pageInfo.totalPage !== 1">
+    <ul
+      class="custom-pager-list"
+      v-if="pageInfo.totalPage !== 1"
+    >
 
-      <li v-show="pageInfo.pageIndex !== 1 || pageInfo.totalPage === 1"
-          class="custom-pager-item pager-jump-bg"
-          @click="handleJumpPage('prev')">
+      <li
+        v-show="pageInfo.pageIndex !== 1 || pageInfo.totalPage === 1"
+        class="custom-pager-item pager-jump-bg"
+        @click="handleJumpPage('prev')"
+      >
 
         <i class="el-icon-arrow-down page-number icon-jump"></i>
 
       </li>
 
-      <li class="custom-pager-item"
-          :class="[{'more-sign-bg': typeof item !== 'number'},{'page-index-bg': pageInfo.pageIndex === item}]"
-          v-for="(item,index) of pageList"
-          :key="index"
-          @click="handleJumpPage('jump', item)">
-        <span class="page-number"
-              :class="[{'more-sign': typeof item !== 'number'}, {'page-index': pageInfo.pageIndex === item}]">{{ item}}</span>
+      <li
+        class="custom-pager-item"
+        :class="[{'more-sign-bg': typeof item !== 'number'},{'page-index-bg': pageInfo.pageIndex === item}]"
+        v-for="(item,index) of pageList"
+        :key="index"
+        @click="handleJumpPage('jump', item)"
+      >
+        <span
+          class="page-number"
+          :class="[{'more-sign': typeof item !== 'number'}, {'page-index': pageInfo.pageIndex === item}]"
+        >{{ item}}</span>
       </li>
 
-      <li v-show="pageInfo.pageIndex !== pageInfo.totalPage && pageInfo.totalPage > 1"
-          class="custom-pager-item pager-jump-bg"
-          @click="handleJumpPage('next')">
+      <li
+        v-show="pageInfo.pageIndex !== pageInfo.totalPage && pageInfo.totalPage > 1"
+        class="custom-pager-item pager-jump-bg"
+        @click="handleJumpPage('next')"
+      >
         <i class="el-icon-arrow-up page-number icon-jump"></i>
       </li>
     </ul>
@@ -113,8 +123,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index';
-
 .custom-pagination {
   position: fixed;
   bottom: 50px;

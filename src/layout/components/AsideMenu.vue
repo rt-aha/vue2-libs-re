@@ -81,8 +81,6 @@ export default {
 </script>
 
 <style lang="scss" scoped data-custom="ttt">
-@import '~@/styles/index';
-
 .aside-menu-layout-com {
   @include box-padding(15px);
 }
