@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div class="login-view">
     <CenterBox>
       <div class="login-content">
         此區域置中
@@ -8,7 +8,7 @@
         登入
       </button>
     </CenterBox>
-  </section>
+  </div>
 </template>
 
 <script>

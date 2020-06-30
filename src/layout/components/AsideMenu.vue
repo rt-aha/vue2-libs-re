@@ -1,26 +1,39 @@
 <template>
-  <div class="aside-menu">
-    <MainMenu v-for="menu of menuData" :key="menu.title" :menu="menu" @expendMenu="expendMenu">
+  <div class="aside-menu-layout-com">
+    <Menu
+      v-for="menu of menuData"
+      :key="menu.title"
+      :menu="menu"
+      @expendMenu="expendMenu"
+    >
       <CollapseTransition>
-        <div ref="subMenuWrapper" :data-name="menu.children" v-if="menuSwitch[menu.name]">
-          <SubMenu v-for="subMenu of menu.children" :key="subMenu.title" :subMenu="subMenu"> </SubMenu>
+        <div
+          ref="subMenuWrapper"
+          :data-name="menu.children"
+          v-if="menuSwitch[menu.name]"
+        >
+          <SubMenu
+            v-for="subMenu of menu.children"
+            :key="subMenu.title"
+            :subMenu="subMenu"
+          > </SubMenu>
         </div>
       </CollapseTransition>
-    </MainMenu>
+    </Menu>
   </div>
 </template>
 
 <script>
 import { menuRoutes } from '@/router';
-import SubMenu from '@/layout/SubMenu';
-import MainMenu from '@/layout/MainMenu';
-import CollapseTransition from '@/layout/CollapseTransition';
+import SubMenu from '@/layout/components/SubMenu';
+import Menu from '@/layout/components/Menu';
+import CollapseTransition from '@/layout/components/CollapseTransition';
 
 export default {
   name: 'AsideMenu',
   components: {
     SubMenu,
-    MainMenu,
+    Menu,
     CollapseTransition,
   },
   data() {
@@ -70,48 +83,7 @@ export default {
 <style lang="scss" scoped data-custom="ttt">
 @import '~@/styles/index';
 
-.aside-menu {
+.aside-menu-layout-com {
   @include box-padding(15px);
-}
-
-.main-menu {
-  &-box {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    background-color: #aaa;
-    cursor: pointer;
-  }
-
-  &-icon {
-    flex: none;
-    width: 50px;
-    text-align: center;
-  }
-
-  &-title {
-    flex: 1;
-  }
-
-  &-icon {
-    flex: none;
-    width: 50px;
-    text-align: center;
-  }
-}
-
-.sub-menu {
-  &-item {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    @include box-padding(0 0 0 50px);
-    background-color: #ddd;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #bbb;
-    }
-  }
 }
 </style>

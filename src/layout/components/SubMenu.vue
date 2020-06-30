@@ -1,8 +1,11 @@
 <template>
   <div>
-    <ul class="sub-menu-list">
-      <li class="sub-menu-item" @click="handleRouteChange($attrs.subMenu.name)">
-        <span class="sub-menu-title">
+    <ul class="sub-menu">
+      <li
+        class="sub-menu__item"
+        @click="handleRouteChange($attrs.subMenu.name)"
+      >
+        <span>
           {{ $attrs.subMenu.meta.title }}
         </span>
       </li>
@@ -24,12 +27,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
-.menu-transition {
-  transition: 0.35s ease-in-out;
-}
-
 .sub-menu {
-  &-item {
+  &__item {
     height: 50px;
     display: flex;
     align-items: center;

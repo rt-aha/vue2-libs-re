@@ -1,8 +1,10 @@
 
 <template>
-  <div class="header-content-com">
-    <HorizontalContainer :topSlotFlexConfig="'flex: none; height: 60px'"
-                         :bottomSlotFlexConfig="'flex: none; height: 60px'">
+  <div class="header-content-layout-com">
+    <HorizontalContainer
+      :topSlotFlexConfig="'flex: none; height: 60px'"
+      :bottomSlotFlexConfig="'flex: none; height: 60px'"
+    >
       <template #h-container-left>
         <div class="header-left">
           <HbgController></HbgController>
@@ -20,12 +22,11 @@
       </template>
     </HorizontalContainer>
   </div>
-
 </template>
 
 <script>
 import HorizontalContainer from '@/components/global/HorizontalContainer';
-import HbgController from '@/components/layout/HbgController';
+import HbgController from '@/layout/components/HbgController';
 
 export default {
   name: 'HeaderContent',
@@ -39,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
-.header-content-com {
+.header-content-layout-com {
   height: 100%;
 }
 

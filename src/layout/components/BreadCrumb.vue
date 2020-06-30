@@ -1,16 +1,22 @@
 <template>
-  <div class="bread-crumb">
-    <ul class="bread-crumb-list">
-      <li class="bread-crumb-item" v-for="(pageInfo, index) in breadCrumbs" :key="index">
-        <span class="route-name" @click="handleRoute(pageInfo)">{{ pageInfo.title }}</span
-        ><span v-show="breadCrumbs.length !== index + 1">/</span>
+  <div class="bread-crumb-layout-com">
+    <ul class="bread-crumb__list">
+      <li
+        class="bread-crumb__item"
+        v-for="(pageInfo, index) in breadCrumbs"
+        :key="index"
+      >
+        <span
+          class="route-name"
+          @click="handleRoute(pageInfo)"
+        >{{ pageInfo.title }}</span><span v-show="breadCrumbs.length !== index + 1">/</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import routerNameInfo from '@/layout/routerNameInfo';
+import routerNameInfo from '@/layout/components/routerNameInfo';
 
 export default {
   name: 'BreadCrumb',
@@ -63,13 +69,15 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
-.bread-crumb {
+.bread-crumb-layout-com {
   height: 50px;
   line-height: 50px;
 }
 
-.bread-crumb-item {
-  display: inline-block;
+.bread-crumb {
+  &__item {
+    display: inline-block;
+  }
 }
 
 .route-name {

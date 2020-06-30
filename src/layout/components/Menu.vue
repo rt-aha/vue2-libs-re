@@ -1,10 +1,13 @@
 <template>
-  <ul class="main-menu-list">
-    <li class="main-menu-item">
-      <div class="main-menu-box" @click="handleExpendMenu($attrs.menu.name)">
-        <div class="main-menu-icon">111</div>
-        <p class="main-menu-title">{{ $attrs.menu.meta.title }}</p>
-        <div class="main-menu-icon">222</div>
+  <ul class="menu__list">
+    <li class="menu__item">
+      <div
+        class="menu__box"
+        @click="handleExpendMenu($attrs.menu.name)"
+      >
+        <div class="menu__icon">111</div>
+        <p class="menu__title">{{ $attrs.menu.meta.title }}</p>
+        <div class="menu__icon">222</div>
       </div>
       <slot></slot>
     </li>
@@ -13,7 +16,7 @@
 
 <script>
 export default {
-  name: 'MainMenu',
+  name: 'Menu',
   methods: {
     handleExpendMenu(activeMenu) {
       this.$emit('expendMenu', activeMenu);
@@ -25,8 +28,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
-.main-menu {
-  &-box {
+.menu {
+  &__box {
     height: 50px;
     display: flex;
     align-items: center;
@@ -34,20 +37,14 @@ export default {
     cursor: pointer;
   }
 
-  &-icon {
+  &__icon {
     flex: none;
     width: 50px;
     text-align: center;
   }
 
-  &-title {
+  &__title {
     flex: 1;
-  }
-
-  &-icon {
-    flex: none;
-    width: 50px;
-    text-align: center;
   }
 }
 </style>

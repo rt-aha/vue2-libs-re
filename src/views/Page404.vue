@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="page404-view">
     <CenterBox>
-      <div class="content-wrapper">
-        <h2 class="title-404">Oops! Page 404 ...</h2>
-        <p class="not-find-text">Can't Find the Page !</p>
-        <router-link tag="button" class="home-link" to="/">Home</router-link>
+      <div class="content">
+        <h2 class="content__title">Oops! Page 404 ...</h2>
+        <p class="content__desc">Can't Find the Page !</p>
+        <router-link
+          tag="button"
+          class="home-link"
+          to="/"
+        >Home</router-link>
       </div>
     </CenterBox>
   </div>
@@ -23,16 +27,16 @@ export default {
 <style scoped lang="scss">
 @import '~@/styles/index';
 
-.content-wrapper {
+.content {
   text-align: center;
-}
 
-.title-404 {
-  margin-bottom: 10px;
-}
+  &__title {
+    margin-bottom: 10px;
+  }
 
-.not-find-text {
-  margin-bottom: 30px;
+  &__desc {
+    margin-bottom: 30px;
+  }
 }
 
 .home-link {

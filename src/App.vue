@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import BaseLayout from '@/layout/BasicLayout';
+import BaseLayout from '@/layout/BaseLayout';
 
 export default {
   metaInfo: {

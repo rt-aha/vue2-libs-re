@@ -1,7 +1,9 @@
 <template>
-  <div class="aside-content-com">
-    <VerticalContainer :topSlotFlexConfig="'flex: none; height: 60px'"
-                       :bottomSlotFlexConfig="'flex: none; height: 60px'">
+  <div class="aside-content-layout-com">
+    <VerticalContainer
+      :topSlotFlexConfig="'flex: none; height: 60px'"
+      :bottomSlotFlexConfig="'flex: none; height: 60px'"
+    >
       <template #v-container-top>
         <div class="aside-top">
           top
@@ -23,7 +25,7 @@
 <script>
 import VerticalContainer from '@/components/global/VerticalContainer';
 
-import AsideMenu from '@/layout/AsideMenu';
+import AsideMenu from '@/layout/components/AsideMenu';
 
 export default {
   name: 'AsideContent',
@@ -37,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index';
 
-.aside-content-com {
+.aside-content-layout-com {
   height: 100%;
 }
 

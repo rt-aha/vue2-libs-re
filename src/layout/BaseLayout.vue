@@ -1,8 +1,10 @@
 <template>
   <div class="app-layout">
     <transition name="slide">
-      <aside class="layout-aside"
-             v-if="isSidebarOpen">
+      <aside
+        class="layout-aside"
+        v-if="isSidebarOpen"
+      >
         <AsideContent />
       </aside>
     </transition>
@@ -10,18 +12,18 @@
       <header class="layout-header">
         <HeaderContent />
       </header>
-      <section class="layout-main">
+      <main class="layout-main">
         <BreadCrumb />
         <slot></slot>
-      </section>
+      </main>
     </div>
   </div>
 </template>
 
 <script>
-import HeaderContent from '@/layout/HeaderContent.vue';
-import AsideContent from '@/layout/AsideContent.vue';
-import BreadCrumb from '@/layout/BreadCrumb.vue';
+import HeaderContent from '@/layout/components/HeaderContent.vue';
+import AsideContent from '@/layout/components/AsideContent.vue';
+import BreadCrumb from '@/layout/components/BreadCrumb.vue';
 
 import { createNamespacedHelpers } from 'vuex';
 const { mapState } = createNamespacedHelpers('layoutStore');
