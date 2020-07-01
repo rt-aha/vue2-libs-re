@@ -1,32 +1,15 @@
 <template>
-  <div class="cus-input">
-    <el-input
-      class="cus-input__field"
+  <div>
+    <el-switch
       v-model="innerValue"
-      @input="$emit('input', innerValue)"
-      @blur="triggerValidate"
-      :placeholder="inputConfig.placeholder"
-      :type="$attrs.type || 'text'"
-      :disabled="$attrs.disabled"
+      @change="triggerValidate"
     />
-    <!-- :class="{'err-status': errMsg !== ''}" -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CusInput',
-  // inject: ['errMsgText'],
-  data() {
-    return {
-      default: {
-        data: ''
-      },
-      innerValue: '',
-      identification: 'cus-input',
-      errMsgText: '123',
-    };
-  },
+  name: 'CusSwitch',
   props: {
     value: {
       type: String,
@@ -37,11 +20,18 @@ export default {
       default() {
         return {
           defaultValue: '',
-          placeholder: '請輸入'
         };
       }
     },
   },
+  data() {
+    return {
+      innerValue: '',
+      errMsgText: 'errMsg',
+      identification: 'cus-input',
+    };
+  },
+
   computed: {
     errMsg() {
       return this.errMsgText();
@@ -62,13 +52,12 @@ export default {
       this.setValue();
     }
   },
-
   watch: {
     value: {
       handler: 'setValue',
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

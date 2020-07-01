@@ -3,8 +3,8 @@
     <el-select
       v-model="innerValue"
       @input="$emit('input', innerValue);"
-      @change="handleValidate"
-      :placeholder="selectorConfig.placeholder"
+      @change="triggerValidate"
+      :placeholder="inputConfig.placeholder"
     >
       <el-option
         v-for="item in allOptions"
@@ -20,12 +20,13 @@
 
 <script>
 export default {
-  name: 'CusEleSelector',
+  name: 'CusSelector',
   props: {
     value: {
-      default: ''
+      type: String,
+      default: '',
     },
-    selectorConfig: {
+    inputConfig: {
       type: Object,
       default() { return { placeholder: '請輸入', options: [] }; }
     }
@@ -33,21 +34,15 @@ export default {
   data() {
     return {
       innerValue: '',
-      errMsg: 'errMsg',
+      errMsgText: 'errMsg',
+      identification: 'cus-input',
     };
   },
-  methods: {
-    handleValidate() {
-      // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
-      this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
-
-    },
-
-  },
   computed: {
+    errMsg() {
+      return this.errMsgText();
+    },
     allOptions() {
-
-
       let defaultOptions = [
         {
           label: '請選擇',
@@ -56,16 +51,32 @@ export default {
         },
       ];
 
-      if (this.selectorConfig.options) {
-        defaultOptions = [...defaultOptions, ...this.selectorConfig.options];
+      if (this.inputConfig.options) {
+        defaultOptions = [...defaultOptions, ...this.inputConfig.options];
       }
-
       return defaultOptions;
     }
-
   },
+  methods: {
+    triggerValidate() {
+      this.$parent.handleValidate([this.innerValue]);
+    },
+    setValue() {
+      this.innerValue = this.value;
+    }
+  },
+
   created() {
-    this.$on('handleValidate', this.handleValidate);
+    // 父層v-model 優先度高於inputConfig.defaultValue
+    this.innerValue = this.inputConfig.defaultValue;
+    if (this.value || this.value === '') {
+      this.setValue();
+    }
+  },
+  watch: {
+    value: {
+      handler: 'setValue',
+    }
   }
 }
 </script>

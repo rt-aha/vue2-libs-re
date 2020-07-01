@@ -26,6 +26,7 @@ const validator = {
     },
     // 滿足必須被選取
     isSelect(rule, checkValue, label) {
+      console.log('checkValue', checkValue);
       console.log('isSelect', checkValue === null || checkValue === -1 || checkValue === '', checkValue);
       if (checkValue === null || checkValue === -1 || checkValue === '') {
         return this.errMsg(rule, label);

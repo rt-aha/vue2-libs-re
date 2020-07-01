@@ -9,7 +9,7 @@
       range-separator="至"
       start-placeholder="開始日期"
       end-placeholder="結束日期"
-      @change="handleValidate"
+      @change="triggerValidate"
       :picker-options="pickerOptions"
     />
   </div>
@@ -19,12 +19,13 @@
 import { setTime } from '@/utils/usefulHelper';
 
 export default {
-  name: 'CusEleDateRangePicker',
+  name: 'CusDateRangePicker',
   props: {
     value: {
-      default: ''
+      type: Array,
+      default: () => [],
     },
-    dateRangePickerConfig: {
+    inputConfig: {
       type: Object,
       default() { return { placeholder: '請輸入', options: [] }; }
     }
@@ -32,7 +33,8 @@ export default {
   data() {
     return {
       innerValue: '',
-      errMsg: 'errMsg',
+      errMsgText: 'errMsg',
+      identification: 'cus-input',
       pickerOptions: {
         shortcuts: [
           {
@@ -66,17 +68,30 @@ export default {
       },
     };
   },
-
-  methods: {
-    handleValidate() {
-      // 觸發驗證，把現在的值與實例透過mixin傳給wrapper處理
-      this.dispatchEvent(this.$parent, 'handleBlur', this.innerValue);
+  computed: {
+    errMsg() {
+      return this.errMsgText();
     },
-
+  },
+  methods: {
+    triggerValidate() {
+      this.$parent.handleValidate([this.innerValue]);
+    },
+    setValue() {
+      this.innerValue = this.value;
+    }
   },
   created() {
-    this.innerValue = this.dateRangePickerConfig.defaultValue;
-    this.$on('handleValidate', this.handleValidate);
+    // 父層v-model 優先度高於inputConfig.defaultValue
+    this.innerValue = this.inputConfig.defaultValue;
+    if (this.value || this.value === '') {
+      this.setValue();
+    }
+  },
+  watch: {
+    value: {
+      handler: 'setValue',
+    }
   }
 }
 </script>

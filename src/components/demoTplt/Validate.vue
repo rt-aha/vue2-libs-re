@@ -19,7 +19,7 @@
         ref="input"
       />
     </CusItemWrapper>
-    <CusItemWrapper
+    <!-- <CusItemWrapper
       label="下拉"
       :ruleListWithMsg="['isSelect']"
       :extraInfo="{ a: '1', b: 2 }"
@@ -30,8 +30,8 @@
         v-model="form.selector"
         ref="selector"
       />
-    </CusItemWrapper>
-    <CusItemWrapper
+    </CusItemWrapper> -->
+    <!-- <CusItemWrapper
       label="日期"
       :ruleListWithMsg="['isSelect']"
       :extraInfo="{ a: '1', b: 2 }"
@@ -54,7 +54,7 @@
         v-model="form.dateRange"
         ref="dateRange"
       />
-    </CusItemWrapper>
+    </CusItemWrapper> -->
 
     <button @click="submit">SUBMIT</button>
   </div>
@@ -63,9 +63,9 @@
 <script>
 import CusItemWrapper from '@/components/custom/CusItemWrapper';
 import CusEleInput from '@/components/customElement/CusEleInput.vue';
-import CusEleSelector from '@/components/customElement/CusEleSelector.vue';
-import CusEleDatePicker from '@/components/customElement/CusEleDatePicker.vue';
-import CusEleDateRangePicker from '@/components/customElement/CusEleDateRangePicker.vue';
+// import CusEleSelector from '@/components/customElement/CusEleSelector.vue';
+// import CusEleDatePicker from '@/components/customElement/CusEleDatePicker.vue';
+// import CusEleDateRangePicker from '@/components/customElement/CusEleDateRangePicker.vue';
 
 import { setTime } from '@/utils/usefulHelper';
 
@@ -74,10 +74,10 @@ export default {
   components: {
     CusItemWrapper,
     CusEleInput,
-    CusEleSelector,
+    // CusEleSelector,
     // CusEleSwitch,
-    CusEleDatePicker,
-    CusEleDateRangePicker,
+    // CusEleDatePicker,
+    // CusEleDateRangePicker,
   },
   data() {
     return {

@@ -1,46 +1,35 @@
 <template>
-  <div class="cus-input">
-    <el-input
-      class="cus-input__field"
+  <div>
+    <el-date-picker
       v-model="innerValue"
-      @input="$emit('input', innerValue)"
-      @blur="triggerValidate"
-      :placeholder="inputConfig.placeholder"
-      :type="$attrs.type || 'text'"
-      :disabled="$attrs.disabled"
+      @change="triggerValidate"
+      type="date"
+      placeholder="選擇日期"
     />
-    <!-- :class="{'err-status': errMsg !== ''}" -->
   </div>
 </template>
 
 <script>
+
+
 export default {
-  name: 'CusInput',
-  // inject: ['errMsgText'],
-  data() {
-    return {
-      default: {
-        data: ''
-      },
-      innerValue: '',
-      identification: 'cus-input',
-      errMsgText: '123',
-    };
-  },
+  name: 'CusDatePicker',
   props: {
     value: {
       type: String,
-      default: '',
+      default: ''
     },
     inputConfig: {
       type: Object,
-      default() {
-        return {
-          defaultValue: '',
-          placeholder: '請輸入'
-        };
-      }
-    },
+      default() { return {}; }
+    }
+  },
+  data() {
+    return {
+      innerValue: '',
+      errMsgText: 'errMsg',
+      identification: 'cus-input',
+    };
   },
   computed: {
     errMsg() {
@@ -55,6 +44,7 @@ export default {
       this.innerValue = this.value;
     }
   },
+
   created() {
     // 父層v-model 優先度高於inputConfig.defaultValue
     this.innerValue = this.inputConfig.defaultValue;
@@ -62,13 +52,12 @@ export default {
       this.setValue();
     }
   },
-
   watch: {
     value: {
       handler: 'setValue',
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
