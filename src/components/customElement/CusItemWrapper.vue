@@ -41,8 +41,14 @@ export default {
   },
   methods: {
     validateValue() {
+      console.log('this.$attrs.ruleListWithMsg', this.$attrs.ruleListWithMsg);
+      if (!this.$attrs.ruleListWithMsg) {
+        return { isPass: true };
+      }
+
       // 沒有驗證規則就返回
       const args = Array.from(arguments);
+      console.log('args---', args);
       if (typeof args === 'undefined' || args.length === 0) {
         throw new Error('參數至少應有一個驗證的值');
       }
@@ -54,6 +60,7 @@ export default {
         label: this.$attrs.label,
         extraInfo: this.$attrs.extraInfo || {}
       };
+
 
       validator.add(params);
       const result = validator.start();
@@ -80,6 +87,7 @@ export default {
       this.$emit('funcResult', result);
     },
     handleValidate(args) {
+      console.log('args--', args);
       // 驗證
       if (this.$attrs.ruleListWithMsg) {
         this.execValidate(args);

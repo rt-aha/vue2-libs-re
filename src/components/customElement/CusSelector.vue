@@ -23,7 +23,7 @@ export default {
   name: 'CusSelector',
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       default: '',
     },
     inputConfig: {

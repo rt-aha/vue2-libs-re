@@ -1,9 +1,9 @@
 <template>
   <div>
-    <CusSearch
+    <!-- <CusSearch
       :searchConfig="searchConfig"
       @handlSearch="handlSearch"
-    > </CusSearch>
+    > </CusSearch> -->
     <CusEleTable
       stripe
       :showSummary="true"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CusSearch from '@/components/custom/CusSearch.vue';
+// import CusSearch from '@/components/custom/CusSearch.vue';
 import CusEleTable from '@/components/customElement/CusEleTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
@@ -28,7 +28,7 @@ import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig
 export default {
   name: 'Table',
   components: {
-    CusSearch,
+    // CusSearch,
     CusEleTable,
   },
   data() {

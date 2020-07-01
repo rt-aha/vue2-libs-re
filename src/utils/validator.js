@@ -34,7 +34,6 @@ const validator = {
     },
     // 滿足輸入框有內容
     hasText(rule, checkValue, label) {
-      console.log('checkValue', checkValue);
       if (checkValue === '') {
         return this.errMsg(rule, label);
       }

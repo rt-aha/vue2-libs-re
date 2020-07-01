@@ -20,17 +20,14 @@
           type="password"
         />
       </cus-item-wrapper>
-      <cus-item-wrapper
-        label="性別"
-        :ruleListWithMsg="['isSelect']"
-      >
+      <cus-item-wrapper label="啟用">
         <cus-switch
-          v-model="form.pwd"
-          :inputConfig="inputConfig.sex"
+          v-model="form.enable"
+          :inputConfig="inputConfig.enable"
         />
       </cus-item-wrapper>
       <cus-item-wrapper
-        label="性別"
+        label="水果"
         :ruleListWithMsg="['isSelect']"
       >
         <cus-selector
@@ -94,10 +91,10 @@ export default {
       form: {
         acc: '',
         pwd: '',
-        sex: -1,
+        enable: false,
         fruit: '',
-        date: '',
-        dateRange: [],
+        date: setTime('day-0-0'),
+        dateRange: [setTime('month-subtract-1'), setTime('day-0-0')],
       },
       inputConfig: {
         acc: {
@@ -108,9 +105,9 @@ export default {
           key: 'pwd',
           placeholder: '請填寫密碼',
         },
-        sex: {
-          key: 'sex',
-          placeholder: '請選擇性別',
+        enable: {
+          key: 'enable',
+          placeholder: '是否啟用',
         },
         fruit: {
           key: 'age',
@@ -138,12 +135,11 @@ export default {
         date: {
           key: 'datePicker',
           type: 'datePicker',
-          defaultValue: setTime('day-0-0'),
         },
         dateRange: {
           key: 'dateRangePicker',
           type: 'dateRangePicker',
-          defaultValue: [setTime('month-subtract-1'), setTime('day-0-0')],
+
         },
       }
     };
@@ -152,6 +148,7 @@ export default {
     onSubmit() {
       const form = this.$refs.form;
       const isPass = this.validateForm(form);
+      console.log('isPass', isPass);
     }
   }
 }

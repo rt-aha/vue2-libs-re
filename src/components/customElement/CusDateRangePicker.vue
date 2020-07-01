@@ -22,12 +22,11 @@ export default {
   name: 'CusDateRangePicker',
   props: {
     value: {
-      type: Array,
-      default: () => [],
+      default: null,
     },
     inputConfig: {
       type: Object,
-      default() { return { placeholder: '請輸入', options: [] }; }
+      default() { return { placeholder: '請輸入' }; }
     }
   },
   data() {
@@ -75,6 +74,7 @@ export default {
   },
   methods: {
     triggerValidate() {
+      // this.$emit('input', this.innerValue);
       this.$parent.handleValidate([this.innerValue]);
     },
     setValue() {

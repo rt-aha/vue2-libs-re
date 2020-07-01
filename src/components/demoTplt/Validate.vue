@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import CusItemWrapper from '@/components/custom/CusItemWrapper';
+// import CusItemWrapper from '@/components/custom/CusItemWrapper';
 import CusEleInput from '@/components/customElement/CusEleInput.vue';
 // import CusEleSelector from '@/components/customElement/CusEleSelector.vue';
 // import CusEleDatePicker from '@/components/customElement/CusEleDatePicker.vue';
@@ -72,7 +72,7 @@ import { setTime } from '@/utils/usefulHelper';
 export default {
   name: 'Validate',
   components: {
-    CusItemWrapper,
+    // CusItemWrapper,
     CusEleInput,
     // CusEleSelector,
     // CusEleSwitch,

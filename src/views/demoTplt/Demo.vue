@@ -5,7 +5,7 @@
     <Ajax></Ajax>
 
     <SubTitle subTitle="Validate" />
-    <Validate></Validate>
+    <!-- <Validate></Validate> -->
     <SubTitle subTitle="Transform" />
     <Trans></Trans>
 
@@ -16,7 +16,7 @@
 import Ajax from '@/components/demoTplt/Ajax.vue';
 import Trans from '@/components/demoTplt/Trans.vue';
 
-import Validate from '@/components/demoTplt/Validate.vue';
+// import Validate from '@/components/demoTplt/Validate.vue';
 import SubTitle from '@/components/global/SubTitle';
 
 
@@ -25,7 +25,7 @@ export default {
   components: {
     Ajax,
     Trans,
-    Validate,
+    // Validate,
     SubTitle
   }
 }

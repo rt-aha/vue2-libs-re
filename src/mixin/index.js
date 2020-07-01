@@ -7,12 +7,11 @@ export default {
         // 迭代所有子組件
         for (let el of form.$children) {
           // 找cus-item-wrapper組件
-          if (el.type === 'cus-wrapper') {
+          if (el.identification === 'cus-wrapper') {
             // 迭代尋找輸入框，因為slot可能包含其他內容
-
             for (let input of el.$children) {
               // 找到 cus-input 表示是cus-input組件
-              if (input.type === 'cus-input') {
+              if (input.identification === 'cus-input') {
                 console.log('input.value', input.value);
                 const result = el.validateValue(input.value);
                 // 如果驗證有錯誤即驗證不過

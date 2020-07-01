@@ -2,6 +2,7 @@
   <div>
     <el-date-picker
       v-model="innerValue"
+      @input="$emit('input', innerValue);"
       @change="triggerValidate"
       type="date"
       placeholder="選擇日期"
@@ -16,7 +17,6 @@ export default {
   name: 'CusDatePicker',
   props: {
     value: {
-      type: String,
       default: ''
     },
     inputConfig: {
@@ -38,13 +38,13 @@ export default {
   },
   methods: {
     triggerValidate() {
+      // this.$emit('input', this.innerValue);
       this.$parent.handleValidate([this.innerValue]);
     },
     setValue() {
       this.innerValue = this.value;
     }
   },
-
   created() {
     // 父層v-model 優先度高於inputConfig.defaultValue
     this.innerValue = this.inputConfig.defaultValue;

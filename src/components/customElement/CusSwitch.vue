@@ -12,8 +12,8 @@ export default {
   name: 'CusSwitch',
   props: {
     value: {
-      type: String,
-      default: '',
+      type: Boolean,
+      default: false,
     },
     inputConfig: {
       type: Object,
