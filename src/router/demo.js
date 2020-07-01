@@ -17,11 +17,11 @@ export default [
         },
       },
       {
-        path: 'demo2',
-        name: 'demo2',
-        component: () => import(/* webpackChunkName: "demo2" */ '@/views/demoTplt/Demo2.vue'),
+        path: 'validator',
+        name: 'validator',
+        component: () => import(/* webpackChunkName: "validator" */ '@/views/demoTplt/Validator.vue'),
         meta: {
-          title: 'demo2',
+          title: 'demo-validator',
         },
       },
       {

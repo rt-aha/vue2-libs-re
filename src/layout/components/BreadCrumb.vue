@@ -31,11 +31,12 @@ export default {
       let splitRoute = currRoute.slice(1).split('/'); // 清除第一個斜線
 
       let newBreadCrumbs = splitRoute.map(ele => {
+        const key = ele.toLowerCase();
         return {
-          title: routerNameInfo[ele].title,
-          name: routerNameInfo[ele].name,
-          path: routerNameInfo[ele].path,
-          rootPath: routerNameInfo[ele].rootPath,
+          title: routerNameInfo[key].title,
+          name: routerNameInfo[key].name,
+          path: routerNameInfo[key].path,
+          rootPath: routerNameInfo[key].rootPath,
         };
       });
 

@@ -2,7 +2,7 @@
   <div>
     <cus-form ref="form">
       <cus-item-wrapper
-        label="帳號"
+        :label="inputConfig.acc.label"
         :ruleListWithMsg="['hasText']"
       >
         <cus-input
@@ -11,7 +11,7 @@
         />
       </cus-item-wrapper>
       <cus-item-wrapper
-        label="密碼"
+        :label="inputConfig.pwd.label"
         :ruleListWithMsg="['hasText']"
       >
         <cus-input
@@ -20,14 +20,14 @@
           type="password"
         />
       </cus-item-wrapper>
-      <cus-item-wrapper label="啟用">
+      <cus-item-wrapper :label="inputConfig.enable.label">
         <cus-switch
           v-model="form.enable"
           :inputConfig="inputConfig.enable"
         />
       </cus-item-wrapper>
       <cus-item-wrapper
-        label="水果"
+        :label="inputConfig.fruit.label"
         :ruleListWithMsg="['isSelect']"
       >
         <cus-selector
@@ -36,7 +36,7 @@
         />
       </cus-item-wrapper>
       <cus-item-wrapper
-        label="選擇單一日期"
+        :label="inputConfig.date.label"
         :ruleListWithMsg="['isSelect']"
       >
         <cus-date-picker
@@ -45,7 +45,7 @@
         />
       </cus-item-wrapper>
       <cus-item-wrapper
-        label="選擇日期範圍"
+        :label="inputConfig.dateRange.label"
         :ruleListWithMsg="['isSelect']"
       >
         <cus-date-range-picker
@@ -71,6 +71,7 @@ import CusSwitch from '@/components/customElement/CusSwitch.vue';
 import CusSelector from '@/components/customElement/CusSelector.vue';
 import CusDatePicker from '@/components/customElement/CusDatePicker.vue';
 import CusDateRangePicker from '@/components/customElement/CusDateRangePicker.vue';
+import tpltInputConfig from '@/config/tpltInputConfig';
 
 import { setTime } from '@/utils/usefulHelper';
 
@@ -96,52 +97,7 @@ export default {
         date: setTime('day-0-0'),
         dateRange: [setTime('month-subtract-1'), setTime('day-0-0')],
       },
-      inputConfig: {
-        acc: {
-          key: 'name',
-          placeholder: '請填寫帳號',
-        },
-        pwd: {
-          key: 'pwd',
-          placeholder: '請填寫密碼',
-        },
-        enable: {
-          key: 'enable',
-          placeholder: '是否啟用',
-        },
-        fruit: {
-          key: 'age',
-          placeholder: '請選擇',
-          defaultValue: 3,
-          options: [
-            {
-              label: 'apple',
-              value: 1,
-            },
-            {
-              label: 'banana',
-              value: 2,
-            },
-            {
-              label: 'orange',
-              value: 3,
-            },
-            {
-              label: 'lemon',
-              value: 4,
-            },
-          ]
-        },
-        date: {
-          key: 'datePicker',
-          type: 'datePicker',
-        },
-        dateRange: {
-          key: 'dateRangePicker',
-          type: 'dateRangePicker',
-
-        },
-      }
+      inputConfig: tpltInputConfig,
     };
   },
   methods: {
