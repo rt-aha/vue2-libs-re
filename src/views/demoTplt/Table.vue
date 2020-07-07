@@ -3,8 +3,8 @@
     <!-- <CusSearch
       :searchConfig="searchConfig"
       @handlSearch="handlSearch"
-    > </CusSearch> -->
-    <CusEleTable
+    > </CusSearch>-->
+    <CusTable
       stripe
       :showSummary="true"
       sum-text="合計!"
@@ -14,14 +14,13 @@
       @handleOperate="handleOperate"
       @handleJumpPage="handleJumpPage"
       @handleAdjustPageSize="handleAdjustPageSize"
-    >
-    </CusEleTable>
+    ></CusTable>
   </div>
 </template>
 
 <script>
 // import CusSearch from '@/components/custom/CusSearch.vue';
-import CusEleTable from '@/components/customElement/CusEleTable.vue';
+import CusTable from '@/components/customElement/CusTable.vue';
 import fakeData from '@/utils/fakeData';
 import { columnConfig, operationConfig, searchConfig } from '@/config/tpltConfig';
 
@@ -29,7 +28,7 @@ export default {
   name: 'Table',
   components: {
     // CusSearch,
-    CusEleTable,
+    CusTable,
   },
   data() {
     return {

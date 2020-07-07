@@ -14,11 +14,7 @@
         @sort-change="handleSort"
       >
         <!-- radioColumnConfig === true -->
-        <ElTableColumn
-          v-if="useRadio"
-          :width="radioColumnConfig.width"
-          :align="radioColumnConfig.align"
-        >
+        <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
           <template slot-scope="scope">
             <el-radio
               :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
@@ -30,13 +26,7 @@
         </ElTableColumn>
 
         <!-- multiSelectorConfig === true -->
-        <ElTableColumn
-          v-if="useMultiSelector"
-          type="selection"
-          :width="multiSelectorConfig.width"
-          :align="multiSelectorConfig.align"
-        >
-        </ElTableColumn>
+        <ElTableColumn v-if="useMultiSelector" type="selection" :width="multiSelectorConfig.width" :align="multiSelectorConfig.align"></ElTableColumn>
 
         <!-- 主要table設定 -->
         <ElTableColumn
@@ -55,23 +45,14 @@
         >
           <template v-slot="scope">
             <!-- 有自定義(render function) 走這 -->
-            <CustomRenderComponent
-              v-if="config.render"
-              :render="config.render"
-              :row="scope.row"
-              :index="index"
-              :config="config"
-            />
+            <CustomRenderComponent v-if="config.render" :render="config.render" :row="scope.row" :index="index" :config="config" />
             <!-- 不然就照舊 -->
             <span v-else>
               <span
                 v-if="config.cssStyle"
                 :class="cssClass(config.cssStyle, { column: scope.row[config.prop], row: scope.row })"
-              >
-                {{ scope.row[config.prop] }}</span>
-              <span v-else>
-                {{ scope.row[config.prop] }}
-              </span>
+              >{{ scope.row[config.prop] }}</span>
+              <span v-else>{{ scope.row[config.prop] }}</span>
             </span>
           </template>
         </ElTableColumn>
@@ -88,28 +69,14 @@
           :header-align="operationConfig.headerAlign"
         >
           <template v-slot="scope">
-            <div
-              class="operate-same"
-              v-for="(operate, index) of operationConfig.operationSetting"
-              :key="index"
-            >
-              <el-button
-                round
-                type="primary"
-                class="operate-icon"
-                @click="handleOperate({ operate, row: scope.row })"
-              >
-                {{ operate.label }}
-              </el-button>
+            <div class="operate-same" v-for="(operate, index) of operationConfig.operationSetting" :key="index">
+              <el-button round type="primary" class="operate-icon" @click="handleOperate({ operate, row: scope.row })">{{ operate.label }}</el-button>
             </div>
           </template>
         </ElTableColumn>
       </ElTable>
     </div>
-    <div
-      class="pagination-wrapper"
-      v-if="showPagination"
-    >
+    <div class="pagination-wrapper" v-if="showPagination">
       <el-pagination
         @size-change="handleAdjustPageSize"
         @current-change="handleJumpPage"
@@ -118,8 +85,7 @@
         :page-size="tableData.pageInfo.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="tableData.pageInfo.totalCounts"
-      >
-      </el-pagination>
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -130,7 +96,7 @@ import CustomRenderComponent from '@/utils/renderFunction';
 import { cssClass } from '@/utils/getCsshelper';
 
 export default {
-  name: 'CusEleTable',
+  name: 'CusTable',
   components: {
     // CusElePagination,
     CustomRenderComponent,

@@ -4,17 +4,9 @@
     <div class="input-err-wrapper">
       <slot></slot>
 
-      <ErrMsg
-        v-if="$attrs.ruleList"
-        :errMsg="errMsg"
-      >
-      </ErrMsg>
+      <ErrMsg v-if="$attrs.ruleList" :errMsg="errMsg"></ErrMsg>
 
-      <ErrMsg
-        v-if="$attrs.ruleListWithMsg"
-        :errMsg="errMsg"
-      ></ErrMsg>
-
+      <ErrMsg v-if="$attrs.ruleListWithMsg" :errMsg="errMsg"></ErrMsg>
     </div>
   </div>
 </template>

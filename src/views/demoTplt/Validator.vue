@@ -1,63 +1,26 @@
 <template>
   <div>
     <cus-form ref="form">
-      <cus-item-wrapper
-        :label="inputConfig.acc.label"
-        :ruleListWithMsg="['hasText']"
-      >
-        <cus-input
-          v-model="form.acc"
-          :inputConfig="inputConfig.acc"
-        />
+      <cus-item-wrapper :label="inputConfig.acc.label" :ruleListWithMsg="['hasText']">
+        <cus-input v-model="form.acc" :inputConfig="inputConfig.acc" />
       </cus-item-wrapper>
-      <cus-item-wrapper
-        :label="inputConfig.pwd.label"
-        :ruleListWithMsg="['hasText']"
-      >
-        <cus-input
-          v-model="form.pwd"
-          :inputConfig="inputConfig.pwd"
-          type="password"
-        />
+      <cus-item-wrapper :label="inputConfig.pwd.label" :ruleListWithMsg="['hasText']">
+        <cus-input v-model="form.pwd" :inputConfig="inputConfig.pwd" type="password" />
       </cus-item-wrapper>
       <cus-item-wrapper :label="inputConfig.enable.label">
-        <cus-switch
-          v-model="form.enable"
-          :inputConfig="inputConfig.enable"
-        />
+        <cus-switch v-model="form.enable" :inputConfig="inputConfig.enable" />
       </cus-item-wrapper>
-      <cus-item-wrapper
-        :label="inputConfig.fruit.label"
-        :ruleListWithMsg="['isSelect']"
-      >
-        <cus-selector
-          v-model="form.fruit"
-          :inputConfig="inputConfig.fruit"
-        />
+      <cus-item-wrapper :label="inputConfig.fruit.label" :ruleListWithMsg="['isSelect']">
+        <cus-selector v-model="form.fruit" :inputConfig="inputConfig.fruit" />
       </cus-item-wrapper>
-      <cus-item-wrapper
-        :label="inputConfig.date.label"
-        :ruleListWithMsg="['isSelect']"
-      >
-        <cus-date-picker
-          v-model="form.date"
-          :inputConfig="inputConfig.date"
-        />
+      <cus-item-wrapper :label="inputConfig.date.label" :ruleListWithMsg="['isSelect']">
+        <cus-date-picker v-model="form.date" :inputConfig="inputConfig.date" />
       </cus-item-wrapper>
-      <cus-item-wrapper
-        :label="inputConfig.dateRange.label"
-        :ruleListWithMsg="['isSelect']"
-      >
-        <cus-date-range-picker
-          v-model="form.dateRange"
-          :inputConfig="inputConfig.dateRange"
-        />
+      <cus-item-wrapper :label="inputConfig.dateRange.label" :ruleListWithMsg="['isSelect']">
+        <cus-date-range-picker v-model="form.dateRange" :inputConfig="inputConfig.dateRange" />
       </cus-item-wrapper>
       <cus-item-wrapper>
-        <button
-          class="submit-btn"
-          @click="onSubmit"
-        >submit</button>
+        <button class="submit-btn" @click="onSubmit">submit</button>
       </cus-item-wrapper>
     </cus-form>
   </div>

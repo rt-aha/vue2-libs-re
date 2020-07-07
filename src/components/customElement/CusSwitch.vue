@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-switch
-      v-model="innerValue"
-      @change="triggerValidate"
-    />
+    <el-switch v-model="innerValue" @input="$emit('input', innerValue)" @change="triggerValidate" />
   </div>
 </template>
 

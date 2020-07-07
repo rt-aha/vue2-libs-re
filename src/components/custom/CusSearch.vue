@@ -1,20 +1,19 @@
 <template>
   <div class="custom-search">
     <div class="search-type-box" v-for="(config,index) of configList" :key="index">
-      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'input'">
+      <cus-item-wrapper :label="config.title" v-if="config.type === 'input'">
         <cus-input v-model="config.value" :inputConfig="config" />
       </cus-item-wrapper>
-
-      <cus-item-wrapper :label="config.placeholder" v-if="config.type ==='switch'">
+      <cus-item-wrapper :label="config.title" v-if="config.type ==='switch'">
         <cus-switch v-model="config.value" :inputConfig="config" />
       </cus-item-wrapper>
-      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'selector'">
+      <cus-item-wrapper :label="config.title" v-if="config.type === 'selector'">
         <cus-selector v-model="config.value" :inputConfig="config" />
       </cus-item-wrapper>
-      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'datePicker'">
+      <cus-item-wrapper :label="config.title" v-if="config.type === 'datePicker'">
         <cus-date-picker v-model="config.value" :inputConfig="config" />
       </cus-item-wrapper>
-      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'dateRangePicker'">
+      <cus-item-wrapper :label="config.title" v-if="config.type === 'dateRangePicker'">
         <cus-date-range-picker v-model="config.value" :inputConfig="config" />
       </cus-item-wrapper>
     </div>
@@ -38,13 +37,7 @@ import CusSelector from '@/components/customElement/CusSelector.vue';
 import CusDatePicker from '@/components/customElement/CusDatePicker.vue';
 import CusDateRangePicker from '@/components/customElement/CusDateRangePicker.vue';
 import tpltInputConfig from '@/config/tpltInputConfig';
-
 import { setTime } from '@/utils/usefulHelper';
-
-
-
-
-
 
 export default {
   name: 'CusSearch',

@@ -5,30 +5,35 @@ const searchConfig = [
     key: 'name',
     type: 'input',
     placeholder: '姓名',
+    title: '姓名',
     defaultValue: 'nnn',
   },
   {
     key: 'age',
     type: 'input',
     placeholder: '年紀',
+    title: '年紀',
     defaultValue: '35',
   },
   {
     key: 'age2',
     type: 'input',
     placeholder: '年紀2',
+    title: '年紀2',
     defaultValue: '47',
   },
   {
     key: 'enable',
     type: 'switch',
     placeholder: '啟用',
+    title: '啟用',
     defaultValue: false,
   },
   {
     key: 'gender',
     type: 'selector',
     placeholder: '選擇性別',
+    title: '選擇性別',
     defaultValue: 2,
     options: [
       {
@@ -49,12 +54,14 @@ const searchConfig = [
     key: 'dateRange',
     type: 'dateRangePicker',
     placeholder: '選擇日期',
+    title: '選擇日期',
     defaultValue: [setTime('month-subtract-1'), setTime('day-0-0')],
   },
   {
     key: 'datePicker',
     type: 'datePicker',
     placeholder: '選擇日期範圍',
+    title: '選擇日期範圍',
     defaultValue: setTime('day-0-0'),
   },
 ];
