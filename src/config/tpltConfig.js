@@ -17,7 +17,13 @@ const searchConfig = [
     key: 'age2',
     type: 'input',
     placeholder: '年紀2',
-    defaultValue: '35',
+    defaultValue: '47',
+  },
+  {
+    key: 'enable',
+    type: 'switch',
+    placeholder: '啟用',
+    defaultValue: false,
   },
   {
     key: 'gender',
@@ -42,11 +48,13 @@ const searchConfig = [
   {
     key: 'dateRange',
     type: 'dateRangePicker',
+    placeholder: '選擇日期',
     defaultValue: [setTime('month-subtract-1'), setTime('day-0-0')],
   },
   {
     key: 'datePicker',
     type: 'datePicker',
+    placeholder: '選擇日期範圍',
     defaultValue: setTime('day-0-0'),
   },
 ];

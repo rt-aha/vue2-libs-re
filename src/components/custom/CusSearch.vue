@@ -1,64 +1,28 @@
 <template>
   <div class="custom-search">
-    <div
-      class="search-type-box"
-      v-for="(config,index) of configList"
-      :key="index"
-    >
+    <div class="search-type-box" v-for="(config,index) of configList" :key="index">
+      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'input'">
+        <cus-input v-model="config.value" :inputConfig="config" />
+      </cus-item-wrapper>
 
-      <CusItemWrapper
-        label="輸入框"
-        v-if="config.type === 'input'"
-      >
-        <SearchEleInput
-          v-model="config.value"
-          :inputConfig="config"
-        />
-      </CusItemWrapper>
-
-      <CusItemWrapper
-        label="下拉"
-        v-if="config.type === 'selector'"
-      >
-        <SearchEleSelector
-          v-model="config.value"
-          :selectorConfig="config"
-        />
-      </CusItemWrapper>
-
-      <CusItemWrapper
-        label="日期"
-        v-if="config.type === 'datePicker'"
-      >
-        <SearchEleDatePicker
-          v-model="config.value"
-          :datePickerConfig="config"
-        />
-      </CusItemWrapper>
-
-      <CusItemWrapper
-        label="日期範圍"
-        v-if="config.type === 'dateRangePicker'"
-      >
-        <SearchEleDateRangePicker
-          v-model="config.value"
-          :dateRangePickerConfig="config"
-        />
-      </CusItemWrapper>
+      <cus-item-wrapper :label="config.placeholder" v-if="config.type ==='switch'">
+        <cus-switch v-model="config.value" :inputConfig="config" />
+      </cus-item-wrapper>
+      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'selector'">
+        <cus-selector v-model="config.value" :inputConfig="config" />
+      </cus-item-wrapper>
+      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'datePicker'">
+        <cus-date-picker v-model="config.value" :inputConfig="config" />
+      </cus-item-wrapper>
+      <cus-item-wrapper :label="config.placeholder" v-if="config.type === 'dateRangePicker'">
+        <cus-date-range-picker v-model="config.value" :inputConfig="config" />
+      </cus-item-wrapper>
     </div>
 
     <!-- <i class="el-icon-search icon-search"
-     >搜尋</i> -->
+    >搜尋</i>-->
 
-    <el-button
-      type="primary"
-      round
-      plain
-      class="icon-search"
-      icon="el-icon-search"
-      @click="handleSearchValue"
-    >搜尋</el-button>
-
+    <el-button type="primary" round plain class="icon-search" icon="el-icon-search" @click="handleSearchValue">搜尋</el-button>
   </div>
 </template>
 
@@ -66,12 +30,18 @@
 
 <script>
 import dayjs from 'dayjs';
+import CusForm from '@/components/customElement/CusForm.vue';
+import CusItemWrapper from '@/components/customElement/CusItemWrapper.vue';
+import CusInput from '@/components/customElement/CusInput.vue';
+import CusSwitch from '@/components/customElement/CusSwitch.vue';
+import CusSelector from '@/components/customElement/CusSelector.vue';
+import CusDatePicker from '@/components/customElement/CusDatePicker.vue';
+import CusDateRangePicker from '@/components/customElement/CusDateRangePicker.vue';
+import tpltInputConfig from '@/config/tpltInputConfig';
 
-import CusItemWrapper from '@/components/custom/CusItemWrapper';
-import SearchEleDatePicker from '@/components/searchElement/SearchEleDatePicker.vue';
-import SearchEleDateRangePicker from '@/components/searchElement/SearchEleDateRangePicker.vue';
-import SearchEleInput from '@/components/searchElement/SearchEleInput.vue';
-import SearchEleSelector from '@/components/searchElement/SearchEleSelector.vue';
+import { setTime } from '@/utils/usefulHelper';
+
+
 
 
 
@@ -79,11 +49,13 @@ import SearchEleSelector from '@/components/searchElement/SearchEleSelector.vue'
 export default {
   name: 'CusSearch',
   components: {
+    CusForm,
     CusItemWrapper,
-    SearchEleDatePicker,
-    SearchEleDateRangePicker,
-    SearchEleInput,
-    SearchEleSelector,
+    CusInput,
+    CusSwitch,
+    CusSelector,
+    CusDatePicker,
+    CusDateRangePicker
   },
   props: {
     searchConfig: {
@@ -124,6 +96,7 @@ export default {
         }
       });
 
+      console.log('searchParams', searchParams);
 
       this.$emit('handlSearch', searchParams);
     },

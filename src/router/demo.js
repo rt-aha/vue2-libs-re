@@ -25,6 +25,14 @@ export default [
         },
       },
       {
+        path: 'search',
+        name: 'search',
+        component: () => import(/* webpackChunkName: "search" */ '@/views/demoTplt/Search.vue'),
+        meta: {
+          title: 'demo-search',
+        },
+      },
+      {
         path: 'table',
         name: 'table',
         component: () => import(/* webpackChunkName: "Table" */ '@/views/demoTplt/Table.vue'),
