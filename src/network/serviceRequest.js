@@ -56,9 +56,10 @@ const serviceRequest = (() => {
     // 設定頭部
     config.headers = networkConfig[headerConfigName].headers;
     // 設定token
-    const accessToken = getToken(headerConfigName);
+    const accessToken = getToken();
+    console.log('accessToken', accessToken);
     if (accessToken) {
-      config.Authorization = 'Bearer ' + accessToken;
+      config.headers.Authorization = 'Bearer ' + accessToken;
     }
 
     return config;
@@ -66,7 +67,8 @@ const serviceRequest = (() => {
 
   // 有token即返回，沒有返回false
   function getToken() {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('token');
+    console.log('token', token);
     const hasToken = token && token !== '';
     if (!hasToken) {
       return false;
@@ -115,7 +117,6 @@ const serviceRequest = (() => {
     // 過濾出需要的內容
     return {
       status: res.status,
-      code: res.data.code || '-2', // -1:後端錯誤時返回, -2:沒有code
       header: res.headers,
       data: res.data,
     };
@@ -128,8 +129,9 @@ const serviceRequest = (() => {
       throw new Error(`Http Method需為, 'get', 'post', 'put', 'patch' or 'delete'`);
     }
 
-    const header = writeheader(options.usedHeaderConfigName);
-    const apiUrl = setUrl(reqUrl, options.usedHeaderConfigName);
+    const headerConfigName = options.usedHeaderConfigName || 'defaultConfig';
+    const header = writeheader(headerConfigName);
+    const apiUrl = setUrl(reqUrl, headerConfigName);
     const response = await ajaxRequest(method, apiUrl, payload, header);
 
     return afterRequest(response);
