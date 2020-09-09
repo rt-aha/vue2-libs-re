@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
  * @param strategyName 驗證的key
  */
 const checkStrategyExist = (strategy, strategyName) => {
-  const hasStrategy = Object.keys(strategy).includes(strategyName);
+  const hasStrategy = strategyName in strategy;
   if (!hasStrategy) {
     return false;
   }

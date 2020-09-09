@@ -142,6 +142,17 @@ const columnConfig = [
     cssStyle: 'multiRow',
     show: 1,
   },
+  {
+    prop: 'bgColor',
+    label: 'css樣式',
+    minWidth: 150,
+    sortable: false,
+    fixed: false,
+    align: 'center',
+    headerAlign: 'center',
+    cssStyle: 'bgColor',
+    show: 1,
+  },
 ];
 
 const operationConfig = {

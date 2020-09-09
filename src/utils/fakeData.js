@@ -8,6 +8,7 @@ const fakeData = [
     age: 43,
     gender: 1,
     imageUrl: 'https://cloud.google.com/images/social-icon-google-cloud-1200-630.png',
+    bgColor: 'yellow',
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ const fakeData = [
     age: 43,
     gender: 2,
     imageUrl: 'https://cloud.google.com/images/social-icon-google-cloud-1200-630.png',
+    bgColor: 'green',
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ const fakeData = [
     gender: 2,
     imageUrl: 'https://cloud.google.com/images/social-icon-google-cloud-1200-630.png',
     multiRow: 'gjlasjdfas\nfklajdslkfjdsal\n',
+    bgColor: 'blue',
   },
 ];
 

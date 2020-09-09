@@ -10,7 +10,11 @@ export default {
       default: null,
     },
   },
+  // ctx 即上層傳下來的
   render: (h, ctx) => {
+    console.log('h', h);
+    console.log('ctx', ctx);
+
     const params = {
       row: ctx.props.row,
       index: ctx.props.index,

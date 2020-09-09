@@ -2,19 +2,23 @@
   <div class="table-pagination-wrapper">
     <div class="table-wrapper">
       <ElTable
-        ref="multipleTable"
-        :stripe="$attrs.stripe"
+        ref="cus-table"
+        :stripe="stripe"
+        :show-summary="showSummary"
         :max-height="height"
-        :show-summary="$attrs.showSummary"
         :data="tableData.items || []"
         :row-class-name="rowClassName"
-        @selection-change="handleSelectRow"
-        empty-text="無資料"
+        :empty-text="emptyText"
         :summary-method="summaryMethod"
+        @selection-change="handleSelectRow"
         @sort-change="handleSort"
       >
-        <!-- radioColumnConfig === true -->
-        <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
+        <!-- 單選時 radioColumnConfig === true -->
+        <ElTableColumn
+          v-if="useRadio"
+          :width="radioColumnConfig.width"
+          :align="radioColumnConfig.align"
+        >
           <template slot-scope="scope">
             <el-radio
               :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
@@ -25,8 +29,13 @@
           </template>
         </ElTableColumn>
 
-        <!-- multiSelectorConfig === true -->
-        <ElTableColumn v-if="useMultiSelector" type="selection" :width="multiSelectorConfig.width" :align="multiSelectorConfig.align"></ElTableColumn>
+        <!-- 多選時 multiSelectorConfig === true -->
+        <ElTableColumn
+          v-if="useMultiSelector"
+          type="selection"
+          :width="multiSelectorConfig.width"
+          :align="multiSelectorConfig.align"
+        ></ElTableColumn>
 
         <!-- 主要table設定 -->
         <ElTableColumn
@@ -45,12 +54,18 @@
         >
           <template v-slot="scope">
             <!-- 有自定義(render function) 走這 -->
-            <CustomRenderComponent v-if="config.render" :render="config.render" :row="scope.row" :index="index" :config="config" />
+            <CustomRenderComponent
+              v-if="config.render"
+              :render="config.render"
+              :row="scope.row"
+              :index="index"
+              :config="config"
+            />
             <!-- 不然就照舊 -->
             <span v-else>
               <span
                 v-if="config.cssStyle"
-                :class="cssClass(config.cssStyle, { column: scope.row[config.prop], row: scope.row })"
+                :class="cssClass({ column: scope.row[config.prop], row: scope.row })(config.cssStyle)"
               >{{ scope.row[config.prop] }}</span>
               <span v-else>{{ scope.row[config.prop] }}</span>
             </span>
@@ -69,8 +84,17 @@
           :header-align="operationConfig.headerAlign"
         >
           <template v-slot="scope">
-            <div class="operate-same" v-for="(operate, index) of operationConfig.operationSetting" :key="index">
-              <el-button round type="primary" class="operate-icon" @click="handleOperate({ operate, row: scope.row })">{{ operate.label }}</el-button>
+            <div
+              class="operate-same"
+              v-for="(operate, index) of operationConfig.operationSetting"
+              :key="index"
+            >
+              <el-button
+                round
+                type="primary"
+                class="operate-icon"
+                @click="handleOperate({ operate, row: scope.row })"
+              >{{ operate.label }}</el-button>
             </div>
           </template>
         </ElTableColumn>
@@ -102,23 +126,38 @@ export default {
     CustomRenderComponent,
   },
   props: {
+    stripe: {
+      type: Boolean,
+      default: true,
+    },
+    showSummary: {
+      type: Boolean,
+      default: false,
+    },
     tableData: {
-      default: {},
+      type: Object,
+      default: () => {},
     },
     showPagination: {
       type: Boolean,
       default: true,
     },
     columnConfig: {
-      default: {},
+      type: Array,
+      default: () => [],
     },
     operationConfig: {
-      default: null,
+      type: Object,
+      default: () => {},
     },
     height: {
+      type: String,
       default: 'auto',
     },
-
+    emptyText: {
+      type: String,
+      default: '無資料',
+    },
     useRadio: {
       type: Boolean,
       default: false,
@@ -276,6 +315,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/cusTable.scss';
+
 .table-pagination-wrapper {
   .table-wrapper {
     flex: 1;
