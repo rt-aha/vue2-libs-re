@@ -1,5 +1,6 @@
 import axios from 'axios';
 import networkConfig from '@/network/headerConfig';
+import qs from 'qs';
 
 // 請求攔截器
 axios.interceptors.request.use(
@@ -25,7 +26,9 @@ axios.interceptors.response.use(
       // badResHelper(some erro msg ...);
       // do something ...
     }
-    return Promise.reject(res);
+    // return Promise.reject(res);
+
+    return res.response;
   },
 );
 
@@ -50,16 +53,19 @@ const serviceRequest = (() => {
   }
 
   // 設定頭部，使用哪一種header設定檔，寫在'@/network/headerConfig'
-  function writeheader(headerConfigName) {
+  function writeheader(headerConfigName, options) {
     const config = {};
 
     // 設定頭部
     config.headers = networkConfig[headerConfigName].headers;
     // 設定token
-    const accessToken = getToken();
-    console.log('accessToken', accessToken);
-    if (accessToken) {
-      config.headers.Authorization = 'Bearer ' + accessToken;
+
+    if (options.setToken) {
+      const accessToken = getToken();
+
+      if (accessToken) {
+        config.headers.Authorization = 'Bearer ' + accessToken;
+      }
     }
 
     return config;
@@ -68,7 +74,6 @@ const serviceRequest = (() => {
   // 有token即返回，沒有返回false
   function getToken() {
     const token = localStorage.getItem('token');
-    console.log('token', token);
     const hasToken = token && token !== '';
     if (!hasToken) {
       return false;
@@ -86,6 +91,8 @@ const serviceRequest = (() => {
   async function ajaxRequest(method, fullApiUrl, payload, config) {
     const requstMethods = {
       async get() {
+        const queryString = '?' + qs.stringify(payload);
+        fullApiUrl += queryString;
         return await axios.get(fullApiUrl, config);
       },
       async post() {
@@ -123,14 +130,19 @@ const serviceRequest = (() => {
   }
 
   // 發送前檢查 --> 設定header --> 設定api url --> 發起 http request --> 回傳需要的資料
-  return async function(method, reqUrl, payload, options = {}) {
+
+  // const options = {
+  //   setToken: true,
+  // };
+
+  return async function(method, reqUrl, payload, options = { setToken: true }) {
     const isValidate = checkHttpMethod(method);
     if (!isValidate) {
       throw new Error(`Http Method需為, 'get', 'post', 'put', 'patch' or 'delete'`);
     }
 
     const headerConfigName = options.usedHeaderConfigName || 'defaultConfig';
-    const header = writeheader(headerConfigName);
+    const header = writeheader(headerConfigName, options);
     const apiUrl = setUrl(reqUrl, headerConfigName);
     const response = await ajaxRequest(method, apiUrl, payload, header);
 
