@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   chainWebpack: config => {
     // 可以將svg檔案直接引入當組建使用
@@ -10,7 +8,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/styles/index.scss";',
+        prependData: '@import "@/styles/utils/index.scss";',
       },
     },
     sourceMap: true,

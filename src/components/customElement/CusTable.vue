@@ -14,18 +14,15 @@
         @sort-change="handleSort"
       >
         <!-- 單選時 radioColumnConfig === true -->
-        <ElTableColumn
-          v-if="useRadio"
-          :width="radioColumnConfig.width"
-          :align="radioColumnConfig.align"
-        >
+        <ElTableColumn v-if="useRadio" :width="radioColumnConfig.width" :align="radioColumnConfig.align">
           <template slot-scope="scope">
             <el-radio
               :class="{ 'inivisble-radio-label': !radioColumnConfig.showLabel }"
               :label="scope.$index"
               v-model="columnRadio"
               @change.native="handleSelectRadio(scope.$index, scope.row)"
-            >{{ radioColumnConfig.label }}</el-radio>
+              >{{ radioColumnConfig.label }}</el-radio
+            >
           </template>
         </ElTableColumn>
 
@@ -66,7 +63,8 @@
               <span
                 v-if="config.cssStyle"
                 :class="cssClass({ column: scope.row[config.prop], row: scope.row })(config.cssStyle)"
-              >{{ scope.row[config.prop] }}</span>
+                >{{ scope.row[config.prop] }}</span
+              >
               <span v-else>{{ scope.row[config.prop] }}</span>
             </span>
           </template>
@@ -84,17 +82,14 @@
           :header-align="operationConfig.headerAlign"
         >
           <template v-slot="scope">
-            <div
-              class="operate-same"
-              v-for="(operate, index) of operationConfig.operationSetting"
-              :key="index"
-            >
+            <div class="operate-same" v-for="(operate, index) of operationConfig.operationSetting" :key="index">
               <el-button
                 round
                 type="primary"
                 class="operate-icon"
                 @click="handleOperate({ operate, row: scope.row })"
-              >{{ operate.label }}</el-button>
+                >{{ operate.label }}</el-button
+              >
             </div>
           </template>
         </ElTableColumn>
@@ -315,7 +310,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/cusTable.scss';
+@import '~@/styles/others/cusTable.scss';
 
 .table-pagination-wrapper {
   .table-wrapper {

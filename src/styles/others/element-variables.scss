@@ -1,6 +1,5 @@
-@import '~@/styles/preset/color.scss';
-@import '~@/styles/preset/font.scss';
-@import '~@/styles/preset/mixin.scss';
+@import '~@/styles/utils/color.scss';
+@import '~@/styles/utils/mixin.scss';
 // @import '~@/styles/rewrite-element-ui.scss';
 /* 改变主题色变量 */
 $--color-primary: $c-main1;

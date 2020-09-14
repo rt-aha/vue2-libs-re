@@ -24,11 +24,13 @@ const i18n = new VueI18n({
 
 // element-ui
 import ElementUI from 'element-ui';
-import '@/styles/element-variables.scss';
+import '@/styles/global/reset.scss';
+import '@/styles/global/default.scss';
+import '@/styles/others/element-variables.scss';
+import '@/styles/others/sharedStyle.scss';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-import '@/styles/sharedStyle.scss';
 
 new Vue({
   router,
