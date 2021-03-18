@@ -1,14 +1,12 @@
 <template>
   <div>
-    <router-view />
+    {{ $route.name }}
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'Page404',
 };
 </script>

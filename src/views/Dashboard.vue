@@ -1,14 +1,11 @@
 <template>
   <div>
-    <router-view />
+   Dashboard
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'Dashboard',
 };
 </script>

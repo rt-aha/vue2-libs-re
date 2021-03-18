@@ -1,14 +1,15 @@
 <template>
   <div>
-    <router-view />
+    {{ $route.name }}
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'Merchant',
 };
 </script>
+
+<style lang="scss" scoped>
+</style>

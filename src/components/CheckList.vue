@@ -7,13 +7,19 @@
 
     <h3 class="mt-10">lib: scss</h3>
     <p class="scss">this text should <strong>not be black</strong></p>
+
+    <h3 class="mt-10">breadcrumb</h3>
+    <breadcrumb />
+
   </div>
 </template>
 
 <script lang="ts">
 import getUsersAPI from '@/api/test';
+import Breadcrumb from './breadcrumb/Breadcrumb.vue';
 
 export default {
+  components: { Breadcrumb },
   name: 'CheckList',
   data() {
     return {

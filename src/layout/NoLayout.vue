@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ly ly-no-layout">
     <router-view />
   </div>
 </template>
@@ -7,8 +7,6 @@
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'NoLayout',
 };
 </script>

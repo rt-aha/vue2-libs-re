@@ -1,14 +1,16 @@
 <template>
   <div>
-    <router-view />
+    news!
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'News',
+
 };
 </script>
+
+<style lang="scss" scoped>
+</style>

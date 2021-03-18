@@ -1,14 +1,11 @@
 <template>
   <div>
-    <router-view />
+   AccountList
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  },
+  name: 'AccountList',
 };
 </script>
