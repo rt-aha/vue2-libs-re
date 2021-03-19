@@ -10,7 +10,7 @@ export default [
     name: 'root',
     children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
         component: Home,
         meta: {
@@ -19,7 +19,7 @@ export default [
         },
       },
       {
-        path: '/dashboard',
+        path: 'dashboard',
         name: 'dashboard',
         component: () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue'),
         meta: {
@@ -27,18 +27,18 @@ export default [
           mainCategoryType: 'page',
         },
       },
-      {
-        path: '*',
-        name: 'page404',
-        component: () => import(/* webpackChunkName: "Page404" */ '@/views/Page404.vue'),
-        meta: {
-          title: '404',
-        },
-      },
     ],
     meta: {
       title: '根路由',
       mainCategoryType: 'page',
+    },
+  },
+  {
+    path: '*',
+    name: 'page404',
+    component: () => import(/* webpackChunkName: "Page404" */ '@/views/Page404.vue'),
+    meta: {
+      title: '404',
     },
   },
 ];
