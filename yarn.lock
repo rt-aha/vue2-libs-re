@@ -919,7 +919,7 @@
 
 "@indigoichigo/network@git+ssh://git@gitlab.com:p-libs/network":
   version "1.0.0"
-  resolved "git+ssh://git@gitlab.com:p-libs/network#cd27bb52c44319855ab14863d84001d85b59dabc"
+  resolved "git+ssh://git@gitlab.com:p-libs/network#94dc97f3675a4b44ea75e78e4b1009fb75172393"
   dependencies:
     axios "^0.21.1"
 
