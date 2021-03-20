@@ -19,6 +19,7 @@ module.exports = {
     'import/no-self-import': 'off',
     'max-len': 'off',
     'import/prefer-default-export': 'off',
+    'no-shadow': 'off',
   },
   overrides: [
     {

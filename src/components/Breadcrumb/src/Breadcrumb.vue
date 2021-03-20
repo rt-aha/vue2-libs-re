@@ -1,5 +1,5 @@
 <template>
-  <div class="r-breadcrumb">
+  <div class="re-breadcrumb">
     <ul class="breadcrumb__list">
       <li class="breadcrumb__list__item"
       v-for="(item, index) of breadcrumbPath"
@@ -15,7 +15,7 @@
 import allMenu from '@/router/genMenu';
 
 export default {
-  name: 'Breadcrumb',
+  name: 'ReBreadcrumb',
   data() {
     const menuMapping = allMenu.reduce((obj, ele) => {
       const loopChildren = (children) => {
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.r-breadcrumb {
+.re-breadcrumb {
   margin-bottom: 15px;
 }
 
