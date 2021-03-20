@@ -12,6 +12,7 @@
       },
     ]"
   >
+    <!-- btn2 -->
     <span class="re-button__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
     </span>
@@ -19,7 +20,7 @@
       <slot></slot>
     </span>
     <span class="re-button__suffix" v-if="$slots.suffix">
-      <slot name="suffix"></slot>
+      <slot name="suffix">3</slot>
     </span>
     <span class="re-button__loading" v-if="isLoading">
       <span
@@ -27,14 +28,14 @@
         :class="{
           're-button__loading__icon--main-color': ['border', 'plain'].includes(type),
         }"
-      ></span>
+      >4</span>
     </span>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'ReButton',
+  name: 're-button',
   props: {
     disabled: {
       type: Boolean,
@@ -71,7 +72,6 @@ export default {
   @include box-padding(10px 16px);
   @include set-btn-default();
   @include font-style($c-white, "14px");
-  // @include flex();
   display: inline-flex;
   align-items: center;
 
