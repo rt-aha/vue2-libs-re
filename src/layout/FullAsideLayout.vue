@@ -24,7 +24,7 @@
 
 <script>
 import AsideMenu from '@/layout/Menu.vue';
-import Breadcrumb from '@/components/breadcrumb/Breadcrumb.vue';
+import Breadcrumb from '@/components/Breadcrumb/index';
 
 export default {
   name: 'FullAsideLayout',

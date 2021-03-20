@@ -9,7 +9,9 @@
     "upgrade:network": "yarn upgrade @indigoichigo/network",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "plop:comp": "plop  --plopfile ./plop/executor/comp.js",
+    "plop:view": "plop  --plopfile ./plop/executor/view.js"
   },
   "dependencies": {
     "@indigoichigo/network": "git+ssh://git@gitlab.com:p-libs/network",
