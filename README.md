@@ -1,34 +1,41 @@
-# template
+TODO
 
-## Project setup
-```
-npm install
-```
+## do
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- install storybook
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## components
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- button
+- input
+- input number
+- select
+- radio
+- checkbox 
+- switch
+- datepicker
+- timepicker
+- datetimepicker
+- tree
+- badge
+- loading
+- tabs
+- drawer
+- modal
+- tooltip
+- upload(image)
+- upload(video)
+- add new list(新增多個條列項目那種)
+- form
+- formitem
+- table
+- pagination
+- time line
+- tag
+- progress
+- colorpicker
+- transfer
+- slider
+- row
+- space
+- divider
