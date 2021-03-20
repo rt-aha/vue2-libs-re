@@ -4,21 +4,31 @@
     @click="handleClick"
     :disabled="disabled"
     :class="[
-    `re-button--${type}`,
-    `re-button--${size}`,
-    {
-      're-button--disabled': disabled,
-      're-button--round': round,
-    }
-  ]"
+      `re-button--${type}`,
+      `re-button--${size}`,
+      {
+        're-button--disabled': disabled,
+        're-button--round': round,
+      },
+    ]"
   >
-    <span class="re-button__prefix" v-if="$slots.prefix"
-      ><slot name="prefix"></slot
-    ></span>
-    <span class="re-button__content"><slot></slot></span>
-    <span class="re-button__suffix" v-if="$slots.suffix"
-      ><slot name="suffix"></slot
-    ></span>
+    <span class="re-button__prefix" v-if="$slots.prefix">
+      <slot name="prefix"></slot>
+    </span>
+    <span class="re-button__content">
+      <slot></slot>
+    </span>
+    <span class="re-button__suffix" v-if="$slots.suffix">
+      <slot name="suffix"></slot>
+    </span>
+    <span class="re-button__loading" v-if="isLoading">
+      <span
+        class="re-button__loading__icon"
+        :class="{
+          're-button__loading__icon--main-color': ['border', 'plain'].includes(type),
+        }"
+      ></span>
+    </span>
   </button>
 </template>
 
@@ -42,10 +52,10 @@ export default {
       type: Boolean,
       default: true,
     },
-    // isLoading: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleClick(e) {
@@ -66,7 +76,7 @@ export default {
   align-items: center;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 
   & + & {
@@ -112,6 +122,34 @@ export default {
   &__suffix {
     display: inline-block;
     margin-left: 4px;
+  }
+
+  &__loading {
+    &__icon {
+      margin-left: 4px;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      @include cus-border($c-white, 50%, 1px);
+      border-left-color: transparent;
+      animation: btn-loading 2s linear infinite;
+
+      &--main-color {
+        border-color: $c-assist;
+        border-left-color: transparent;
+      }
+    }
+  }
+}
+
+@keyframes btn-loading {
+  from {
+    transform: rotate(0deg);
+  }
+
+  from {
+    transform: rotate(360deg);
   }
 }
 </style>
