@@ -48,14 +48,17 @@ export default {
     size: {
       type: String,
       default: 'default',
+      validate(val) {
+        return ['small', 'default', 'large'].valueOf(val) > -1;
+      },
     },
     round: {
       type: String,
       default: 'default',
-      // validator(value) {
-      //   console.log('value', value);
-      //   return ['none', 'default', 'round'].indexOf(value) !== -1;
-      // },
+      validator(value) {
+        console.log('value', value);
+        return ['none', 'default', 'round'].indexOf(value) > -1;
+      },
     },
     isLoading: {
       type: Boolean,
@@ -89,7 +92,15 @@ export default {
 
   &--size {
     &--small {
-      @include box-padding(6px 12px);
+      height: 32px;
+    }
+
+    &--default {
+      height: 36px;
+    }
+
+    &--large {
+      height: 40px;
     }
   }
 

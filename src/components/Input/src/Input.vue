@@ -1,5 +1,5 @@
 <template>
-  <div class="re-input">
+  <div class="re-input" :class="[`re-input--size--${size}`]">
     <div class="re-input__prepend" v-if="$slots.prepend">
       <slot name="prepend"></slot>
     </div>
@@ -10,6 +10,9 @@
         're-input__content--append': $slots.append,
       }"
     >
+      <div class="re-input__content__prefix" v-if="$slots.prefix">
+        <slot name="prefix"></slot>
+      </div>
       <input
         class="re-input__content__value"
         :class="{
@@ -37,6 +40,13 @@ export default {
   props: {
     value: {
       type: String,
+    },
+    size: {
+      type: String,
+      default: 'small',
+      validate(val) {
+        return ['small', 'default', 'large'].valueOf(val) > -1;
+      },
     },
     disabled: {
       type: Boolean,
@@ -86,9 +96,31 @@ export default {
 </script>
 
 <style lang="scss">
+$input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
+
 .re-input {
   @include flex();
-  @include font-style($c-assist, 14px);
+  @include font-style($c-main, 14px);
+
+  &--size {
+    &--small {
+      #{$input-size-els} {
+        height: 32px;
+      }
+    }
+
+    &--default {
+      #{$input-size-els} {
+        height: 36px;
+      }
+    }
+
+    &--large {
+      #{$input-size-els} {
+        height: 40px;
+      }
+    }
+  }
 
   &__prepend {
     display: inline-flex;
@@ -97,16 +129,16 @@ export default {
     box-sizing: border-box;
     @include box-padding(0 10px);
     @include cus-radius(4px, 0, 0, 4px);
-    border: 1px solid $c-assist;
-    height: 40px;
+    border: 1px solid $c-main;
+    // height: 40px;
   }
 
   &__content {
     @include flex();
-    @include box-padding(8px 10px 8px 10px );
-    border: 1px solid $c-assist;
-    height: 40px;
-     border-radius: 4px;
+    @include box-padding(8px 10px 8px 10px);
+    border: 1px solid $c-main;
+    // height: 40px;
+    border-radius: 4px;
 
     &--prepend {
       border-top-left-radius: 0px;
@@ -131,12 +163,19 @@ export default {
       }
     }
 
+    &__prefix {
+      flex: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+    }
+
     &__suffix {
       flex: none;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      top: 0;
       margin-left: 10px;
     }
   }
@@ -147,9 +186,9 @@ export default {
     align-items: center;
     @include box-padding(0 10px);
     width: auto;
-    height: 40px;
+    // height: 40px;
     @include cus-radius(0, 4px, 4px, 0);
-    border: 1px solid $c-assist;
+    border: 1px solid $c-main;
   }
 }
 </style>

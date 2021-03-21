@@ -25,7 +25,7 @@
       </re-row>
     </div>
 
-    <re-title :mt="false" @click="handleClick('input')">輸入框</re-title>
+    <re-title @click="handleClick('input')">輸入框</re-title>
     <div v-if="comps['input']">
       <re-row :mt="false">
         <re-input v-model="val.input" />
@@ -37,10 +37,12 @@
         <re-input v-model="val.inputPw" type="password"/>
       </re-row>
       <re-row>
+
         <re-input v-model="val.input">
           <template #prepend>https://</template>
-          <template #append>a</template>
+          <template #prefix>p</template>
           <template #suffix>s</template>
+          <template #append>a</template>
         </re-input>
       </re-row>
 
@@ -52,13 +54,10 @@
 
 export default {
   name: 'General',
-  components: {
-    // ReButton,
-  },
   data() {
     return {
       comps: {
-        button: false,
+        button: true,
         input: true,
       },
       val: {
