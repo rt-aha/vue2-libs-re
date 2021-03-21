@@ -5,10 +5,10 @@
     :disabled="disabled"
     :class="[
       `re-button--${type}`,
-      `re-button--${size}`,
+      `re-button--size--${size}`,
+      `re-button--round--${round}`,
       {
         're-button--disabled': disabled,
-        're-button--round': round,
       },
     ]"
   >
@@ -20,7 +20,7 @@
       <slot></slot>
     </span>
     <span class="re-button__suffix" v-if="$slots.suffix">
-      <slot name="suffix">3</slot>
+      <slot name="suffix"></slot>
     </span>
     <span class="re-button__loading" v-if="isLoading">
       <span
@@ -28,7 +28,7 @@
         :class="{
           're-button__loading__icon--main-color': ['border', 'plain'].includes(type),
         }"
-      >4</span>
+      ></span>
     </span>
   </button>
 </template>
@@ -50,8 +50,12 @@ export default {
       default: '',
     },
     round: {
-      type: Boolean,
-      default: true,
+      type: String,
+      default: 'default',
+      // validator(value) {
+      //   console.log('value', value);
+      //   return ['none', 'default', 'round'].indexOf(value) !== -1;
+      // },
     },
     isLoading: {
       type: Boolean,
@@ -69,7 +73,7 @@ export default {
 
 <style lang="scss">
 .re-button {
-  @include box-padding(10px 16px);
+  @include box-padding(8px 16px);
   @include set-btn-default();
   @include font-style($c-white, "14px");
   display: inline-flex;
@@ -83,8 +87,24 @@ export default {
     margin-left: 8px;
   }
 
-  &--small {
-    @include box-padding(6px 12px);
+  &--size {
+    &--small {
+      @include box-padding(6px 12px);
+    }
+  }
+
+  &--round {
+    &--none {
+      border-radius: 0px;
+    }
+
+    &--default {
+      border-radius: 4px;
+    }
+
+    &--round {
+      border-radius: 50px; // 只是寫一個很大的數字
+    }
   }
 
   &--default {
