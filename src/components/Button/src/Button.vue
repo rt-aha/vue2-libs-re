@@ -48,16 +48,15 @@ export default {
     size: {
       type: String,
       default: 'default',
-      validate(val) {
-        return ['small', 'default', 'large'].valueOf(val) > -1;
+      validator(val) {
+        return ['small', 'default', 'large'].indexOf(val) > -1;
       },
     },
     round: {
       type: String,
       default: 'default',
-      validator(value) {
-        console.log('value', value);
-        return ['none', 'default', 'round'].indexOf(value) > -1;
+      validator(val) {
+        return ['none', 'default', 'round'].indexOf(val) > -1;
       },
     },
     isLoading: {

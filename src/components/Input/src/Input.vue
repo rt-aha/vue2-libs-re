@@ -1,5 +1,10 @@
 <template>
-  <div class="re-input" :class="[`re-input--size--${size}`]">
+  <div class="re-input" :class="[
+    `re-input--size--${size}`,
+    {
+      're-input--disabled': disabled,
+    }
+  ]">
     <div class="re-input__prepend" v-if="$slots.prepend">
       <slot name="prepend"></slot>
     </div>
@@ -101,6 +106,15 @@ $input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
 .re-input {
   @include flex();
   @include font-style($c-main, 14px);
+  // display: inline-block;
+
+  &--disabled {
+    #{$input-size-els} {
+      background-color: #efefef;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
 
   &--size {
     &--small {

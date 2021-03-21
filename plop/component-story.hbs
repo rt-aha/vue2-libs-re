@@ -1,0 +1,20 @@
+import Re{{name}} from './{{name}}.vue';
+
+export default {
+  title: 'Re-UI/Re{{name}}',
+  component: Re{{name}},
+  argTypes: {
+    // type: { control: { type: 'select', options: ['default', 'border', 'plain'] } },
+  },
+};
+
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  components: { Re{{name}} },
+  template: '<re-{{name}} v-bind="$props" >按鈕</re-{{name}}>',
+});
+
+export const Primary = Template.bind({});
+Primary.args = {
+
+};

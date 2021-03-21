@@ -37,7 +37,6 @@
         <re-input v-model="val.inputPw" type="password"/>
       </re-row>
       <re-row>
-
         <re-input v-model="val.input">
           <template #prepend>https://</template>
           <template #prefix>p</template>
@@ -45,7 +44,16 @@
           <template #append>a</template>
         </re-input>
       </re-row>
+    </div>
 
+    <re-title @click="handleClick('switch')">開關</re-title>
+    <div v-if="comps['switch']">
+      <re-row :mt="false">
+        <re-switch v-model="val.switch" />
+      </re-row>
+      <re-row>
+        <re-switch v-model="val.switch" :switchLabel="{on: '啟用', off: '關閉'}"/>
+      </re-row>
     </div>
   </div>
 </template>
@@ -57,12 +65,14 @@ export default {
   data() {
     return {
       comps: {
-        button: true,
+        button: false,
         input: true,
+        switch: true,
       },
       val: {
         input: 'input-val',
         inputPw: 'input-val',
+        switch: true,
       },
     };
   },

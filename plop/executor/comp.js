@@ -18,6 +18,11 @@ module.exports = function (plop) {
         path: '../../src/components/{{name}}/src/{{name}}.vue',
         templateFile: '../component.hbs',
       },
+      {
+        type: 'add',
+        path: '../../src/components/{{name}}/src/{{name}}.stories.js',
+        templateFile: '../component-story.hbs',
+      },
     ],
   });
 };
