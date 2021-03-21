@@ -8,6 +8,7 @@
         're-title--inline': inline
       }
     ]"
+    @click="$emit('click')"
   >
     <slot></slot>
   </p>
