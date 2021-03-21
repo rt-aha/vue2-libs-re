@@ -38,7 +38,7 @@
       </re-row>
       <re-row>
         <re-input v-model="val.input">
-          <template #prepend>p</template>
+          <template #prepend>https://</template>
           <template #append>a</template>
           <template #suffix>s</template>
         </re-input>
