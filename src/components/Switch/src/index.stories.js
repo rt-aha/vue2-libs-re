@@ -1,3 +1,5 @@
+import { action } from '@storybook/addon-actions';
+
 import ReSwitch from './Switch.vue';
 
 export default {
@@ -8,15 +10,23 @@ export default {
   },
 };
 
+export const actionsData = {
+  handleSwitch: action('clicked'),
+};
+
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { ReSwitch },
-  template: '<re-switch v-bind="$props" >按鈕</re-switch>',
+  methods: actionsData,
+  template: '<re-switch v-bind="$props" @click="handleSwitch">按鈕</re-switch>',
 });
 
 export const Primary = Template.bind({});
 Primary.args = {
-  // disabled: false,
+  switchLabel: {
+    on: 'on',
+    off: 'off',
+  },
   // round: 'default',
   // isLoading: false,
   // size: '',

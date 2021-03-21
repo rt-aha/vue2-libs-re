@@ -20,6 +20,15 @@ module.exports = {
     'max-len': 'off',
     'import/prefer-default-export': 'off',
     'no-shadow': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '.storybook/**',
+          'stories/**' 
+        ]
+      }
+    ]
   },
   overrides: [
     {

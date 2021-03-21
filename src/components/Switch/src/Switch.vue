@@ -24,9 +24,15 @@ export default {
       }),
     },
   },
+  data() {
+    return {
+
+    };
+  },
 
   methods: {
     handleSwitch() {
+      console.log('this...switch');
       this.$emit('input', !this.value);
     },
   },
