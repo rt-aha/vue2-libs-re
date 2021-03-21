@@ -103,7 +103,7 @@ export default {
 
   &__content {
     @include flex();
-    @include box-padding(8px 0 8px 10px );
+    @include box-padding(8px 10px 8px 10px );
     border: 1px solid $c-assist;
     height: 40px;
      border-radius: 4px;
@@ -137,7 +137,7 @@ export default {
       justify-content: center;
       align-items: center;
       top: 0;
-      margin: 0 10px;
+      margin-left: 10px;
     }
   }
 
