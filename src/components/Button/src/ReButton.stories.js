@@ -1,4 +1,4 @@
-import ReButton from '../components/Button/src/Button.vue';
+import ReButton from './Button.vue';
 
 export default {
   title: 'Re-UI/ReButton',
