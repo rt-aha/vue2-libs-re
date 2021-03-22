@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     handleCheckbox() {
+      if (this.disabled) return;
       this.$emit('handleCheckbox', this.value);
     },
   },
