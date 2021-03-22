@@ -99,7 +99,6 @@ export default {
   },
   mounted() {
     this.setNativeInputValue();
-    console.log('this.atts.', this.$attrs);
   },
   watch: {
     value: {

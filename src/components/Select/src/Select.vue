@@ -18,10 +18,10 @@
           @click.stop="handleOption"
         >
           <re-select-option
-            :currOption="value"
-            v-for="opt of selectOptions"
+            v-for="opt of options"
             :key="opt.value"
             v-bind="opt"
+            :currOption="value"
           />
         </ul>
       </div>
@@ -46,7 +46,7 @@ export default {
     value: {
       default: '',
     },
-    selectOptions: {
+    options: {
       type: Array,
       default: () => [],
     },
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     selectedValue() {
-      const valueMappingObj = this.selectOptions.reduce((obj, ele) => {
+      const valueMappingObj = this.options.reduce((obj, ele) => {
         obj[ele.value] = ele.label;
         return obj;
       }, {});
@@ -83,6 +83,8 @@ export default {
     },
     handleOption(e) {
       const targetEle = e.path.find((node) => node.getAttribute('data-option-value'));
+      const disabledStatus = targetEle.getAttribute('data-disabled-status');
+      if (disabledStatus) return;
       const selectedValue = targetEle.getAttribute('data-option-value');
       this.closeOptions();
       this.$emit('input', selectedValue);

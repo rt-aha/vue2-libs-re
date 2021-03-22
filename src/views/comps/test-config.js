@@ -12,6 +12,7 @@ export const selectOptions = [
   {
     label: '下拉選項3',
     value: 3,
+    disabled: true,
   },
   {
     label: '下拉選項4',
@@ -30,4 +31,64 @@ export const selectOptions = [
     label: 'Custom',
     value: 789,
   },
+];
+
+export const radioOptions1 = [
+  {
+    label: '單選1',
+    value: 1,
+  },
+  {
+    label: '單選2',
+    value: 2,
+  },
+  {
+    label: '單選3',
+    value: 3,
+    disabled: true,
+  },
+  {
+    label: '單選4',
+    value: 4,
+    disabled: true,
+  },
+  {
+    label: '單選5',
+    value: 5,
+  },
+  // {
+  //   render: CusSelectOption,
+  //   label: 'Custom',
+  //   value: 789,
+  // },
+];
+
+export const radioOptions2 = [
+  {
+    label: '單選1',
+    value: 1,
+  },
+  {
+    label: '單選2',
+    value: 2,
+  },
+  {
+    label: '單選3',
+    value: 3,
+    disabled: true,
+  },
+  {
+    label: '單選4',
+    value: 4,
+    disabled: true,
+  },
+  {
+    label: '單選5',
+    value: 5,
+  },
+  // {
+  //   render: CusSelectOption,
+  //   label: 'Custom',
+  //   value: 789,
+  // },
 ];

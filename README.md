@@ -14,7 +14,7 @@ TODO
 - [ ]switch --storybook
 - [ ]input number
 - [ ]input number --storybook
-- [ ]select
+- [x]select
 - [ ]select --storybook
 - [ ]radio
 - [ ]radio --storybook

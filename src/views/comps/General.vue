@@ -59,28 +59,39 @@
     <re-title @click="handleClick('select')">下拉選單</re-title>
     <div v-if="comps['select']">
       <re-row :mt="false">
-        <re-select v-model="val.select1" :selectOptions="selectOptions" />
+        <re-select v-model="val.select1" :options="selectOptions" />
       </re-row>
       <re-row>
-        <re-select v-model="val.select2" :selectOptions="selectOptions" :disabled="true"/>
+        <re-select v-model="val.select2" :options="selectOptions" :disabled="true"/>
+      </re-row>
+    </div>
+
+    <re-title @click="handleClick('radio')">單選</re-title>
+    <div v-if="comps['radio']">
+      <re-row :mt="false">
+        <re-radio v-model="val.radio1" :options="radioOptions1" />
       </re-row>
 
+      <re-row>
+        <re-radio v-model="val.radio2" :options="radioOptions1" :inline="false" />
+      </re-row>
     </div>
   </div>
 </template>
 
 <script>
-import { selectOptions } from './test-config';
+import { selectOptions, radioOptions1 } from './test-config';
 
 export default {
   name: 'General',
   data() {
     return {
       comps: {
-        button: false,
+        button: true,
         input: false,
         switch: false,
         select: true,
+        radio: true,
       },
       val: {
         input: 'input-val',
@@ -89,15 +100,18 @@ export default {
         switch2: false,
         select1: 5,
         select2: 2,
+        radio1: 2,
+        radio2: 3,
       },
       selectOptions,
+      radioOptions1,
+      // radioOptions2,
     };
   },
   mounted() {
   },
   methods: {
     handleClick(type) {
-      console.log('this.comps[type]', this.comps[type]);
       this.comps[type] = !this.comps[type];
     },
   },

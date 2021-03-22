@@ -1,8 +1,12 @@
 <template>
   <li
    class="re-select-option"
-   :class="[String(currOption) === String(value)  && 're-select-option--active']"
+   :class="[{
+       're-select-option--active':  String(currOption) === String(value),
+       're-select-option--disabled': disabled
+   }]"
     :data-option-value="value"
+    :data-disabled-status="disabled"
   >
     <component v-if="render" :is="render"/>
     <span v-else class="re-select-option__item">{{ label }}</span>
@@ -27,6 +31,10 @@ export default {
     currOption: {
       default: '',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -41,9 +49,16 @@ export default {
   @include font-style($c-assist, 14px);
   @include box-padding(10px 0);
 
-  &:hover {
-    color: $c-main;
-    @include font-style($c-main, 14px)
+  &:not([data-disabled-status="true"]) {
+    &:hover {
+      color: $c-main;
+      @include font-style($c-main, 14px)
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   &--active {
