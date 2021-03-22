@@ -43,11 +43,11 @@ export default {
 
   &:hover {
     color: $c-main;
-    @include font-style($c-main, 14px, 700)
+    @include font-style($c-main, 14px)
   }
 
   &--active {
-    @include font-style($c-main, 14px, 700)
+    @include font-style($c-main, 14px)
   }
 }
 </style>

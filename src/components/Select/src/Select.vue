@@ -25,6 +25,7 @@
           />
         </ul>
       </div>
+      <div class="re-select__option__gradient--bottom"></div>
     </div>
   </div>
 </template>
@@ -117,18 +118,30 @@ export default {
     /* box-shadow: 3px 3px 20px #ccc inset; */
 
     &__gradient {
-        &--top {
-          &::before {
-            content: "";
-            @include position(tl);
-            width: 100%;
-            height: 10px;
-            background-image: linear-gradient(to bottom, $c-white, transparent);
-            display: inline-block;
-            z-index: 10;
-          }
+      &--top {
+        &::before {
+          content: "";
+          @include position(tl);
+          width: 100%;
+          height: 10px;
+          background-image: linear-gradient(to bottom, $c-white, transparent);
+          display: inline-block;
+          z-index: 10;
         }
       }
+
+      &--bottom {
+        &::before {
+          content: "";
+          @include position(bl);
+          width: 100%;
+          height: 10px;
+          background-image: linear-gradient(to top, $c-white, transparent);
+          display: inline-block;
+          z-index: 10;
+        }
+      }
+    }
 
     &__content {
       height: 200px;
