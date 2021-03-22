@@ -33,7 +33,7 @@ export const selectOptions = [
   },
 ];
 
-export const radioOptions1 = [
+export const radioOptions = [
   {
     label: '單選1',
     value: 1,
@@ -63,28 +63,28 @@ export const radioOptions1 = [
   // },
 ];
 
-export const radioOptions2 = [
+export const checkboxOptions = [
   {
-    label: '單選1',
+    label: '多選1',
     value: 1,
+    disabled: true,
   },
   {
-    label: '單選2',
+    label: '多選2',
     value: 2,
   },
   {
-    label: '單選3',
+    label: '多選3',
     value: 3,
-    disabled: true,
   },
   {
-    label: '單選4',
+    label: '多選4',
     value: 4,
-    disabled: true,
   },
   {
-    label: '單選5',
+    label: '多選5',
     value: 5,
+    disabled: true,
   },
   // {
   //   render: CusSelectOption,

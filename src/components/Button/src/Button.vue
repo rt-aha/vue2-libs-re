@@ -65,7 +65,6 @@ export default {
   },
   methods: {
     handleClick(e) {
-      console.log('click !');
       this.$emit('click', e);
     },
   },

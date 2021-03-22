@@ -66,21 +66,32 @@
       </re-row>
     </div>
 
-    <re-title @click="handleClick('radio')">單選</re-title>
+    <re-title @click="handleClick('radio')">單選框</re-title>
     <div v-if="comps['radio']">
       <re-row :mt="false">
-        <re-radio v-model="val.radio1" :options="radioOptions1" />
+        <re-radio v-model="val.radio1" :options="radioOptions" />
       </re-row>
 
       <re-row>
-        <re-radio v-model="val.radio2" :options="radioOptions1" :inline="false" />
+        <re-radio v-model="val.radio2" :options="radioOptions" :inline="false" />
+      </re-row>
+    </div>
+
+    <re-title @click="handleClick('checkbox')">多選框</re-title>
+    <div v-if="comps['checkbox']">
+      <re-row>
+        <re-checkbox v-model="val.checkbox1" :options="checkboxOptions" />
+      </re-row>
+
+      <re-row>
+        <re-checkbox v-model="val.checkbox2" :options="checkboxOptions" :inline="false" />
       </re-row>
     </div>
   </div>
 </template>
 
 <script>
-import { selectOptions, radioOptions1 } from './test-config';
+import { selectOptions, radioOptions, checkboxOptions } from './test-config';
 
 export default {
   name: 'General',
@@ -88,10 +99,11 @@ export default {
     return {
       comps: {
         button: true,
-        input: false,
-        switch: false,
+        input: true,
+        switch: true,
         select: true,
         radio: true,
+        checkbox: true,
       },
       val: {
         input: 'input-val',
@@ -102,10 +114,12 @@ export default {
         select2: 2,
         radio1: 2,
         radio2: 3,
+        checkbox1: [2],
+        checkbox2: [1, 4, 5],
       },
       selectOptions,
-      radioOptions1,
-      // radioOptions2,
+      radioOptions,
+      checkboxOptions,
     };
   },
   mounted() {

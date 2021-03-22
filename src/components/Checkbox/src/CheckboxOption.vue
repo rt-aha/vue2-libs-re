@@ -1,36 +1,33 @@
 <template>
-  <div
-    class="re-radio-option"
-    :class="[
+  <div class="re-checkbox-option" :class="[
       {
-        're-radio-option--inline': inline,
-        're-radio-option--disabled': disabled,
+        're-checkbox-option--inline': inline,
+        're-checkbox-option--disabled': disabled,
       },
-    ]"
-  >
-    <label class="re-radio-box" :for="label" @click.stop="handleClick">
-      <div class="re-radio-box__input">
-        <input class="re-radio-box__input__origin" type="radio" :id="uuid" />
+    ]">
+    <label class="re-checkbox-box" :for="label" @click.stop="handleCheckbox">
+      <div class="re-checkbox-box__input">
+        <input class="re-checkbox-box__input__origin" type="checkbox" :id="uuid" />
         <span
-          class="re-radio-box__input__actural"
-          :class="
-            String(currValue) === String(value) && 're-radio-box__input__actural--active'">
-        </span>
+          class="re-checkbox-box__input__actural"
+          :class="currValue.includes(value) && 're-checkbox-box__input__actural--active'"
+        ></span>
       </div>
-      <span class="re-radio-box__label">{{ label }}</span>
+      <span class="re-checkbox-box__label">{{ label }}</span>
     </label>
   </div>
+
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
 
 export default {
-  name: 'ReRadioOption',
-
+  name: 'ReCheckboxOption',
   props: {
     currValue: {
-      default: '',
+      type: Array,
+      default: () => [],
     },
     value: {
       default: '',
@@ -42,6 +39,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    render: {
+      type: Object,
+      default: () => ({}),
+    },
     inline: Boolean,
   },
   data() {
@@ -50,19 +51,16 @@ export default {
     };
   },
   methods: {
-    handleClick() {
-      if (this.disabled) {
-        return;
-      }
-
-      this.$emit('handleRadio', this.value);
+    handleCheckbox() {
+      this.$emit('handleCheckbox', this.value);
     },
   },
 };
 </script>
 
 <style lang="scss">
-.re-radio-option {
+
+.re-checkbox-option {
   margin: 5px 10px 5px 0;
   cursor: inherit;
 
@@ -80,7 +78,7 @@ export default {
   }
 }
 
-.re-radio-box {
+.re-checkbox-box {
   display: inline-block;
   cursor: pointer;
 
@@ -88,7 +86,7 @@ export default {
     padding: 0;
     display: inline-block;
     vertical-align: middle;
-    @include circle(16px);
+    @include circle(16px, 4px);
     @include box-padding(2px);
     position: relative;
     border: 1px solid $c-assist;
@@ -99,12 +97,12 @@ export default {
 
     &__actural {
       display: inline-block;
-      @include circle(10px);
+      @include circle(10px, 2px);
 
-      &--active {
-        @include position(center);
-        background-color: $c-main;
-      }
+        &--active {
+          @include position(center);
+          background-color: $c-main;
+        }
     }
   }
 
