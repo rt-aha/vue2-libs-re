@@ -1,6 +1,6 @@
 <template>
   <div class="view-comp-dev">
-    <re-form :rules="rules" :labelConfig="labelConfig">
+    <re-form :rules="rules" :form="form" ref="testingForm" :labelConfig="labelConfig">
       <re-form-item label="姓名" prop="name">
         <re-input v-model="form.name" />
       </re-form-item>
@@ -37,20 +37,44 @@ export default {
         textAlign: 'left', // left, right
       },
       form: {
-        name: 'Racy',
+        name: '',
         enable: true,
-        income: 3,
-        occupation: 2,
-        interest: [2, 3],
+        income: 0,
+        occupation: 0,
+        interest: [],
       },
       rules: {
-        name: (val) => val !== '',
+        name: {
+          type: 'string',
+          message: '請輸入姓名',
+          validator: (rule, value) => {
+            console.log('rule...', rule);
+            return value.length > 0;
+          },
+        },
+        income: {
+          message: '請至少選擇一個選項',
+          validator: (rule, value) => !!value,
+        },
+        occupation: {
+          message: '請至少選擇一個選項',
+          validator: (rule, value) => value > 0,
+        },
+        interest: {
+          type: 'string',
+          message: '請至少選擇一個選項',
+          validator: (rule, value) => value.length > 0,
+        },
+
       },
     };
   },
   methods: {
     submit() {
-      console.log('submit...', this.form);
+      const isPass = this.$refs.testingForm.validateForm();
+      if (isPass) {
+        console.log('congrats !');
+      }
     },
   },
 

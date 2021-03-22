@@ -82,17 +82,18 @@ export default {
 
       return this.validateStatus;
     },
-    // handleForm() {
-    //   console.log('??? 1');
-    //   if (this.validateImmediately) {
-    //     this.validateForm();
-    //   }
-    // },
+    handleForm() {
+      this.validateForm();
+      // if (this.validateImmediately) {
+
+      // }
+    },
   },
-  // watch: {
-  //   form: {
-  //     handler: 'handleForm',
-  //   },
-  // },
+  watch: {
+    form: {
+      deep: true,
+      handler: 'handleForm',
+    },
+  },
 };
 </script>

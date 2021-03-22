@@ -44,9 +44,9 @@ export default {
   },
   computed: {
     errMsgText() {
-      return '錯誤文字';
-      // const { prop } = this.$attrs;
-      // return this.formErrMsg()[prop] || '';
+      // return '錯誤文字';
+      const { prop } = this.$attrs;
+      return this.formErrMsg()[prop] || '';
     },
     labelWidthValue() {
       if (!this.labelConfig().width) {
