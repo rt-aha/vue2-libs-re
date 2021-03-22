@@ -1,6 +1,8 @@
 <template>
   <div class="re-switch" :class="value && 're-switch--active'">
-    <div class="re-switch-box" @click="handleSwitch">
+    <input class="re-switch__input" type="checkbox" ref="input" @change="handleChange"  />
+    <!-- 若在modal之類的元素上，才不會影響到後面的元素 -->
+    <div class="re-switch-box" @click="handleClick" >
       <span class="on-label" v-show="value">{{ switchLabel.on }}</span>
       <span class="off-label" v-show="!value">{{ switchLabel.off }}</span>
       <div class="re-switch-box__bar"></div>
@@ -24,16 +26,29 @@ export default {
       }),
     },
   },
-  data() {
-    return {
-
-    };
+  mounted() {
+    this.setSwitchValue();
   },
-
   methods: {
-    handleSwitch() {
-      console.log('this...switch');
-      this.$emit('input', !this.value);
+    setSwitchValue() {
+      const input = this.getInput();
+      input.checked = this.value;
+    },
+    getInput() {
+      const nativeInput = this.$refs.input;
+      if (!nativeInput) {
+        return null;
+      }
+
+      return nativeInput;
+    },
+    handleClick() {
+      this.handleChange();
+    },
+    handleChange() {
+      const changedValue = !this.value;
+      this.$refs.input.checked = changedValue;
+      this.$emit('input', changedValue);
     },
   },
 };
@@ -50,6 +65,7 @@ export default {
   @include box-padding(2px);
   cursor: pointer;
   transition: 0.3s;
+  position: relative;
 
   &--active {
     background-color: $c-switch--active;
@@ -59,6 +75,11 @@ export default {
         transform: translateX(26px);
       }
     }
+  }
+
+  &__input {
+    @include position(center);
+    z-index: -1;
   }
 }
 

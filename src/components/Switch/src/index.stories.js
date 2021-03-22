@@ -11,14 +11,14 @@ export default {
 };
 
 export const actionsData = {
-  handleSwitch: action('clicked'),
+  handleChange: action('clicked'),
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { ReSwitch },
   methods: actionsData,
-  template: '<re-switch v-bind="$props" @click="handleSwitch">按鈕</re-switch>',
+  template: '<re-switch v-bind="$props" @click="handleChange">按鈕</re-switch>',
 });
 
 export const Primary = Template.bind({});

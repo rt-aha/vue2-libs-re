@@ -48,7 +48,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'small',
+      default: 'default',
       validate(val) {
         return ['small', 'default', 'large'].valueOf(val) > -1;
       },

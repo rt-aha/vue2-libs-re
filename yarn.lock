@@ -1213,7 +1213,7 @@
 
 "@indigoichigo/scss@git+ssh://git@gitlab.com:p-libs/scss":
   version "1.0.2"
-  resolved "git+ssh://git@gitlab.com:p-libs/scss#cab8fcc357220b5b962994dd82089f2741e2f3d6"
+  resolved "git+ssh://git@gitlab.com:p-libs/scss#d0d8d2f3d332b989096b4d0979718a55c1dbc15a"
 
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"

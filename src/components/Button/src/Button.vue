@@ -2,17 +2,16 @@
   <button
     class="re-button"
     @click="handleClick"
-    :disabled="disabled"
+    :disabled="disabled || isLoading"
     :class="[
       `re-button--${type}`,
       `re-button--size--${size}`,
       `re-button--round--${round}`,
       {
-        're-button--disabled': disabled,
+        're-button--disabled': disabled || isLoading,
       },
     ]"
   >
-    <!-- btn2 -->
     <span class="re-button__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
     </span>
@@ -161,7 +160,8 @@ export default {
       display: inline-block;
       width: 10px;
       height: 10px;
-      @include cus-border($c-white, 50%, 1px);
+      border: 1px solid $c-white;
+      border-radius: 50%;
       border-left-color: transparent;
       animation: btn-loading 2s linear infinite;
 

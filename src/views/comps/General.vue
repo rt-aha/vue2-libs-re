@@ -49,10 +49,10 @@
     <re-title @click="handleClick('switch')">開關</re-title>
     <div v-if="comps['switch']">
       <re-row :mt="false">
-        <re-switch v-model="val.switch" />
+        <re-switch v-model="val.switch1" />
       </re-row>
       <re-row>
-        <re-switch v-model="val.switch" :switchLabel="{on: '啟用', off: '關閉'}"/>
+        <re-switch v-model="val.switch2" :switchLabel="{on: '啟用', off: '關閉'}"/>
       </re-row>
     </div>
   </div>
@@ -72,7 +72,8 @@ export default {
       val: {
         input: 'input-val',
         inputPw: 'input-val',
-        switch: true,
+        switch1: true,
+        switch2: false,
       },
     };
   },
