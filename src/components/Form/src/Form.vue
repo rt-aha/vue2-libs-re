@@ -28,11 +28,21 @@ export default {
       type: Boolean,
       default: true,
     },
+    labelConfig: {
+      type: Object,
+      default: () => ({
+        position: 'top',
+        width: '100',
+        textAlign: 'left',
+      }),
+    },
+
   },
   provide() {
     return {
       rForm: () => this,
       formErrMsg: () => this.formErrMsg,
+      labelConfig: () => this.labelConfig,
     };
   },
   data() {

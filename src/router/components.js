@@ -19,7 +19,7 @@ export default [
       {
         path: 'form',
         name: 'form',
-        component: () => import(/* webpackChunkName: "Form" */ '@/views/comps/Form.vue'),
+        component: () => import(/* webpackChunkName: "Form" */ '@/views/comps/FormTesting.vue'),
         meta: {
           title: '一般組件',
           mainCategoryType: 'components',

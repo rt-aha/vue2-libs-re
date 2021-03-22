@@ -1,11 +1,11 @@
 <template>
   <div class="view-comp-dev">
-    <re-form :rules="rules">
+    <re-form :rules="rules" :labelConfig="labelConfig">
       <re-form-item label="姓名" prop="name">
         <re-input v-model="form.name" />
       </re-form-item>
       <re-form-item label="啟用" prop="enable">
-        <re-switch v-model="form.enable"  />
+        <re-switch v-model="form.enable" />
       </re-form-item>
       <re-form-item label="收入" prop="income">
         <re-select v-model="form.income" :options="selectOptions" />
@@ -14,7 +14,7 @@
         <re-radio v-model="form.occupation" :options="radioOptions" />
       </re-form-item>
       <re-form-item label="興趣" prop="interest">
-        <re-checkbox v-model="form.interest" :options="checkboxOptions" :inline="false" />
+        <re-checkbox v-model="form.interest" :options="checkboxOptions"  />
       </re-form-item>
     </re-form>
   </div>
@@ -30,6 +30,11 @@ export default {
       selectOptions,
       radioOptions,
       checkboxOptions,
+      labelConfig: {
+        position: 'left', // top, left
+        width: '80',
+        textAlign: 'left', // left, right
+      },
       form: {
         name: '',
         enable: true,
