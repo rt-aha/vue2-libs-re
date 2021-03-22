@@ -8,13 +8,14 @@
       },
     ]"
   >
-    <label class="re-radio-box" :for="label" @click.stop="handleRadio">
+    <label class="re-radio-box" :for="label" @click.stop="handleClick">
       <div class="re-radio-box__input">
-        <input class="re-radio-box__input__origin" type="radio" :id="label" />
+        <input class="re-radio-box__input__origin" type="radio" :id="uuid" />
         <span
           class="re-radio-box__input__actural"
           :class="
-            String(currValue) === String(value) && 're-radio-box__input__actural--active'"></span>
+            String(currValue) === String(value) && 're-radio-box__input__actural--active'">
+        </span>
       </div>
       <span class="re-radio-box__label">{{ label }}</span>
     </label>
@@ -22,6 +23,8 @@
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
+
 export default {
   name: 'ReRadioOption',
 
@@ -41,8 +44,14 @@ export default {
     },
     inline: Boolean,
   },
+  data() {
+    return {
+      uuid: uuid(),
+    };
+  },
   methods: {
-    handleRadio() {
+    handleClick() {
+      console.log('?');
       if (this.disabled) {
         return;
       }
