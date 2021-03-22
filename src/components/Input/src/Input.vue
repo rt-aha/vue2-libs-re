@@ -22,7 +22,7 @@
         class="re-input__content__value"
         :class="{
           're-input__content__value--disabled': disabled,
-          're-input__content__value--readonly' : cusType === 'select'
+          're-input__content__value--readonly' : !disabled && cusType === 'select'
         }"
         v-bind="$attrs"
         :disabled="disabled"

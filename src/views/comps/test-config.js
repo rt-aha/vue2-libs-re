@@ -1,3 +1,5 @@
+import CusSelectOption from '@/components/Select/src/CusSelectOption.vue';
+
 export const selectOptions = [
   {
     label: '下拉選項1',
@@ -22,5 +24,10 @@ export const selectOptions = [
   {
     label: '下拉選項6',
     value: 6,
+  },
+  {
+    render: CusSelectOption,
+    label: 'Custom',
+    value: 789,
   },
 ];

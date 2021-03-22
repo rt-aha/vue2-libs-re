@@ -1,9 +1,6 @@
 <template>
   <div class="re-select">
-    <div
-      class="re-select__input"
-      @click.stop="expandOptions"
-    >
+    <div class="re-select__input" @click.stop="expandOptions">
       <re-input
         v-model="selectedValue"
         :expand="expandConfig"
@@ -13,13 +10,15 @@
       ></re-input>
     </div>
     <div class="re-select__option" v-show="expandConfig.status">
+      <div class="re-select__option__gradient--top"></div>
       <div class="re-select__option__content">
         <ul
-          class="r-select__option__list"
+          class="re-select__option__content__list"
           v-on-clickaway="closeOptions"
           @click.stop="handleOption"
         >
           <re-select-option
+            :currOption="value"
             v-for="opt of selectOptions"
             :key="opt.value"
             v-bind="opt"
@@ -92,7 +91,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .re-select {
   width: 200px;
   position: relative;
@@ -113,11 +112,39 @@ export default {
     border-radius: 4px;
     overflow: hidden;
     z-index: 100;
-    background-color:$c-white;
+    background-color: $c-white;
+    /* @include box-padding(10px 0); */
+    /* box-shadow: 3px 3px 20px #ccc inset; */
+
+    &__gradient {
+        &--top {
+          &::before {
+            content: "";
+            @include position(tl);
+            width: 100%;
+            height: 10px;
+            background-image: linear-gradient(to bottom, $c-white, transparent);
+            display: inline-block;
+            z-index: 10;
+          }
+        }
+      }
 
     &__content {
       height: 200px;
       overflow: auto;
+      position: relative;
+      @include box-padding(10px);
+
+      &__list {
+        > .re-select-option:first-child {
+          padding-top: 0px;
+        }
+
+        > .re-select-option:last-child {
+          padding-bottom: 0px;
+        }
+      }
     }
   }
 }
