@@ -22,6 +22,7 @@
         class="re-input__content__value"
         :class="{
           're-input__content__value--disabled': disabled,
+          're-input__content__value--readonly' : cusType === 'select'
         }"
         v-bind="$attrs"
         :disabled="disabled"
@@ -57,6 +58,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    cusType: {
+      type: String,
+      default: 'input',
+      validate(val) {
+        return ['input', 'select', 'switch'].valueOf(val) > -1;
+      },
+    },
   },
   data() {
     return {
@@ -91,6 +99,7 @@ export default {
   },
   mounted() {
     this.setNativeInputValue();
+    console.log('this.atts.', this.$attrs);
   },
   watch: {
     value: {
@@ -104,6 +113,7 @@ export default {
 $input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
 
 .re-input {
+  width: 200px;
   @include flex();
   @include font-style($c-main, 14px);
   // display: inline-block;
@@ -148,6 +158,7 @@ $input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
   }
 
   &__content {
+    width: 100%;
     @include flex();
     @include box-padding(8px 10px 8px 10px);
     border: 1px solid $c-main;
@@ -170,10 +181,15 @@ $input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
       flex: 1;
       border: 0px transparent;
       outline: 0px transparent;
+      color: $c-assist;
 
       &--disabled {
         cursor: not-allowed;
         opacity: 0.5;
+      }
+
+      &--readonly {
+        cursor: pointer;
       }
     }
 

@@ -55,10 +55,22 @@
         <re-switch v-model="val.switch2" :switchLabel="{on: '啟用', off: '關閉'}" :disabled="true"/>
       </re-row>
     </div>
+
+    <re-title @click="handleClick('select')">下拉選單</re-title>
+    <div v-if="comps['select']">
+      <re-row :mt="false">
+        <re-select v-model="val.select1" :selectOptions="selectOptions" />
+      </re-row>
+      <re-row>
+        <re-select v-model="val.select2" :selectOptions="selectOptions" :disabled="true"/>
+      </re-row>
+
+    </div>
   </div>
 </template>
 
 <script>
+import { selectOptions } from './test-config';
 
 export default {
   name: 'General',
@@ -66,16 +78,22 @@ export default {
     return {
       comps: {
         button: false,
-        input: true,
-        switch: true,
+        input: false,
+        switch: false,
+        select: true,
       },
       val: {
         input: 'input-val',
         inputPw: 'input-val',
         switch1: true,
         switch2: false,
+        select1: 5,
+        select2: 2,
       },
+      selectOptions,
     };
+  },
+  mounted() {
   },
   methods: {
     handleClick(type) {
