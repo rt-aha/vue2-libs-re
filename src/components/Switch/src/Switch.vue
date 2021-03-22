@@ -2,7 +2,11 @@
   <div class="re-switch" :class="value && 're-switch--active'">
     <input class="re-switch__input" type="checkbox" ref="input" @change="handleChange"  />
     <!-- 若在modal之類的元素上，才不會影響到後面的元素 -->
-    <div class="re-switch-box" @click="handleClick" >
+    <div class="re-switch-box"
+      :class="[{
+        're-button--disabled': disabled,
+      }]"
+      @click="handleClick">
       <span class="on-label" v-show="value">{{ switchLabel.on }}</span>
       <span class="off-label" v-show="!value">{{ switchLabel.off }}</span>
       <div class="re-switch-box__bar"></div>
@@ -25,6 +29,10 @@ export default {
         off: 'off',
       }),
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   mounted() {
     this.setSwitchValue();
@@ -46,6 +54,7 @@ export default {
       this.handleChange();
     },
     handleChange() {
+      if (this.disabled) return;
       const changedValue = !this.value;
       this.$refs.input.checked = changedValue;
       this.$emit('input', changedValue);
@@ -96,6 +105,11 @@ export default {
     transition: 0.3s;
     position: relative;
     z-index: 10;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 }
 
