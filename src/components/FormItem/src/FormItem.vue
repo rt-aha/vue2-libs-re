@@ -64,18 +64,12 @@ export default {
     },
     setLabelHeight() {
       const contentHeight = this.$refs.formItemContent.clientHeight;
-      console.log(
-        this.labelConfig().position === 'left',
-        contentHeight > 40,
-        contentHeight,
-      );
+
       if (this.labelConfig().position === 'left' && contentHeight > 40) {
-        console.log('hi');
         this.addLabelPadding = true;
         return;
       }
 
-      console.log('bye', this.$attrs.prop);
       this.addLabelPadding = false;
     },
   },

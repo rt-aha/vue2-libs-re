@@ -13,7 +13,7 @@ export default {
   props: {
     width: {
       type: String,
-      default: '600px',
+      default: 'auto',
     },
     rules: {
       type: Object,

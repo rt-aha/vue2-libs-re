@@ -16,6 +16,7 @@
       <re-form-item label="興趣" prop="interest">
         <re-checkbox v-model="form.interest" :options="checkboxOptions"  />
       </re-form-item>
+      <re-button @click.prevent="submit">送出</re-button>
     </re-form>
   </div>
 </template>
@@ -36,16 +37,21 @@ export default {
         textAlign: 'left', // left, right
       },
       form: {
-        name: '',
+        name: 'Racy',
         enable: true,
         income: 3,
         occupation: 2,
-        interest: [1],
+        interest: [2, 3],
       },
       rules: {
         name: (val) => val !== '',
       },
     };
+  },
+  methods: {
+    submit() {
+      console.log('submit...', this.form);
+    },
   },
 
 };
