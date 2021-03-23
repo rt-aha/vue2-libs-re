@@ -95,6 +95,7 @@ export default {
       this.$refs.tlm.scrollTop = Number(this.timeValue.m) * 30;
       this.$refs.tls.scrollTop = Number(this.timeValue.s) * 30;
     },
+    // eslint-disable-next-line
     logDebounce: debounce(function (calcType) {
       this.calcHourScrollBarPosition(calcType);
     }, 100),
