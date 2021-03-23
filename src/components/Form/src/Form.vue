@@ -51,10 +51,6 @@ export default {
       validateStatus: false,
     };
   },
-  mounted() {
-    // this.showModel();
-    // console.log('this...', this);
-  },
   methods: {
     async validateForm(callback) {
       const validateList = [];
@@ -83,6 +79,8 @@ export default {
 
       if (checkResult) {
         callback();
+      } else {
+        console.warn('validator error !');
       }
     },
   },

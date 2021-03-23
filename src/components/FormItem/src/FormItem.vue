@@ -104,7 +104,7 @@ export default {
       const validator = new Schema(this.itemRule);
       const valueObj = { [this.prop]: targetValue };
 
-      return new Promise((resolve, rej) => {
+      return new Promise((resolve) => {
         try {
           validator.validate(valueObj, (errors, fields) => {
             if (errors) {
