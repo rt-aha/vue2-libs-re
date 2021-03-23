@@ -17,7 +17,11 @@ import { cloneDeep } from 'lodash';
 
 export default {
   name: 'ReCheckbox',
-
+  inject: {
+    reFormItem: {
+      default: '',
+    },
+  },
   props: {
     value: {
       default: [],
@@ -43,6 +47,14 @@ export default {
       }
 
       this.$emit('input', cloneValue);
+      if (this.reFormItem) {
+        this.validateValue();
+      }
+    },
+    validateValue() {
+      this.$nextTick(() => {
+        this.reFormItem.validateFormValue(this.value);
+      });
     },
   },
 };

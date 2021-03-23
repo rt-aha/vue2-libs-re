@@ -27,7 +27,11 @@ import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ReRadioOption',
-
+  inject: {
+    reFormItem: {
+      default: '',
+    },
+  },
   props: {
     currValue: {
       default: '',
@@ -54,8 +58,15 @@ export default {
       if (this.disabled) {
         return;
       }
-
       this.$emit('handleRadio', this.value);
+      if (this.reFormItem) {
+        this.validateValue();
+      }
+    },
+    validateValue() {
+      this.$nextTick(() => {
+        this.reFormItem.validateFormValue(this.value);
+      });
     },
   },
 };

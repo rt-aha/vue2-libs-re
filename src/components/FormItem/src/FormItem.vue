@@ -23,8 +23,6 @@
         <slot></slot>
       </div>
       <p class="re-form-item__box__err-msg">
-        <!-- {{ isPassValidate ? '': 'err' }} -->
-
         {{ errMsgText }}
       </p>
     </div>
@@ -32,22 +30,32 @@
 </template>
 
 <script>
+import Schema from 'async-validator';
+
 export default {
   name: 'ReFormItem',
   compName: 'ReFormItem',
-  inject: ['rForm', 'formErrMsg', 'labelConfig'],
+  inject: ['rForm', 'labelConfig', 'formValue'],
+  props: {
+    prop: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       isPassValidate: true,
       addLabelPadding: true,
+      errMsgText: '',
+      validateStatus: true,
+    };
+  },
+  provide() {
+    return {
+      reFormItem: this,
     };
   },
   computed: {
-    errMsgText() {
-      // return '錯誤文字';
-      const { prop } = this.$attrs;
-      return this.formErrMsg()[prop] || '';
-    },
     labelWidthValue() {
       if (!this.labelConfig().width) {
         return '100px';
@@ -55,11 +63,14 @@ export default {
 
       return `${this.labelConfig().width}px`;
     },
+    itemRule() {
+      return { [this.prop]: this.rForm.rules[this.prop] };
+    },
   },
   methods: {
     validateValue(val) {
-      if (this.$attrs.prop in this.rForm.rules) {
-        this.isPassValidate = this.rForm.rules[this.$attrs.prop](val);
+      if (this.prop in this.rForm.rules) {
+        this.isPassValidate = this.rForm.rules[this.prop](val);
       }
     },
     setLabelHeight() {
@@ -72,12 +83,45 @@ export default {
 
       this.addLabelPadding = false;
     },
-  },
-  watch: {
-    errMsg: {
-      handler() {
-        console.log('rForm...', this.errMsg);
-      },
+    validatePass() {
+      this.errMsgText = '';
+    },
+    handleErrors(errorList) {
+      const err = errorList.find((item) => item.field === this.prop);
+      this.errMsgText = err.message;
+    },
+    validateFormValue(value) {
+      if (!this.itemRule[this.prop]) {
+        return Promise.resolve(true);
+      }
+
+      let targetValue = value;
+      // 若由父層form組件call此function，value會是obj要解構出來
+      if (typeof value === 'object' && this.prop in value) {
+        targetValue = value[this.prop];
+      }
+
+      const validator = new Schema(this.itemRule);
+      const valueObj = { [this.prop]: targetValue };
+
+      return new Promise((resolve, rej) => {
+        try {
+          validator.validate(valueObj, (errors, fields) => {
+            if (errors) {
+              this.handleErrors(errors, fields);
+            } else {
+              this.validatePass();
+            }
+          }).then(() => {
+            // 通過直接回true
+            resolve(true);
+          }).catch(() => {
+            resolve(false);
+          });
+        } catch (e) {
+          resolve(false);
+        }
+      });
     },
   },
   mounted() {

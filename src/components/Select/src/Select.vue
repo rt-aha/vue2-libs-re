@@ -35,6 +35,11 @@ import { directive as onClickaway } from 'vue-clickaway';
 
 export default {
   name: 'ReSelect',
+  inject: {
+    reFormItem: {
+      default: '',
+    },
+  },
   directives: {
     onClickaway,
   },
@@ -50,6 +55,7 @@ export default {
       type: Array,
       default: () => [],
     },
+
   },
   data() {
     return {
@@ -68,6 +74,7 @@ export default {
 
       return valueMappingObj[this.value];
     },
+
   },
   methods: {
     closeOptions(e) {
@@ -89,6 +96,14 @@ export default {
       this.closeOptions();
       this.$emit('input', selectedValue);
       this.closeOptions();
+      if (this.reFormItem) {
+        this.validateValue();
+      }
+    },
+    validateValue() {
+      this.$nextTick(() => {
+        this.reFormItem.validateFormValue(this.value);
+      });
     },
   },
 };

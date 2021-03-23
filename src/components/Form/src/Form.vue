@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Schema from 'async-validator';
 
 export default {
   name: 'ReForm',
@@ -40,9 +39,10 @@ export default {
   },
   provide() {
     return {
-      rForm: () => this,
+      rForm: this,
       formErrMsg: () => this.formErrMsg,
       labelConfig: () => this.labelConfig,
+      formValue: () => this.form,
     };
   },
   data() {
@@ -51,49 +51,46 @@ export default {
       validateStatus: false,
     };
   },
-  // created() {
-  //   this.showModel();
-  // },
+  mounted() {
+    // this.showModel();
+    // console.log('this...', this);
+  },
   methods: {
-    validatePass() {
-      console.log('pass?');
-      this.formErrMsg = {};
-      this.validateStatus = true;
-    },
-    handleErrors(errorList) {
-      console.log('not pass?');
-      this.formErrMsg = errorList.reduce((obj, item) => {
-        obj[item.field] = item.message;
+    async validateForm(callback) {
+      const validateList = [];
 
-        return obj;
-      }, {});
+      this.$children.forEach((node) => {
+        if (node.$options.name === 'ReFormItem') {
+          const promise = new Promise((resolve) => {
+            resolve(node.validateFormValue(this.form));
+          });
 
-      console.log('formErrMsg', this.formErrMsg);
-      this.validateStatus = false;
-    },
-    validateForm() {
-      const validator = new Schema(this.rules);
-      validator.validate(this.form, (errors, fields) => {
-        if (errors) {
-          return this.handleErrors(errors, fields);
+          validateList.push(promise);
         }
-        return this.validatePass();
       });
 
-      return this.validateStatus;
-    },
-    handleForm() {
-      this.validateForm();
-      // if (this.validateImmediately) {
+      const allValidatorResult = await validateList.reduce(async (resultCollection, execValidator) => {
+        const validateResult = await execValidator;
+        const accResolve = await resultCollection;
+        accResolve.push(validateResult);
 
-      // }
+        return accResolve;
+      }, []);
+
+      const checkResult = allValidatorResult.every((val) => val);
+
+      console.log('allValidatorResult', allValidatorResult);
+
+      if (checkResult) {
+        callback();
+      }
     },
   },
   watch: {
-    form: {
-      deep: true,
-      handler: 'handleForm',
-    },
+    // form: {
+    // deep: true,
+    // handler: 'handleForm',
+    // },
   },
 };
 </script>

@@ -43,6 +43,11 @@
 <script>
 export default {
   name: 'ReInput',
+  inject: {
+    reFormItem: {
+      default: '',
+    },
+  },
   props: {
     value: {
       type: String,
@@ -76,10 +81,16 @@ export default {
       if (!this.value) return '';
       return String(this.value);
     },
+    // reFormItemExist() {
+    //   return this.reFormItem;
+    // },
   },
   methods: {
     handleInput(e) {
       this.$emit('input', e.target.value);
+      if (this.reFormItem) {
+        this.validateValue();
+      }
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
@@ -95,6 +106,11 @@ export default {
         return null;
       }
       return nativeInput;
+    },
+    validateValue() {
+      this.$nextTick(() => {
+        this.reFormItem.validateFormValue(this.value);
+      });
     },
   },
   mounted() {

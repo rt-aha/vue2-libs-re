@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 're-button',
+  name: 'ReButton',
   props: {
     disabled: {
       type: Boolean,
