@@ -32,7 +32,7 @@ TODO
 - [ ]badge --storybook
 - [ ]loading
 - [ ]loading --storybook
-- [ ]tabs
+- [-]tabs
 - [ ]tabs --storybook
 - [ ]drawer
 - [ ]drawer --storybook
@@ -66,13 +66,19 @@ TODO
 - [ ]transfer --storybook
 - [ ]slider
 - [ ]slider --storybook
-- [ ]row
+- [-]row
 - [ ]row --storybook
 - [ ]space
 - [ ]space --storybook
-- [ ]divider
+- [-]divider
 - [ ]divider --storybook
 
+## tool
+
+validate 規則
+form 迴圈化
+後台layout模板化
+menu 與 權限橋接
 
 ## 須了解
 

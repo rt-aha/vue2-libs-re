@@ -1,6 +1,17 @@
 <template>
   <div class="view-general">
-    <re-title :mt="false" @click="handleClick('button')">按鈕</re-title>
+    <re-title :mt="false" @click="handleClick('tabs')">頁籤</re-title>
+    <re-tabs v-model="val.tab" @change="handleTab">
+      <re-tab-pane v-for="tab of tabsConfig"
+        :key="tab.name"
+       :label="tab.label"
+       :name="tab.name">{{tab.name}}</re-tab-pane>
+
+    </re-tabs>
+    <re-title  @click="handleClick('divider')">分隔線</re-title>
+    <re-divider />
+
+    <re-title  @click="handleClick('button')">按鈕</re-title>
     <div v-if="comps['button']">
       <re-row :mt="false">
         <re-button> 預設按鈕 </re-button>
@@ -101,13 +112,13 @@
       <re-row>
         <re-time-picker v-model="val.timePicker" />
       </re-row>
-
     </div>
   </div>
 </template>
 
 <script>
 import { selectOptions, radioOptions, checkboxOptions } from './test-config';
+import TabsTesting from './TabsTesting.vue';
 
 export default {
   name: 'General',
@@ -115,13 +126,14 @@ export default {
     return {
       comps: {
         button: true,
-        input: false,
-        switch: false,
+        input: true,
+        switch: true,
         select: true,
-        radio: false,
-        checkbox: false,
-        datePicker: false,
+        radio: true,
+        checkbox: true,
+        datePicker: true,
         timePicker: true,
+        tab: true,
       },
       val: {
         input: 'input-val',
@@ -136,15 +148,34 @@ export default {
         checkbox2: [1, 4, 5],
         datePicker: '',
         timePicker: '01:01:40',
+        tab: 'tab111',
       },
+      currTab: 'tab1',
       selectOptions,
       radioOptions,
       checkboxOptions,
+      tabsConfig: [
+        {
+          label: 'tab122',
+          name: 'tab111',
+        },
+        {
+          label: 'tab222',
+          name: 'tab222',
+        },
+        {
+          label: 'tab333',
+          name: 'tab333',
+        },
+      ],
     };
   },
   methods: {
     handleClick(type) {
       this.comps[type] = !this.comps[type];
+    },
+    handleTab(tabInfo) {
+      this.val.tab = tabInfo.name;
     },
   },
 };

@@ -73,13 +73,11 @@ export default {
       return isValidTimeFormat;
     },
     splitTime() {
-      console.log('this.value', this.value);
       let validTime = this.value;
       if (!this.validTimeFormat(this.value)) {
         validTime = this.timeValue.time();
       }
 
-      console.log('validTime', validTime);
       const hms = validTime.split(':');
       this.timeValue = {
         h: hms[0],

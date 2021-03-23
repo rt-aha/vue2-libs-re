@@ -12,7 +12,7 @@
     </div>
     <!-- <div class="re-select__option" v-show="expandConfig.status"> -->
     <re-expand-container :visible.sync="expandConfig.status">
-      <div class="re-select__option__gradient--top"></div>
+
       <div class="re-select__option__content">
         <ul
           class="re-select__option__content__list"
@@ -28,7 +28,7 @@
           />
         </ul>
       </div>
-      <div class="re-select__option__gradient--bottom"></div>
+
       </re-expand-container>
     <!-- </div> -->
   </div>
@@ -138,32 +138,6 @@ export default {
     background-color: $c-white;
     /* @include box-padding(10px 0); */
     /* box-shadow: 3px 3px 20px #ccc inset; */
-
-    &__gradient {
-      &--top {
-        &::before {
-          content: "";
-          @include position(tl);
-          width: 100%;
-          height: 10px;
-          background-image: linear-gradient(to bottom, $c-white, transparent);
-          display: inline-block;
-          z-index: 10;
-        }
-      }
-
-      &--bottom {
-        &::before {
-          content: "";
-          @include position(bl);
-          width: 100%;
-          height: 10px;
-          background-image: linear-gradient(to top, $c-white, transparent);
-          display: inline-block;
-          z-index: 10;
-        }
-      }
-    }
 
     &__content {
       height: 200px;
