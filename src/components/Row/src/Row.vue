@@ -41,6 +41,7 @@ export default {
 <style lang="scss">
 .re-row {
   display: flex;
+  position: relative;
 
   &--mt {
     margin-top: 10px;

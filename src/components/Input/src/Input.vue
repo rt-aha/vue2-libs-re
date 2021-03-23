@@ -1,10 +1,14 @@
 <template>
-  <div class="re-input" :class="[
-    `re-input--size--${size}`,
-    {
-      're-input--disabled': disabled,
-    }
-  ]">
+  <div
+    class="re-input"
+    :class="[
+      `re-input--size--${size}`,
+      {
+        're-input--disabled': disabled,
+      },
+    ]"
+    @click.stop="handleClick"
+  >
     <div class="re-input__prepend" v-if="$slots.prepend">
       <slot name="prepend"></slot>
     </div>
@@ -22,7 +26,8 @@
         class="re-input__content__value"
         :class="{
           're-input__content__value--disabled': disabled,
-          're-input__content__value--readonly' : !disabled && cusType === 'select'
+          're-input__content__value--readonly':
+            !disabled && cursorPointer,
         }"
         v-bind="$attrs"
         :disabled="disabled"
@@ -67,7 +72,7 @@ export default {
       type: String,
       default: 'input',
       validate(val) {
-        return ['input', 'select', 'switch'].valueOf(val) > -1;
+        return ['input', 'select', 'switch', 'datePicker'].valueOf(val) > -1;
       },
     },
   },
@@ -81,11 +86,17 @@ export default {
       if (!this.value) return '';
       return String(this.value);
     },
+    cursorPointer() {
+      return ['select', 'datePicker'].indexOf(this.cusType) > -1;
+    },
     // reFormItemExist() {
     //   return this.reFormItem;
     // },
   },
   methods: {
+    handleClick(e) {
+      this.$emit('click', e);
+    },
     handleInput(e) {
       this.$emit('input', e.target.value);
       if (this.reFormItem) {
@@ -125,7 +136,7 @@ export default {
 </script>
 
 <style lang="scss">
-$input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
+$input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
 
 .re-input {
   width: 200px;

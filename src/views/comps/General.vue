@@ -87,6 +87,14 @@
         <re-checkbox v-model="val.checkbox2" :options="checkboxOptions" :inline="false" />
       </re-row>
     </div>
+
+    <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
+    <div v-if="comps['datePicker']">
+      <re-row>
+        <re-date-picker v-model="val.datePicker" :options="checkboxOptions" />
+      </re-row>
+
+    </div>
   </div>
 </template>
 
@@ -99,11 +107,12 @@ export default {
     return {
       comps: {
         button: true,
-        input: true,
-        switch: true,
+        input: false,
+        switch: false,
         select: true,
-        radio: true,
-        checkbox: true,
+        radio: false,
+        checkbox: false,
+        datePicker: true,
       },
       val: {
         input: 'input-val',
@@ -116,6 +125,7 @@ export default {
         radio2: 3,
         checkbox1: [2],
         checkbox2: [1, 4, 5],
+        datePicker: '',
       },
       selectOptions,
       radioOptions,

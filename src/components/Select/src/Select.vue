@@ -7,9 +7,11 @@
         readonly
         cus-type="select"
         :disabled="disabled"
-      ></re-input>
+        @click.stop="expandOptions"
+      />
     </div>
-    <div class="re-select__option" v-show="expandConfig.status">
+    <!-- <div class="re-select__option" v-show="expandConfig.status"> -->
+    <re-expand-container :visible.sync="expandConfig.status">
       <div class="re-select__option__gradient--top"></div>
       <div class="re-select__option__content">
         <ul
@@ -17,6 +19,7 @@
           v-on-clickaway="closeOptions"
           @click.stop="handleOption"
         >
+
           <re-select-option
             v-for="opt of options"
             :key="opt.value"
@@ -26,7 +29,8 @@
         </ul>
       </div>
       <div class="re-select__option__gradient--bottom"></div>
-    </div>
+      </re-expand-container>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -63,6 +67,7 @@ export default {
         use: true,
         status: false,
       },
+      visible: false,
     };
   },
   computed: {
@@ -93,9 +98,9 @@ export default {
       const disabledStatus = targetEle.getAttribute('data-disabled-status');
       if (disabledStatus) return;
       const selectedValue = targetEle.getAttribute('data-option-value');
-      this.closeOptions();
+      // this.closeOptions();
       this.$emit('input', selectedValue);
-      this.closeOptions();
+      // this.closeOptions();
       if (this.reFormItem) {
         this.validateValue();
       }
