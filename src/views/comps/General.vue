@@ -91,7 +91,15 @@
     <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
     <div v-if="comps['datePicker']">
       <re-row>
-        <re-date-picker v-model="val.datePicker" :options="checkboxOptions" />
+        <re-date-picker v-model="val.datePicker" />
+      </re-row>
+
+    </div>
+
+    <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
+    <div v-if="comps['timePicker']">
+      <re-row>
+        <re-time-picker v-model="val.timePicker" />
       </re-row>
 
     </div>
@@ -112,7 +120,8 @@ export default {
         select: true,
         radio: false,
         checkbox: false,
-        datePicker: true,
+        datePicker: false,
+        timePicker: true,
       },
       val: {
         input: 'input-val',
@@ -126,13 +135,12 @@ export default {
         checkbox1: [2],
         checkbox2: [1, 4, 5],
         datePicker: '',
+        timePicker: '01:01:40',
       },
       selectOptions,
       radioOptions,
       checkboxOptions,
     };
-  },
-  mounted() {
   },
   methods: {
     handleClick(type) {

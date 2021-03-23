@@ -20,9 +20,9 @@ TODO
 - [ ]radio --storybook
 - [-]checkbox 
 - [ ]checkbox  --storybook
-- [x]datepicker •••••
+- [-]datepicker ••••• 檢查 有預設值時與介面是否匹配
 - [ ]datepicker --storybook
-- [ ]timepicker •••••
+- [-]timepicker ••••• 檢查 有預設值時與介面是否匹配
 - [ ]timepicker --storybook
 - [ ]datetimepicker
 - [ ]datetimepicker --storybook
