@@ -108,12 +108,11 @@ export default {
 <style lang="scss">
 
 .re-table-body {
-  /* width: 100%; */
+
   display: inline-block;
   overflow: auto;
   &__tr {
     border-bottom: 1px solid $c-lightgrey;
-    /* background-color: #f00; */
 
     &--stripe {
       &:nth-child(2n) {
@@ -125,6 +124,9 @@ export default {
       border-right: 1px solid #cccccc;
       @include font-style($c-assist, 14px);
 
+      &:last-child {
+        border-right: 0px solid #cccccc;
+      }
     }
 
     &:last-child {

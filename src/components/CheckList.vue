@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import getUsersAPI from '@/api/test';
+import { getUsersAPI } from '@/api/test';
 
 export default {
   name: 'CheckList',

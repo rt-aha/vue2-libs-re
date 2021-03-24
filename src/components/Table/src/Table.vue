@@ -1,6 +1,6 @@
 <template>
   <div class="re-table">
-    <table class="tag-table">
+    <table class="table">
       <re-table-header
         :tableData="tableData"
         :columnConfig="columnConfig"
@@ -78,7 +78,7 @@ export default {
   /* width: auto; */
 }
 
-.tag-table {
+.table {
   width: auto;
 }
 
