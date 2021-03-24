@@ -1,10 +1,12 @@
 <template>
-  <thead class="re-table-header">
+  <thead class="re-table-header" ref="tableHeader">
     <tr class="re-table-header__tr">
       <td class="re-table-header__tr__td"
         v-for="col of tableColumns"
         :key="col.prop"
-        :width="col.width || 'auto'"
+        :style="{
+          ...col.cssStyle,
+        }"
       >
         {{ col.label }}
       </td>
@@ -29,13 +31,29 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    // tableHeaderHight() {
+    //   if (!this.$refs.tableHeader.clientHeight) return 0;
+    //   return this.$refs.tableHeader.clientHeight;
+    // },
+  },
+
+  mounted() {
+    // this.getTableHeaderHeight();
+  },
+  watch: {
+    tableHeaderHight: {
+      // handler() { this.$emit('setTableHeaderHeight', this.tableHeaderHeight); },
+    },
+
+  },
 };
 </script>
 
 <style lang="scss">
 
 .re-table-header {
-  display: block;
+  // display: block;
 
   &__tr {
       border-bottom: 1px solid $c-lightgrey;

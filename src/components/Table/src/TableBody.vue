@@ -1,24 +1,27 @@
 <template>
-  <tbody class="re-table-body"
-  :style="{'max-height': maxHeightValue}">
-    <tr class="re-table-body__tr" v-for="rowData of tableData" :key="rowData.name"
-    :class="[
-      {
-        're-table-body__tr--stripe': stripe
-      }
-    ]"
-      data-other="hihi"
+  <tbody class="re-table-body" :style="{ 'max-height': maxHeightValue }">
+    <tr
+      class="re-table-body__tr"
+      v-for="rowData of tableData"
+      :key="rowData.name"
+      :class="[
+        {
+          're-table-body__tr--stripe': stripe,
+        },
+      ]"
       :style="setRowColor(rowData)"
     >
-    <!-- style="background-color: #FFD700" -->
+      <!-- style="background-color: #FFD700" -->
       <td
         class="re-table-body__tr__td"
-
         v-for="col of tableColumns"
         :key="col.prop"
-        :width="col.width || 'auto'"
-        :style="col.cssStyle"
+        :style="{
+          ...col.cssStyle,
+        }"
       >
+      {{col.fixed}}
+        <!-- :width="col.width+'px' || 'auto'" -->
         <!-- {{ setRowColor(rowData) }} -->
         {{ formatter(rowData[col.prop], rowData, col) }}
       </td>
@@ -53,6 +56,10 @@ export default {
     maxHeight: {
       type: [Number, String],
       default: 'auto',
+    },
+    tableHeaderHeight: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
@@ -91,7 +98,10 @@ export default {
 
       existKeys.forEach((key) => {
         if (this.rowColorObj[key].condition) {
-          const isMatchCondition = this.rowColorObj[key].condition(rowData[key], rowData);
+          const isMatchCondition = this.rowColorObj[key].condition(
+            rowData[key],
+            rowData,
+          );
           if (isMatchCondition) {
             bgColor = { backgroundColor: this.rowColorObj[key].color };
           }
@@ -100,19 +110,17 @@ export default {
 
       return bgColor;
     },
-
   },
 };
 </script>
 
 <style lang="scss">
-
 .re-table-body {
-
-  display: inline-block;
+  // display: inline-block;
   overflow: auto;
   &__tr {
     border-bottom: 1px solid $c-lightgrey;
+    position: relative;
 
     &--stripe {
       &:nth-child(2n) {
@@ -127,12 +135,12 @@ export default {
       &:last-child {
         border-right: 0px solid #cccccc;
       }
+
     }
 
     &:last-child {
       border-bottom: 0px transparent;
     }
-
   }
 }
 </style>

@@ -6,7 +6,7 @@
      :columnConfig="columnConfig"
      :stripe="false"
      :rowColor="rowColor"
-     :maxHeight="300">
+     :maxHeight="200">
       <re-table-column prop="name" label="名字" width="150" />
       <re-table-column
         prop="age"
@@ -16,8 +16,10 @@
             color: '#F00',
           }"
       />
-      <re-table-column prop="height" label="身高" width="150"
+      <re-table-column prop="height" label="身高"
       :formatter="convertToMeter"/>
+      <re-table-column prop="status" label="狀態"
+      :formatter="isError" fixed="right"/>
     </re-table>
   </div>
 </template>
@@ -56,7 +58,6 @@ export default {
         {
           prop: 'name',
           header: '名字',
-          // width: 200,
           style: { color: '#f00' },
           headerAlign: 'center',
           align: 'right',
@@ -65,7 +66,6 @@ export default {
         {
           prop: 'age',
           header: '年齡',
-          // width: 100,
           cssStyle: {
             color: '#F00',
           },
@@ -73,7 +73,6 @@ export default {
         {
           prop: 'height',
           header: '身高',
-          // width: 100,
         },
         {
           prop: 'action',
@@ -113,6 +112,13 @@ export default {
       if (isNumber(val)) {
         const h = val / 100;
         return h.toFixed(2);
+      }
+
+      return '-';
+    },
+    isError(val) {
+      if (val === 'error') {
+        return '錯誤';
       }
 
       return '-';
