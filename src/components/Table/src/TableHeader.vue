@@ -35,6 +35,9 @@ export default {
 <style lang="scss">
 
 .re-table-header {
+  /* width: 100%; */
+  display: inline-block;
+
   &__tr {
       border-bottom: 1px solid $c-lightgrey;
     &__td {

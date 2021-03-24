@@ -5,7 +5,8 @@
     :tableData="tableData"
      :columnConfig="columnConfig"
      :stripe="false"
-     :rowColor="rowColor">
+     :rowColor="rowColor"
+     :maxHeight="300">
       <re-table-column prop="name" label="名字" width="150" />
       <re-table-column
         prop="age"
@@ -32,12 +33,12 @@ export default {
       rowColor: [
         {
           prop: 'height',
-          color: '#FFD700',
+          color: '#F0E68C',
           condition: (val, rowData) => val > 170,
         },
         {
           prop: 'status',
-          color: '#CD5C5C',
+          color: '#FFA07A',
           condition: (val, rowData) => val,
         },
       ],
@@ -55,7 +56,7 @@ export default {
         {
           prop: 'name',
           header: '名字',
-          width: 200,
+          // width: 200,
           style: { color: '#f00' },
           headerAlign: 'center',
           align: 'right',
@@ -64,7 +65,7 @@ export default {
         {
           prop: 'age',
           header: '年齡',
-          width: 100,
+          // width: 100,
           cssStyle: {
             color: '#F00',
           },
@@ -72,12 +73,12 @@ export default {
         {
           prop: 'height',
           header: '身高',
-          width: 100,
+          // width: 100,
         },
         {
           prop: 'action',
           header: '操作',
-          width: 100,
+          // width: 100,
         },
         // {
         //   prop: 'action2',

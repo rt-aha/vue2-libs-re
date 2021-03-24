@@ -1,5 +1,6 @@
 <template>
-  <tbody class="re-table-body">
+  <tbody class="re-table-body"
+  :style="{'max-height': maxHeightValue}">
     <tr class="re-table-body__tr" v-for="rowData of tableData" :key="rowData.name"
     :class="[
       {
@@ -49,6 +50,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    maxHeight: {
+      type: [Number, String],
+      default: 'auto',
+    },
   },
   computed: {
     rowColorObj() {
@@ -60,6 +65,13 @@ export default {
     },
     rowColorKeys() {
       return this.rowColor.map((ele) => ele.prop);
+    },
+    maxHeightValue() {
+      if (this.maxHeight === 'auto') {
+        return 'auto';
+      }
+
+      return `${this.maxHeight}px`;
     },
   },
   methods: {
@@ -96,7 +108,9 @@ export default {
 <style lang="scss">
 
 .re-table-body {
-  overflow: hidden;
+  /* width: 100%; */
+  display: inline-block;
+  overflow: auto;
   &__tr {
     border-bottom: 1px solid $c-lightgrey;
     /* background-color: #f00; */
