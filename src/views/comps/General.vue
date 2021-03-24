@@ -11,6 +11,11 @@
     <re-title  @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title  @click="handleClick('uploadImage')">上傳圖片</re-title>
+    <re-upload-image />
+    <re-title  @click="handleClick('uploadVideo')">上傳影片</re-title>
+    <re-upload-video />
+
     <re-title  @click="handleClick('button')">按鈕</re-title>
     <div v-if="comps['button']">
       <re-row :mt="false">

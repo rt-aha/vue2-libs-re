@@ -28,7 +28,7 @@ export default [
       {
         path: 'table',
         name: 'table',
-        component: () => import(/* webpackChunkName: "Table" */ '@/views/comps/Table.vue'),
+        component: () => import(/* webpackChunkName: "Table" */ '@/views/comps/TablePage.vue'),
         meta: {
           title: '表格組件',
           mainCategoryType: 'components',

@@ -1,12 +1,12 @@
 <template>
-  <div class="comp-">
-    Table
+  <div class="re-">
+    DateTimePicker
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Table',
+  name: 'ReDateTimePicker',
 };
 </script>
 

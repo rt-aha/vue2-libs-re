@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'Divider',
+  name: 'ReDivider',
   props: {
     margin: {
       type: String,

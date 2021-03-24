@@ -18,7 +18,7 @@ TODO
 - [ ]select --storybook
 - [-]radio
 - [ ]radio --storybook
-- [-]checkbox 
+- [-]checkbox ••••• 加全選
 - [ ]checkbox  --storybook
 - [-]datepicker ••••• 檢查 有預設值時與介面是否匹配
 - [ ]datepicker --storybook
@@ -40,9 +40,9 @@ TODO
 - [ ]modal --storybook
 - [ ]tooltip
 - [ ]tooltip --storybook
-- [ ]upload(image)
+- [-]upload(image)
 - [ ]upload(image) --storybook
-- [ ]upload(video)
+- [-]upload(video)
 - [ ]upload(video) --storybook
 - [ ]add new list(新增多個條列項目那種)
 - [ ]add new list(新增多個條列項目那種) --storybook
