@@ -145,9 +145,7 @@ export default {
 
       // 若有固定欄位且未設定監聽器才執行
       // if (columns.length > 0 && this.isSetResizeListener === false) {
-      //   window.addEventListener('resize', () => {
-      //     this.showFixedColumnDebounce();
-      //   });
+      //   window.addEventListener('resize', this.showFixedColumnDebounce);
 
       //   this.isSetResizeListener = true;
       // }
@@ -213,11 +211,12 @@ export default {
     this.getFixedTableColumns();
     this.calcFixedTableWidth();
     this.setScopedSlotList();
-    window.addEventListener('resize', () => {
-      this.showFixedColumnDebounce();
-    });
+    window.addEventListener('resize', this.showFixedColumnDebounce);
   },
   created() {},
+  beforeDestroy() {
+    window.removeEventListener('resize', this.showFixedColumnDebounce);
+  },
 };
 </script>
 

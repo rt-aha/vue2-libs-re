@@ -47,39 +47,28 @@ export default {
   },
   methods: {
     setFixedColumnsWidth() {
+      if (!this.hasFixedColumn) return;
       const columnsProps = Object.keys(this.$refs).filter((ele) => ele !== 'tableHeader');
-      console.log('columnsProps', columnsProps);
-
       const columnsWidthMapping = columnsProps.reduce((obj, key) => {
-        console.log('this.$refs[key]', this.$refs[key]);
         obj[key] = this.$refs[key][0].clientWidth;
 
         return obj;
       }, {});
 
-      console.log('columnsWidthMapping', this.columnsWidthMapping);
       this.$emit('setColumnsWidthMapping', columnsWidthMapping);
     },
     // eslint-disable-next-line
     clacFixedColumnsWidthDebounce: debounce(function() {
-      if (this.hasFixedColumn) {
-        this.setFixedColumnsWidth();
-      }
+      this.setFixedColumnsWidth();
     }, 200),
   },
-
   mounted() {
-    window.addEventListener('resize', () => {
-      this.setFixedColumnsWidth();
-    });
-    // this.scopedSlotList = Object.keys(this.$scopedSlots);
+    window.addEventListener('resize', this.setFixedColumnsWidth);
   },
-  watch: {
-    tableHeaderHight: {
-      // handler() { this.$emit('setTableHeaderHeight', this.tableHeaderHeight); },
-    },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.showFixedColumnDebounce);
+  },
 
-  },
 };
 </script>
 
