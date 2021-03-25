@@ -1,11 +1,12 @@
 <template>
   <colgroup class="comp-table-col-group">
-   <col v-for="col of tableColumns"
+   <col v-for="col of columnsConfig"
         :key="col.prop"
-        :width="col.width || '150'"
+        :width="columnsWidthMapping[col.prop] || '150'"
         :style="{
           ...col.cssStyle,
         }">
+        <!-- :width="col.width || '150'" -->
   </colgroup>
 </template>
 
@@ -13,9 +14,17 @@
 export default {
   name: 'ReTableColGroup',
   props: {
-    tableColumns: {
+    columnsConfig: {
       type: Array,
       default: () => [],
+    },
+    isFixedColumn: {
+      type: Boolean,
+      default: false,
+    },
+    columnsWidthMapping: {
+      type: Object,
+      default: () => ({}),
     },
   },
 };

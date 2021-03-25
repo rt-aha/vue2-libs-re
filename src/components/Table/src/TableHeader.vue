@@ -2,8 +2,9 @@
   <thead class="re-table-header" ref="tableHeader">
     <tr class="re-table-header__tr">
       <td class="re-table-header__tr__td"
-        v-for="col of tableColumns"
+        v-for="col of columnsConfig"
         :key="col.prop"
+        :ref="col.prop"
         :style="{
           ...col.cssStyle,
         }"
@@ -15,6 +16,8 @@
 </template>
 
 <script>
+import { cloneDeep, debounce } from 'lodash';
+
 export default {
   name: 'ReTableHeader',
   props: {
@@ -22,14 +25,19 @@ export default {
       type: Array,
       default: () => [],
     },
-    columnConfig: {
+    columnsConfig: {
       type: Array,
       default: () => [],
     },
-    tableColumns: {
-      type: Array,
-      default: () => [],
+    hasFixedColumn: {
+      type: Boolean,
+      default: false,
     },
+  },
+  data() {
+    return {
+      // columnsWidthMapping: {},
+    };
   },
   computed: {
     // tableHeaderHight() {
@@ -37,9 +45,34 @@ export default {
     //   return this.$refs.tableHeader.clientHeight;
     // },
   },
+  methods: {
+    setFixedColumnsWidth() {
+      const columnsProps = Object.keys(this.$refs).filter((ele) => ele !== 'tableHeader');
+      console.log('columnsProps', columnsProps);
+
+      const columnsWidthMapping = columnsProps.reduce((obj, key) => {
+        console.log('this.$refs[key]', this.$refs[key]);
+        obj[key] = this.$refs[key][0].clientWidth;
+
+        return obj;
+      }, {});
+
+      console.log('columnsWidthMapping', this.columnsWidthMapping);
+      this.$emit('setColumnsWidthMapping', columnsWidthMapping);
+    },
+    // eslint-disable-next-line
+    clacFixedColumnsWidthDebounce: debounce(function() {
+      if (this.hasFixedColumn) {
+        this.setFixedColumnsWidth();
+      }
+    }, 200),
+  },
 
   mounted() {
-    // this.getTableHeaderHeight();
+    window.addEventListener('resize', () => {
+      this.setFixedColumnsWidth();
+    });
+    // this.scopedSlotList = Object.keys(this.$scopedSlots);
   },
   watch: {
     tableHeaderHight: {

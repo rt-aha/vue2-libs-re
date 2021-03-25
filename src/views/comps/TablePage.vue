@@ -3,7 +3,7 @@
     <re-title :mt="false">表格</re-title>
     <re-table
      :tableData="tableData"
-     :tableColumns="tableColumns"
+     :columnsConfig="columnsConfig"
      :stripe="false"
      :rowColor="rowColor"
      :maxHeight="200">
@@ -35,7 +35,7 @@ export default {
         },
       ],
       tableData: [],
-      tableColumns: [
+      columnsConfig: [
         // {
         //   prop: 'checkbox',
         //   header: '框',
@@ -61,14 +61,17 @@ export default {
           header: '身高',
           width: 100,
           formatter: this.convertToMeter,
+          fixed: 'right',
         },
+
         {
           prop: 'status',
           header: '狀態',
           width: 150,
           formatter: this.isError,
-          fixed: 'right',
+
         },
+
         // {
         //   prop: 'action',
         //   header: '操作',

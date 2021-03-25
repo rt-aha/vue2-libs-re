@@ -13,7 +13,7 @@
     >
       <td
         class="re-table-body__tr__td"
-        v-for="col of tableColumns"
+        v-for="(col) of columnsConfig"
         :key="col.prop"
         :style="{
           ...col.cssStyle,
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'ReTableBody',
   props: {
@@ -44,11 +45,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    columnConfig: {
-      type: Array,
-      default: () => [],
-    },
-    tableColumns: {
+    columnsConfig: {
       type: Array,
       default: () => [],
     },
@@ -75,6 +72,10 @@ export default {
     scopedSlotList: {
       type: Array,
       default: () => [],
+    },
+    fixedTableWidth: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -130,11 +131,9 @@ export default {
 
       return bgColor;
     },
+
   },
-  mounted() {
-    // console.log('$scopedSlots --tablebody', this.$scopedSlots);
-    // this.scopedSlotList = Object.keys(this.$scopedSlots);
-  },
+
 };
 </script>
 
@@ -153,11 +152,11 @@ export default {
     }
     &__td {
       @include box-padding(10px);
-      border-right: 1px solid #cccccc;
+      border-right: 1px solid $c-lightgrey;
       @include font-style($c-assist, 14px);
 
       &:last-child {
-        border-right: 0px solid #cccccc;
+        border-right: 0px solid $c-lightgrey;
       }
 
     }

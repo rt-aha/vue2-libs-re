@@ -1,51 +1,61 @@
 <template>
   <div class="re-table">
-    <div class="re-table__wrapper">
-      <table class="table" :style="{ width: tableWidth + 'px' }">
-        <re-table-header :tableData="tableData" :tableColumns="tableColumns" />
-        <re-table-col-group :tableColumns="tableColumns" />
+    <div class="re-table__wrapper" ref="tableWrapper">
+      <table class="table" :style="{ width: fullTableWidthValue }">
+        <re-table-header
+          :tableData="tableData"
+          :columnsConfig="reOrderColumnConfig"
+          :hasFixedColumn="hasFixedColumn"
+          @setColumnsWidthMapping="setColumnsWidthMapping"
+        />
+        <re-table-col-group :columnsConfig="reOrderColumnConfig"/>
         <re-table-body
           :tableData="tableData"
-          :tableColumns="tableColumns"
+          :columnsConfig="reOrderColumnConfig"
           :stripe="stripe"
           :rowColor="rowColor"
           :maxHeight="maxHeight"
           :scopedSlotList="scopedSlotList"
         >
           <!-- <template> -->
-            <!-- value: scope.data.value,
+          <!-- value: scope.data.value,
                 rowData: scope.data.rowData,
                 col: scope.data.col, -->
           <span
             :slot="col.prop"
             slot-scope="scope"
-            v-for="col of tableColumns"
+            v-for="col of columnsConfig"
             :key="col.prop"
           >
             <slot
               :name="col.prop"
               :data="{
-                ...scope.data
+                ...scope.data,
               }"
             ></slot>
           </span>
           <!-- </template> -->
         </re-table-body>
       </table>
-      <re-table-fixed>
-        <table class="table" :style="{ width: tableWidth + 'px' }">
+      <re-table-fixed v-if="tableContentWidth > fullTableWidth">
+        <table class="table" :style="{ width: fixedTableWidth + 'px' }">
           <re-table-header
             :tableData="tableData"
-            :tableColumns="tableFixedColumns"
+            :columnsConfig="tableFixedColumns"
           />
-          <re-table-col-group :tableColumns="tableFixedColumns" />
+          <re-table-col-group
+            :columnsConfig="tableFixedColumns"
+            :columnsWidthMapping="columnsWidthMapping"
+            :isFixedColumn="true"
+          />
           <re-table-body
             :tableData="tableData"
-            :tableColumns="tableFixedColumns"
+            :columnsConfig="tableFixedColumns"
             :stripe="stripe"
             :rowColor="rowColor"
             :maxHeight="maxHeight"
             :isFixedColumn="true"
+            ref="tableBody"
           >
           </re-table-body>
         </table>
@@ -58,7 +68,7 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
+import { cloneDeep, debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 export default {
@@ -92,57 +102,87 @@ export default {
       type: String,
       default: '',
     },
-    tableColumns: {
+    columnsConfig: {
       type: Array,
       default: () => [],
     },
   },
   data() {
     return {
-      tableWidth: 0,
-      // tableColumns: [],
+      fullTableWidthValue: '',
+      fullTableWidth: 0,
+      tableContentWidth: 0,
+      reOrderColumnConfig: [],
+      fixedTableWidth: 0,
       tableFixedColumns: [],
       tableHeaderHeight: 0,
       scopedSlotList: [],
+      isSetResizeListener: false,
+      hasFixedColumn: false,
+      columnsWidthMapping: {},
     };
   },
   computed: {},
   methods: {
-    getSettingPropsFromTableColumn() {
-      this.tableColumns = this.$children
-        .filter((ele) => {
-          const cols = ele.$options.name === 'ReTableColumn';
-          return cols;
-        })
-        .map((ele) => {
-          if (ele.$attrs.fixed === 'right') {
-            return {
-              isEmptyRow: true,
-              ...ele.$attrs,
-            };
-          }
-          return {
-            ...ele.$attrs,
-          };
-        });
+    setColumnsWidthMapping(val) {
+      this.columnsWidthMapping = val;
+    },
+    calcReOrderColumnConfig() {
+      const emptyTableColumn = this.columnsConfig
+        .filter((ele) => ele.fixed)
+        .map((ele) => ({
+          isEmptyRow: true,
+          ...ele,
+        }));
+
+      if (emptyTableColumn.length) {
+        this.emptyTableColumn = true;
+      }
+
+      const columns = this.columnsConfig.filter((ele) => !ele.fixed);
+
+      this.reOrderColumnConfig = [...columns, ...emptyTableColumn];
+
+      // 若有固定欄位且未設定監聽器才執行
+      // if (columns.length > 0 && this.isSetResizeListener === false) {
+      //   window.addEventListener('resize', () => {
+      //     this.showFixedColumnDebounce();
+      //   });
+
+      //   this.isSetResizeListener = true;
+      // }
+    },
+
+    isShowFixedColumn() {
+      this.getFullTableWidth();
+
+      if (this.fullTableWidth > this.tableContentWidth) {
+        this.fullTableWidthValue = '100%';
+        this.reOrderColumnConfig = this.columnsConfig;
+        return;
+      }
+      this.fullTableWidthValue = `${this.tableContentWidth}px`;
+      this.calcReOrderColumnConfig();
     },
     calcTableWidth() {
-      this.tableWidth = this.tableColumns
+      this.tableContentWidth = this.columnsConfig
         .map((ele) => ele.width || '150')
         .reduce((acc, ele) => {
           acc += Number(ele);
           return acc;
         }, 0);
+
+      this.isShowFixedColumn();
     },
     getFixedTableColumns() {
-      this.tableFixedColumns = this.tableColumns
+      this.tableFixedColumns = this.columnsConfig
         .filter((ele) => ele.fixed === 'right')
         .map((ele) => ({
           ...ele,
         }));
     },
     calcFixedTableWidth() {
-      this.tableWidth = this.tableColumns
+      this.fixedTableWidth = this.columnsConfig
         .filter((ele) => ele.fixed === 'right')
         .map((ele) => ele.width || '150')
         .reduce((acc, ele) => {
@@ -150,17 +190,34 @@ export default {
           return acc;
         }, 0);
     },
+    getFullTableWidth() {
+      this.fullTableWidth = this.$refs.tableWrapper.clientWidth;
+    },
+    setScopedSlotList() {
+      this.scopedSlotList = Object.keys(this.$scopedSlots);
+    },
+    // eslint-disable-next-line
+    showFixedColumnDebounce: debounce(function () {
+      this.isShowFixedColumn();
+    }, 500),
   },
-
   mounted() {
-    // this.getSettingPropsFromTableColumn();
-    // this.calcTableWidth();
+    /**
+     * 1. 取得table寬
+     * 2. 取得table內欄位總和
+     * 3. 取得固定欄位及固定欄位的寬
+     * 4. 設定使用scoped-slot的prop // 似乎有anti-design?
+     */
+    this.getFullTableWidth();
+    this.calcTableWidth();
     this.getFixedTableColumns();
     this.calcFixedTableWidth();
-    console.log('this...', this.$slots);
-    console.log('$scopedSlots --table', this.$scopedSlots);
-    this.scopedSlotList = Object.keys(this.$scopedSlots);
+    this.setScopedSlotList();
+    window.addEventListener('resize', () => {
+      this.showFixedColumnDebounce();
+    });
   },
+  created() {},
 };
 </script>
 

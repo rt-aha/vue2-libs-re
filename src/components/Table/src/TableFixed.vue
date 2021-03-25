@@ -15,6 +15,7 @@ export default {
   display: inline-block;
   @include position(tr, 0, 0);
   height: 100%;
-  background-color: #ccc;
+  background-color: $c-white;
+  border-left: 1px solid $c-lightgrey;
 }
 </style>
