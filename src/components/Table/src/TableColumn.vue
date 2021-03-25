@@ -1,6 +1,6 @@
 <template>
   <div class="re-table-column">
-
+    <slot></slot>
   </div>
 </template>
 

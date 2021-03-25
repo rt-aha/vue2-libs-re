@@ -2,16 +2,15 @@
   <tbody class="re-table-body" :style="{ 'max-height': maxHeightValue }">
     <tr
       class="re-table-body__tr"
-      v-for="rowData of tableData"
+      v-for="(rowData, index) of tableData"
       :key="rowData.name"
       :class="[
         {
           're-table-body__tr--stripe': stripe,
         },
       ]"
-      :style="setRowColor(rowData)"
+      :style="setRowStyle(rowData, index)"
     >
-      <!-- style="background-color: #FFD700" -->
       <td
         class="re-table-body__tr__td"
         v-for="col of tableColumns"
@@ -20,10 +19,18 @@
           ...col.cssStyle,
         }"
       >
-      {{col.fixed}}
-        <!-- :width="col.width+'px' || 'auto'" -->
-        <!-- {{ setRowColor(rowData) }} -->
-        {{ formatter(rowData[col.prop], rowData, col) }}
+        <div>
+          <span v-if="col.isEmptyRow">
+          </span>
+          <span v-else>
+            <span v-if="scopedSlotList.includes(col.prop)">
+              <slot :name="col.prop" :data="{value: rowData[col.prop], rowData, col}" />
+            </span>
+            <span v-else>
+              {{ formatter(rowData[col.prop], rowData, col) }}
+            </span>
+          </span>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -61,6 +68,19 @@ export default {
       type: Number,
       default: 0,
     },
+    isFixedColumn: {
+      type: Boolean,
+      default: false,
+    },
+    scopedSlotList: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      // scopedSlotList: [],
+    };
   },
   computed: {
     rowColorObj() {
@@ -91,7 +111,7 @@ export default {
     },
 
     // 取出keys, 根據所寫陣列逐個比對，後面的會覆蓋前面的
-    setRowColor(rowData) {
+    setRowStyle(rowData) {
       const rowDataKeys = Object.keys(rowData);
       const existKeys = this.rowColorKeys.filter((ele) => rowDataKeys.includes(ele));
       let bgColor = {};
@@ -110,6 +130,10 @@ export default {
 
       return bgColor;
     },
+  },
+  mounted() {
+    // console.log('$scopedSlots --tablebody', this.$scopedSlots);
+    // this.scopedSlotList = Object.keys(this.$scopedSlots);
   },
 };
 </script>

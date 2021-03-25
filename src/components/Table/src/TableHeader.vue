@@ -8,7 +8,7 @@
           ...col.cssStyle,
         }"
       >
-        {{ col.label }}
+        {{ col.header }}
       </td>
     </tr>
   </thead>

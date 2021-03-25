@@ -68,6 +68,9 @@ export default {
       this.$emit('click', e);
     },
   },
+  mounted() {
+    console.log('$slots', this.$slots);
+  },
 };
 </script>
 

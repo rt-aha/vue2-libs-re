@@ -1,11 +1,8 @@
 <template>
   <div class="re-table">
     <div class="re-table__wrapper">
-      <table class="table" :style="{width: tableWidth + 'px'}">
-        <re-table-header
-          :tableData="tableData"
-          :tableColumns="tableColumns"
-        />
+      <table class="table" :style="{ width: tableWidth + 'px' }">
+        <re-table-header :tableData="tableData" :tableColumns="tableColumns" />
         <re-table-col-group :tableColumns="tableColumns" />
         <re-table-body
           :tableData="tableData"
@@ -13,27 +10,50 @@
           :stripe="stripe"
           :rowColor="rowColor"
           :maxHeight="maxHeight"
-        />
+          :scopedSlotList="scopedSlotList"
+        >
+          <!-- <template> -->
+            <!-- value: scope.data.value,
+                rowData: scope.data.rowData,
+                col: scope.data.col, -->
+          <span
+            :slot="col.prop"
+            slot-scope="scope"
+            v-for="col of tableColumns"
+            :key="col.prop"
+          >
+            <slot
+              :name="col.prop"
+              :data="{
+                ...scope.data
+              }"
+            ></slot>
+          </span>
+          <!-- </template> -->
+        </re-table-body>
       </table>
       <re-table-fixed>
-        <table class="table" :style="{width: tableWidth + 'px'}">
-        <re-table-header
-          :tableData="tableData"
-          :tableColumns="tableFixedColumns"
-        />
-        <re-table-col-group :tableColumns="tableFixedColumns" />
-        <re-table-body
-          :tableData="tableData"
-          :tableColumns="tableFixedColumns"
-          :stripe="stripe"
-          :rowColor="rowColor"
-          :maxHeight="maxHeight"
-        />
-      </table>
+        <table class="table" :style="{ width: tableWidth + 'px' }">
+          <re-table-header
+            :tableData="tableData"
+            :tableColumns="tableFixedColumns"
+          />
+          <re-table-col-group :tableColumns="tableFixedColumns" />
+          <re-table-body
+            :tableData="tableData"
+            :tableColumns="tableFixedColumns"
+            :stripe="stripe"
+            :rowColor="rowColor"
+            :maxHeight="maxHeight"
+            :isFixedColumn="true"
+          >
+          </re-table-body>
+        </table>
       </re-table-fixed>
-      <div class="hidden-table-column"><slot></slot></div>
+      <div><slot name="sss"></slot></div>
+      <!-- <slot></slot> -->
+      <!-- <div class="hidden-table-column"><slot></slot></div> -->
     </div>
-
   </div>
 </template>
 
@@ -72,23 +92,39 @@ export default {
       type: String,
       default: '',
     },
+    tableColumns: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       tableWidth: 0,
-      tableColumns: [],
+      // tableColumns: [],
       tableFixedColumns: [],
       tableHeaderHeight: 0,
+      scopedSlotList: [],
     };
   },
   computed: {},
   methods: {
     getSettingPropsFromTableColumn() {
       this.tableColumns = this.$children
-        .filter((ele) => ele.$options.name === 'ReTableColumn')
-        .map((ele) => ({
-          ...ele.$attrs,
-        }));
+        .filter((ele) => {
+          const cols = ele.$options.name === 'ReTableColumn';
+          return cols;
+        })
+        .map((ele) => {
+          if (ele.$attrs.fixed === 'right') {
+            return {
+              isEmptyRow: true,
+              ...ele.$attrs,
+            };
+          }
+          return {
+            ...ele.$attrs,
+          };
+        });
     },
     calcTableWidth() {
       this.tableWidth = this.tableColumns
@@ -97,33 +133,33 @@ export default {
           acc += Number(ele);
           return acc;
         }, 0);
-
-      console.log('tableWidth', this.tableWidth);
     },
     getFixedTableColumns() {
-      this.tableFixedColumns = this.$children
-        .filter((ele) => ele.$options.name === 'ReTableColumn' && ele.$attrs.fixed === 'right')
+      this.tableFixedColumns = this.tableColumns
+        .filter((ele) => ele.fixed === 'right')
         .map((ele) => ({
-          ...ele.$attrs,
+          ...ele,
         }));
     },
     calcFixedTableWidth() {
-      this.tableWidth = this.tableFixedColumns
+      this.tableWidth = this.tableColumns
+        .filter((ele) => ele.fixed === 'right')
         .map((ele) => ele.width || '150')
         .reduce((acc, ele) => {
           acc += Number(ele);
           return acc;
         }, 0);
-
-      console.log('tableWidth', this.tableWidth);
     },
   },
 
   mounted() {
-    this.getSettingPropsFromTableColumn();
-    this.calcTableWidth();
+    // this.getSettingPropsFromTableColumn();
+    // this.calcTableWidth();
     this.getFixedTableColumns();
     this.calcFixedTableWidth();
+    console.log('this...', this.$slots);
+    console.log('$scopedSlots --table', this.$scopedSlots);
+    this.scopedSlotList = Object.keys(this.$scopedSlots);
   },
 };
 </script>
@@ -141,10 +177,8 @@ export default {
 
   &__wrapper {
     width: 100%;
-  overflow: auto;
-
+    overflow: auto;
   }
-
 }
 
 .table {
@@ -154,11 +188,9 @@ export default {
   // overflow: hidden;
   table-layout: fixed;
   word-wrap: break-word;
-
 }
 
 .hidden-table-column {
   display: none;
 }
-
 </style>

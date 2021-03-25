@@ -2,24 +2,14 @@
   <div class="view-table">
     <re-title :mt="false">表格</re-title>
     <re-table
-    :tableData="tableData"
-     :columnConfig="columnConfig"
+     :tableData="tableData"
+     :tableColumns="tableColumns"
      :stripe="false"
      :rowColor="rowColor"
      :maxHeight="200">
-      <re-table-column prop="name" label="名字" width="150" />
-      <re-table-column
-        prop="age"
-        label="年齡"
-        width="100"
-        :cssStyle="{
-            color: '#F00',
-          }"
-      />
-      <re-table-column prop="height" label="身高"
-      :formatter="convertToMeter"/>
-      <re-table-column prop="status" label="狀態"
-      :formatter="isError" fixed="right"/>
+     <!-- <div slot="name" slot-scope="scope">
+       {{scope.data.value}} 111
+     </div> -->
     </re-table>
   </div>
 </template>
@@ -45,7 +35,7 @@ export default {
         },
       ],
       tableData: [],
-      columnConfig: [
+      tableColumns: [
         // {
         //   prop: 'checkbox',
         //   header: '框',
@@ -58,27 +48,32 @@ export default {
         {
           prop: 'name',
           header: '名字',
-          style: { color: '#f00' },
-          headerAlign: 'center',
-          align: 'right',
+          width: 150,
 
         },
         {
           prop: 'age',
           header: '年齡',
-          cssStyle: {
-            color: '#F00',
-          },
+          width: 100,
         },
         {
           prop: 'height',
           header: '身高',
+          width: 100,
+          formatter: this.convertToMeter,
         },
         {
-          prop: 'action',
-          header: '操作',
-          // width: 100,
+          prop: 'status',
+          header: '狀態',
+          width: 150,
+          formatter: this.isError,
+          fixed: 'right',
         },
+        // {
+        //   prop: 'action',
+        //   header: '操作',
+        //   // width: 100,
+        // },
         // {
         //   prop: 'action2',
         //   header: '操作2',
@@ -102,6 +97,7 @@ export default {
   created() {
     this.getData();
   },
+
   methods: {
     async getData() {
       const res = await getTableDataAPI();
