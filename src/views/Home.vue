@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <check-list />
-    <div class="btn-wrapper">
-      <button class="btn" v-for="item of btns" :key="item" @click="toDevComp(item)">Develop {{item}}</button>
+    <div class="btn-wrapper"  v-for="item of btns" :key="item">
+      <button class="btn" @click="toDevComp(item)">Develop {{item}}</button>
     </div>
 
   </div>
@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       btns: [
-        'general', 'form', 'table',
+        'general', 'form', 'table', 'test', 'render',
       ],
     };
   },
@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss">
 .btn-wrapper {
-  margin-top: 30px;
+  margin-top: 10px;
 
   .btn + .btn {
     margin-left: 10px;

@@ -34,6 +34,24 @@ export default [
           mainCategoryType: 'components',
         },
       },
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import(/* webpackChunkName: "Test" */ '@/views/play/Test.vue'),
+        meta: {
+          title: '測試用頁面',
+          mainCategoryType: 'components',
+        },
+      },
+      {
+        path: 'render',
+        name: 'render',
+        component: () => import(/* webpackChunkName: "Render" */ '@/views/play/Render.vue'),
+        meta: {
+          title: '測試用頁面',
+          mainCategoryType: 'components',
+        },
+      },
     ],
     meta: {
       title: '組件',

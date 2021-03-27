@@ -7,9 +7,9 @@
      :stripe="false"
      :rowColor="rowColor"
      :maxHeight="200">
-     <!-- <div slot="name" slot-scope="scope">
+     <template v-slot:name="scope">
        {{scope.data.value}} 111
-     </div> -->
+     </template>
     </re-table>
   </div>
 </template>
