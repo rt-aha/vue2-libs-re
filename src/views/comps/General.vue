@@ -16,6 +16,29 @@
     <re-title  @click="handleClick('uploadVideo')">上傳影片</re-title>
     <re-upload-video />
 
+    <re-title @click="handleClick('pagination')">頁碼</re-title>
+    <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage"/>
+
+    <re-title @click="handleClick('badge')">標記</re-title>
+    <re-badge>
+      <re-button>按鈕</re-button>
+    </re-badge>
+
+    <re-title @click="handleClick('dialog')">彈窗</re-title>
+    <re-button @click="openDialog()">開啟彈窗</re-button>
+    <re-dialog :visible="dialogVisible" footerPosition="center" @close="closeDialog">
+      <template #header>
+        <re-title type="dialog" :mt="false">彈窗標題</re-title>
+      </template>
+      <template>
+        body
+      </template>
+
+      <template #footer>
+        <re-button>取消</re-button>
+      </template>
+    </re-dialog>
+
     <re-title  @click="handleClick('button')">按鈕</re-title>
     <div v-if="comps['button']">
       <re-row :mt="false">
@@ -139,6 +162,9 @@ export default {
         datePicker: true,
         timePicker: true,
         tab: true,
+        pagination: true,
+        badge: true,
+        dialog: true,
       },
       val: {
         input: 'input-val',
@@ -155,6 +181,11 @@ export default {
         timePicker: '01:01:40',
         tab: 'tab111',
       },
+      pageInfo: {
+        totalPage: 10,
+        pageIndex: 1,
+      },
+      dialogVisible: true,
       currTab: 'tab1',
       selectOptions,
       radioOptions,
@@ -181,6 +212,18 @@ export default {
     },
     handleTab(tabInfo) {
       this.val.tab = tabInfo.name;
+    },
+    handleJumpPage(pageIndex) {
+      console.log('pageIndex', pageIndex);
+      this.pageInfo.pageIndex = pageIndex;
+    },
+    openDialog() {
+      console.log('openDialog');
+      this.dialogVisible = true;
+    },
+    closeDialog() {
+      console.log('closeDialog');
+      this.dialogVisible = false;
     },
   },
 };

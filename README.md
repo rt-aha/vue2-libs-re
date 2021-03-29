@@ -24,21 +24,21 @@ TODO
 - [ ]datepicker --storybook
 - [-]timepicker ••••• 檢查 有預設值時與介面是否匹配
 - [ ]timepicker --storybook
-- [ ]datetimepicker
+- [ ]datetimepicker ••••• 5
 - [ ]datetimepicker --storybook
-- [ ]tree
+- [ ]tree ••••• 4
 - [ ]tree --storybook
-- [ ]badge
+- [-]badge
 - [ ]badge --storybook
 - [ ]loading
 - [ ]loading --storybook
 - [-]tabs
 - [ ]tabs --storybook
-- [ ]drawer
+- [ ]drawer ••••• 2
 - [ ]drawer --storybook
-- [ ]modal
-- [ ]modal --storybook
-- [ ]tooltip
+- [ ]dialog ••••• 1
+- [ ]dialog --storybook
+- [ ]tooltip ••••• 3
 - [ ]tooltip --storybook
 - [-]upload(image)
 - [ ]upload(image) --storybook
@@ -50,9 +50,9 @@ TODO
 - [ ]form --storybook
 - [-]formitem
 - [ ]formitem --storybook
-- [ ]table
+- [-]table
 - [ ]table --storybook
-- [ ]pagination
+- [-]pagination
 - [ ]pagination --storybook
 - [ ]time line
 - [ ]time line --storybook

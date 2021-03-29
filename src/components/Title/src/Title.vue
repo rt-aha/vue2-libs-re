@@ -27,7 +27,7 @@ export default {
       // required: true,
       type: String,
       default: 'demo',
-      validator: (value) => ['demo'].includes(value),
+      validator: (value) => ['demo', 'dialog'].includes(value),
     },
     inline: {
       type: Boolean,
@@ -43,6 +43,10 @@ export default {
     @include font-style($c-assist, 18px, 300);
     margin-top: 0px;
     margin-bottom: 10px;
+  }
+
+  &__dialog {
+    @include font-style($c-assist, 18px, 300);
   }
 
   &--mt {
