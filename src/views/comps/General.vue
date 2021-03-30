@@ -13,6 +13,15 @@
     <re-title @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('divider')">日期時間選擇器</re-title>
+    <re-row>
+      <re-date-time-picker v-model="val.dateTimePicker" />
+    </re-row>
+    <!-- <re-date-picker v-model="val.dateTimePicker" /> -->
+
+    <re-title @click="handleClick('tree')">樹型結構</re-title>
+    <re-tree :treeList="treeList"/>
+
     <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
     <re-upload-image />
     <re-title @click="handleClick('uploadVideo')">上傳影片</re-title>
@@ -223,7 +232,9 @@
 </template>
 
 <script>
-import { selectOptions, radioOptions, checkboxOptions } from './test-config';
+import {
+  selectOptions, radioOptions, checkboxOptions, treeList,
+} from './test-config';
 import TabsTesting from './TabsTesting.vue';
 import DialogTemplate from './DialogTemplate.vue';
 
@@ -244,8 +255,9 @@ export default {
         tab: true,
         pagination: true,
         badge: true,
-        tooltip: false,
+        tooltip: true,
         dialog: true,
+        tree: true,
       },
       val: {
         input: 'input-val',
@@ -260,6 +272,7 @@ export default {
         checkbox2: [1, 4, 5],
         datePicker: '',
         timePicker: '01:01:40',
+        dateTimePicker: '',
         tab: 'tab111',
       },
       pageInfo: {
@@ -278,6 +291,7 @@ export default {
       selectOptions,
       radioOptions,
       checkboxOptions,
+      treeList,
       tabsConfig: [
         {
           label: 'tab122',

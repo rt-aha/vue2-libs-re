@@ -72,7 +72,7 @@ export default {
       type: String,
       default: 'input',
       validate(val) {
-        return ['input', 'select', 'switch', 'datePicker'].valueOf(val) > -1;
+        return ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(val) > -1;
       },
     },
   },

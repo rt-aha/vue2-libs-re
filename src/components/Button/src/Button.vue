@@ -43,6 +43,9 @@ export default {
     type: {
       type: String,
       default: 'default',
+      validator(val) {
+        return ['default', 'border', 'plain'].indexOf(val) > -1;
+      },
     },
     size: {
       type: String,

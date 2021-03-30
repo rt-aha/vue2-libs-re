@@ -18,15 +18,15 @@ TODO
 - [ ]select --storybook
 - [-]radio
 - [ ]radio --storybook
-- [-]checkbox ••••• 加全選
+- [-]checkbox  加全選
 - [ ]checkbox  --storybook
-- [-]datepicker ••••• 檢查 有預設值時與介面是否匹配
+- [-]datepicker  檢查 有預設值時與介面是否匹配
 - [ ]datepicker --storybook
-- [-]timepicker ••••• 檢查 有預設值時與介面是否匹配
+- [-]timepicker  檢查 有預設值時與介面是否匹配
 - [ ]timepicker --storybook
-- [ ]datetimepicker ••••• 5
+- [-]datetimepicker 值還沒接上
 - [ ]datetimepicker --storybook
-- [ ]tree ••••• 4
+- [-]tree 
 - [ ]tree --storybook
 - [-]badge
 - [ ]badge --storybook
@@ -38,7 +38,7 @@ TODO
 - [ ]drawer --storybook
 - [ ]dialog 
 - [ ]dialog --storybook
-- [ ]tooltip ••••• 3
+- [-]tooltip 
 - [ ]tooltip --storybook
 - [-]upload(image)
 - [ ]upload(image) --storybook
