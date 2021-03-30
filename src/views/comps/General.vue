@@ -245,7 +245,6 @@ export default {
   },
   methods: {
     beforeClose() {
-      console.log('beforeClose...');
       this.dialogVisible.prop = false;
     },
     handleClick(type) {

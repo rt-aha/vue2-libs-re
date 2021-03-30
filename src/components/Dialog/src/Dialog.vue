@@ -77,7 +77,6 @@ export default {
     visible(val) {
       if (val) {
         if (this.appendToBody) {
-          console.log('this.$el');
           document.body.appendChild(this.$el);
         }
       }

@@ -34,7 +34,6 @@ export default {
       this.secondDialog = false;
     },
     handleClose() {
-      console.log('handleClose in dialog template');
       this.$emit('beforeClose');
       this.$emit('close');
 
