@@ -1,6 +1,41 @@
 <template>
   <div class="view-general">
-    <re-title :mt="false" @click="handleClick('tabs')">頁籤</re-title>
+    <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
+    <re-divider />
+
+    <re-title @click="handleClick('button')">按鈕</re-title>
+    <div v-if="comps['button']">
+      <re-row :mt="false">
+        <re-button> 預設按鈕 </re-button>
+        <re-button :disabled="true"> disabled按鈕 </re-button>
+        <re-button type="border"> border按鈕 </re-button>
+        <re-button type="plain"> plain按鈕 </re-button>
+      </re-row>
+      <re-row>
+        <re-button><template #prefix>pre</template>按鈕</re-button>
+        <re-button
+          ><template #prefix>pre</template>按鈕<template #suffix
+            >suf</template
+          ></re-button
+        >
+        <re-button>預設按鈕<template #suffix>suf</template></re-button>
+      </re-row>
+      <re-row>
+        <re-button>字很長很長很長很長的按鈕</re-button>
+        <re-button size="small"> 小按鈕 </re-button>
+      </re-row>
+      <re-row>
+        <re-button :isLoading="true">按紐</re-button>
+        <re-button :isLoading="true" type="border"> border按鈕 </re-button>
+        <re-button :isLoading="true" type="plain"> plain按鈕 </re-button>
+        <re-button :isLoading="true" size="small"> 小按鈕 </re-button>
+      </re-row>
+      <re-row>
+        <re-button extra="circle">circle</re-button>
+      </re-row>
+    </div>
+
+    <re-title  @click="handleClick('tabs')">頁籤</re-title>
     <re-tabs v-model="val.tab" @change="handleTab">
       <re-tab-pane
         v-for="tab of tabsConfig"
@@ -10,11 +45,9 @@
         >{{ tab.name }}</re-tab-pane
       >
     </re-tabs>
-    <re-title @click="handleClick('divider')">分隔線</re-title>
-    <re-divider />
 
     <re-title @click="handleClick('inputList')">輸入框列表(可增減)</re-title>
-    <re-input-list v-model="val.inputList"/>
+    <re-input-list v-model="val.inputList" />
 
     <re-title @click="handleClick('inputNumber')">數字輸入框</re-title>
     <re-row>
@@ -114,35 +147,6 @@
       :template="DialogTemplate"
       :data="{ a: 1, b: 2 }"
     />
-
-    <re-title @click="handleClick('button')">按鈕</re-title>
-    <div v-if="comps['button']">
-      <re-row :mt="false">
-        <re-button> 預設按鈕 </re-button>
-        <re-button :disabled="true"> disabled按鈕 </re-button>
-        <re-button type="border"> border按鈕 </re-button>
-        <re-button type="plain"> plain按鈕 </re-button>
-      </re-row>
-      <re-row>
-        <re-button><template #prefix>pre</template>按鈕</re-button>
-        <re-button
-          ><template #prefix>pre</template>按鈕<template #suffix
-            >suf</template
-          ></re-button
-        >
-        <re-button>預設按鈕<template #suffix>suf</template></re-button>
-      </re-row>
-      <re-row>
-        <re-button>字很長很長很長很長的按鈕</re-button>
-        <re-button size="small"> 小按鈕 </re-button>
-      </re-row>
-      <re-row>
-        <re-button :isLoading="true">按紐</re-button>
-        <re-button :isLoading="true" type="border"> border按鈕 </re-button>
-        <re-button :isLoading="true" type="plain"> plain按鈕 </re-button>
-        <re-button :isLoading="true" size="small"> 小按鈕 </re-button>
-      </re-row>
-    </div>
 
     <re-title @click="handleClick('input')">輸入框</re-title>
     <div v-if="comps['input']">

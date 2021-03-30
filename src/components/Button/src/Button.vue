@@ -11,11 +11,12 @@
         're-button--disabled': disabled || isLoading,
       },
     ]"
+    :style="isCircle"
   >
     <span class="re-button__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
     </span>
-    <span class="re-button__content">
+    <span class="re-button__content" :class="[{'re-button__content--circle': extra === 'circle'}]">
       <slot></slot>
     </span>
     <span class="re-button__suffix" v-if="$slots.suffix">
@@ -44,7 +45,7 @@ export default {
       type: String,
       default: 'default',
       validator(val) {
-        return ['default', 'border', 'plain'].indexOf(val) > -1;
+        return ['default', 'border', 'plain', 'circle'].indexOf(val) > -1;
       },
     },
     size: {
@@ -65,11 +66,43 @@ export default {
       type: Boolean,
       default: false,
     },
+    extra: {
+      type: String,
+      default: '',
+    },
+  },
+  computed: {
+    isCircle() {
+      console.log(this.type === 'circle' ? '1' : '2');
+      if (this.extra === 'circle') {
+        let wh = 36;
+        switch (this.size) {
+          case 'small':
+            wh = 32;
+            break;
+          case 'large':
+            wh = 40;
+            break;
+          default:
+            wh = 36;
+            break;
+        }
+
+        return {
+          width: `${wh}px`,
+          height: `${wh}px`,
+          'border-radius': `${wh / 2}px`,
+        };
+      }
+
+      return {};
+    },
   },
   methods: {
     handleClick(e) {
       this.$emit('click', e);
     },
+
   },
 };
 </script>
@@ -78,9 +111,10 @@ export default {
 .re-button {
   @include box-padding(8px 16px);
   @include set-btn-default();
-  @include font-style($c-white, "14px");
+  @include font-style($c-white, 14px);
   display: inline-flex;
   align-items: center;
+  position: relative;
 
   &:hover {
     opacity: 0.8;
@@ -148,6 +182,10 @@ export default {
 
   &__content {
     display: inline-block;
+
+    &--circle {
+      @include position(center);
+    }
   }
 
   &__suffix {

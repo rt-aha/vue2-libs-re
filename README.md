@@ -86,12 +86,13 @@ menu 與 權限橋接
 
 ## 階段
 
-1. 基本組件建構
-2. 基本組件檢查與功能補足
-3. menu
-4. form 深入檢查
-5. table 功能深入
-6. menu 與 auth 連結
-7. 耦合 pagination 到 table
-8. 小後台實驗
-9. 剩餘組件處理
+- [x] 基本組件建構
+- [ ] 基本組件檢查與功能補足
+- [ ] menu
+- [ ] menu 與 auth 連結
+- [ ] form 深入檢查
+- [ ] table 功能深入
+- [ ] 耦合 pagination 到 table
+- [ ] 小後台實驗
+- [ ] 剩餘組件處理
+- [ ] 完善 storybook
