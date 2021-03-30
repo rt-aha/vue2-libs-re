@@ -21,19 +21,43 @@
     <re-title @click="handleClick('pagination')">頁碼</re-title>
     <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
 
+    <re-title @click="handleClick('tooltip')">文字提示</re-title>
+    <div style="margin-left: 100px">
+      <re-row>
+        <re-tooltip position="top">
+          <re-button>文字提示</re-button>
+        </re-tooltip>
+      </re-row>
+      <re-row>
+        <re-tooltip position="right">
+          <re-button>文字提示</re-button>
+        </re-tooltip>
+      </re-row>
+
+      <re-row>
+        <re-tooltip position="left">
+          <re-button>文字提示</re-button>
+        </re-tooltip>
+      </re-row>
+        <re-row>
+        <re-tooltip position="bottom">
+          <re-button>文字提示</re-button>
+        </re-tooltip>
+      </re-row>
+    </div>
+
     <re-title @click="handleClick('badge')">標記</re-title>
-    <re-badge>
-      <re-button>按鈕</re-button>
-    </re-badge>
+    <re-row>
+      <re-badge>
+        <re-button>按鈕</re-button>
+      </re-badge>
+    </re-row>
 
     <!-- 可以使用slot，也可以用把template傳入dialog -->
     <re-title @click="handleClick('dialog')">彈窗</re-title>
     <re-button @click="openDialog('slot')">開啟彈窗(slot)</re-button>
     <re-button @click="openDialog('prop')">開啟彈窗(prop)</re-button>
-    <re-dialog
-      :visible.sync="dialogVisible.slot"
-      footerPosition="center"
-    >
+    <re-dialog :visible.sync="dialogVisible.slot" footerPosition="center">
       <template #header>
         <re-title type="dialog" :mt="false">彈窗標題 slot</re-title>
       </template>
@@ -49,16 +73,13 @@
       title="彈窗標題 prop"
       @beforeClose="beforeClose"
       :template="DialogTemplate"
-      :data="{a: 1, b: 2}"
+      :data="{ a: 1, b: 2 }"
     />
 
     <re-title @click="handleClick('drawer')">抽屜</re-title>
     <re-button @click="openDrawer('slot')">開啟抽屜(slot)</re-button>
     <re-button @click="openDrawer('prop')">開啟抽屜(prop)</re-button>
-    <re-drawer
-      :visible.sync="drawerVisible.slot"
-      footerPosition="center"
-    >
+    <re-drawer :visible.sync="drawerVisible.slot" footerPosition="center">
       <template #header>
         <re-title type="dialog" :mt="false">抽屜標題 slot</re-title>
       </template>
@@ -74,7 +95,7 @@
       title="抽屜標題 prop"
       @beforeClose="beforeClose"
       :template="DialogTemplate"
-      :data="{a: 1, b: 2}"
+      :data="{ a: 1, b: 2 }"
     />
 
     <re-title @click="handleClick('button')">按鈕</re-title>
@@ -223,6 +244,7 @@ export default {
         tab: true,
         pagination: true,
         badge: true,
+        tooltip: false,
         dialog: true,
       },
       val: {
@@ -249,7 +271,7 @@ export default {
         prop: false,
       },
       drawerVisible: {
-        slot: true,
+        slot: false,
         prop: false,
       },
       currTab: 'tab1',

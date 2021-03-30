@@ -34,9 +34,9 @@ TODO
 - [ ]loading --storybook
 - [-]tabs
 - [ ]tabs --storybook
-- [ ]drawer ••••• 2
+- [ ]drawer 
 - [ ]drawer --storybook
-- [ ]dialog ••••• 1
+- [ ]dialog 
 - [ ]dialog --storybook
 - [ ]tooltip ••••• 3
 - [ ]tooltip --storybook
