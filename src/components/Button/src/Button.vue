@@ -11,7 +11,7 @@
         're-button--disabled': disabled || isLoading,
       },
     ]"
-    :style="isCircle"
+    :style="setExtraStyle"
   >
     <span class="re-button__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
@@ -70,10 +70,26 @@ export default {
       type: String,
       default: '',
     },
+    bgColor: {
+      default: '',
+      validator: (val) => {
+        if (val) {
+          const colorCodeRegExp = /^#[A-F0-9]{6}$/;
+          return colorCodeRegExp.test(val);
+        }
+
+        return true;
+      },
+    },
   },
   computed: {
-    isCircle() {
-      console.log(this.type === 'circle' ? '1' : '2');
+    setExtraStyle() {
+      let extraStyles = {};
+
+      if (this.bgColor) {
+        extraStyles['background-color'] = this.bgColor;
+      }
+
       if (this.extra === 'circle') {
         let wh = 36;
         switch (this.size) {
@@ -88,14 +104,15 @@ export default {
             break;
         }
 
-        return {
+        extraStyles = {
+          ...extraStyles,
           width: `${wh}px`,
           height: `${wh}px`,
           'border-radius': `${wh / 2}px`,
         };
       }
 
-      return {};
+      return extraStyles;
     },
   },
   methods: {
@@ -115,6 +132,7 @@ export default {
   display: inline-flex;
   align-items: center;
   position: relative;
+  border: 0px;
 
   &:hover {
     opacity: 0.8;
@@ -153,7 +171,7 @@ export default {
   }
 
   &--default {
-    border: 1px solid $c-main;
+    // border: 1px solid $c-main;
     background-color: $c-main;
   }
 

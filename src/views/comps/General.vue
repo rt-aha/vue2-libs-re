@@ -32,10 +32,35 @@
       </re-row>
       <re-row>
         <re-button extra="circle">circle</re-button>
+        <re-button bgColor="#CD5C5C">按紐</re-button>
+        <re-button
+          :style="{ 'border-color': '#CD5C5C', color: '#CD5C5C' }"
+          type="border"
+          >按紐</re-button
+        >
       </re-row>
     </div>
 
-    <re-title  @click="handleClick('tabs')">頁籤</re-title>
+    <re-title @click="handleClick('buttonGroup')">按鈕群組</re-title>
+    <re-row>
+      <re-button-group>
+        <re-button> 讀 </re-button>
+        <re-button> 寫 </re-button>
+        <re-button> 寫 </re-button>
+        <re-button> 刪 </re-button>
+      </re-button-group>
+    </re-row>
+
+    <re-row>
+      <re-button-group>
+        <re-button type="border"> 讀 </re-button>
+        <re-button type="border"> 寫 </re-button>
+        <re-button type="border"> 寫 </re-button>
+        <re-button type="border"> 刪 </re-button>
+      </re-button-group>
+    </re-row>
+
+    <re-title @click="handleClick('tabs')">頁籤</re-title>
     <re-tabs v-model="val.tab" @change="handleTab">
       <re-tab-pane
         v-for="tab of tabsConfig"
@@ -261,6 +286,7 @@ export default {
       DialogTemplate,
       comps: {
         button: true,
+        buttonGroup: true,
         input: true,
         switch: true,
         select: true,
