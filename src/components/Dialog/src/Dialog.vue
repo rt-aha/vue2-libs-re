@@ -1,21 +1,41 @@
 <template>
-  <div class="re-dialog" v-show="visible" @click="closeDialog">
-    <div class="re-dialog__box"
-    @click.stop>
-
-    <!-- v-on-clickaway="closeDialog" -->
+  <div class="re-dialog" v-show="visible" @click.self="closeDialog">
+    <div class="re-dialog__box" >
       <div class="re-dialog__box__header">
         <div class="re-dialog__box__header__content">
-          <slot name="header"></slot>
+          <!-- 若純文字可直接傳入 title -->
+          <re-title v-if="$attrs.title" type="dialog" :mt="false">{{$attrs.title}}</re-title>
+          <!-- 若更複雜可用 slot -->
+          <template v-else>
+            <slot name="header"></slot>
+          </template>
         </div>
-        <div class="re-dialog__box__header__close">
+        <div class="re-dialog__box__header__close" @click="closeDialog">
           <div class="re-dialog__box__header__close__cell"></div>
         </div>
       </div>
-      <div class="re-dialog__box__body">
-        <slot>body content</slot>
-      </div>
-      <div class="re-dialog__box__footer" :class="[`re-dialog__box__footer--${footerPosition}`]" v-if="$slots.footer">
+      <!-- 若用slot -->
+      <template v-if="$slots.default">
+        <div class="re-dialog__box__body">
+          <slot>body content</slot>
+        </div>
+      </template>
+      <!-- 若傳入template -->
+      <template v-else>
+        <div class="re-dialog__box__body">
+          <component
+            :is="template"
+            v-bind="data"
+            v-on="$listeners"
+            @close="closeDialog"
+          />
+        </div>
+      </template>
+      <div
+        class="re-dialog__box__footer"
+        :class="[`re-dialog__box__footer--${footerPosition}`]"
+        v-if="$slots.footer"
+      >
         <slot name="footer"></slot>
       </div>
     </div>
@@ -23,7 +43,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ReDialog',
 
@@ -36,10 +55,32 @@ export default {
       type: String,
       default: 'left',
     },
+    template: {
+      default: () => {},
+    },
+    data: {
+      dafeult: () => ({}),
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     closeDialog() {
-      this.$emit('close');
+      this.$emit('beforeClose');
+      console.log('update:visible ~~~');
+      this.$emit('update:visible', false);
+    },
+  },
+  watch: {
+    visible(val) {
+      if (val) {
+        if (this.appendToBody) {
+          console.log('this.$el');
+          document.body.appendChild(this.$el);
+        }
+      }
     },
   },
 };
@@ -73,6 +114,7 @@ export default {
         position: relative;
         width: 20px;
         height: 20px;
+        cursor: pointer;
 
         &__cell {
           width: 10px;
@@ -122,7 +164,6 @@ export default {
       &--right {
         justify-content: flex-end;
       }
-
     }
   }
 }

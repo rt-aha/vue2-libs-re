@@ -57,7 +57,6 @@ export default {
   methods: {
     handleClick(tab) {
       this.calcBarStyle(tab);
-      console.log('tab', tab);
       this.$emit('change', tab);
     },
     calcBarStyle(tab) {
@@ -74,7 +73,6 @@ export default {
       };
     },
     saveTabsWidth() {
-      console.log('this.tabsPane', this.tabsPane);
       this.tabsPane.forEach((ele) => {
         this.allTabsWidth.push(this.$refs[ele.label][0].clientWidth);
       });

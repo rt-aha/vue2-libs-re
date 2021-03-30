@@ -60,7 +60,7 @@ export default {
     };
   },
   created() {
-    console.log(this.timeValue.time());
+    // console.log(this.timeValue.time());
   },
   mounted() {
     this.splitTime();
