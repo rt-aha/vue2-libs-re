@@ -13,6 +13,14 @@
     <re-title @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('inputList')">輸入框列表(可增減)</re-title>
+    <re-input-list v-model="val.inputList"/>
+
+    <re-title @click="handleClick('inputNumber')">數字輸入框</re-title>
+    <re-row>
+      <re-input-number v-model="val.inputNumber" />
+    </re-row>
+
     <re-title @click="handleClick('divider')">日期時間選擇器</re-title>
     <re-row>
       <re-date-time-picker v-model="val.dateTimePicker" />
@@ -20,7 +28,7 @@
     <!-- <re-date-picker v-model="val.dateTimePicker" /> -->
 
     <re-title @click="handleClick('tree')">樹型結構</re-title>
-    <re-tree :treeList="treeList"/>
+    <re-tree :treeList="treeList" />
 
     <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
     <re-upload-image />
@@ -48,7 +56,7 @@
           <re-button>文字提示</re-button>
         </re-tooltip>
       </re-row>
-        <re-row>
+      <re-row>
         <re-tooltip position="bottom">
           <re-button>文字提示</re-button>
         </re-tooltip>
@@ -232,8 +240,12 @@
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
 import {
-  selectOptions, radioOptions, checkboxOptions, treeList,
+  selectOptions,
+  radioOptions,
+  checkboxOptions,
+  treeList,
 } from './test-config';
 import TabsTesting from './TabsTesting.vue';
 import DialogTemplate from './DialogTemplate.vue';
@@ -258,6 +270,8 @@ export default {
         tooltip: true,
         dialog: true,
         tree: true,
+        inputList: true,
+        inputNumber: true,
       },
       val: {
         input: 'input-val',
@@ -274,6 +288,17 @@ export default {
         timePicker: '01:01:40',
         dateTimePicker: '',
         tab: 'tab111',
+        inputNumber: '',
+        inputList: [
+          {
+            value: 'hello',
+            id: uuid(),
+          },
+          {
+            value: 'byebye',
+            id: uuid(),
+          },
+        ],
       },
       pageInfo: {
         totalPage: 10,
@@ -337,6 +362,10 @@ export default {
     closeDrawer(type) {
       console.log('closeDrawer');
       this.drawerVisible[type] = false;
+    },
+    removeInputList(id) {
+      console.log('this.inputList', this.inputList);
+      this.val.inputList = this.val.inputList.filter((item) => item.id !== id);
     },
   },
 };

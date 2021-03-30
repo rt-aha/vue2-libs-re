@@ -12,7 +12,7 @@ TODO
 - [x]input --storybook
 - [x]switch
 - [ ]switch --storybook
-- [ ]input number
+- [-]input number
 - [ ]input number --storybook
 - [x]select
 - [ ]select --storybook
@@ -34,9 +34,9 @@ TODO
 - [ ]loading --storybook
 - [-]tabs
 - [ ]tabs --storybook
-- [ ]drawer 
+- [-]drawer 
 - [ ]drawer --storybook
-- [ ]dialog 
+- [-]dialog 
 - [ ]dialog --storybook
 - [-]tooltip 
 - [ ]tooltip --storybook
@@ -44,7 +44,7 @@ TODO
 - [ ]upload(image) --storybook
 - [-]upload(video)
 - [ ]upload(video) --storybook
-- [ ]add new list(新增多個條列項目那種)
+- [-]add new list(新增多個條列項目那種) xxxxxx
 - [ ]add new list(新增多個條列項目那種) --storybook
 - [-]form
 - [ ]form --storybook
@@ -83,3 +83,15 @@ menu 與 權限橋接
 ## 須了解
 
 - v-clickway lib
+
+## 階段
+
+1. 基本組件建構
+2. 基本組件檢查與功能補足
+3. menu
+4. form 深入檢查
+5. table 功能深入
+6. menu 與 auth 連結
+7. 耦合 pagination 到 table
+8. 小後台實驗
+9. 剩餘組件處理
