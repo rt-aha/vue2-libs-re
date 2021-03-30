@@ -52,6 +52,31 @@
       :data="{a: 1, b: 2}"
     />
 
+    <re-title @click="handleClick('drawer')">抽屜</re-title>
+    <re-button @click="openDrawer('slot')">開啟抽屜(slot)</re-button>
+    <re-button @click="openDrawer('prop')">開啟抽屜(prop)</re-button>
+    <re-drawer
+      :visible.sync="drawerVisible.slot"
+      footerPosition="center"
+    >
+      <template #header>
+        <re-title type="dialog" :mt="false">抽屜標題 slot</re-title>
+      </template>
+      <template> body </template>
+      <template #footer>
+        <re-button @click="closeDrawer('slot')">取消</re-button>
+      </template>
+    </re-drawer>
+
+    <re-drawer
+      :visible.sync="drawerVisible.prop"
+      footerPosition="center"
+      title="抽屜標題 prop"
+      @beforeClose="beforeClose"
+      :template="DialogTemplate"
+      :data="{a: 1, b: 2}"
+    />
+
     <re-title @click="handleClick('button')">按鈕</re-title>
     <div v-if="comps['button']">
       <re-row :mt="false">
@@ -223,6 +248,10 @@ export default {
         slot: false,
         prop: false,
       },
+      drawerVisible: {
+        slot: true,
+        prop: false,
+      },
       currTab: 'tab1',
       selectOptions,
       radioOptions,
@@ -264,6 +293,14 @@ export default {
     closeDialog(type) {
       console.log('closeDialog');
       this.dialogVisible[type] = false;
+    },
+    openDrawer(type) {
+      console.log('openDrawer');
+      this.drawerVisible[type] = true;
+    },
+    closeDrawer(type) {
+      console.log('closeDrawer');
+      this.drawerVisible[type] = false;
     },
   },
 };
