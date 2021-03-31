@@ -82,58 +82,58 @@ export default {
     },
     handleClick(tab) {
       if (tab.disabled) return;
-      this.calcBarStyle(tab);
+      // this.calcBarStyle(tab);
       this.$emit('change', tab);
     },
-    calcBarStyle(tab) {
-      let currBarOffset = 0;
-      for (let i = 0; i < tab.index; i += 1) {
-        currBarOffset += this.allTabsWidth[i];
-      }
+    // calcBarStyle(tab) {
+    //   let currBarOffset = 0;
+    //   for (let i = 0; i < tab.index; i += 1) {
+    //     currBarOffset += this.allTabsWidth[i];
+    //   }
 
-      const currTabWidth = this.$refs[tab.name][0].clientWidth;
+    //   const currTabWidth = this.$refs[tab.name][0].clientWidth;
 
-      this.tabWidth = {
-        width: `${currTabWidth}px`,
-        // transform: `translate(${currBarOffset}px)`,
-        transform: `translate(${currBarOffset - this.scrollLeft}px)`,
-      };
-    },
-    saveTabsWidth() {
-      this.tabLabel.forEach((ele) => {
-        this.allTabsWidth.push(this.$refs[ele.label][0].clientWidth);
-      });
+    //   this.tabWidth = {
+    //     width: `${currTabWidth}px`,
+    //     // transform: `translate(${currBarOffset}px)`,
+    //     transform: `translate(${currBarOffset - this.scrollLeft}px)`,
+    //   };
+    // },
+    // saveTabsWidth() {
+    //   this.tabLabel.forEach((ele) => {
+    //     this.allTabsWidth.push(this.$refs[ele.label][0].clientWidth);
+    //   });
 
-      if (this.tabLabel.length) {
-        this.calcBarStyle({
-          index: 0,
-          ...this.tabLabel[0],
-        });
-      }
-    },
-    setTabsPane() {
-      const list = this.$refs.ul.children;
+    //   if (this.tabLabel.length) {
+    //     this.calcBarStyle({
+    //       index: 0,
+    //       ...this.tabLabel[0],
+    //     });
+    //   }
+    // },
+    // setTabsPane() {
+    //   const list = this.$refs.ul.children;
 
-      this.tabLabel = Array.from(list).map((ele) => {
-        const name = ele.getAttribute('data-tab-name');
-        const label = ele.getAttribute('data-tab-label');
-        // const width = ele.clientWidth;
+    //   this.tabLabel = Array.from(list).map((ele) => {
+    //     const name = ele.getAttribute('data-tab-name');
+    //     const label = ele.getAttribute('data-tab-label');
+    //     // const width = ele.clientWidth;
 
-        return {
-          name,
-          label,
-          // width,
-        };
-      });
+    //     return {
+    //       name,
+    //       label,
+    //       // width,
+    //     };
+    //   });
 
-      this.$nextTick(() => {
-        this.saveTabsWidth();
-      });
-    },
+    //   this.$nextTick(() => {
+    //     this.saveTabsWidth();
+    //   });
+    // },
   },
 
   mounted() {
-    this.setTabsPane();
+    // this.setTabsPane();
   },
 };
 </script>
@@ -151,7 +151,7 @@ export default {
       content: "";
       width: 10px;
       height: calc(100% - 1px);
-      background: linear-gradient(90deg, $c-white 0%, transparent 100%);
+      background: linear-gradient(90deg, $c-white 0%, transparent 90%, transparent 100%);
       display: inline-block;
       @include position(tl, 0, 0);
       z-index: 500;
@@ -161,7 +161,7 @@ export default {
       content: "";
       width: 10px;
       height: calc(100% - 1px);
-      background: linear-gradient(90deg, $c-white 0%, transparent 100%);
+      background: linear-gradient(270deg, $c-white 0%, transparent 90%, transparent 100%);
       display: inline-block;
       @include position(tr, 0, 0);
       z-index: 500;
