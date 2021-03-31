@@ -191,8 +191,6 @@ export default {
         cursor: pointer;
         position: relative;
 
-        /* margin: 0 10px; */
-
         &::after {
           content: "";
           width: 100%;
@@ -220,14 +218,14 @@ export default {
       }
     }
 
-    &__current-bar {
+    /* &__current-bar {
       position: absolute;
       left: 0px;
       bottom: -1px;
       height: 1px;
       background-color: $c-main;
       transition: 0.3s;
-    }
+    } */
   }
 
   &__content {
