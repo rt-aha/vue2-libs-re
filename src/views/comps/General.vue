@@ -3,6 +3,21 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('radio')">單選框</re-title>
+    <div v-if="comps['radio']">
+      <re-row :mt="false">
+        <re-radio v-model="val.radio1" :options="radioOptions" />
+      </re-row>
+
+      <re-row>
+        <re-radio
+          v-model="val.radio2"
+          :options="radioOptions"
+          :inline="false"
+        />
+      </re-row>
+    </div>
+
     <re-title @click="handleClick('tabs')">頁籤</re-title>
     <re-tabs v-model="val.tab" @change="handleTab" :tabsConfig="tabsConfig">
       <template #tab111>content - tab111</template>
@@ -230,21 +245,6 @@
       </re-row>
     </div>
 
-    <re-title @click="handleClick('radio')">單選框</re-title>
-    <div v-if="comps['radio']">
-      <re-row :mt="false">
-        <re-radio v-model="val.radio1" :options="radioOptions" />
-      </re-row>
-
-      <re-row>
-        <re-radio
-          v-model="val.radio2"
-          :options="radioOptions"
-          :inline="false"
-        />
-      </re-row>
-    </div>
-
     <re-title @click="handleClick('checkbox')">多選框</re-title>
     <div v-if="comps['checkbox']">
       <re-row>
@@ -405,7 +405,6 @@ export default {
     },
     handleTab(tabInfo) {
       this.val.tab = tabInfo.name;
-      console.log('this.val.tab', this.val.tab);
     },
     handleJumpPage(pageIndex) {
       console.log('pageIndex', pageIndex);

@@ -4,13 +4,18 @@
       <ul class="re-tabs__select__list" ref="ul">
         <li
           class="re-tabs__select__list__item"
-          :class="[{ 're-tabs__select__list__item--disabled': tab.disabled }]"
+          :class="[
+            {
+              're-tabs__select__list__item--disabled': tab.disabled,
+              're-tabs__select__list__item--active': value === tab.name,
+            },
+          ]"
           v-for="(tab, index) of tabsConfig"
           :key="tab.name"
           :ref="tab.name"
           :data-tab-name="tab.name"
           :data-tab-label="tab.label"
-          @click.stop="handleClick({ index, ...tab })"
+          @click="handleClick({ index, ...tab })"
         >
           <template v-if="tab.render">
             <component :is="tab.render" />
@@ -19,8 +24,11 @@
             <span>{{ tab.label }}</span>
           </template>
         </li>
+        <!-- <li class="re-tabs__select__current-bar" :style="tabWidth">
+
+        </li> -->
       </ul>
-      <div class="re-tabs__select__current-bar" :style="tabWidth"></div>
+      <!-- <div class="re-tabs__select__current-bar" :style="tabWidth" ></div> -->
     </div>
     <div
       class="re-tabs__content"
@@ -35,6 +43,8 @@
 </template>
 
 <script>
+import { debounce } from 'lodash';
+
 export default {
   name: 'ReTabs',
 
@@ -62,6 +72,8 @@ export default {
       allTabsWidth: [],
       tabLabel: [],
       slotsList: [],
+      activedBar: null,
+      scrollLeft: 0,
     };
   },
   methods: {
@@ -74,7 +86,6 @@ export default {
       this.$emit('change', tab);
     },
     calcBarStyle(tab) {
-      console.log('tab', tab);
       let currBarOffset = 0;
       for (let i = 0; i < tab.index; i += 1) {
         currBarOffset += this.allTabsWidth[i];
@@ -84,7 +95,8 @@ export default {
 
       this.tabWidth = {
         width: `${currTabWidth}px`,
-        transform: `translate(${currBarOffset}px)`,
+        // transform: `translate(${currBarOffset}px)`,
+        transform: `translate(${currBarOffset - this.scrollLeft}px)`,
       };
     },
     saveTabsWidth() {
@@ -102,18 +114,17 @@ export default {
     setTabsPane() {
       const list = this.$refs.ul.children;
 
-      this.tabLabel = Array.from(list)
-        .map((ele) => {
-          const name = ele.getAttribute('data-tab-name');
-          const label = ele.getAttribute('data-tab-label');
-          const width = ele.clientWidth;
+      this.tabLabel = Array.from(list).map((ele) => {
+        const name = ele.getAttribute('data-tab-name');
+        const label = ele.getAttribute('data-tab-label');
+        // const width = ele.clientWidth;
 
-          return {
-            name,
-            label,
-            // width,
-          };
-        });
+        return {
+          name,
+          label,
+          // width,
+        };
+      });
 
       this.$nextTick(() => {
         this.saveTabsWidth();
@@ -123,23 +134,84 @@ export default {
 
   mounted() {
     this.setTabsPane();
-    // this.setSlotList();
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .re-tabs {
+  width: 100%;
+  position: relative;
+
   &__select {
     position: relative;
-    border-bottom: 1px solid #ccc;
+    width: 100%;
+
+    &::before {
+      content: "";
+      width: 10px;
+      height: calc(100% - 1px);
+      background: linear-gradient(90deg, $c-white 0%, transparent 100%);
+      display: inline-block;
+      @include position(tl, 0, 0);
+      z-index: 500;
+    }
+
+    &::after {
+      content: "";
+      width: 10px;
+      height: calc(100% - 1px);
+      background: linear-gradient(90deg, $c-white 0%, transparent 100%);
+      display: inline-block;
+      @include position(tr, 0, 0);
+      z-index: 500;
+    }
 
     &__list {
+      width: 100%;
+      position: relative;
+      white-space: nowrap;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        height: 0;
+      }
+
+      &::after {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: $c-lightgrey;
+        display: inline-block;
+        @include position(tl, calc(100% - 1px), 0);
+      }
+
       &__item {
         display: inline-block;
         @include box-padding(10px);
         cursor: pointer;
+        position: relative;
+
         /* margin: 0 10px; */
+
+        &::after {
+          content: "";
+          width: 100%;
+          height: 1px;
+          background-color: $c-lightgrey;
+          display: inline-block;
+          @include position(tl, calc(100% - 1px), 0);
+        }
+
+        &--active {
+          position: relative;
+          color: $c-main;
+
+          &::after {
+            background-color: $c-main;
+            display: inline-block;
+            z-index: 300;
+          }
+        }
 
         &--disabled {
           @include disabled;

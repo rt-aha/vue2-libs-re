@@ -14,13 +14,13 @@ TODO
 - [x]input --storybook
 - [x]switch
 - [ ]switch --storybook
-- [-]input number
+- [x]input number
 - [ ]input number --storybook
 - [x]select
 - [ ]select --storybook
-- [-]radio
+- [-]radio 1. 要綁定原生 
 - [ ]radio --storybook
-- [-]checkbox  加全選
+- [-]checkbox  1. 加全選 2. 要綁定原生
 - [ ]checkbox  --storybook
 - [-]datepicker  檢查 有預設值時與介面是否匹配
 - [ ]datepicker --storybook
@@ -34,7 +34,7 @@ TODO
 - [ ]badge --storybook
 - [ ]loading
 - [ ]loading --storybook
-- [-]tabs
+- [-]tabs 1. 要可以左右滑動
 - [ ]tabs --storybook
 - [-]drawer 
 - [ ]drawer --storybook
