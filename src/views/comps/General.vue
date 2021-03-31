@@ -3,6 +3,16 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('tabs')">頁籤</re-title>
+    <re-tabs v-model="val.tab" @change="handleTab" :tabsConfig="tabsConfig">
+      <template #tab111>content - tab111</template>
+      <template #tab222>content - tab222</template>
+      <template #tab333>content - tab333</template>
+      <template #tab444>content - tab444</template>
+      <template #tab555>content - tab555</template>
+      <template #tab666>content - tab666</template>
+    </re-tabs>
+
     <re-title @click="handleClick('button')">按鈕</re-title>
     <div v-if="comps['button']">
       <re-row :mt="false">
@@ -13,11 +23,11 @@
       </re-row>
       <re-row>
         <re-button><template #prefix>pre</template>按鈕</re-button>
-        <re-button
-          ><template #prefix>pre</template>按鈕<template #suffix
-            >suf</template
-          ></re-button
-        >
+        <re-button>
+          <template #prefix>pre</template>
+          按鈕
+          <template #suffix>suf</template>
+        </re-button>
         <re-button>預設按鈕<template #suffix>suf</template></re-button>
       </re-row>
       <re-row>
@@ -60,24 +70,57 @@
       </re-button-group>
     </re-row>
 
-    <re-title @click="handleClick('tabs')">頁籤</re-title>
-    <re-tabs v-model="val.tab" @change="handleTab">
-      <re-tab-pane
-        v-for="tab of tabsConfig"
-        :key="tab.name"
-        :label="tab.label"
-        :name="tab.name"
-        >{{ tab.name }}</re-tab-pane
-      >
-    </re-tabs>
-
-    <re-title @click="handleClick('inputList')">輸入框列表(可增減)</re-title>
-    <re-input-list v-model="val.inputList" />
+    <re-title @click="handleClick('input')">輸入框</re-title>
+    <div v-if="comps['input']">
+      <re-row :mt="false">
+        <re-input v-model="val.input" placeholder="請輸入姓名" />
+      </re-row>
+      <re-row>
+        <re-input v-model="val.input" :disabled="true" />
+      </re-row>
+      <re-row>
+        <re-input v-model="val.inputPw" type="password" />
+      </re-row>
+      <re-row>
+        <re-input v-model="val.input">
+          <template #prepend>https://</template>
+          <template #prefix>p</template>
+          <template #suffix>s</template>
+          <template #append>a</template>
+        </re-input>
+      </re-row>
+    </div>
 
     <re-title @click="handleClick('inputNumber')">數字輸入框</re-title>
     <re-row>
-      <re-input-number v-model="val.inputNumber" />
+      <re-input-number v-model="val.inputNumber1" placeholder="請輸入數字" />
     </re-row>
+    <re-row>
+      <re-input-number v-model="val.inputNumber2" step="2" />
+    </re-row>
+    <re-row>
+      <re-input-number v-model="val.inputNumber2" size="small" />
+    </re-row>
+
+    <re-title @click="handleClick('textarea')">文本輸入框</re-title>
+    <re-textarea v-model="val.textarea" disabled />
+
+    <re-title @click="handleClick('switch')">開關</re-title>
+    <div v-if="comps['switch']">
+      <re-row :mt="false">
+        <re-switch v-model="val.switch1" />
+      </re-row>
+      <re-row>
+        <re-switch
+          v-model="val.switch2"
+          :switchLabel="{ on: '啟用', off: '關閉' }"
+          :disabled="true"
+        />
+      </re-row>
+    </div>
+
+    <re-title @click="handleClick('inputList')">輸入框列表(可增減)</re-title>
+    <re-input-list v-model="val.inputList" />
 
     <re-title @click="handleClick('divider')">日期時間選擇器</re-title>
     <re-row>
@@ -173,41 +216,6 @@
       :data="{ a: 1, b: 2 }"
     />
 
-    <re-title @click="handleClick('input')">輸入框</re-title>
-    <div v-if="comps['input']">
-      <re-row :mt="false">
-        <re-input v-model="val.input" />
-      </re-row>
-      <re-row>
-        <re-input v-model="val.input" :disabled="true" />
-      </re-row>
-      <re-row>
-        <re-input v-model="val.inputPw" type="password" />
-      </re-row>
-      <re-row>
-        <re-input v-model="val.input">
-          <template #prepend>https://</template>
-          <template #prefix>p</template>
-          <template #suffix>s</template>
-          <template #append>a</template>
-        </re-input>
-      </re-row>
-    </div>
-
-    <re-title @click="handleClick('switch')">開關</re-title>
-    <div v-if="comps['switch']">
-      <re-row :mt="false">
-        <re-switch v-model="val.switch1" />
-      </re-row>
-      <re-row>
-        <re-switch
-          v-model="val.switch2"
-          :switchLabel="{ on: '啟用', off: '關閉' }"
-          :disabled="true"
-        />
-      </re-row>
-    </div>
-
     <re-title @click="handleClick('select')">下拉選單</re-title>
     <div v-if="comps['select']">
       <re-row :mt="false">
@@ -302,6 +310,7 @@ export default {
         tree: true,
         inputList: true,
         inputNumber: true,
+        textarea: true,
       },
       val: {
         input: 'input-val',
@@ -318,7 +327,9 @@ export default {
         timePicker: '01:01:40',
         dateTimePicker: '',
         tab: 'tab111',
-        inputNumber: '',
+        inputNumber1: '',
+        inputNumber2: '',
+        textarea: 'hihi',
         inputList: [
           {
             value: 'hello',
@@ -349,16 +360,38 @@ export default {
       treeList,
       tabsConfig: [
         {
-          label: 'tab122',
+          label: 'tab111',
           name: 'tab111',
         },
         {
           label: 'tab222',
           name: 'tab222',
+          disabled: true,
         },
         {
           label: 'tab333',
           name: 'tab333',
+          render: {
+            render(h) {
+              return h('p', [
+                h('span', 'render '),
+                h('span', 'test'),
+              ]);
+            },
+          },
+        },
+        {
+          label: 'tab444',
+          name: 'tab444',
+        },
+        {
+          label: 'tab555',
+          name: 'tab555',
+        },
+
+        {
+          label: 'tab666',
+          name: 'tab666',
         },
       ],
     };
@@ -372,6 +405,7 @@ export default {
     },
     handleTab(tabInfo) {
       this.val.tab = tabInfo.name;
+      console.log('this.val.tab', this.val.tab);
     },
     handleJumpPage(pageIndex) {
       console.log('pageIndex', pageIndex);

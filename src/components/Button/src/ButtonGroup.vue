@@ -14,9 +14,14 @@ export default {
   },
   methods: {
     getBtnType() {
-      const childType = this.$children[0].type;
-      console.log('child', childType);
-      this.btnType = childType;
+      const children = this.$children;
+
+      // 只查第一層
+      for (const ele of children) {
+        if (ele.$options.name === 'ReButton') {
+          this.btnType = ele.type;
+        }
+      }
     },
   },
   mounted() {

@@ -1,12 +1,13 @@
 <template>
   <div class="re-tab-pane" v-if="activeTab === $attrs.name">
+
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ReTabPane',
+  name: 'ReTabContent',
   inject: [
     'currTab',
   ],

@@ -8,7 +8,9 @@ TODO
 
 - [x]button
 - [x]button --storybook
-- [x]input
+- [x]input 1. 密碼輸入框要有眼睛 s1. 長度輸入限制
+- [x]input --storybook
+- [-]textarea  s1. 長度輸入限制
 - [x]input --storybook
 - [x]switch
 - [ ]switch --storybook

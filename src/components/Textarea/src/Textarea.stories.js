@@ -1,8 +1,8 @@
-import ReTabPane from './TabPane.vue';
+import ReTextarea from './Textarea.vue';
 
 export default {
-  title: 'Re-UI/ReTabPane',
-  component: ReTabPane,
+  title: 'Re-UI/ReTextarea',
+  component: ReTextarea,
   argTypes: {
     // type: { control: { type: 'select', options: ['default', 'border', 'plain'] } },
   },
@@ -10,8 +10,8 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { ReTabPane },
-  template: '<re-TabPane v-bind="$props" >按鈕</re-TabPane>',
+  components: { ReTextarea },
+  template: '<re-Textarea v-bind="$props" >按鈕</re-Textarea>',
 });
 
 export const Primary = Template.bind({});

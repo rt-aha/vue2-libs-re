@@ -63,16 +63,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    cusType: {
-      type: String,
-      default: 'input',
-      validate(val) {
-        return (
-          ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(
-            val,
-          ) > -1
-        );
-      },
+    step: {
+      type: [Number, String],
+      default: 1,
     },
   },
   data() {
@@ -124,12 +117,12 @@ export default {
     },
     minusNumber() {
       const inputValue = this.getInput().value;
-      const val = Number(inputValue) - 1;
+      const val = Number(inputValue) - Number(this.step);
       this.$emit('input', String(val));
     },
     plusNumber() {
       const inputValue = this.getInput().value;
-      const val = Number(inputValue) + 1;
+      const val = Number(inputValue) + Number(this.step);
       this.$emit('input', String(val));
     },
   },

@@ -1,31 +1,40 @@
 <template>
   <div class="re-tabs">
-     <div class="re-tabs__select">
-      <ul class="re-tabs__select__list">
+    <div class="re-tabs__select">
+      <ul class="re-tabs__select__list" ref="ul">
         <li
           class="re-tabs__select__list__item"
-          v-for="(tab, index) of tabsPane"
-          :key="tab.label + index"
-          :ref="tab.label"
+          :class="[{ 're-tabs__select__list__item--disabled': tab.disabled }]"
+          v-for="(tab, index) of tabsConfig"
+          :key="tab.name"
+          :ref="tab.name"
           :data-tab-name="tab.name"
           :data-tab-label="tab.label"
           @click.stop="handleClick({ index, ...tab })"
         >
-          <span >{{ tab.label }}</span>
+          <template v-if="tab.render">
+            <component :is="tab.render" />
+          </template>
+          <template v-else>
+            <span>{{ tab.label }}</span>
+          </template>
         </li>
       </ul>
       <div class="re-tabs__select__current-bar" :style="tabWidth"></div>
     </div>
-   <div class="re-tabs__content">
-      <slot></slot>
+    <div
+      class="re-tabs__content"
+      v-for="content of tabsConfig"
+      :key="content.name"
+    >
+      <div v-show="content.name === value">
+        <slot :name="content.name"></slot>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
-// import RenderFunction from '@/utils/renderFunction';
-
 export default {
   name: 'ReTabs',
 
@@ -51,21 +60,27 @@ export default {
     return {
       tabWidth: {},
       allTabsWidth: [],
-      tabsPane: [],
+      tabLabel: [],
+      slotsList: [],
     };
   },
   methods: {
+    setSlotList() {
+      this.slotsList = Object.keys(this.$slots);
+    },
     handleClick(tab) {
+      if (tab.disabled) return;
       this.calcBarStyle(tab);
       this.$emit('change', tab);
     },
     calcBarStyle(tab) {
+      console.log('tab', tab);
       let currBarOffset = 0;
       for (let i = 0; i < tab.index; i += 1) {
         currBarOffset += this.allTabsWidth[i];
       }
 
-      const currTabWidth = this.$refs[tab.label][0].clientWidth;
+      const currTabWidth = this.$refs[tab.name][0].clientWidth;
 
       this.tabWidth = {
         width: `${currTabWidth}px`,
@@ -73,26 +88,30 @@ export default {
       };
     },
     saveTabsWidth() {
-      this.tabsPane.forEach((ele) => {
+      this.tabLabel.forEach((ele) => {
         this.allTabsWidth.push(this.$refs[ele.label][0].clientWidth);
       });
 
-      if (this.tabsPane.length) {
+      if (this.tabLabel.length) {
         this.calcBarStyle({
           index: 0,
-          ...this.tabsPane[0],
+          ...this.tabLabel[0],
         });
       }
     },
     setTabsPane() {
-      this.tabsPane = this.$children
-        .filter((ele) => ele.$options.name === 'ReTabPane')
+      const list = this.$refs.ul.children;
+
+      this.tabLabel = Array.from(list)
         .map((ele) => {
-          const { name, label } = ele.$attrs;
+          const name = ele.getAttribute('data-tab-name');
+          const label = ele.getAttribute('data-tab-label');
+          const width = ele.clientWidth;
 
           return {
             name,
             label,
+            // width,
           };
         });
 
@@ -104,6 +123,7 @@ export default {
 
   mounted() {
     this.setTabsPane();
+    // this.setSlotList();
   },
 };
 </script>
@@ -120,6 +140,11 @@ export default {
         @include box-padding(10px);
         cursor: pointer;
         /* margin: 0 10px; */
+
+        &--disabled {
+          @include disabled;
+          background-color: transparent;
+        }
       }
     }
 
