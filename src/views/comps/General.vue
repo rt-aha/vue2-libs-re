@@ -3,6 +3,40 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('checkbox')">多選框</re-title>
+    <div v-if="comps['checkbox']">
+      <re-row>
+        <re-checkbox-group v-model="val.checkbox1" :options="checkboxOptions" />
+      </re-row>
+
+      <re-row>
+        <re-checkbox-group
+          v-model="val.checkbox2"
+          :options="checkboxOptions"
+          :inline="false"
+        />
+      </re-row>
+
+      <re-row>
+        <re-checkbox
+          v-model="val.checkAll"
+          label="全選"
+          @change="handleCheckbox"
+        />
+      </re-row>
+      <re-row :style="{ 'margin-top': '0px' }">
+        <re-checkbox-group v-model="val.checkbox3" :options="checkboxOptions" />
+      </re-row>
+
+      <re-row>
+        <re-checkbox-group
+          v-model="val.checkbox4"
+          :options="limitedCheckboxOptions"
+          :limit="[1, 3]"
+        />
+      </re-row>
+    </div>
+
     <re-title @click="handleClick('radio')">單選框</re-title>
     <div v-if="comps['radio']">
       <re-row :mt="false">
@@ -245,21 +279,6 @@
       </re-row>
     </div>
 
-    <re-title @click="handleClick('checkbox')">多選框</re-title>
-    <div v-if="comps['checkbox']">
-      <re-row>
-        <re-checkbox v-model="val.checkbox1" :options="checkboxOptions" />
-      </re-row>
-
-      <re-row>
-        <re-checkbox
-          v-model="val.checkbox2"
-          :options="checkboxOptions"
-          :inline="false"
-        />
-      </re-row>
-    </div>
-
     <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
     <div v-if="comps['datePicker']">
       <re-row>
@@ -283,6 +302,7 @@ import {
   radioOptions,
   checkboxOptions,
   treeList,
+  limitedCheckboxOptions,
 } from './test-config';
 import TabsTesting from './TabsTesting.vue';
 import DialogTemplate from './DialogTemplate.vue';
@@ -323,6 +343,9 @@ export default {
         radio2: 3,
         checkbox1: [2],
         checkbox2: [1, 4, 5],
+        checkAll: true,
+        checkbox3: [],
+        checkbox4: [4],
         datePicker: '',
         timePicker: '01:01:40',
         dateTimePicker: '',
@@ -357,6 +380,7 @@ export default {
       selectOptions,
       radioOptions,
       checkboxOptions,
+      limitedCheckboxOptions,
       treeList,
       tabsConfig: [
         {
@@ -373,10 +397,7 @@ export default {
           name: 'tab333',
           render: {
             render(h) {
-              return h('p', [
-                h('span', 'render '),
-                h('span', 'test'),
-              ]);
+              return h('p', [h('span', 'render '), h('span', 'test')]);
             },
           },
         },
@@ -429,6 +450,14 @@ export default {
     removeInputList(id) {
       console.log('this.inputList', this.inputList);
       this.val.inputList = this.val.inputList.filter((item) => item.id !== id);
+    },
+    handleCheckbox(val) {
+      this.val.checkAll = val;
+      if (val) {
+        this.val.checkbox3 = this.checkboxOptions.map((ele) => ele.value);
+      } else {
+        this.val.checkbox3 = [];
+      }
     },
   },
 };

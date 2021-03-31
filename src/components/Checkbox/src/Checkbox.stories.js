@@ -1,4 +1,4 @@
-import ReCheckbox from './Checkbox.vue';
+import ReCheckbox from './CheckboxGroup.vue';
 
 export default {
   title: 'Re-UI/ReCheckbox',

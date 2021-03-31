@@ -1,3 +1,4 @@
+// 遠端
 @import '~@indigoichigo/scss/vars-and-mixins/index.scss';
-@import 're-init.scss';
-
+// 本地端，用於複寫與新增此專案才有的東西
+@import 're/index.scss';

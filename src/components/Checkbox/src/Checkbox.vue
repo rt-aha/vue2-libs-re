@@ -1,65 +1,151 @@
 <template>
-  <div class="re-checkbox">
-    <re-checkbox-option
-      v-for="checkbox of options"
-      :key="checkbox.value"
-      v-bind="checkbox"
-      @handleCheckbox="handleCheckbox"
-      :inline="inline"
-      :currValue="value"
-    />
+  <div class="re-checkbox" :class="[
+      {
+        're-checkbox--inline': inline,
+        're-checkbox--disabled': disabled,
+      },
+    ]">
+    <label class="re-checkbox-box" :for="label" @click.stop="handler">
+      <div class="re-checkbox-box__input">
+        <input class="re-checkbox-box__input__origin" type="checkbox" :id="uuid" />
+        <span
+          class="re-checkbox-box__input__actural"
+          :class="[
+            {'re-checkbox-box__input__actural--active': currValue.includes(value) || checkAll}
+          ]"
+        ></span>
+      </div>
+      <span class="re-checkbox-box__label">{{ label }}</span>
+    </label>
   </div>
+
 </template>
 
 <script>
-
-import { cloneDeep } from 'lodash';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ReCheckbox',
-  inject: {
-    reFormItem: {
-      default: '',
-    },
+  model: {
+    prop: 'checkAll',
+    event: 'checkAll',
   },
   props: {
-    value: {
-      default: [],
+    checkAll: {
+      type: Boolean,
+      default: false,
     },
-    options: {
+    currValue: {
       type: Array,
       default: () => [],
+    },
+    value: {
+      default: '',
+    },
+    label: {
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    render: {
+      type: Object,
+      default: () => ({}),
     },
     inline: {
       type: Boolean,
       default: true,
     },
+    inGroup: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      uuid: uuid(),
+      handler() {},
+    };
   },
   methods: {
-    handleCheckbox(checkedValue) {
-      let cloneValue = cloneDeep(this.value);
-      const isChecked = this.value.includes(checkedValue);
+    handleCheckbox() {
+      if (this.disabled) return;
+      this.$emit('change', !this.checkAll);
+    },
 
-      if (isChecked) {
-        cloneValue = cloneValue.filter((val) => val !== checkedValue);
+    handleCheckboxGroup() {
+      if (this.disabled) return;
+      this.$emit('handleCheckboxGroup', this.value);
+    },
+    setHandler() {
+      if (this.inGroup) {
+        this.handler = this.handleCheckboxGroup;
       } else {
-        cloneValue.push(checkedValue);
+        this.handler = this.handleCheckbox;
       }
+    },
+  },
 
-      this.$emit('input', cloneValue);
-      if (this.reFormItem) {
-        this.validateValue();
-      }
-    },
-    validateValue() {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
-      });
-    },
+  created() {
+    this.setHandler();
   },
 };
 </script>
 
 <style lang="scss">
 
+.re-checkbox {
+  margin: 5px 10px 5px 0;
+  cursor: inherit;
+
+  &--inline {
+    display: inline-block;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    .re-radio-box {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.re-checkbox-box {
+  display: inline-block;
+  cursor: pointer;
+
+  &__input {
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    @include circle(16px, 4px);
+    @include box-padding(2px);
+    position: relative;
+    border: 1px solid $c-assist;
+
+    &__origin {
+      display: none;
+    }
+
+    &__actural {
+      display: inline-block;
+      @include circle(10px, 2px);
+
+        &--active {
+          @include position(center);
+          background-color: $c-main;
+        }
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    @include font-style($c-assist, 14px);
+  }
+}
 </style>

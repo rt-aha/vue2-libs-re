@@ -93,6 +93,30 @@ export const checkboxOptions = [
   // },
 ];
 
+export const limitedCheckboxOptions = [
+  {
+    label: '多選1',
+    value: 1,
+  },
+  {
+    label: '多選2',
+    value: 2,
+  },
+  {
+    label: '多選3',
+    value: 3,
+  },
+  {
+    label: '多選4',
+    value: 4,
+  },
+  {
+    label: '多選5',
+    value: 5,
+
+  },
+];
+
 export const treeList = [
   {
     label: '樹形項目1',

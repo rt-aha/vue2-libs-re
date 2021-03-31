@@ -1,8 +1,8 @@
-import ReCheckbox from './src/Checkbox.vue';
+import ReCheckboxGroup from './src/CheckboxGroup.vue';
 
 /* istanbul ignore next */
-ReCheckbox.install = (Vue) => {
-  Vue.component(ReCheckbox.name, ReCheckbox);
+ReCheckboxGroup.install = (Vue) => {
+  Vue.component(ReCheckboxGroup.name, ReCheckboxGroup);
 };
 
-export default ReCheckbox;
+export default ReCheckboxGroup;

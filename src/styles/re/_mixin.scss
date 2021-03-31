@@ -1,0 +1,5 @@
+@mixin disabled() {
+  background-color: #efefef;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
