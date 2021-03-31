@@ -171,7 +171,7 @@ export default {
       width: 100%;
       position: relative;
       white-space: nowrap;
-      overflow: auto;
+      overflow-x: auto;
       &::-webkit-scrollbar {
         height: 0;
       }
