@@ -18,9 +18,9 @@ TODO
 - [ ]input number --storybook
 - [x]select
 - [ ]select --storybook
-- [-]radio 1. 要綁定原生 
+- [x]radio 
 - [ ]radio --storybook
-- [-]checkbox  1. 加全選 2. 要綁定原生
+- [x]checkbox 
 - [ ]checkbox  --storybook
 - [-]datepicker  檢查 有預設值時與介面是否匹配
 - [ ]datepicker --storybook
@@ -46,7 +46,7 @@ TODO
 - [ ]upload(image) --storybook
 - [-]upload(video)
 - [ ]upload(video) --storybook
-- [-]add new list(新增多個條列項目那種) xxxxxx
+- [-]add new list(新增多個條列項目那種) 
 - [ ]add new list(新增多個條列項目那種) --storybook
 - [-]form
 - [ ]form --storybook
@@ -68,11 +68,11 @@ TODO
 - [ ]transfer --storybook
 - [ ]slider
 - [ ]slider --storybook
-- [-]row
+- [x]row
 - [ ]row --storybook
 - [ ]space
 - [ ]space --storybook
-- [-]divider
+- [x]divider
 - [ ]divider --storybook
 
 ## tool

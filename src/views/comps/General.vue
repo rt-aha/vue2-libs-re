@@ -3,6 +3,9 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('pagination')">頁碼</re-title>
+    <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
+
     <re-title @click="handleClick('checkbox')">多選框</re-title>
     <div v-if="comps['checkbox']">
       <re-row>
@@ -365,7 +368,7 @@ export default {
         ],
       },
       pageInfo: {
-        totalPage: 10,
+        totalPage: 6,
         pageIndex: 1,
       },
       dialogVisible: {

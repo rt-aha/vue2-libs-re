@@ -1,15 +1,52 @@
  <template>
   <div class="re-pagination">
-    <re-pagination-show-total :totalInfo="100" />
-    <re-pagination-page-size :pageSize="[10, 20, 30, 40]" />
-    <re-pagination-pager :pageInfo="pageInfo" v-on="$listeners"/>
-    <re-pagination-to-page @handleToPage="handleToPage"/>
+    <ul class="re-pager-list" v-if="pageInfo.totalPage !== 1">
+      <li
+        v-show="pageInfo.pageIndex !== 1 || pageInfo.totalPage === 1"
+        class="re-pager-item pager-jump-bg"
+        @click="handleJumpPage('prev')"
+      >
+        <div class="r-arrow r-arrow--prev">
+          <div class="r-arrow__icon"></div>
+        </div>
+      </li>
+
+      <li
+        class="re-pager-item"
+        :class="[
+          { 'more-sign-bg': typeof item !== 'number' },
+          { 'page-index-bg': pageInfo.pageIndex === item },
+        ]"
+        v-for="(item, index) of pageList"
+        :key="index"
+        @click="handleJumpPage('jump', item)"
+      >
+        <span
+          class="page-number"
+          :class="[
+            { 'more-sign': typeof item !== 'number' },
+            { 'page-index': pageInfo.pageIndex === item },
+          ]"
+          >{{ item }}</span
+        >
+      </li>
+
+      <li
+        v-show="pageInfo.pageIndex !== pageInfo.totalPage && pageInfo.totalPage > 1"
+        class="re-pager-item pager-jump-bg"
+        @click="handleJumpPage('next')"
+      >
+        <div class="r-arrow r-arrow--next">
+          <div class="r-arrow__icon"></div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script >
 export default {
-  name: 'RePagination',
+  name: 'RePaginationPager',
   props: {
     size: {
       type: String,
@@ -98,9 +135,6 @@ export default {
       }
 
       this.$emit('handleJumpPage', targetPage);
-    },
-    handleToPage() {
-      console.log('handleToPage...');
     },
   },
 };
