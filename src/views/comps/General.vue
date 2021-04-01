@@ -3,6 +3,25 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
+    <div v-if="comps['datePicker']">
+      <re-row>
+        <re-date-picker v-model="val.datePicker" />
+      </re-row>
+    </div>
+
+    <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
+    <div v-if="comps['timePicker']">
+      <re-row>
+        <re-time-picker v-model="val.timePicker" />
+      </re-row>
+    </div>
+
+    <re-title @click="handleClick('dateTimePicker')">日期時間選擇器</re-title>
+    <re-row>
+      <!-- <re-date-time-picker v-model="val.dateTimePicker" /> -->
+    </re-row>
+
     <re-title @click="handleClick('pagination')">頁碼</re-title>
     <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
 
@@ -174,12 +193,6 @@
     <re-title @click="handleClick('inputList')">輸入框列表(可增減)</re-title>
     <re-input-list v-model="val.inputList" />
 
-    <re-title @click="handleClick('divider')">日期時間選擇器</re-title>
-    <re-row>
-      <re-date-time-picker v-model="val.dateTimePicker" />
-    </re-row>
-    <!-- <re-date-picker v-model="val.dateTimePicker" /> -->
-
     <re-title @click="handleClick('tree')">樹型結構</re-title>
     <re-tree :treeList="treeList" />
 
@@ -282,19 +295,6 @@
       </re-row>
     </div>
 
-    <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
-    <div v-if="comps['datePicker']">
-      <re-row>
-        <re-date-picker v-model="val.datePicker" />
-      </re-row>
-    </div>
-
-    <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
-    <div v-if="comps['timePicker']">
-      <re-row>
-        <re-time-picker v-model="val.timePicker" />
-      </re-row>
-    </div>
   </div>
 </template>
 
@@ -325,6 +325,7 @@ export default {
         checkbox: true,
         datePicker: true,
         timePicker: true,
+        dateTimePicker: true,
         tab: true,
         pagination: true,
         badge: true,
@@ -349,8 +350,8 @@ export default {
         checkAll: true,
         checkbox3: [],
         checkbox4: [4],
-        datePicker: '',
-        timePicker: '01:01:40',
+        datePicker: new Date(),
+        timePicker: new Date(),
         dateTimePicker: '',
         tab: 'tab111',
         inputNumber1: '',

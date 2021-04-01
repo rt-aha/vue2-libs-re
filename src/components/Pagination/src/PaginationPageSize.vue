@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     options() {
-      console.log('this.pageSize', this.pageSize);
+      // console.log('this.pageSize', this.pageSize);
       const formatOptions = this.pageSize.map((ele) => {
         const obj = {
           label: String(ele),

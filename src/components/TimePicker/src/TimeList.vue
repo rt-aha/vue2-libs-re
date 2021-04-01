@@ -33,14 +33,15 @@
 
 <script>
 import { debounce } from 'lodash';
+import dayjs from 'dayjs';
 import { h, m, s } from './timeListConfig';
 
 export default {
   name: 'ReTimeList',
   props: {
     value: {
-      type: String,
-      default: '00:00:00',
+      type: Date,
+      default: new Date(),
     },
   },
   data() {
@@ -60,7 +61,7 @@ export default {
     };
   },
   created() {
-    // console.log(this.timeValue.time());
+
   },
   mounted() {
     this.splitTime();
@@ -73,12 +74,14 @@ export default {
       return isValidTimeFormat;
     },
     splitTime() {
-      let validTime = this.value;
-      if (!this.validTimeFormat(this.value)) {
-        validTime = this.timeValue.time();
-      }
+      // let validTime = this.value;
+      // if (!this.validTimeFormat(this.value)) {
+      //   validTime = this.timeValue.time();
+      // }
 
-      const hms = validTime.split(':');
+      const t = dayjs(this.value).format('hh:mm:ss');
+
+      const hms = t.split(':');
       this.timeValue = {
         h: hms[0],
         m: hms[1],
@@ -129,16 +132,16 @@ export default {
       this.timeValue[changeType] = updateTimeValue;
       const fullTimeFormat = this.timeValue.time();
 
-      // const timeRegExp = /^\d{2}:\d{2}:\d{2}$/;
-      // const isValidTimeFormat = timeRegExp.test(fullTimeFormat);
-
-      // console.log('isValidTimeFormat', isValidTimeFormat, fullTimeFormat);
-
       const isValidTimeFormat = this.validTimeFormat(fullTimeFormat);
 
+      const today = dayjs().format('YYYY-MM-DD');
+      const ymd = today.split('-');
+      const hms = fullTimeFormat.split(':');
+
+      const time = new Date(ymd[0], ymd[1], ymd[2], hms[0], hms[1], hms[2]);
+
       if (isValidTimeFormat) {
-        console.log('fullTimeFormat', fullTimeFormat);
-        this.$emit('input', fullTimeFormat);
+        this.$emit('input', time);
       }
     },
   },

@@ -60,9 +60,9 @@
                 @click="handleActiveDate"
                 class="date__list__item__text"
                 :class="matchDate(date) && 'date__list__item__text--active'"
-                :data-date="`${currDateConfig.y}-${
+                :data-date="date ? `${currDateConfig.y}-${
                   currDateConfig.m + 1
-                }-${date}`"
+                }-${date}` : ''"
                 >{{ date }}</span
               >
             </li>
@@ -75,12 +75,13 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 export default {
   name: 'ReCalendar',
   props: {
-    defaultDate: {
-      type: String,
-      default: '',
+    value: {
+      type: [Date, String],
     },
   },
   data() {
@@ -124,10 +125,14 @@ export default {
   },
   methods: {
     matchDate(date) {
-      const currDate = `${this.currDateConfig.y}-${
+      if (!date) return false;
+      const currDate = dayjs(`${this.currDateConfig.y}-${
         this.currDateConfig.m + 1
-      }-${date}`;
-      const selectedDate = this.selectedDate.date();
+      }-${date}`).format('YYYY-MM-DD');
+      const selectedDate = dayjs(this.selectedDate.date()).format('YYYY-MM-DD');
+
+      // console.log('date', date);
+      // console.log('===', currDate, selectedDate);
 
       return currDate === selectedDate;
     },
@@ -153,33 +158,26 @@ export default {
         // init
         this.selectedDate = {
           y: this.currDateConfig.y,
-          m: this.currDateConfig.m + 1,
+          m: this.currDateConfig.m,
           d: new Date().getDate(),
           date() {
-            return `${this.y}-${this.m}-${this.d}`;
+            return new Date(this.y, this.m, this.d);
           },
         };
       }
-      console.log('initSelectedDate');
+
       this.$emit('input', this.selectedDate.date());
     },
 
-    setTimeInfo(currDate) {
-      let date = null;
-
-      if (currDate) {
-        date = new Date(currDate.y, currDate.m, 1);
-      } else {
-        const timestamp = Date.now();
-        const now = new Date(timestamp);
-        date = new Date(now.getFullYear(), now.getMonth(), 1);
-      }
+    setTimeInfo(currDate = { y: '', m: '' }) {
+      const day = dayjs(this.value);
+      const date = new Date(day.$y, day.$M, 1);
 
       this.currDateConfig = {
-        y: date.getFullYear(),
-        m: date.getMonth(),
+        y: currDate.y || day.$y,
+        m: currDate.m || day.$M,
         fd: date.getDate(), // first date
-        wd: date.getDay(),
+        wd: day.$D,
       };
 
       this.monthDayCount[1] = this.getFebDayCount() ? 29 : 28;
@@ -207,13 +205,14 @@ export default {
       }
     },
     splitDate(date) {
-      const ymd = date.split('-');
+      const ymd = dayjs(date).format('YYYY-MM-DD').split('-');
+
       this.selectedDate = {
         y: Number(ymd[0]),
         m: Number(ymd[1]),
         d: Number(ymd[2]),
         date() {
-          return `${this.y}-${this.m}-${this.d}`;
+          return new Date(this.y, this.m - 1, this.d);
         },
       };
     },
@@ -223,7 +222,6 @@ export default {
       e.stopPropagation();
 
       this.splitDate(e.target.getAttribute('data-date'));
-      console.log('handleActiveDate');
       this.$emit('input', this.selectedDate.date());
     },
 
@@ -247,6 +245,8 @@ export default {
       let nextYear = this.currDateConfig.y;
       let nextMonth = this.currDateConfig.m;
 
+      console.log('nextMonth', nextMonth);
+
       if (nextMonth === 11) {
         nextMonth = 0;
         nextYear += 1;
@@ -254,6 +254,7 @@ export default {
         nextMonth += 1;
       }
 
+      console.log('{ y: nextYear, m: nextMonth }', { y: nextYear, m: nextMonth });
       this.update({ y: nextYear, m: nextMonth });
     },
   },

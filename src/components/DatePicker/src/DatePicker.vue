@@ -1,19 +1,20 @@
 <template>
   <div class="re-date-picker">
     <re-input
-      :value="value"
+      :value="dateString"
       readonly
       @click.stop="openCalendar"
       cus-type="datePicker"
     />
     <re-expand-container :visible.sync="visible">
-      <re-calendar :value="value" @input="handleInput" :defaultDate="value" />
+      <re-calendar :value="innerValue" @input="handleInput" :defaultDate="innerValue" />
     </re-expand-container>
   </div>
 </template>
 
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
+import dayjs from 'dayjs';
 
 export default {
   name: 'ReDatePicker',
@@ -22,17 +23,20 @@ export default {
   },
   props: {
     value: {
-      type: String,
-      default: '',
+      type: Date,
+      default: new Date(),
     },
   },
   data() {
     return {
       visible: false,
+      innerValue: '',
+      dateString: '',
     };
   },
   methods: {
     handleInput(value) {
+      console.log('value...', value);
       this.$emit('input', value);
     },
     openCalendar() {
@@ -40,6 +44,33 @@ export default {
     },
     closeCalendar() {
       this.visible = false;
+    },
+    initInnerValue() {
+      if (Object.prototype.toString.call(this.value) === '[object Date]') {
+        this.innerValue = this.value;
+      } else {
+        this.innerValue = Date.now();
+      }
+    },
+    setInnerValue() {
+      this.innerValue = this.value;
+    },
+    setDateString() {
+      console.log('this.innerValue', this.innerValue);
+      this.dateString = dayjs(this.innerValue).format('YYYY-MM-DD');
+      console.log('this.dateString', this.dateString);
+    },
+  },
+  created() {
+    this.initInnerValue();
+    this.setDateString();
+  },
+  watch: {
+    value: {
+      handler() {
+        this.setInnerValue();
+        this.setDateString();
+      },
     },
   },
 };
