@@ -1,45 +1,57 @@
 <template>
-  <div class="re-dialog" v-show="visible" @click.self="closeDialog">
-    <div class="re-dialog__box" >
-      <div class="re-dialog__box__header">
-        <div class="re-dialog__box__header__content">
-          <!-- 若純文字可直接傳入 title -->
-          <re-title v-if="$attrs.title" type="dialog" :mt="false">{{$attrs.title}}</re-title>
-          <!-- 若更複雜可用 slot -->
-          <template v-else>
-            <slot name="header"></slot>
-          </template>
-        </div>
-        <div class="re-dialog__box__header__close" @click="closeDialog">
-          <div class="re-dialog__box__header__close__cell"></div>
-        </div>
-      </div>
-      <!-- 若用slot -->
-      <template v-if="$slots.default">
-        <div class="re-dialog__box__body">
-          <slot>body content</slot>
-        </div>
-      </template>
-      <!-- 若傳入template -->
-      <template v-else>
-        <div class="re-dialog__box__body">
-          <component
-            :is="template"
-            v-bind="data"
-            v-on="$listeners"
-            @close="closeDialog"
-          />
-        </div>
-      </template>
+  <transition name="fade">
+    <div class="re-dialog" v-show="visible" @click.self="closeDialog">
       <div
-        class="re-dialog__box__footer"
-        :class="[`re-dialog__box__footer--${footerPosition}`]"
-        v-if="$slots.footer"
+        class="re-dialog__box"
+        :class="[
+          {
+            're-dialog__box--slide-top-in': visible,
+            're-dialog__box--slide-top-out': !visible,
+          },
+        ]"
       >
-        <slot name="footer"></slot>
+        <div class="re-dialog__box__header">
+          <div class="re-dialog__box__header__content">
+            <!-- 若純文字可直接傳入 title -->
+            <re-title v-if="$attrs.title" type="dialog" :mt="false">{{
+              $attrs.title
+            }}</re-title>
+            <!-- 若更複雜可用 slot -->
+            <template v-else>
+              <slot name="header"></slot>
+            </template>
+          </div>
+          <div class="re-dialog__box__header__close" @click="closeDialog">
+            <div class="re-dialog__box__header__close__cell"></div>
+          </div>
+        </div>
+        <!-- 若用slot -->
+        <template v-if="$slots.default">
+          <div class="re-dialog__box__body">
+            <slot>body content</slot>
+          </div>
+        </template>
+        <!-- 若傳入template -->
+        <template v-else>
+          <div class="re-dialog__box__body">
+            <component
+              :is="template"
+              v-bind="data"
+              v-on="$listeners"
+              @close="closeDialog"
+            />
+          </div>
+        </template>
+        <div
+          class="re-dialog__box__footer"
+          :class="[`re-dialog__box__footer--${footerPosition}`]"
+          v-if="$slots.footer"
+        >
+          <slot name="footer"></slot>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -86,6 +98,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~@/styles/re/transition.scss";
+
 .re-dialog {
   position: fixed;
   z-index: 100;
@@ -96,10 +110,21 @@ export default {
   background-color: rgba(#333, 0.5);
 
   &__box {
-    @include position(center);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
     background-color: $c-white;
     min-width: 320px;
     border-radius: 4px;
+
+    &--slide-top-in {
+      animation: slideTopIn 0.4s;
+    }
+
+    &--slide-top-out {
+      animation: slideTopOut 0.4s;
+    }
 
     &__header {
       position: relative;
@@ -164,6 +189,26 @@ export default {
         justify-content: flex-end;
       }
     }
+  }
+}
+
+@keyframes slideTopIn {
+  from {
+    transform: translate(-50%, calc(-100% - 30px));
+  }
+
+  to {
+    transform: translate(-50%, -100%);
+  }
+}
+
+@keyframes slideTopOut {
+  from {
+    transform: translate(-50%, -100%);
+  }
+
+  to {
+    transform: translate(-50%, calc(-100% - 30px));
   }
 }
 </style>

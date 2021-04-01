@@ -1,7 +1,7 @@
 <template>
   <div class="dialog-template">
-    <div>dialog 模板</div>
-    <!-- <div style="width: 30px; height: 2000px; background-color: #ccc"></div> -->
+    <div>drawer 模板</div>
+    <div style="width: 30px; height: 2000px; background-color: #ccc"></div>
     <div class="dialog-template__footer">
       <re-button @click="handleClose">取消</re-button>
     </div>
@@ -21,7 +21,7 @@
 import SecondTemplate from '@/views/comps/SecondTemplate.vue';
 
 export default {
-  name: 'DialogTemplate',
+  name: 'DrawerTemplate',
   data() {
     return {
       secondDialog: false,

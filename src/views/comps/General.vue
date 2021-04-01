@@ -3,6 +3,51 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <!-- 可以使用slot，也可以用把template傳入dialog -->
+    <re-title @click="handleClick('dialog')">彈窗</re-title>
+    <re-button @click="openDialog('slot')">開啟彈窗(slot)</re-button>
+    <re-button @click="openDialog('prop')">開啟彈窗(prop)</re-button>
+    <re-dialog :visible.sync="dialogVisible.slot" footerPosition="center">
+      <template #header>
+        <re-title type="dialog" :mt="false">彈窗標題 slot</re-title>
+      </template>
+      <template> body </template>
+      <template #footer>
+        <re-button @click="closeDialog('slot')">取消</re-button>
+      </template>
+    </re-dialog>
+
+    <re-dialog
+      :visible.sync="dialogVisible.prop"
+      footerPosition="center"
+      title="彈窗標題 prop"
+      @beforeClose="beforeClose"
+      :template="DialogTemplate"
+      :data="{ a: 1, b: 2 }"
+    />
+
+    <re-title @click="handleClick('drawer')">抽屜</re-title>
+    <re-button @click="openDrawer('slot')">開啟抽屜(slot)</re-button>
+    <re-button @click="openDrawer('prop')">開啟抽屜(prop)</re-button>
+    <re-drawer :visible.sync="drawerVisible.slot" footerPosition="center">
+      <template #header>
+        <re-title type="dialog" :mt="false">抽屜標題 slot</re-title>
+      </template>
+      <template> body </template>
+      <template #footer>
+        <re-button @click="closeDrawer('slot')">取消</re-button>
+      </template>
+    </re-drawer>
+
+    <re-drawer
+      :visible.sync="drawerVisible.prop"
+      footerPosition="center"
+      title="抽屜標題 prop"
+      @beforeClose="beforeClose"
+      :template="DrawerTemplate"
+      :data="{ a: 1, b: 2 }"
+    />
+
     <re-title @click="handleClick('datePicker')">日期選擇器</re-title>
     <div v-if="comps['datePicker']">
       <re-row>
@@ -10,14 +55,14 @@
       </re-row>
     </div>
 
-     <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
+    <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
     <div v-if="comps['timePicker']">
       <re-row>
         <re-time-picker v-model="val.timePicker" />
       </re-row>
     </div>
 
-   <re-title @click="handleClick('dateTimePicker')">日期時間選擇器</re-title>
+    <re-title @click="handleClick('dateTimePicker')">日期時間選擇器</re-title>
     <re-row>
       <re-date-time-picker v-model="val.dateTimePicker" />
     </re-row>
@@ -236,51 +281,6 @@
       </re-badge>
     </re-row>
 
-    <!-- 可以使用slot，也可以用把template傳入dialog -->
-    <re-title @click="handleClick('dialog')">彈窗</re-title>
-    <re-button @click="openDialog('slot')">開啟彈窗(slot)</re-button>
-    <re-button @click="openDialog('prop')">開啟彈窗(prop)</re-button>
-    <re-dialog :visible.sync="dialogVisible.slot" footerPosition="center">
-      <template #header>
-        <re-title type="dialog" :mt="false">彈窗標題 slot</re-title>
-      </template>
-      <template> body </template>
-      <template #footer>
-        <re-button @click="closeDialog('slot')">取消</re-button>
-      </template>
-    </re-dialog>
-
-    <re-dialog
-      :visible.sync="dialogVisible.prop"
-      footerPosition="center"
-      title="彈窗標題 prop"
-      @beforeClose="beforeClose"
-      :template="DialogTemplate"
-      :data="{ a: 1, b: 2 }"
-    />
-
-    <re-title @click="handleClick('drawer')">抽屜</re-title>
-    <re-button @click="openDrawer('slot')">開啟抽屜(slot)</re-button>
-    <re-button @click="openDrawer('prop')">開啟抽屜(prop)</re-button>
-    <re-drawer :visible.sync="drawerVisible.slot" footerPosition="center">
-      <template #header>
-        <re-title type="dialog" :mt="false">抽屜標題 slot</re-title>
-      </template>
-      <template> body </template>
-      <template #footer>
-        <re-button @click="closeDrawer('slot')">取消</re-button>
-      </template>
-    </re-drawer>
-
-    <re-drawer
-      :visible.sync="drawerVisible.prop"
-      footerPosition="center"
-      title="抽屜標題 prop"
-      @beforeClose="beforeClose"
-      :template="DialogTemplate"
-      :data="{ a: 1, b: 2 }"
-    />
-
     <re-title @click="handleClick('select')">下拉選單</re-title>
     <div v-if="comps['select']">
       <re-row :mt="false">
@@ -294,7 +294,6 @@
         />
       </re-row>
     </div>
-
   </div>
 </template>
 
@@ -309,12 +308,14 @@ import {
 } from './test-config';
 import TabsTesting from './TabsTesting.vue';
 import DialogTemplate from './DialogTemplate.vue';
+import DrawerTemplate from './DrawerTemplate.vue';
 
 export default {
   name: 'General',
   data() {
     return {
       DialogTemplate,
+      DrawerTemplate,
       comps: {
         button: true,
         buttonGroup: true,
