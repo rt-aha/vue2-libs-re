@@ -1,7 +1,7 @@
 <template>
   <div class="re-date-time-picker">
     <re-input
-      :value="value"
+      :value="dateTimeString"
       readonly
       @click.stop="openCalendar"
       cus-type="dateTimePicker"
@@ -28,14 +28,14 @@
       <re-row>
         <re-calendar
           v-show="currPicker === 'date'"
-          :value="value"
-          @input="handleInput"
+          :value="innerValue"
+          @input="handleDateInput"
           :defaultDate="value"
         />
         <re-time-list
           v-show="currPicker === 'time'"
-          :value="value"
-          @input="handleInput"
+          :value="innerValue"
+          @input="handleTimeInput"
         />
       </re-row>
     </re-expand-container>
@@ -44,6 +44,7 @@
 
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
+import dayjs from 'dayjs';
 
 export default {
   name: 'ReDateTimePicker',
@@ -52,27 +53,75 @@ export default {
   },
   props: {
     value: {
-      default: '',
+      type: Date,
+      default: () => new Date(),
     },
   },
   data() {
     return {
       visible: false,
       currPicker: 'date',
+      innerValue: '',
+      dateTimeString: '',
+      tempSave: {
+        date: dayjs(this.value),
+        time: dayjs(this.value),
+      },
     };
   },
   methods: {
     showPicker(type) {
       this.currPicker = type;
     },
-    handleInput(value) {
-      this.$emit('input', value);
+    handleDateInput(date) {
+      const d = dayjs(date);
+      const t = dayjs(this.tempSave.time);
+      this.tempSave.date = d;
+
+      const fullValue = new Date(d.$y, d.$M, d.$D, t.$H, t.$m, t.$s);
+      this.$emit('input', fullValue);
+    },
+    handleTimeInput(time) {
+      const d = dayjs(this.tempSave.date);
+      const t = dayjs(time);
+      this.tempSave.time = t;
+
+      const fullValue = new Date(d.$y, d.$M, d.$D, t.$H, t.$m, t.$s);
+      this.$emit('input', fullValue);
     },
     openCalendar() {
       this.visible = true;
     },
     closeCalendar() {
       this.visible = false;
+    },
+    // initInnerValue() {
+    //   if (Object.prototype.toString.call(this.value) === '[object Date]') {
+    //     this.innerValue = this.value;
+    //   } else {
+    //     this.innerValue = new Date();
+    //   }
+    // },
+    setInnerValue() {
+      this.innerValue = this.value;
+    },
+    setDateTimeString() {
+      // console.log('???,???');
+      console.log('setDateTimeString-innerValue', this.innerValue);
+      // console.log('..', dayjs(this.innerValue).format('YYYY-MM-DD'));
+      this.dateTimeString = dayjs(this.innerValue).format('YYYY-MM-DD HH:mm:ss');
+    },
+  },
+  created() {
+    this.setInnerValue();
+    this.setDateTimeString();
+  },
+  watch: {
+    value: {
+      handler() {
+        this.setInnerValue();
+        this.setDateTimeString();
+      },
     },
   },
 };

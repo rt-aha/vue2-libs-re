@@ -67,10 +67,7 @@ export default {
       return this.$refs.textarea;
     },
   },
-  mounted() {
-    console.log('autosize', this.$attrs);
-    console.log('this', this.autosize);
-  },
+
 };
 </script>
 

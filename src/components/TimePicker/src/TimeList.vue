@@ -3,7 +3,7 @@
     <div class="time-list">
       <div class="time-list__col time-list__hour"
         ref="tlh"
-        @scroll="logDebounce('tlh')">
+        @scroll="setPositionDebounce('tlh')">
         <span  class="time-list__col__item time-list__hour__item"
          v-for="(h, index) of timeList.h" :key="h + index">
           {{h}}
@@ -11,7 +11,7 @@
       </div>
       <div class="time-list__col time-list__minute"
         ref="tlm"
-        @scroll="logDebounce('tlm')">
+        @scroll="setPositionDebounce('tlm')">
         <span  class="time-list__col__item time-list__minute__item"
           v-for="(m, index) of timeList.m" :key="m + index">
           {{m}}
@@ -20,7 +20,7 @@
       </div>
       <div class="time-list__col time-list__second"
         ref="tls"
-        @scroll="logDebounce('tls')">
+        @scroll="setPositionDebounce('tls')">
         <span class="time-list__col__item time-list__second__item"
          v-for="(s,index) of timeList.s" :key="s + index">
           {{s}}
@@ -46,6 +46,7 @@ export default {
   },
   data() {
     return {
+      isInit: false,
       timeList: {
         h, m, s,
       },
@@ -57,14 +58,7 @@ export default {
           return `${this.h}:${this.m}:${this.s}`;
         },
       },
-
     };
-  },
-  created() {
-
-  },
-  mounted() {
-    this.splitTime();
   },
   methods: {
     validTimeFormat(time) {
@@ -73,13 +67,9 @@ export default {
 
       return isValidTimeFormat;
     },
+    // 外層呼叫
     splitTime() {
-      // let validTime = this.value;
-      // if (!this.validTimeFormat(this.value)) {
-      //   validTime = this.timeValue.time();
-      // }
-
-      const t = dayjs(this.value).format('hh:mm:ss');
+      const t = dayjs(this.value).format('HH:mm:ss');
 
       const hms = t.split(':');
       this.timeValue = {
@@ -91,7 +81,9 @@ export default {
         },
       };
 
-      this.setScrollBarPosition();
+      this.$nextTick(() => {
+        this.setScrollBarPosition();
+      });
     },
     setScrollBarPosition() {
       this.$refs.tlh.scrollTop = Number(this.timeValue.h) * 30;
@@ -99,7 +91,7 @@ export default {
       this.$refs.tls.scrollTop = Number(this.timeValue.s) * 30;
     },
     // eslint-disable-next-line
-    logDebounce: debounce(function (calcType) {
+    setPositionDebounce: debounce(function (calcType) {
       this.calcHourScrollBarPosition(calcType);
     }, 100),
     calcHourScrollBarPosition(calcType) {
@@ -139,6 +131,8 @@ export default {
       const hms = fullTimeFormat.split(':');
 
       const time = new Date(ymd[0], ymd[1], ymd[2], hms[0], hms[1], hms[2]);
+
+      console.log('time', time);
 
       if (isValidTimeFormat) {
         this.$emit('input', time);

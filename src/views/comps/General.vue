@@ -10,16 +10,16 @@
       </re-row>
     </div>
 
-    <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
+     <re-title @click="handleClick('timePicker')">時間選擇器</re-title>
     <div v-if="comps['timePicker']">
       <re-row>
         <re-time-picker v-model="val.timePicker" />
       </re-row>
     </div>
 
-    <re-title @click="handleClick('dateTimePicker')">日期時間選擇器</re-title>
+   <re-title @click="handleClick('dateTimePicker')">日期時間選擇器</re-title>
     <re-row>
-      <!-- <re-date-time-picker v-model="val.dateTimePicker" /> -->
+      <re-date-time-picker v-model="val.dateTimePicker" />
     </re-row>
 
     <re-title @click="handleClick('pagination')">頁碼</re-title>
@@ -352,7 +352,7 @@ export default {
         checkbox4: [4],
         datePicker: new Date(),
         timePicker: new Date(),
-        dateTimePicker: '',
+        dateTimePicker: new Date(),
         tab: 'tab111',
         inputNumber1: '',
         inputNumber2: '',

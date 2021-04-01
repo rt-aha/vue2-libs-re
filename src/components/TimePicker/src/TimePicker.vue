@@ -8,7 +8,7 @@
       @click="openTimeList"
     />
     <re-expand-container :visible.sync="visible">
-      <re-time-list :value="innerValue" @input="handleInput" />
+      <re-time-list :value="innerValue" @input="handleInput" ref="timelist"/>
     </re-expand-container>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   props: {
     value: {
       type: Date,
-      default: new Date(),
+      default: () => new Date(),
     },
   },
   data() {
@@ -41,13 +41,7 @@ export default {
     },
     openTimeList() {
       this.visible = true;
-    },
-    initInnerValue() {
-      if (Object.prototype.toString.call(this.value) === '[object Date]') {
-        this.innerValue = this.value;
-      } else {
-        this.innerValue = Date.now();
-      }
+      this.$refs.timelist.splitTime();
     },
     setInnerValue() {
       this.innerValue = this.value;
@@ -57,7 +51,8 @@ export default {
     },
   },
   created() {
-    this.initInnerValue();
+    this.setInnerValue();
+    this.setTimeString();
   },
   watch: {
     value: {

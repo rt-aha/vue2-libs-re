@@ -24,7 +24,7 @@ export default {
   props: {
     value: {
       type: Date,
-      default: new Date(),
+      default: () => new Date(),
     },
   },
   data() {
@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     handleInput(value) {
-      console.log('value...', value);
       this.$emit('input', value);
     },
     openCalendar() {
@@ -45,24 +44,23 @@ export default {
     closeCalendar() {
       this.visible = false;
     },
-    initInnerValue() {
-      if (Object.prototype.toString.call(this.value) === '[object Date]') {
-        this.innerValue = this.value;
-      } else {
-        this.innerValue = Date.now();
-      }
-    },
+    // initInnerValue() {
+    //   if (Object.prototype.toString.call(this.value) === '[object Date]') {
+    //     this.innerValue = this.value;
+    //   } else {
+    //     this.innerValue = new Date();
+    //   }
+    // },
     setInnerValue() {
       this.innerValue = this.value;
     },
     setDateString() {
       console.log('this.innerValue', this.innerValue);
       this.dateString = dayjs(this.innerValue).format('YYYY-MM-DD');
-      console.log('this.dateString', this.dateString);
     },
   },
   created() {
-    this.initInnerValue();
+    this.setInnerValue();
     this.setDateString();
   },
   watch: {
