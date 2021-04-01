@@ -23,6 +23,8 @@ parentCode.forEach((code) => {
     cloneMenu[0].children.forEach((route) => {
       if (subCodeList.includes(route.meta.authCode)) {
         menuChildren.push(route);
+      } else if (route.meta.show) {
+        menuChildren.push(route);
       }
     });
     cloneMenu[0].children = menuChildren;

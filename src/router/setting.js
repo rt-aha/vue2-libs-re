@@ -21,7 +21,8 @@ export default [
         meta: {
           title: '輪播管理',
           mainCategoryType: 'setting',
-          authCode: 'B-2',
+          // authCode: 'B-2',
+          // show: true,
         },
       },
       {
