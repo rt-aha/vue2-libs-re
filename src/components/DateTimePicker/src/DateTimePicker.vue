@@ -95,20 +95,11 @@ export default {
     closeCalendar() {
       this.visible = false;
     },
-    // initInnerValue() {
-    //   if (Object.prototype.toString.call(this.value) === '[object Date]') {
-    //     this.innerValue = this.value;
-    //   } else {
-    //     this.innerValue = new Date();
-    //   }
-    // },
+
     setInnerValue() {
       this.innerValue = this.value;
     },
     setDateTimeString() {
-      // console.log('???,???');
-      console.log('setDateTimeString-innerValue', this.innerValue);
-      // console.log('..', dayjs(this.innerValue).format('YYYY-MM-DD'));
       this.dateTimeString = dayjs(this.innerValue).format('YYYY-MM-DD HH:mm:ss');
     },
   },

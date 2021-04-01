@@ -1,4 +1,4 @@
-export const testAuthList = [
+const testAuthList = [
   {
     parentCode: 'A',
     subCode: 'A-1',
@@ -25,3 +25,5 @@ export const testAuthList = [
     permission: 7,
   },
 ];
+
+export default testAuthList;

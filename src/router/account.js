@@ -1,5 +1,3 @@
-// import FullAsideLayout from '@/layout/FullAsideLayout.vue';
-
 export default [
   {
     path: '/account',

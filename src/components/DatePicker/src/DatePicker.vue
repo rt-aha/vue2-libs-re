@@ -55,7 +55,6 @@ export default {
       this.innerValue = this.value;
     },
     setDateString() {
-      console.log('this.innerValue', this.innerValue);
       this.dateString = dayjs(this.innerValue).format('YYYY-MM-DD');
     },
   },

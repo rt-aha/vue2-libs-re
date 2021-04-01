@@ -12,38 +12,20 @@
 </template>
 
 <script>
-import allMenu from '@/router/genMenu';
+// import allMenu from '@/router/genMenu';
+import { routeObservable } from '@/observable/route';
 
 export default {
   name: 'ReBreadcrumb',
+  props: {
+    // menuList: {
+    //   type: Array,
+    //   default: () => [],
+    // },
+  },
   data() {
-    const menuMapping = allMenu.reduce((obj, ele) => {
-      const loopChildren = (children) => {
-        children.forEach((child) => {
-          obj[child.path] = {
-            title: child.meta.title,
-            name: child.name,
-          };
-          if (child.children) {
-            loopChildren(child.children);
-          }
-        });
-      };
-
-      obj[ele.name] = {
-        title: ele.meta.title,
-        name: ele.name,
-      };
-
-      if (ele.children) {
-        loopChildren(ele.children);
-      }
-
-      return obj;
-    }, {});
-
     return {
-      menuMapping,
+      menuMapping: {},
     };
   },
   computed: {
@@ -69,6 +51,9 @@ export default {
         return [];
       }
     },
+    menuList() {
+      return routeObservable.menuList;
+    },
   },
   methods: {
     handleRoute(item) {
@@ -76,6 +61,40 @@ export default {
         return;
       }
       this.$router.push({ name: item.name });
+    },
+    genuMenuMapping() {
+      this.menuMapping = this.menuList.reduce((obj, ele) => {
+        const loopChildren = (children) => {
+          children.forEach((child) => {
+            obj[child.path] = {
+              title: child.meta.title,
+              name: child.name,
+            };
+            if (child.children) {
+              loopChildren(child.children);
+            }
+          });
+        };
+
+        obj[ele.name] = {
+          title: ele.meta.title,
+          name: ele.name,
+        };
+
+        if (ele.children) {
+          loopChildren(ele.children);
+        }
+
+        return obj;
+      }, {});
+    },
+  },
+  created() {
+    this.genuMenuMapping();
+  },
+  watch: {
+    menuList: {
+      handler: 'genuMenuMapping',
     },
   },
 };

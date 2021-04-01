@@ -1,12 +1,32 @@
 <template>
   <div class="r-menu">
     <ul class="main-menu__list">
-      <li class="main-menu__list__item" v-for="menu of menuList" :key="menu.meta.title">
-        <p class="main-menu__list__item__title" @click="handleExpand(menu.name)">{{ menu.meta.title }}</p>
+      <li
+        class="main-menu__list__item"
+        v-for="menu of menuList"
+        :key="menu.meta.title"
+      >
+        <p
+          class="main-menu__list__item__title"
+          @click="handleExpand(menu.name)"
+        >
+          {{ menu.meta.title }}
+        </p>
         <template v-if="menu.children && expandStatus[menu.name]">
           <ul class="sub-menu__list">
-            <li class="sub-menu__list__item" v-for="subMenu of menu.children" :key="subMenu.meta.title" @click="handleRoute(subMenu.name)">
-              <span class="sub-menu__list__item__text" :class="activeRoute === subMenu.name && 'sub-menu__list__item__text--active'">{{ subMenu.meta.title }}</span>
+            <li
+              class="sub-menu__list__item"
+              v-for="subMenu of menu.children"
+              :key="subMenu.meta.title"
+              @click="handleRoute(subMenu.name)"
+            >
+              <span
+                class="sub-menu__list__item__text"
+                :class="
+                  activeRoute === subMenu.name &&
+                  'sub-menu__list__item__text--active'"
+                >{{ subMenu.meta.title }}</span
+              >
             </li>
           </ul>
         </template>
@@ -16,13 +36,20 @@
 </template>
 
 <script>
-import menuList from '@/router/genMenu';
+// import menuList from '@/router/genMenu';
+import { routeObservable } from '@/observable/route';
 
 export default {
   name: 'Menu',
+  props: {
+    // menuList: {
+    //   type: Array,
+    //   default: () => [],
+    // },
+  },
   data() {
     return {
-      menuList,
+      // menuList,
       expandStatus: [],
       handleExpand: () => {},
     };
@@ -37,10 +64,13 @@ export default {
     activeRoute() {
       return this.$route.name;
     },
+    menuList() {
+      return routeObservable.menuList;
+    },
   },
   methods: {
     genExpandStatus() {
-      this.expandStatus = menuList.reduce((obj, ele) => {
+      this.expandStatus = this.menuList.reduce((obj, ele) => {
         obj[ele.name] = false;
         return obj;
       }, {});
@@ -61,7 +91,13 @@ export default {
       };
     },
     handleRoute(name) {
+      console.log('name', name);
       this.$router.push({ name });
+    },
+  },
+  watch: {
+    menuList: {
+      handler: 'genExpandStatus',
     },
   },
 };

@@ -4,7 +4,7 @@
       <div class="system-name-box">
         <h1 class="system-name-box__text"> {{systemName}}</h1>
         <div>
-          <aside-menu></aside-menu>
+          <aside-menu />
         </div>
       </div>
 
@@ -16,7 +16,6 @@
       <div class="ly-fa__hb-wrapper__body">
         <breadcrumb />
         <router-view />
-        <!-- <slot></slot> -->
       </div>
     </div>
   </div>
@@ -25,6 +24,7 @@
 <script>
 import AsideMenu from '@/layout/Menu.vue';
 import Breadcrumb from '@/components/Breadcrumb/index';
+import writeMenuList from '@/mixins/writeMenuList';
 
 export default {
   name: 'FullAsideLayout',
@@ -32,12 +32,18 @@ export default {
     AsideMenu,
     Breadcrumb,
   },
+  mixins: [writeMenuList],
   data() {
     const { SYSTEM_NAME: systemName } = this;
 
     return {
+      isInit: true,
+      menuList: [],
       systemName,
     };
+  },
+  created() {
+    this.writeMenuList();
   },
 };
 </script>
