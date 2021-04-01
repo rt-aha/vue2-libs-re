@@ -22,11 +22,11 @@ TODO
 - [ ]radio --storybook
 - [x]checkbox 
 - [ ]checkbox  --storybook
-- [-]datepicker  檢查 有預設值時與介面是否匹配
+- [x]datepicker  
 - [ ]datepicker --storybook
-- [-]timepicker  檢查 有預設值時與介面是否匹配
+- [x]timepicker  
 - [ ]timepicker --storybook
-- [-]datetimepicker 值還沒接上
+- [x]datetimepicker 值還沒接上
 - [ ]datetimepicker --storybook
 - [-]tree 
 - [ ]tree --storybook
@@ -36,9 +36,9 @@ TODO
 - [ ]loading --storybook
 - [-]tabs 1. 要可以左右滑動
 - [ ]tabs --storybook
-- [-]drawer 
+- [x]drawer 
 - [ ]drawer --storybook
-- [-]dialog 
+- [x]dialog 
 - [ ]dialog --storybook
 - [-]tooltip 
 - [ ]tooltip --storybook
@@ -90,11 +90,12 @@ menu 與 權限橋接
 
 - [x] 基本組件建構
 - [ ] 基本組件檢查與功能補足
-- [ ] menu
-- [ ] menu 與 auth 連結
+- [x] menu
+- [-] menu 與 auth 連結 1. 改成route4, 2. 若沒權限要可直接寫入全部路由
 - [ ] form 深入檢查
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table
 - [ ] 小後台實驗
 - [ ] 剩餘組件處理
 - [ ] 完善 storybook
+- [ ] scss 換皮/換style
