@@ -14,6 +14,7 @@ export default [
         meta: {
           title: '帳號列表',
           mainCategoryType: 'account',
+          authCode: 'A-1',
         },
         children: [
           {
@@ -34,12 +35,15 @@ export default [
         meta: {
           title: '權限列表',
           mainCategoryType: 'account',
+          authCode: 'A-2',
         },
       },
     ],
     meta: {
       title: '帳號管理',
       mainCategoryType: 'account',
+      authCode: 'A',
+      // order: ,
     },
   },
 ];

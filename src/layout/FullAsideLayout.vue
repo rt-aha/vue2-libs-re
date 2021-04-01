@@ -56,7 +56,7 @@ export default {
     height: 100%;
     width: 200px;
     overflow-y: auto;
-    background-color: $c-assist;
+    background-color: $c-lightgrey;
   }
 
   &__hb-wrapper {

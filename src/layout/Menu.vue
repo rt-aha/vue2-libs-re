@@ -71,32 +71,24 @@ export default {
 .r-menu {
   @include box-padding(10px);
   text-align: left;
-
 }
 
 .main-menu {
-
   &__list {
-
     &__item {
-
       &__title {
         @include box-padding(10px);
         @include font-style($c-white, 14px);
         cursor: pointer;
-
       }
     }
   }
 }
 
 .sub-menu {
-
   &__list {
-
     &__item {
       @include box-padding(10px);
-
       &__text {
         @include font-style($c-assist, 14px, 300);
         cursor: pointer;

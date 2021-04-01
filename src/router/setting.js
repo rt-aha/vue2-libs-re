@@ -11,6 +11,7 @@ export default [
         meta: {
           title: '公告管理',
           mainCategoryType: 'setting',
+          authCode: 'B-1',
         },
       },
       {
@@ -20,6 +21,7 @@ export default [
         meta: {
           title: '輪播管理',
           mainCategoryType: 'setting',
+          authCode: 'B-2',
         },
       },
       {
@@ -29,12 +31,15 @@ export default [
         meta: {
           title: '商品上架',
           mainCategoryType: 'setting',
+          authCode: 'B-3',
         },
       },
     ],
     meta: {
       title: '設定',
       mainCategoryType: 'setting',
+      authCode: 'B',
+      // order: 1,
     },
   },
 ];

@@ -1,12 +1,13 @@
 // import Login from '@/views/Login.vue';
 import Home from '@/views/Home.vue';
-import NoLayout from '@/layout/NoLayout.vue';
+// import NoLayout from '@/layout/NoLayout.vue';
+import FullAsideLayout from '@/layout/FullAsideLayout.vue';
 
 export default [
   {
     path: '/',
     redirect: '/home',
-    component: NoLayout,
+    component: FullAsideLayout,
     name: 'root',
     children: [
       {
