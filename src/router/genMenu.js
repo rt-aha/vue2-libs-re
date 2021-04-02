@@ -49,12 +49,11 @@ const genMenuOrder = (() => {
       return 0;
     });
 
-    console.log('menuOrder', menuOrder);
-
     menuOrder.forEach((route) => {
       router.addRoute(route);
     });
 
+    // console.log('menuOrder', menuOrder);
     return menuOrder;
   };
 })();
