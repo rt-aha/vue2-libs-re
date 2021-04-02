@@ -6,11 +6,11 @@
 
 <script>
 import { routeObservable } from '@/observable/route';
-import writeMenuList from '@/mixins/writeMenuList';
+import writeDynamicRoutes from '@/mixins/writeDynamicRoutes';
 
 export default {
   name: 'App',
-  mixins: [writeMenuList],
+  mixins: [writeDynamicRoutes],
   computed: {
     menuList() {
       return routeObservable.menuList;
@@ -18,7 +18,7 @@ export default {
 
   },
   created() {
-    this.writeMenuList('app');
+    this.writeDynamicRoutes('app');
   },
 };
 </script>

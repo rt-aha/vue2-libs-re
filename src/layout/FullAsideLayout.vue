@@ -2,12 +2,11 @@
   <div class="ly-full-aside-layout">
     <aside class="ly-fa__aside">
       <div class="system-name-box">
-        <h1 class="system-name-box__text"> {{systemName}}</h1>
+        <h1 class="system-name-box__text">{{ systemName }}</h1>
         <div>
           <aside-menu />
         </div>
       </div>
-
     </aside>
     <div class="ly-fa__hb-wrapper">
       <!-- <header class="ly-fa__hb-wrapper__header">
@@ -24,7 +23,6 @@
 <script>
 import AsideMenu from '@/layout/Menu.vue';
 import Breadcrumb from '@/components/Breadcrumb/index';
-// import writeMenuList from '@/mixins/writeMenuList';
 
 export default {
   name: 'FullAsideLayout',
@@ -32,7 +30,7 @@ export default {
     AsideMenu,
     Breadcrumb,
   },
-  // mixins: [writeMenuList],
+
   data() {
     const { SYSTEM_NAME: systemName } = this;
 
@@ -42,14 +40,10 @@ export default {
       systemName,
     };
   },
-  created() {
-    this.writeMenuList('aside');
-  },
 };
 </script>
 
 <style lang="scss">
-
 .ly-full-aside-layout {
   width: 100%;
   height: 100%;

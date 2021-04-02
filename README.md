@@ -80,7 +80,6 @@ TODO
 validate 規則
 form 迴圈化
 後台layout模板化
-menu 與 權限橋接
 
 ## 須了解
 
@@ -91,7 +90,7 @@ menu 與 權限橋接
 - [x] 基本組件建構
 - [ ] 基本組件檢查與功能補足
 - [x] menu
-- [-] menu 與 auth 連結 1. 改成route4, 2. 若沒權限要可直接寫入全部路由
+- [x] menu 與 auth 連結 
 - [ ] form 深入檢查
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table

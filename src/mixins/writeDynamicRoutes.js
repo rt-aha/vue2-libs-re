@@ -14,16 +14,16 @@ const page404route = {
 
 export default {
   computed: {
-    isWrite404page() {
-      return routeObservable.isWrite404page;
+    isWriteDynamicRoutes() {
+      return routeObservable.isWriteDynamicRoutes;
     },
   },
   methods: {
     setMenuList: routeMutation.setMenuList,
-    writeMenuList() {
-      if (this.isWrite404page) return;
+    writeDynamicRoutes() {
+      if (this.isWriteDynamicRoutes) return;
 
-      routeMutation.setIsWrite404page();
+      routeMutation.setisWriteDynamicRoutes();
 
       const token = true;
       if (token) {

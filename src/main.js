@@ -1,6 +1,6 @@
 import Vue from 'vue';
 // import ElementUI from 'element-ui';
-import writeMenuList from '@/mixins/writeMenuList';
+import writeDynamicRoutes from '@/mixins/writeDynamicRoutes';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -12,7 +12,7 @@ import components from './components/index';
 // Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-Vue.mixin(writeMenuList);
+Vue.mixin(writeDynamicRoutes);
 
 components.forEach((comp) => {
   Vue.component(comp.name, comp);
