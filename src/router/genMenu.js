@@ -2,16 +2,15 @@ import { cloneDeep } from 'lodash';
 import { routes } from '@/router/routes';
 import router from '@/router';
 
-console.log('123', routes);
-
 const viewsMapping = routes.reduce((obj, item) => {
   if (item.meta.authCode) {
-    obj[item.meta.authCode] = [item];
+    obj[item.meta.authCode] = item;
   }
 
   return obj;
 }, {});
 
+// closure 只允許設一次路由
 const genMenuOrder = (() => {
   const menuOrder = [];
 
@@ -26,15 +25,21 @@ const genMenuOrder = (() => {
         const cloneMenu = cloneDeep(viewsMapping[code]);
 
         const menuChildren = [];
-        cloneMenu[0].children.forEach((route) => {
+
+        cloneMenu.children.forEach((route) => {
+          // 渲染有權限的路由
           if (subCodeList.includes(route.meta.authCode)) {
             menuChildren.push(route);
           } else if (route.meta.show) {
             menuChildren.push(route);
           }
+
+          // 若不需要權限，直接渲染下面這個
+          // menuChildren.push(route);
         });
-        cloneMenu[0].children = menuChildren;
-        menuOrder.push(...cloneMenu);
+
+        cloneMenu.children = menuChildren;
+        menuOrder.push(cloneMenu);
       }
     });
 
@@ -44,19 +49,14 @@ const genMenuOrder = (() => {
       return 0;
     });
 
-    // 這裡動態添加有權限的路由
-    router.addRoutes(menuOrder);
+    console.log('menuOrder', menuOrder);
+
+    menuOrder.forEach((route) => {
+      router.addRoute(route);
+    });
+
     return menuOrder;
   };
 })();
-// }, 10);
-// clearInterval(timer);
 
-// 若不需要權限，直接渲染下面這個
-// const menuOrder = {
-//   ...account,
-//   ...setting,
-// };
-
-console.log('genMenuOrder', genMenuOrder);
 export default genMenuOrder;

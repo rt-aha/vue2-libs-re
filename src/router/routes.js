@@ -1,13 +1,6 @@
 import pages from '@/router/pages';
 import dashboard from '@/router/dashboard';
 
-const baseRoute = [
-  ...pages,
-  ...dashboard,
-];
-
-console.log('baseRoute', baseRoute);
-
 /**
  * @params
  *
@@ -43,44 +36,11 @@ const allRouteFunc = {
   },
 };
 
-const menuRouteFunc = {
-  // 將要渲染在menu名稱檔案寫進來，不用副檔名
-  menuOrder: [],
-  menuInfoList: [],
-  getMenuFiles() {
-    return this.menuOrder.map((ele) => `./${ele}.js`);
-  },
-  getMenuData() {
-    const moduleFiles = this.getMenuFiles();
-
-    this.menuInfoList = getFilesDefaultExport(moduleFiles);
-
-    return this;
-  },
-  takeMatchRouteInfo(name) {
-    for (const item of this.menuInfoList) {
-      if (item.name === name) {
-        return item;
-      }
-    }
-
-    return '';
-  },
-  getMenuRouteData() {
-    const menuRouteWithOrder = [];
-    this.menuOrder.forEach((name) => {
-      const matchRouteInfo = this.takeMatchRouteInfo(name);
-      menuRouteWithOrder.push(matchRouteInfo);
-    });
-
-    this.menuInfoList = []; // 清空陣列，避免無意間重複執行時陣列持續增長
-    return menuRouteWithOrder;
-  },
-};
-
 const routes = allRouteFunc.getRouteData();
-const menuRoutes = menuRouteFunc.getMenuData().getMenuRouteData();
 
-console.log('routes ?', routes);
+const baseRoute = [
+  ...pages,
+  ...dashboard,
+];
 
-export { menuRoutes, routes, baseRoute };
+export { routes, baseRoute };

@@ -24,7 +24,7 @@
 <script>
 import AsideMenu from '@/layout/Menu.vue';
 import Breadcrumb from '@/components/Breadcrumb/index';
-import writeMenuList from '@/mixins/writeMenuList';
+// import writeMenuList from '@/mixins/writeMenuList';
 
 export default {
   name: 'FullAsideLayout',
@@ -32,7 +32,7 @@ export default {
     AsideMenu,
     Breadcrumb,
   },
-  mixins: [writeMenuList],
+  // mixins: [writeMenuList],
   data() {
     const { SYSTEM_NAME: systemName } = this;
 
@@ -43,7 +43,7 @@ export default {
     };
   },
   created() {
-    this.writeMenuList();
+    this.writeMenuList('aside');
   },
 };
 </script>

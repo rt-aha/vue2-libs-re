@@ -12,9 +12,7 @@ export default {
   name: 'Login',
   methods: {
     testLogin() {
-      setTimeout(() => {
-        this.$router.push({ name: 'dashboardHome' });
-      }, 1000);
+      this.$router.push({ name: 'dashboardHome' });
     },
   },
 };

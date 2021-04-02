@@ -7,19 +7,19 @@ export default [
     component: () => import(/* webpackChunkName: "FullAsideLayout" */ '@/layout/FullAsideLayout.vue'),
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'dashboardHome',
         component: () => import(/* webpackChunkName: "AccountList" */ '@/views/Dashboard.vue'),
         meta: {
-          title: '帳號列表',
-          mainCategoryType: 'account',
-          authCode: 'A-1',
+          title: '儀錶板',
+          mainCategoryType: 'dashboard',
+          authCode: 'H-1',
         },
       },
     ],
     meta: {
       title: '儀錶板',
-      mainCategoryType: 'dashboardRoot',
+      mainCategoryType: 'dashboard',
       // order: ,
     },
   },

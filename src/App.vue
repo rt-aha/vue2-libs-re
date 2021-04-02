@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { routeObservable, routeMutation } from '@/observable/route';
+import { routeObservable } from '@/observable/route';
 import writeMenuList from '@/mixins/writeMenuList';
 
 export default {
@@ -15,9 +15,10 @@ export default {
     menuList() {
       return routeObservable.menuList;
     },
+
   },
   created() {
-    this.writeMenuList();
+    this.writeMenuList('app');
   },
 };
 </script>
