@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { baseRoute } from '@/router/routes';
+import baseRoutes from '@/router/baseRoutes';
 
 const originalPush = Router.prototype.push;
 
@@ -13,7 +13,7 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: baseRoute,
+  routes: baseRoutes,
 });
 
 export default router;

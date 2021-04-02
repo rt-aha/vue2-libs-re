@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import { routes } from '@/router/routes';
+import routes from '@/router/viewRoutes';
 import router from '@/router';
 
 const viewsMapping = routes.reduce((obj, item) => {

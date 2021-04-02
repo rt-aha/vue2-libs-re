@@ -1,6 +1,3 @@
-import pages from '@/router/pages';
-import dashboard from '@/router/dashboard';
-
 /**
  * @params
  *
@@ -25,7 +22,7 @@ const allRouteFunc = {
   getFilesWithoutIndex() {
     const allFileKeys = currFolderFiles.keys();
     // 將要移除的檔案名稱放到陣列
-    const removeFile = ['./index.js', './genMenu.js', './routes.js'];
+    const removeFile = ['./index.js'];
 
     return allFileKeys.filter((item) => !removeFile.includes(item));
   },
@@ -36,11 +33,6 @@ const allRouteFunc = {
   },
 };
 
-const routes = allRouteFunc.getRouteData();
+const viewRoutes = allRouteFunc.getRouteData();
 
-const baseRoute = [
-  ...pages,
-  ...dashboard,
-];
-
-export { routes, baseRoute };
+export default viewRoutes;
