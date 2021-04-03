@@ -41,11 +41,16 @@ export default {
       type: String,
       default: '',
     },
+    addPadding: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       isPassValidate: true,
-      addLabelPadding: true,
+      addLabelPaddingList: ['ReTextarea', 'ReInputList'],
+      currFormItemChildrenName: [],
       errMsgText: '',
       validateStatus: true,
     };
@@ -56,6 +61,19 @@ export default {
     };
   },
   computed: {
+    addLabelPadding() {
+      if (this.addPadding) {
+        return true;
+      }
+
+      for (const childName of this.currFormItemChildrenName) {
+        for (const item of this.addLabelPaddingList) {
+          if (childName === item) return true;
+        }
+      }
+
+      return false;
+    },
     labelWidthValue() {
       if (!this.labelConfig().width) {
         return '100px';
@@ -75,22 +93,13 @@ export default {
     itemRule() {
       return { [this.prop]: this.reForm.rules[this.prop] };
     },
+
   },
   methods: {
     validateValue(val) {
       if (this.prop in this.reForm.rules) {
         this.isPassValidate = this.reForm.rules[this.prop](val);
       }
-    },
-    setLabelHeight() {
-      const contentHeight = this.$refs.formItemContent.clientHeight;
-
-      if (this.labelConfig().position === 'left' && contentHeight > 40) {
-        this.addLabelPadding = true;
-        return;
-      }
-
-      this.addLabelPadding = false;
     },
     validatePass() {
       this.errMsgText = '';
@@ -138,9 +147,16 @@ export default {
         }
       });
     },
+    getChildrenName() {
+      this.$children.forEach((ele) => {
+        this.currFormItemChildrenName.push(ele.$options.name);
+      });
+    },
+
   },
+
   mounted() {
-    this.setLabelHeight();
+    this.getChildrenName();
   },
 };
 </script>
@@ -198,7 +214,7 @@ $form-item: ".re-form-item";
     align-items: flex-start;
 
     > #{$form-item}__label {
-      margin-top: 15px;
+      margin-top: 11px;
 
     }
   }
