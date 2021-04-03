@@ -17,10 +17,10 @@
         <slot name="prefix"></slot>
       </div>
       <input
-        class="re-input-number__content__value"
+        class="re-input-number__content__native"
         :class="{
-          're-input-number__content__value--disabled': disabled,
-          're-input-number__content__value--readonly':
+          're-input-number__content__native--disabled': disabled,
+          're-input-number__content__native--readonly':
             !disabled && cursorPointer,
         }"
         v-bind="$attrs"
@@ -194,7 +194,7 @@ $input-size-els: ".re-input-number__prepend, .re-input-number__content, .re-inpu
     border-left: 0px;
     border-right: 0px;
 
-    &__value {
+    &__native {
       flex: 1;
       border: 0px transparent;
       outline: 0px transparent;

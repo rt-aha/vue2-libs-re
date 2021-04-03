@@ -2,13 +2,13 @@
   <div class="re-textarea">
     <textarea
       :style="cssStyle"
-      class="re-textarea__content-value"
+      class="re-textarea__native"
       :class="[
           {
-            're-textarea__content-value--autosize--none': autosize === 'none',
-            're-textarea__content-value--autosize--vertical': autosize === 'vertical',
-            're-textarea__content-value--autosize--horizontal': autosize === 'horizontal',
-            're-textarea__content-value--disabled': disabled,
+            're-textarea__native--autosize--none': autosize === 'none',
+            're-textarea__native--autosize--vertical': autosize === 'vertical',
+            're-textarea__native--autosize--horizontal': autosize === 'horizontal',
+            're-textarea__native--disabled': disabled,
           }
       ]"
       @input="handleInput"
@@ -74,7 +74,7 @@ export default {
 <style lang="scss">
 .re-textarea {
 
-  &__content-value {
+  &__native {
     border: 1px solid $c-main;
     border-radius: 4px;
     @include box-padding(10px);

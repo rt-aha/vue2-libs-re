@@ -23,10 +23,10 @@
         <slot name="prefix"></slot>
       </div>
       <input
-        class="re-input__content__value"
+        class="re-input__content__native"
         :class="{
-          're-input__content__value--disabled': disabled,
-          're-input__content__value--readonly':
+          're-input__content__native--disabled': disabled,
+          're-input__content__native--readonly':
             !disabled && cursorPointer,
         }"
         v-bind="$attrs"
@@ -201,7 +201,7 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       border-right: 0px;
     }
 
-    &__value {
+    &__native {
       flex: 1;
       border: 0px transparent;
       outline: 0px transparent;

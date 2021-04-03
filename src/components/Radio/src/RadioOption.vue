@@ -8,15 +8,18 @@
       },
     ]"
   >
-    <label class="re-radio-box" :for="label" @click.stop="handleClick">
+    <label class="re-radio-box" :for="uuid">
       <div class="re-radio-box__input">
         <input
-          class="re-radio-box__input__origin"
+          class="re-radio-box__input__native"
           type="radio"
           :id="uuid"
           :disabled="disabled"
           @focus="focus = true"
           @blur="focus = false"
+          @change="handleChange"
+          :checked="String(currValue) === String(value)"
+          :value="value"
         />
         <span
           class="re-radio-box__input__actural"
@@ -33,9 +36,11 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReRadioOption',
+  mixins: [triggerValidate],
   inject: {
     reFormItem: {
       default: '',
@@ -64,19 +69,11 @@ export default {
     };
   },
   methods: {
-    handleClick() {
-      if (this.disabled) {
-        return;
-      }
-      this.$emit('handleRadio', this.value);
-      if (this.reFormItem) {
-        this.validateValue();
-      }
-    },
-    validateValue() {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
-      });
+    handleChange(e) {
+      if (this.disabled) return;
+
+      this.$emit('handleRadio', e.target.value);
+      this.triggerValidate('change');
     },
   },
 };
@@ -114,7 +111,7 @@ export default {
     position: relative;
     border: 1px solid $c-assist;
 
-    &__origin {
+    &__native {
       display: none;
     }
 

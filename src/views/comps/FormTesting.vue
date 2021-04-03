@@ -69,6 +69,7 @@ export default {
         occupation: {
           message: '請勾選一個選項',
           validator: (rule, value) => value > 0,
+          trigger: ['change'],
         },
         interest: {
           message: '請至少選擇一個選項',

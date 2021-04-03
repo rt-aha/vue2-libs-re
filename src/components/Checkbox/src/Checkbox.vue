@@ -8,7 +8,7 @@
     <label class="re-checkbox-box" :for="uuid">
       <div class="re-checkbox-box__input">
         <input
-          class="re-checkbox-box__input__origin"
+          class="re-checkbox-box__input__native"
           type="checkbox"
           :id="uuid"
           @change="handler"
@@ -144,7 +144,7 @@ export default {
     position: relative;
     border: 1px solid $c-assist;
 
-    &__origin {
+    &__native {
       display: none;
     }
 
