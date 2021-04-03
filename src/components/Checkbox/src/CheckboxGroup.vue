@@ -15,9 +15,11 @@
 <script>
 
 import { cloneDeep, xor } from 'lodash';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReCheckboxGroup',
+  mixins: [triggerValidate],
   inject: {
     reFormItem: {
       default: '',
@@ -105,15 +107,9 @@ export default {
       }
 
       this.$emit('input', cloneValue);
-      if (this.reFormItem) {
-        this.validateValue();
-      }
+      this.triggerValidate('change');
     },
-    validateValue() {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
-      });
-    },
+
     setInnerOptions() {
       this.innerOptions = cloneDeep(this.options);
     },

@@ -457,13 +457,20 @@ export default {
       this.val.inputList = this.val.inputList.filter((item) => item.id !== id);
     },
     handleCheckbox(val) {
-      this.val.checkAll = !this.val.checkAll;
       if (val) {
         this.val.checkbox3 = this.checkboxOptions.map((ele) => ele.value);
       } else {
         this.val.checkbox3 = [];
       }
     },
+    setCheckAll() {
+      if (this.val.checkAll) {
+        this.val.checkbox3 = this.checkboxOptions.map((ele) => ele.value);
+      }
+    },
+  },
+  created() {
+    this.setCheckAll();
   },
 };
 </script>

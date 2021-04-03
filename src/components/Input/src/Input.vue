@@ -46,13 +46,16 @@
 </template>
 
 <script>
+import triggerValidate from '@/mixins/triggerValidate';
+
 export default {
   name: 'ReInput',
-  inject: {
-    reFormItem: {
-      default: '',
-    },
-  },
+  mixins: [triggerValidate],
+  // inject: {
+  //   reFormItem: {
+  //     default: '',
+  //   },
+  // },
   props: {
     value: {
       type: String,
@@ -94,21 +97,16 @@ export default {
     // },
   },
   methods: {
-
     handleClick(e) {
       this.$emit('click', e);
     },
     handleInput(e) {
       this.$emit('input', e.target.value);
-      if (this.reFormItem) {
-        this.validateValue('input');
-      }
+      this.triggerValidate('input');
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
-      if (this.reFormItem) {
-        this.validateValue('change');
-      }
+      this.triggerValidate('change');
     },
     setNativeInputValue() {
       const input = this.getInput();
@@ -122,11 +120,7 @@ export default {
       }
       return nativeInput;
     },
-    validateValue(triggerEvent) {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value, triggerEvent);
-      });
-    },
+
   },
   mounted() {
     this.setNativeInputValue();

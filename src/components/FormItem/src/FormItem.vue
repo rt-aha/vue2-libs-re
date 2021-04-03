@@ -63,23 +63,17 @@ export default {
 
       return `${this.labelConfig().width}px`;
     },
-    itemTriggerEvent() {
+    itemTrigger() {
       if (this.prop in this.reForm.rules) {
-        if ('triggerEvent' in this.reForm.rules[this.prop]) {
-          return ['form', ...this.reForm.rules[this.prop].triggerEvent];
+        if ('trigger' in this.reForm.rules[this.prop]) {
+          return ['form', ...this.reForm.rules[this.prop].trigger];
         }
       }
 
       return ['form'];
     },
     itemRule() {
-      if (this.prop in this.reForm.rules) {
-        return { [this.prop]: this.reForm.rules[this.prop].vldInfo || undefined };
-      }
-
-      return {
-        [this.prop]: undefined,
-      };
+      return { [this.prop]: this.reForm.rules[this.prop] };
     },
   },
   methods: {
@@ -112,7 +106,7 @@ export default {
       }
 
       // 至少都有一個form 當作是判斷submit時的驗證
-      if (!this.itemTriggerEvent.includes(type)) {
+      if (!this.itemTrigger.includes(type)) {
         return Promise.resolve(true);
       }
 
@@ -226,14 +220,17 @@ $form-item: ".re-form-item";
   &__box {
     // margin-bottom: 20px;
     position: relative;
+    width: 100%;
 
     &__content {
+      width: 100%;
       // @include box-padding(4px 0);
     }
 
     &__err-msg {
       @include position(bl, -18px, 0px);
       height: 12px;
+      width: 100%;
       @include font-style($c-error-message, 12px);
     }
   }

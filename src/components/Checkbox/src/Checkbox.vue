@@ -5,9 +5,15 @@
         're-checkbox--disabled': disabled,
       },
     ]">
-    <label class="re-checkbox-box" :for="label" @click.stop="handler">
+    <label class="re-checkbox-box" :for="uuid">
       <div class="re-checkbox-box__input">
-        <input class="re-checkbox-box__input__origin" type="checkbox" :id="uuid" />
+        <input
+          class="re-checkbox-box__input__origin"
+          type="checkbox"
+          :id="uuid"
+          @change="handler"
+          :checked="currValue.includes(value) || checkAll"
+          :value="value" />
         <span
           class="re-checkbox-box__input__actural"
           :class="[
@@ -23,6 +29,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReCheckbox',
@@ -30,6 +37,7 @@ export default {
     prop: 'checkAll',
     event: 'checkAll',
   },
+  mixins: [triggerValidate],
   props: {
     checkAll: {
       type: Boolean,
@@ -69,14 +77,23 @@ export default {
     };
   },
   methods: {
-    handleCheckbox() {
+    handleCheckbox(e) {
       if (this.disabled) return;
-      this.$emit('change', !this.checkAll);
+      // 用於v-model
+      this.$emit('checkAll', e.target.checked);
+      // change事件用於全選之類的，需額外設定check group的值
+      this.$emit('change', e.target.checked);
+      this.triggerValidate('change', e.target.checked);
     },
 
-    handleCheckboxGroup() {
+    handleCheckboxGroup(e) {
       if (this.disabled) return;
-      this.$emit('handleCheckboxGroup', this.value);
+
+      // 若可以轉為數字，就回傳數字，若不行就回傳字串
+      const num = Number(e.target.value);
+      const value = Number.isNaN(num) ? e.target.value : num;
+
+      this.$emit('handleCheckboxGroup', value);
     },
     setHandler() {
       if (this.inGroup) {
@@ -90,6 +107,7 @@ export default {
   created() {
     this.setHandler();
   },
+
 };
 </script>
 

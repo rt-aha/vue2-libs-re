@@ -93,6 +93,13 @@ export const checkboxOptions = [
   // },
 ];
 
+export const checkboxOptionsAgree = [
+  {
+    label: '同意',
+    value: 1,
+  },
+];
+
 export const limitedCheckboxOptions = [
   {
     label: '多選1',
