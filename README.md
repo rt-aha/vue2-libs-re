@@ -91,7 +91,17 @@ form 迴圈化
 - [ ] 基本組件檢查與功能補足
 - [x] menu
 - [x] menu 與 auth 連結 
-- [ ] form 深入檢查
+- [-] form 深入檢查 
+  1. inputnumber 
+  2. textarea
+  3. upload
+  4. 多輸入框列表
+  5. datepicker
+  6. timepicker
+  7. datetimepicker
+  8. 整合vld function
+  9. 測試非同步
+  10. 撰寫成迴圈
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table
 - [ ] 小後台實驗

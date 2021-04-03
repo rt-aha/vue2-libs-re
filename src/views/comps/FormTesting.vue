@@ -26,6 +26,7 @@
       </re-form-item>
       <re-button @click.prevent="submit">送出</re-button>
     </re-form>
+    <re-divider></re-divider>
   </div>
 </template>
 
