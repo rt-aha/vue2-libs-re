@@ -5,7 +5,7 @@
       :style="{ width: '200px' }"
       placeholder="請選擇時間"
       readonly
-      @click="openTimeList"
+      @click.stop="openTimeList"
     />
     <re-expand-container :visible.sync="visible">
       <re-time-list :value="innerValue" @input="handleInput" ref="timelist"/>
@@ -15,9 +15,11 @@
 
 <script>
 import dayjs from 'dayjs';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReTimePicker',
+  mixins: [triggerValidate],
   props: {
     value: {
       type: Date,
@@ -34,9 +36,10 @@ export default {
   methods: {
     handleInput(value) {
       this.$emit('input', value);
+      this.triggerValidate('change');
     },
-
     closeTimeList() {
+      console.log('close?');
       this.visible = false;
     },
     openTimeList() {

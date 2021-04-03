@@ -12,6 +12,7 @@
           }
       ]"
       @input="handleInput"
+      @change="handleChange"
       v-bind="$attrs"
       :rows="textAreaRows"
       ref="textarea"
@@ -20,8 +21,11 @@
 </template>
 
 <script>
+import triggerValidate from '@/mixins/triggerValidate';
+
 export default {
   name: 'ReTextarea',
+  mixins: [triggerValidate],
   props: {
     value: {
       type: String,
@@ -60,8 +64,14 @@ export default {
   },
   methods: {
     handleInput(e) {
-      const textareaValue = e.target.value;
-      this.$emit('input', textareaValue);
+      console.log('input', e.target.value);
+      this.$emit('input', e.target.value);
+      this.triggerValidate('input', e.target.value);
+    },
+    handleChange(e) {
+      console.log('change', e.target.value);
+      this.$emit('change', e.target.value);
+      this.triggerValidate('change', e.target.value);
     },
     getTextarea() {
       return this.$refs.textarea;

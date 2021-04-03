@@ -4,11 +4,11 @@
       <re-button @click="addItem">新增</re-button>
     </re-row>
     <re-row v-for="item of inputList" :key="item.id">
-      <re-input v-model="item.value" />
+      <re-input v-model="item.value" @blur="handleBlur"/>
        <re-button
-       @click="handleClick(item.id)"
-       style="margin-left: 10px"
-        type="border"
+         @click="handleClick(item.id)"
+         style="margin-left: 10px"
+         type="border"
          round="default" >移除</re-button>
     </re-row>
 
@@ -17,9 +17,12 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReInputList',
+  mixins: [triggerValidate],
+  inject: ['labelConfig'],
   props: {
     value: {
       type: Array,
@@ -32,25 +35,38 @@ export default {
     };
   },
   methods: {
-    convertInputList() {
-      this.inputList = this.value;
+    handleBlur(e) {
+      console.log('e.t', this.value);
+      this.triggerValidate('input');
+      this.updateValue();
+    },
+    updateValue() {
       this.$emit('input', this.inputList);
     },
     handleClick(id) {
       this.inputList = this.inputList.filter((item) => item.id !== id);
+      this.updateValue();
     },
-    addItem() {
-      this.inputList = this.inputList.push({
+    addItem(e) {
+      e.preventDefault();
+      this.inputList.push({
         id: uuid(),
         value: '',
       });
+      this.updateValue();
     },
+    setInnerValue() {
+      this.inputList = this.value;
+    },
+  },
+  created() {
+    this.setInnerValue();
   },
   watch: {
     value: {
-      handler: 'convertInputList',
+      handler: 'setInnerValue',
       immediate: true,
-      // deep: true
+      deep: true,
     },
   },
 };

@@ -45,9 +45,11 @@
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
 import dayjs from 'dayjs';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReDateTimePicker',
+  mixins: [triggerValidate],
   directives: {
     onClickaway,
   },
@@ -79,7 +81,7 @@ export default {
       this.tempSave.date = d;
 
       const fullValue = new Date(d.$y, d.$M, d.$D, t.$H, t.$m, t.$s);
-      this.$emit('input', fullValue);
+      this.updateValue(fullValue);
     },
     handleTimeInput(time) {
       const d = dayjs(this.tempSave.date);
@@ -87,7 +89,12 @@ export default {
       this.tempSave.time = t;
 
       const fullValue = new Date(d.$y, d.$M, d.$D, t.$H, t.$m, t.$s);
+      this.updateValue(fullValue);
+    },
+    updateValue(fullValue) {
       this.$emit('input', fullValue);
+      this.triggerValidate('change');
+      this.closeCalendar();
     },
     openCalendar() {
       this.visible = true;
@@ -95,7 +102,6 @@ export default {
     closeCalendar() {
       this.visible = false;
     },
-
     setInnerValue() {
       this.innerValue = this.value;
     },

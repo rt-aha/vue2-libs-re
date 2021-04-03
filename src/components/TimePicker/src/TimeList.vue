@@ -108,6 +108,7 @@ export default {
         this.$refs[calcType].scrollTop = targetPostion;
 
         this.calcTimeValue(calcType, targetPostion);
+        return;
       }
 
       this.calcTimeValue(calcType, scrollBarPostion);
@@ -133,6 +134,7 @@ export default {
       const time = new Date(ymd[0], ymd[1], ymd[2], hms[0], hms[1], hms[2]);
 
       if (isValidTimeFormat) {
+        console.log('??');
         this.$emit('input', time);
       }
     },

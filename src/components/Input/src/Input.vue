@@ -33,6 +33,7 @@
         :disabled="disabled"
         @input="handleInput"
         @change="handleChange"
+        @blur="handleBlur"
         ref="input"
       />
       <div class="re-input__content__suffix" v-if="$slots.suffix">
@@ -107,6 +108,9 @@ export default {
     handleChange(e) {
       this.$emit('change', e.target.value);
       this.triggerValidate('change');
+    },
+    handleBlur(e) {
+      this.$emit('blur', e.target.value);
     },
     setNativeInputValue() {
       const input = this.getInput();

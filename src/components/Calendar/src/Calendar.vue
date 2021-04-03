@@ -165,9 +165,6 @@ export default {
           },
         };
       }
-
-      console.log('init select');
-      this.$emit('input', this.selectedDate.date());
     },
 
     setTimeInfo(currDate = { y: '', m: '' }) {

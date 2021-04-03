@@ -41,8 +41,11 @@
 </template>
 
 <script>
+import triggerValidate from '@/mixins/triggerValidate';
+
 export default {
   name: 'ReInputNumber',
+  mixins: [triggerValidate],
   inject: {
     reFormItem: {
       default: '',
@@ -91,12 +94,11 @@ export default {
     },
     handleInput(e) {
       this.$emit('input', e.target.value);
-      if (this.reFormItem) {
-        this.validateValue();
-      }
+      this.triggerValidate('input');
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
+      this.triggerValidate('change');
     },
     setNativeInputValue() {
       const input = this.getInput();
@@ -110,20 +112,17 @@ export default {
       }
       return nativeInput;
     },
-    validateValue() {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
-      });
-    },
     minusNumber() {
       const inputValue = this.getInput().value;
       const val = Number(inputValue) - Number(this.step);
       this.$emit('input', String(val));
+      this.triggerValidate('change');
     },
     plusNumber() {
       const inputValue = this.getInput().value;
       const val = Number(inputValue) + Number(this.step);
       this.$emit('input', String(val));
+      this.triggerValidate('change');
     },
   },
   mounted() {
