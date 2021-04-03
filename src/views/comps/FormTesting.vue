@@ -48,52 +48,52 @@ export default {
         occupation: 0,
         interest: [],
       },
-      rules: {
-        name: {
-          message: '請輸入姓名',
-          validator: (rule, value) => value !== '',
-        },
-        income: {
-          message: '請至少選擇一個選項',
-          validator: (rule, value) => Number(value) > 0,
-        },
-        occupation: {
-          message: '請勾選一個選項',
-          validator: (rule, value) => value > 0,
-        },
-        interest: {
-          message: '請至少選擇一個選項',
-          validator: (rule, value) => value.length > 0,
-          type: 'string',
-        },
-      },
       // rules: {
       //   name: {
-      //     vldInfo: {
-      //       message: '請輸入姓名',
-      //       validator: (rule, value) => value !== '',
-      //     },
+      //     message: '請輸入姓名',
+      //     validator: (rule, value) => value !== '',
       //   },
       //   income: {
-      //     vldInfo: {
-      //       message: '請至少選擇一個選項',
-      //       validator: (rule, value) => Number(value) > 0,
-      //     },
+      //     message: '請至少選擇一個選項',
+      //     validator: (rule, value) => Number(value) > 0,
       //   },
       //   occupation: {
-      //     vldInfo: {
-      //       message: '請勾選一個選項',
-      //       validator: (rule, value) => value > 0,
-      //     },
+      //     message: '請勾選一個選項',
+      //     validator: (rule, value) => value > 0,
       //   },
       //   interest: {
-      //     vldInfo: {
-      //       message: '請至少選擇一個選項',
-      //       validator: (rule, value) => value.length > 0,
-      //     },
+      //     message: '請至少選擇一個選項',
+      //     validator: (rule, value) => value.length > 0,
       //     type: 'string',
       //   },
       // },
+      rules: {
+        name: {
+          vldInfo: {
+            message: '請輸入姓名',
+            validator: (rule, value) => value !== '',
+          },
+          triggerEvent: ['change'],
+        },
+        income: {
+          vldInfo: {
+            message: '請至少選擇一個選項',
+            validator: (rule, value) => Number(value) > 0,
+          },
+        },
+        occupation: {
+          vldInfo: {
+            message: '請勾選一個選項',
+            validator: (rule, value) => value > 0,
+          },
+        },
+        interest: {
+          vldInfo: {
+            message: '請至少選擇一個選項',
+            validator: (rule, value) => value.length > 0,
+          },
+        },
+      },
     };
   },
   methods: {

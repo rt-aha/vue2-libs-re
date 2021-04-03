@@ -63,8 +63,23 @@ export default {
 
       return `${this.labelConfig().width}px`;
     },
+    itemTriggerEvent() {
+      if (this.prop in this.reForm.rules) {
+        if ('triggerEvent' in this.reForm.rules[this.prop]) {
+          return ['form', ...this.reForm.rules[this.prop].triggerEvent];
+        }
+      }
+
+      return ['form'];
+    },
     itemRule() {
-      return { [this.prop]: this.reForm.rules[this.prop] };
+      if (this.prop in this.reForm.rules) {
+        return { [this.prop]: this.reForm.rules[this.prop].vldInfo || undefined };
+      }
+
+      return {
+        [this.prop]: undefined,
+      };
     },
   },
   methods: {
@@ -90,9 +105,14 @@ export default {
       const err = errorList.find((item) => item.field === this.prop);
       this.errMsgText = err.message;
     },
-    validateFormValue(value) {
-      console.log(this.itemRule);
+    validateFormValue(value, type) {
+      // 沒有規則就不驗證
       if (!this.itemRule[this.prop]) {
+        return Promise.resolve(true);
+      }
+
+      // 至少都有一個form 當作是判斷submit時的驗證
+      if (!this.itemTriggerEvent.includes(type)) {
         return Promise.resolve(true);
       }
 
@@ -102,7 +122,6 @@ export default {
         targetValue = value[this.prop];
       }
 
-      console.log('this.itemRule', this.itemRule);
       const validator = new Schema(this.itemRule);
       const valueObj = { [this.prop]: targetValue };
 

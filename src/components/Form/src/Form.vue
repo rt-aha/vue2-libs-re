@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ReForm',
   compName: 'ReForm',
@@ -35,7 +34,6 @@ export default {
         textAlign: 'left',
       }),
     },
-
   },
   provide() {
     return {
@@ -58,20 +56,23 @@ export default {
       this.$children.forEach((node) => {
         if (node.$options.name === 'ReFormItem') {
           const promise = new Promise((resolve) => {
-            resolve(node.validateFormValue(this.form));
+            resolve(node.validateFormValue(this.form, 'form'));
           });
 
           validateList.push(promise);
         }
       });
 
-      const allValidatorResult = await validateList.reduce(async (resultCollection, execValidator) => {
-        const validateResult = await execValidator;
-        const accResolve = await resultCollection;
-        accResolve.push(validateResult);
+      const allValidatorResult = await validateList.reduce(
+        async (resultCollection, execValidator) => {
+          const validateResult = await execValidator;
+          const accResolve = await resultCollection;
+          accResolve.push(validateResult);
 
-        return accResolve;
-      }, []);
+          return accResolve;
+        },
+        [],
+      );
 
       const isFormValidator = allValidatorResult.every((val) => val);
 

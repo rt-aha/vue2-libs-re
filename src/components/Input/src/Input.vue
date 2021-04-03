@@ -100,6 +100,9 @@ export default {
     },
     handleInput(e) {
       this.$emit('input', e.target.value);
+      if (this.reFormItem) {
+        this.validateValue('input');
+      }
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
