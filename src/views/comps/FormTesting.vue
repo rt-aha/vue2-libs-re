@@ -64,7 +64,8 @@ export default {
         },
         income: {
           message: '請至少選擇一個選項',
-          validator: (rule, value) => Number(value) > 0,
+          validator: (rule, value) => Number(value) > 2,
+          trigger: ['change'],
         },
         occupation: {
           message: '請勾選一個選項',
@@ -78,11 +79,8 @@ export default {
         },
         agree: {
           message: '請勾選同意事項',
-          validator: (rule, value) => {
-            console.log('value', value);
-            return value;
-          },
-          trigger: ['change'],
+          validator: (rule, value) => value,
+          // trigger: ['change'],
         },
       },
     };

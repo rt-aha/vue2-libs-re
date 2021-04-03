@@ -70,7 +70,7 @@ export default {
         }
       }
 
-      return ['form'];
+      return ['form', 'change'];
     },
     itemRule() {
       return { [this.prop]: this.reForm.rules[this.prop] };

@@ -10,35 +10,32 @@
         @click.stop="expandOptions"
       />
     </div>
-    <!-- <div class="re-select__option" v-show="expandConfig.status"> -->
     <re-expand-container :visible.sync="expandConfig.status">
-
       <div class="re-select__option__content">
-        <ul
+        <div
           class="re-select__option__content__list"
           v-on-clickaway="closeOptions"
           @click.stop="handleOption"
         >
-
           <re-select-option
             v-for="opt of options"
             :key="opt.value"
             v-bind="opt"
             :currOption="value"
           />
-        </ul>
+        </div>
       </div>
-
       </re-expand-container>
-    <!-- </div> -->
   </div>
 </template>
 
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReSelect',
+  mixins: [triggerValidate],
   inject: {
     reFormItem: {
       default: '',
@@ -98,18 +95,12 @@ export default {
       const disabledStatus = targetEle.getAttribute('data-disabled-status');
       if (disabledStatus) return;
       const selectedValue = targetEle.getAttribute('data-option-value');
-      // this.closeOptions();
       this.$emit('input', selectedValue);
-      // this.closeOptions();
-      if (this.reFormItem) {
-        this.validateValue();
-      }
+      this.$emit('change', selectedValue);
+      this.triggerValidate('change');
+      this.closeOptions();
     },
-    validateValue() {
-      this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
-      });
-    },
+
   },
 };
 </script>

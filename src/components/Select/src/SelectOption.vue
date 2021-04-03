@@ -7,6 +7,8 @@
    }]"
     :data-option-value="value"
     :data-disabled-status="disabled"
+
+    :selected="String(currOption) === String(value)"
   >
     <component v-if="render" :is="render"/>
     <span v-else class="re-select-option__item">{{ label }}</span>
@@ -14,8 +16,10 @@
 </template>
 
 <script>
+
 export default {
   name: 'ReSelectOption',
+
   props: {
     value: {
       default: '',
