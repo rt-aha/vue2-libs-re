@@ -100,12 +100,12 @@ export default {
     },
     handleInput(e) {
       this.$emit('input', e.target.value);
-      if (this.reFormItem) {
-        this.validateValue();
-      }
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
+      if (this.reFormItem) {
+        this.validateValue('change');
+      }
     },
     setNativeInputValue() {
       const input = this.getInput();
@@ -119,9 +119,9 @@ export default {
       }
       return nativeInput;
     },
-    validateValue() {
+    validateValue(triggerEvent) {
       this.$nextTick(() => {
-        this.reFormItem.validateFormValue(this.value);
+        this.reFormItem.validateFormValue(this.value, triggerEvent);
       });
     },
   },

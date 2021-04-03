@@ -39,7 +39,7 @@ export default {
   },
   provide() {
     return {
-      rForm: this,
+      reForm: this,
       formErrMsg: () => this.formErrMsg,
       labelConfig: () => this.labelConfig,
       formValue: () => this.form,
@@ -73,11 +73,11 @@ export default {
         return accResolve;
       }, []);
 
-      const checkResult = allValidatorResult.every((val) => val);
+      const isFormValidator = allValidatorResult.every((val) => val);
 
       console.log('allValidatorResult', allValidatorResult);
 
-      if (checkResult) {
+      if (isFormValidator) {
         callback();
       } else {
         console.warn('validator error !');

@@ -457,7 +457,7 @@ export default {
       this.val.inputList = this.val.inputList.filter((item) => item.id !== id);
     },
     handleCheckbox(val) {
-      this.val.checkAll = val;
+      this.val.checkAll = !this.val.checkAll;
       if (val) {
         this.val.checkbox3 = this.checkboxOptions.map((ele) => ele.value);
       } else {

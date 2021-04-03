@@ -35,7 +35,7 @@ import Schema from 'async-validator';
 export default {
   name: 'ReFormItem',
   compName: 'ReFormItem',
-  inject: ['rForm', 'labelConfig', 'formValue'],
+  inject: ['reForm', 'labelConfig', 'formValue'],
   props: {
     prop: {
       type: String,
@@ -64,13 +64,13 @@ export default {
       return `${this.labelConfig().width}px`;
     },
     itemRule() {
-      return { [this.prop]: this.rForm.rules[this.prop] };
+      return { [this.prop]: this.reForm.rules[this.prop] };
     },
   },
   methods: {
     validateValue(val) {
-      if (this.prop in this.rForm.rules) {
-        this.isPassValidate = this.rForm.rules[this.prop](val);
+      if (this.prop in this.reForm.rules) {
+        this.isPassValidate = this.reForm.rules[this.prop](val);
       }
     },
     setLabelHeight() {
@@ -91,6 +91,7 @@ export default {
       this.errMsgText = err.message;
     },
     validateFormValue(value) {
+      console.log(this.itemRule);
       if (!this.itemRule[this.prop]) {
         return Promise.resolve(true);
       }
@@ -101,6 +102,7 @@ export default {
         targetValue = value[this.prop];
       }
 
+      console.log('this.itemRule', this.itemRule);
       const validator = new Schema(this.itemRule);
       const valueObj = { [this.prop]: targetValue };
 
