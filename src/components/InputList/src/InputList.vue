@@ -1,6 +1,6 @@
 <template>
   <div class="re-input-list">
-    <re-row>
+    <re-row :mt="false">
       <re-button @click="addItem">新增</re-button>
     </re-row>
     <re-row v-for="item of inputList" :key="item.id">
