@@ -107,7 +107,7 @@ export default {
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
-      this.triggerValidate('change');
+      this.triggerValidate('change', null, 'input!');
     },
     handleBlur(e) {
       this.$emit('blur', e.target.value);

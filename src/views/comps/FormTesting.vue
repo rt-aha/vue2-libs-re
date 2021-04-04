@@ -132,11 +132,11 @@ export default {
         },
         fruitList: {
           message: '請選擇水果，不可有空值',
-          validator: (rule, value, _, source) => {
-            console.log('value', value);
-            const result = value.every((item) => item.value.length > 0);
-            return result;
+          validator: (rule, value, cb, src, options) => {
+            if (options.info === 'action-remove') return true;
+            return value.every((item) => item.value.length > 0);
           },
+          trigger: ['blur'], // FIXED: 這裡寫了change會噴錯
         },
         memo: {
           message: '請填寫備註',

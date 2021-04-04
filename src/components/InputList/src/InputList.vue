@@ -5,7 +5,7 @@
     </re-row>
     <re-row v-for="item of inputList" :key="item.id">
       <re-input v-model="item.value" @blur="handleBlur"/>
-       <re-button
+      <re-button
          @click="handleClick(item.id)"
          style="margin-left: 10px"
          type="border"
@@ -22,7 +22,6 @@ import triggerValidate from '@/mixins/triggerValidate';
 export default {
   name: 'ReInputList',
   mixins: [triggerValidate],
-  inject: ['labelConfig'],
   props: {
     value: {
       type: Array,
@@ -36,8 +35,7 @@ export default {
   },
   methods: {
     handleBlur(e) {
-      console.log('e.t', this.value);
-      this.triggerValidate('input');
+      this.triggerValidate('blur');
       this.updateValue();
     },
     updateValue() {
@@ -46,6 +44,7 @@ export default {
     handleClick(id) {
       this.inputList = this.inputList.filter((item) => item.id !== id);
       this.updateValue();
+      this.triggerValidate('extra', [], { info: 'action-remove' });
     },
     addItem(e) {
       e.preventDefault();

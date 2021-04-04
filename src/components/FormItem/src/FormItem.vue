@@ -108,14 +108,15 @@ export default {
       const err = errorList.find((item) => item.field === this.prop);
       this.errMsgText = err.message;
     },
-    validateFormValue(value, type) {
+    validateFormValue(value, event, options) {
       // 沒有規則就不驗證
       if (!this.itemRule[this.prop]) {
         return Promise.resolve(true);
       }
 
       // 至少都有一個form 當作是判斷submit時的驗證
-      if (!this.itemTrigger.includes(type)) {
+      // extra 是一個例外，表示必須往下跑驗證
+      if (!this.itemTrigger.includes(event) && event !== 'extra') {
         return Promise.resolve(true);
       }
 
@@ -130,7 +131,7 @@ export default {
 
       return new Promise((resolve) => {
         try {
-          validator.validate(valueObj, (errors, fields) => {
+          validator.validate(valueObj, options, (errors, fields) => {
             if (errors) {
               this.handleErrors(errors, fields);
             } else {
