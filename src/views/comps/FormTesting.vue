@@ -133,7 +133,7 @@ export default {
         fruitList: {
           message: '請選擇水果，不可有空值',
           validator: (rule, value, cb, src, options) => {
-            if (options.info === 'action-remove') return true;
+            if (options.event === 'remove') return true;
             return value.every((item) => item.value.length > 0);
           },
           trigger: ['blur'], // FIXED: 這裡寫了change會噴錯

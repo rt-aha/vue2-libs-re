@@ -44,7 +44,7 @@ export default {
     handleClick(id) {
       this.inputList = this.inputList.filter((item) => item.id !== id);
       this.updateValue();
-      this.triggerValidate('extra', [], { info: 'action-remove' });
+      this.triggerValidate('extra-remove', [], { event: 'remove' });
     },
     addItem(e) {
       e.preventDefault();
