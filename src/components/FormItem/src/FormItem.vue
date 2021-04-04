@@ -115,8 +115,8 @@ export default {
       }
 
       // 至少都有一個form 當作是判斷submit時的驗證
-      // extra 是一個例外，表示必須往下跑驗證
-      if (!this.itemTrigger.includes(event) && event !== 'extra') {
+      // 包含extra 是一個例外，表示必須往下跑驗證
+      if (!this.itemTrigger.includes(event) && event.indexOf('extra') === -1) {
         return Promise.resolve(true);
       }
 
