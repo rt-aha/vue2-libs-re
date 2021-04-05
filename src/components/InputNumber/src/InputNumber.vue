@@ -53,7 +53,7 @@ export default {
   },
   props: {
     value: {
-      type: String,
+      type: [String, Number],
     },
     size: {
       type: String,

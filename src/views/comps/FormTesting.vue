@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import vld from '@/utils/validate';
+import { vld, asyncVld } from '@/utils/validate';
 import { isFalsy } from 'lodash';
 import {
   selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree,
@@ -75,7 +75,7 @@ export default {
         occupation: 0,
         interest: [],
         agree: false,
-        fee: '0',
+        fee: 9,
         date: new Date(),
         time: new Date(),
         dateTime: new Date(),
@@ -109,11 +109,7 @@ export default {
           // trigger: ['change'],
         },
         fee: {
-          message: '請輸入手續費',
-          validator: (rule, value) => {
-            console.log(value);
-            return Number(value) > 0;
-          },
+          asyncValidator: (rule, value) => asyncVld({ value, ruleList: [] }),
         },
         date: {
           message: '請選擇日期',
@@ -151,6 +147,17 @@ export default {
     submit() {
       this.$refs.testingForm.validateForm(() => {
         console.log('congrats ~');
+      });
+    },
+    async timer() {
+      return new Promise((resolve) => {
+        let t = 0;
+        setTimeout(() => {
+          console.log('time up !');
+          t = Math.floor(Math.random() * 10);
+          console.log('t...', t);
+          resolve(t);
+        }, 1000);
       });
     },
   },

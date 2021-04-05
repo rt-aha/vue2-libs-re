@@ -31,6 +31,8 @@
 
 <script>
 import Schema from 'async-validator';
+// 移除console中的warning
+Schema.warning = () => {};
 
 export default {
   name: 'ReFormItem',

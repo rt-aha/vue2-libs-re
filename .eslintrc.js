@@ -19,6 +19,7 @@ module.exports = {
     'import/no-self-import': 'off',
     'max-len': 'off',
     'import/prefer-default-export': 'off',
+    'prefer-promise-reject-errors': 'off',
     'no-shadow': 'off',
     'import/no-extraneous-dependencies': [
       'error',
