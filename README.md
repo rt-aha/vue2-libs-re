@@ -95,8 +95,7 @@ form 迴圈化
   1. upload
   2. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
   3. 整合vld function
-  4. 測試非同步
-  5.  撰寫成迴圈
+  4.  撰寫成迴圈
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table
 - [ ] 小後台實驗
