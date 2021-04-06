@@ -31,6 +31,7 @@
 
 <script>
 import Schema from 'async-validator';
+import { vld, asyncVld } from '@/utils/validate/vld';
 // 移除console中的warning
 Schema.warning = () => {};
 
@@ -130,6 +131,14 @@ export default {
 
       const validator = new Schema(this.itemRule);
       const valueObj = { [this.prop]: targetValue };
+      // console.log('valueObj', valueObj);
+
+      // console.log('targetValue', targetValue);
+      // vld({
+      //   value: targetValue,
+      //   ruleList: ['t1:t1arg', 't2'],
+      //   // ruleError: { t1: 't1 error' },
+      // });
 
       return new Promise((resolve) => {
         try {

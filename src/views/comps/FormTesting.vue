@@ -51,6 +51,7 @@
 <script>
 import { vld, asyncVld } from '@/utils/validate/vld';
 import { isFalsy } from 'lodash';
+import { getUsersAPI } from '@/api/test';
 import {
   selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree,
 } from './test-config';
@@ -87,10 +88,10 @@ export default {
           validator: (rule, value, cb, src, options) => vld({
             value,
             ruleList: ['t1:t1arg', 't2'],
-            ruleError: { t1: 't1 error' },
+            // ruleError: { t1: 't1 error' },
             options,
           }),
-          trigger: ['input', 'change'],
+          trigger: ['input'],
           // triggerEvent: ['change'],
         },
         income: {
@@ -114,7 +115,7 @@ export default {
           // trigger: ['change'],
         },
         fee: {
-          asyncValidator: (rule, value) => asyncVld({ value, ruleList: [] }),
+          asyncValidator: (rule, value) => asyncVld({ value, ruleList: ['t2'], asyncFn: getUsersAPI }),
         },
         date: {
           message: '請選擇日期',

@@ -2,7 +2,12 @@ import { request, localRequest } from '@/api';
 
 const getUsersAPI = async () => {
   const res = await request({ method: 'get', url: '/users' });
-  return res.data;
+
+  const r = {
+    data: res.data,
+    error: 't error',
+  };
+  return r;
 };
 
 const getTableDataAPI = async () => {

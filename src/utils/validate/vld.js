@@ -1,7 +1,10 @@
-import { validator } from '@/utils/validate/helper';
+import validator from '@/utils/validate/helper';
 
 function vld({
-  value, ruleList = [], ruleError = {}, options,
+  value = '',
+  ruleList = [],
+  ruleError = {},
+  options,
 }) {
   validator.add(value, ruleList, ruleError, options);
   const result = validator.start();
@@ -11,21 +14,31 @@ function vld({
   // return true;
 }
 
-function asyncVld({ value, ruleList }) {
+function asyncVld({
+  value = '',
+  ruleList = [],
+  ruleError = {},
+  options,
+  asyncFn,
+}) {
   return new Promise((resolve, reject) => {
     // 先驗證同步的，若通過了，再往下驗證非同步的
-    if (Number(value) < 10) {
-      reject('同步錯誤');
+    if (ruleList.length > 0) {
+      validator.add(value, ruleList, ruleError, options);
+      const result = validator.start();
+
+      if (result.msg) {
+        return reject(result.msg);
+      }
     }
 
-    setTimeout(() => {
-      const t = Math.floor(Math.random() * 5);
-      if (t > Number(value)) {
-        resolve();
+    asyncFn().then((res) => {
+      if (res.error) {
+        reject(res.error);
       } else {
-        reject('非同步錯誤');
+        resolve();
       }
-    }, 1000);
+    });
   });
 }
 
