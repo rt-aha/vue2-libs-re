@@ -1,12 +1,12 @@
 <template>
-  <div class="r-image-preview-box">
-    <div class="r-image-preview-box__content">
+  <div class="r-preview-box">
+    <div class="r-preview-box__content">
       <div
-        class="r-image-preview-box__content__photo"
-        :style="`background-image: url(${snapImage});`"
-        v-if="$attrs.preview.image"
+        class="r-preview-box__content__photo"
+        :style="`background-image: url(${snapImage || attachment.file });`"
       />
-      <p class="r-image-preview-box__content__info">
+        <!-- v-if="$attrs.preview.image" -->
+      <p class="r-preview-box__content__info">
         <span v-if="$attrs.preview.name">{{ attachment.name }}</span>
         <span v-if="$attrs.preview.size">({{ attachment.size }})</span>
       </p>
@@ -23,28 +23,25 @@
       <source ref="videoSource" />
     </video>
 
-    <div class="r-image-preview-box__action">
-
-      <span class="r-image-preview-box__action__delete" @click="removeFile"
-        >刪除</span
-      >
+    <div class="r-preview-box__action">
+      <span class="r-preview-box__action__delete" @click="removeFile">刪除</span>
     </div>
   </div>
+
 </template>
 
 <script>
-
 export default {
-  name: 'ReVideoPreviewBox',
-
+  name: 'RePreviewBox',
   props: {
     attachment: {
       type: Object,
       default: () => ({
-        image: '',
+        file: '',
         name: '',
         size: '',
         id: '',
+        type: 'image', // image, video, other
       }),
     },
   },
@@ -57,12 +54,9 @@ export default {
           type: 'previewVideo',
           visible: false,
         },
+
       },
     };
-  },
-  mounted() {
-    // console.log('mounted ...');
-    this.handlePreview();
   },
   methods: {
     closeModal(type) {
@@ -98,15 +92,20 @@ export default {
     },
 
     handlePreview() {
-      if (!this.attachment.video) return;
+      if (!this.attachment.file) {
+        return;
+      }
 
-      this.$refs.videoSource.src = URL.createObjectURL(this.attachment.video);
+      this.$refs.videoSource.src = URL.createObjectURL(this.attachment.file);
 
       this.$refs.invisibleVideo.load();
+      // this.attachment.videos.forEach() {}
       const fileReader = new FileReader();
       fileReader.onload = () => {
-        const blob = new Blob([fileReader.result], { type: this.attachment.video.type });
+        const blob = new Blob([fileReader.result], { type: this.attachment.file.type });
+
         const videoTempUrl = URL.createObjectURL(blob);
+
         const video = document.createElement('video');
 
         const snapImage = () => {
@@ -152,14 +151,24 @@ export default {
         video.play();
       };
 
-      fileReader.readAsArrayBuffer(this.attachment.video);
+      fileReader.readAsArrayBuffer(this.attachment.file);
     },
+
+  },
+  mounted() {
+    // console.log('mounted ...');
+
+    console.log('this.attachment', this.attachment);
+
+    if (this.attachment.type === 'video') {
+      this.handlePreview();
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.r-image-preview-box {
+.r-preview-box {
   @include flex();
   margin-top: 5px;
 
@@ -197,5 +206,9 @@ export default {
 
 .invisible-video {
   display: none;
+}
+.temp {
+  width: 300px;
+  height: 300px;
 }
 </style>

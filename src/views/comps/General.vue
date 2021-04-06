@@ -3,6 +3,14 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('upload')">上傳圖片/影片</re-title>
+    <re-upload />
+
+    <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
+    <re-upload-image />
+    <re-title @click="handleClick('uploadVideo')">上傳影片</re-title>
+    <re-upload-video />
+
     <!-- 可以使用slot，也可以用把template傳入dialog -->
     <re-title @click="handleClick('dialog')">彈窗</re-title>
     <re-button @click="openDialog('slot')">開啟彈窗(slot)</re-button>
@@ -241,11 +249,6 @@
     <re-title @click="handleClick('tree')">樹型結構</re-title>
     <re-tree :treeList="treeList" />
 
-    <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
-    <re-upload-image />
-    <re-title @click="handleClick('uploadVideo')">上傳影片</re-title>
-    <re-upload-video />
-
     <re-title @click="handleClick('pagination')">頁碼</re-title>
     <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
 
@@ -336,6 +339,7 @@ export default {
         inputList: true,
         inputNumber: true,
         textarea: true,
+        upload: true,
       },
       val: {
         input: 'input-val',
