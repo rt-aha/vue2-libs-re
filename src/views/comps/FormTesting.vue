@@ -235,7 +235,7 @@ export default {
   },
   methods: {
     submitEasyForm() {
-      this.$refs.reEasyForm.submit();
+      this.$refs.reEasyForm.validateForm();
     },
     submit() {
       this.$refs.testingForm.validateForm(() => {

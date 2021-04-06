@@ -91,11 +91,14 @@ form 迴圈化
 - [ ] 基本組件檢查與功能補足
 - [x] menu
 - [x] menu 與 auth 連結 
-- [-] form 深入檢查 
-  1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
+- [x] form 深入檢查 
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table
 - [ ] 小後台實驗
 - [ ] 剩餘組件處理
 - [ ] 完善 storybook
 - [ ] scss 換皮/換style
+
+## FIXED
+
+1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED

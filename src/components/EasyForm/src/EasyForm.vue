@@ -67,7 +67,7 @@ export default {
     setInnerValue() {
       this.innerform = this.value;
     },
-    async submit(isValid = true) {
+    async validateForm(isValid = true) {
       if (isValid) {
         const isPass = await this.$refs.easyForm.validateForm(() => {
           console.log('easyFrom congrats ~');
