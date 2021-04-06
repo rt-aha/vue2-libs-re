@@ -1,6 +1,14 @@
 <template>
   <div class="view-comp-dev">
-    <re-title>整個Form模板</re-title>
+    <re-title>Form模板(迴圈版)</re-title>
+    <re-easy-form
+      v-model="easyForm"
+      :form="easyForm"
+      :rules="rules"
+      :labelConfig="labelConfig"
+    />
+    <re-divider></re-divider>
+    <re-title>Form模板(一個一個寫)</re-title>
     <re-form
       :rules="rules"
       :form="form"
@@ -22,7 +30,7 @@
       <re-form-item label="興趣愛好" prop="interest">
         <re-checkbox-group v-model="form.interest" :options="checkboxOptions" />
       </re-form-item>
-       <re-form-item label="手續費" prop="fee">
+      <re-form-item label="手續費" prop="fee">
         <re-input-number v-model="form.fee" placeholder="fee" />
       </re-form-item>
       <re-form-item label="日期" prop="date">
@@ -34,7 +42,7 @@
       <re-form-item label="日期時間" prop="dateTime">
         <re-date-time-picker v-model="form.dateTime" />
       </re-form-item>
-       <re-form-item label="水果列表" prop="fruitList">
+      <re-form-item label="水果列表" prop="fruitList">
         <re-input-list v-model="form.fruitList" />
       </re-form-item>
 
@@ -44,20 +52,21 @@
 
       <re-button @click.prevent="submit">送出</re-button>
     </re-form>
-    <re-divider></re-divider>
   </div>
 </template>
 
 <script>
 import { vld, asyncVld } from '@/utils/validate/vld';
-import { isFalsy } from 'lodash';
 import { getUsersAPI } from '@/api/test';
 import {
-  selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree,
+  selectOptions,
+  radioOptions,
+  checkboxOptions,
+  checkboxOptionsAgree,
 } from './test-config';
 
 export default {
-  name: 'RForm',
+  name: 'ReFormTesting',
   data() {
     return {
       selectOptions,
@@ -69,6 +78,78 @@ export default {
         width: '80',
         textAlign: 'right', // left, right
       },
+      easyForm: [
+        {
+          label: '姓名',
+          prop: 'name',
+          value: '',
+          type: 'input',
+        },
+        {
+          label: '啟用',
+          prop: 'enable',
+          value: true,
+          type: 'switch',
+        },
+        {
+          label: '年收入',
+          prop: 'income',
+          value: 0,
+          type: 'select',
+          options: selectOptions,
+        },
+        {
+          label: '職業',
+          prop: 'occupation',
+          value: 0,
+          type: 'radio',
+          options: radioOptions,
+        },
+        {
+          label: '興趣愛好',
+          prop: 'interest',
+          value: [],
+          type: 'checkbox-group',
+          options: checkboxOptions,
+        },
+        {
+          label: '手續費',
+          prop: 'fee',
+          value: 9,
+          type: 'input-number',
+          placeholder: 'fee',
+        },
+        {
+          label: '日期',
+          prop: 'date',
+          value: new Date(),
+          type: 'date-picker',
+        },
+        {
+          label: '時間',
+          prop: 'time',
+          value: new Date(),
+          type: 'time-picker',
+        },
+        {
+          label: '日期時間',
+          prop: 'dateTime',
+          value: new Date(),
+          type: 'date-time-picker',
+        },
+        {
+          label: '水果列表',
+          prop: 'fruitList',
+          value: [],
+          type: 'input-list',
+        },
+        {
+          label: '備註',
+          prop: 'memo',
+          value: '',
+          type: 'textarea',
+        },
+      ],
       form: {
         name: '',
         enable: true,
@@ -145,9 +226,10 @@ export default {
           validator: (rule, value) => value.length > 0,
           trigger: ['change', 'input'],
         },
-
       },
     };
+  },
+  computed: {
   },
   methods: {
     submit() {

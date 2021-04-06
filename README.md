@@ -93,7 +93,6 @@ form 迴圈化
 - [x] menu 與 auth 連結 
 - [-] form 深入檢查 
   1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
-  2. 撰寫成迴圈
 - [ ] table 功能深入
 - [ ] 耦合 pagination 到 table
 - [ ] 小後台實驗
