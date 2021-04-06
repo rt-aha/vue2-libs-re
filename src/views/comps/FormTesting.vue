@@ -3,7 +3,6 @@
     <re-title>Form模板(迴圈版)</re-title>
     <re-easy-form
       v-model="easyForm"
-      :form="easyForm"
       :rules="rules"
       :labelConfig="labelConfig"
     />

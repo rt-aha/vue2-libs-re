@@ -15,12 +15,6 @@
 </template>
 
 <script>
-import { vld, asyncVld } from '@/utils/validate/vld';
-import { isFalsy } from 'lodash';
-import { getUsersAPI } from '@/api/test';
-import {
-  selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree,
-} from '@/views/comps/test-config';
 
 export default {
   name: 'ReEasyForm',
@@ -29,10 +23,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    form: {
-      type: Array,
-      default: () => [],
-    },
+
     labelConfig: {
       type: Object,
       default: () => ({
@@ -49,8 +40,7 @@ export default {
   data() {
     return {
       innerform: [],
-      innerConfig: [],
-      // labelConfig: Object,
+
     };
   },
   computed: {
@@ -63,9 +53,6 @@ export default {
     },
   },
   methods: {
-    init() {
-      this.innerConfig = this.config;
-    },
     setInnerValue() {
       this.innerform = this.value;
     },
@@ -81,7 +68,6 @@ export default {
   },
 
   created() {
-    this.init();
     this.setInnerValue();
   },
   watch: {
