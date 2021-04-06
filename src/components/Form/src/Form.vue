@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-    async validateForm(callback) {
+    async validateForm(callback = () => {}) {
       const validateList = [];
 
       this.$children.forEach((node) => {
@@ -78,11 +78,13 @@ export default {
 
       console.log('allValidatorResult', allValidatorResult);
 
+      // return 用於一些要用async/await的
       if (isFormValidator) {
         callback();
-      } else {
-        console.warn('validator error !');
+        return true;
       }
+      console.warn('validator error !');
+      return false;
     },
   },
 };

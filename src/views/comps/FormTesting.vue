@@ -5,7 +5,10 @@
       v-model="easyForm"
       :rules="rules"
       :labelConfig="labelConfig"
-    />
+      ref="reEasyForm"
+    >
+      <re-button @click.prevent="submitEasyForm">送出</re-button>
+    </re-easy-form>
     <re-divider></re-divider>
     <re-title>Form模板(一個一個寫)</re-title>
     <re-form
@@ -231,6 +234,9 @@ export default {
   computed: {
   },
   methods: {
+    submitEasyForm() {
+      this.$refs.reEasyForm.submit();
+    },
     submit() {
       this.$refs.testingForm.validateForm(() => {
         console.log('congrats ~');
