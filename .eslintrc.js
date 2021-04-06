@@ -21,6 +21,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
     'no-shadow': 'off',
+    'consistent-return': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {

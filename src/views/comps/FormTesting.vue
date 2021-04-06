@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { vld, asyncVld } from '@/utils/validate';
+import { vld, asyncVld } from '@/utils/validate/vld';
 import { isFalsy } from 'lodash';
 import {
   selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree,
@@ -84,7 +84,12 @@ export default {
       },
       rules: {
         name: {
-          validator: (rule, value) => vld({ value, ruleList: [] }),
+          validator: (rule, value, cb, src, options) => vld({
+            value,
+            ruleList: ['t1:t1arg', 't2'],
+            ruleError: { t1: 't1 error' },
+            options,
+          }),
           trigger: ['input', 'change'],
           // triggerEvent: ['change'],
         },

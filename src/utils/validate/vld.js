@@ -1,14 +1,13 @@
-// const initVld = ({ trigger }= { trigger: []}) => {
+import { validator } from '@/utils/validate/helper';
 
-//   return
+function vld({
+  value, ruleList = [], ruleError = {}, options,
+}) {
+  validator.add(value, ruleList, ruleError, options);
+  const result = validator.start();
 
-// };
-
-function vld({ value, ruleList }) {
-  console.log('value', value);
-  console.log('ruleList', ruleList);
-
-  return new Error('err ?');
+  if (result.pass) return true;
+  return new Error(result.msg);
   // return true;
 }
 
