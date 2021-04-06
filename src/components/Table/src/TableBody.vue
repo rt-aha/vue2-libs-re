@@ -26,7 +26,10 @@
             <span v-if="scopedSlotList.includes(col.prop)">
               <slot :name="col.prop" :data="{value: rowData[col.prop], rowData, col}" />
             </span>
-            <span v-else>
+            <span v-else-if="col.render">
+              <component :is="col.render(rowData[col.prop], rowData, col)" />
+            </span>
+            <span v-else :style="cusStyle(rowData[col.prop], rowData, col)">
               {{ formatter(rowData[col.prop], rowData, col) }}
             </span>
           </span>
@@ -103,9 +106,17 @@ export default {
     },
   },
   methods: {
+    cusStyle(data, rowData, col) {
+      if (col.cusStyle) {
+        return col.cusStyle(data, rowData, col);
+      }
+
+      return data;
+    },
+
     formatter(data, rowData, col) {
       if (col.formatter) {
-        return col.formatter(data);
+        return col.formatter(data, rowData, col);
       }
 
       return data;

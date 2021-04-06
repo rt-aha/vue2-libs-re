@@ -17,10 +17,7 @@
           :maxHeight="maxHeight"
           :scopedSlotList="scopedSlotList"
         >
-          <!-- <template> -->
-          <!-- value: scope.data.value,
-                rowData: scope.data.rowData,
-                col: scope.data.col, -->
+
           <span
             :slot="col.prop"
             slot-scope="scope"

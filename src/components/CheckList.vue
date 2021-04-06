@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2 class="mb-30">Template: vue2-webpack-js</h2>
+    <re-title class="mb-30">Template: vue2-webpack-js</re-title>
 
-    <h3>lib: network</h3>
+    <re-title>lib: network</re-title>
     <p>send request: {{ requestTestStatus }}</p>
 
-    <h3 class="mt-10">lib: scss</h3>
+    <re-title class="mt-10">lib: scss</re-title>
     <p class="scss">this text should <strong>not be black</strong></p>
 
   </div>

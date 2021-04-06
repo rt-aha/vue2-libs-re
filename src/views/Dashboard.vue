@@ -1,8 +1,9 @@
 <template>
   <div class="home">
     <check-list />
+    <re-title>頁面</re-title>
     <div class="btn-wrapper"  v-for="item of btns" :key="item">
-      <button class="btn" @click="toDevComp(item)">Develop {{item}}</button>
+      <re-button class="btn" @click="toDevComp(item)">Develop {{item}}</re-button>
     </div>
 
   </div>
