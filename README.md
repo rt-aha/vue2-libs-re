@@ -69,7 +69,7 @@ TODO
 - [ ] re-notification
 - [ ] re-dropdown
 - [ ] scss 換皮/換style
-- [ ] input-number 加上可格式化顯示
+
 - [ ] icon
 - [ ] re-link
 - [ ] re-tag
@@ -93,7 +93,7 @@ TODO
 ## 優化
 - [ ] tab 動畫
 - [ ] upload多種顯示方式
-- [ ] 
+- [ ] input-number 加上可格式化顯示
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
