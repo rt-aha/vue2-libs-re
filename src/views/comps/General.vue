@@ -6,10 +6,10 @@
     <re-title @click="handleClick('upload')">上傳圖片/影片</re-title>
     <re-upload />
 
-    <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
+    <!-- <re-title @click="handleClick('uploadImage')">上傳圖片</re-title>
     <re-upload-image />
     <re-title @click="handleClick('uploadVideo')">上傳影片</re-title>
-    <re-upload-video />
+    <re-upload-video /> -->
 
     <!-- 可以使用slot，也可以用把template傳入dialog -->
     <re-title @click="handleClick('dialog')">彈窗</re-title>
