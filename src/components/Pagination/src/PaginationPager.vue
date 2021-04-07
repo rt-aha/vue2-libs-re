@@ -1,8 +1,8 @@
  <template>
   <div class="re-pagination">
-    <ul class="re-pager-list" v-if="pageInfo.totalPage !== 1">
+    <ul class="re-pager-list" v-if="pager.totalPage !== 1">
       <li
-        v-show="pageInfo.pageIndex !== 1 || pageInfo.totalPage === 1"
+        v-show="pager.pageIndex !== 1 || pager.totalPage === 1"
         class="re-pager-item pager-jump-bg"
         @click="handleJumpPage('prev')"
       >
@@ -15,7 +15,7 @@
         class="re-pager-item"
         :class="[
           { 'more-sign-bg': typeof item !== 'number' },
-          { 'page-index-bg': pageInfo.pageIndex === item },
+          { 'page-index-bg': pager.pageIndex === item },
         ]"
         v-for="(item, index) of pageList"
         :key="index"
@@ -25,14 +25,14 @@
           class="page-number"
           :class="[
             { 'more-sign': typeof item !== 'number' },
-            { 'page-index': pageInfo.pageIndex === item },
+            { 'page-index': pager.pageIndex === item },
           ]"
           >{{ item }}</span
         >
       </li>
 
       <li
-        v-show="pageInfo.pageIndex !== pageInfo.totalPage && pageInfo.totalPage > 1"
+        v-show="pager.pageIndex !== pager.totalPage && pager.totalPage > 1"
         class="re-pager-item pager-jump-bg"
         @click="handleJumpPage('next')"
       >
@@ -53,7 +53,7 @@ export default {
       default: 'default',
       validator: (val) => ['small', 'default'].includes(val),
     },
-    pageInfo: {
+    pager: {
       type: Object,
       default: () => ({}),
     },
@@ -68,45 +68,45 @@ export default {
     // 渲染頁數
     pageList() {
       // 如果小於6 直接返回
-      if (this.pageInfo.totalPage <= 6) {
+      if (this.pager.totalPage <= 6) {
         const pageList = [];
-        for (let i = 1; i <= this.pageInfo.totalPage; i += 1) {
+        for (let i = 1; i <= this.pager.totalPage; i += 1) {
           pageList.push(i);
         }
         return pageList;
       }
 
       let pageList = [
-        this.pageInfo.pageIndex - 2,
-        this.pageInfo.pageIndex - 1,
-        this.pageInfo.pageIndex,
-        this.pageInfo.pageIndex + 1,
-        this.pageInfo.pageIndex + 2,
+        this.pager.pageIndex - 2,
+        this.pager.pageIndex - 1,
+        this.pager.pageIndex,
+        this.pager.pageIndex + 1,
+        this.pager.pageIndex + 2,
 
       ];
 
       pageList = pageList.filter(
-        (ele) => ele >= this.firstPage && ele <= this.pageInfo.totalPage,
+        (ele) => ele >= this.firstPage && ele <= this.pager.totalPage,
       );
 
       // 補1
-      if (this.pageInfo.pageIndex - 2 - this.firstPage === 1) {
+      if (this.pager.pageIndex - 2 - this.firstPage === 1) {
         pageList.splice(0, 0, 1);
       }
 
       // 補... 和 1
-      if (this.pageInfo.pageIndex - 2 - this.firstPage > 1) {
+      if (this.pager.pageIndex - 2 - this.firstPage > 1) {
         pageList.splice(0, 0, '⋯');
         pageList.splice(0, 0, 1);
       }
 
       // 補最大頁數
-      if (this.pageInfo.totalPage - (this.pageInfo.pageIndex + 2) >= 1) {
-        pageList.push(this.pageInfo.totalPage);
+      if (this.pager.totalPage - (this.pager.pageIndex + 2) >= 1) {
+        pageList.push(this.pager.totalPage);
       }
 
       // 補最大頁數...
-      if (this.pageInfo.totalPage - (this.pageInfo.pageIndex + 2) > 1) {
+      if (this.pager.totalPage - (this.pager.pageIndex + 2) > 1) {
         pageList.splice(-1, 0, '⋯');
       }
 
@@ -123,18 +123,22 @@ export default {
 
       let targetPage = 0;
       if (operate === 'prev') {
-        targetPage = this.pageInfo.pageIndex - 1;
+        targetPage = this.pager.pageIndex - 1;
       }
 
       if (operate === 'next') {
-        targetPage = this.pageInfo.pageIndex + 1;
+        targetPage = this.pager.pageIndex + 1;
       }
 
       if (operate === 'jump') {
         targetPage = page;
       }
 
-      this.$emit('handleJumpPage', targetPage);
+      this.$emit('handlePager', targetPage);
+      this.$emit('handlePageInfo', {
+        from: 'pager',
+        pageIndex: targetPage,
+      });
     },
   },
 };
@@ -155,12 +159,13 @@ export default {
 }
 
 .re-pager-item {
+  @include box-padding(0);
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   position: relative;
   background-color: $c-white;
-  border-radius: 50%;
+  border-radius: 4px;
   cursor: pointer;
 
   /* & + & {

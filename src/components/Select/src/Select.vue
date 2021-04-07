@@ -8,7 +8,11 @@
         cus-type="select"
         :disabled="disabled"
         @click.stop="expandOptions"
-      />
+      >
+      <template #suffix v-if="$slots.suffix">
+        <slot name="suffix"></slot>
+      </template>
+      </re-input>
     </div>
     <re-expand-container :visible.sync="expandConfig.status">
       <div class="re-select__option__content">
@@ -107,7 +111,7 @@ export default {
 
 <style lang="scss">
 .re-select {
-  width: 200px;
+  width: 90px;
   position: relative;
 
   &__input {
@@ -131,7 +135,8 @@ export default {
     /* box-shadow: 3px 3px 20px #ccc inset; */
 
     &__content {
-      height: 200px;
+      height: auto;
+      max-height: 200px;
       overflow: auto;
       position: relative;
       @include box-padding(10px);

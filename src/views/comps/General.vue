@@ -76,7 +76,17 @@
     </re-row>
 
     <re-title @click="handleClick('pagination')">頁碼</re-title>
-    <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
+    <re-pagination
+      @handlePageInfo="handlePageInfo"
+      @handleTo="handleTo"
+      @handlePageSize="handlePageSize"
+      @handlePager="handlePager"
+      :order="pagination.order"
+      :total="pagination.total"
+      :to="pagination.to"
+      :pager="pagination.pager"
+      :pageSize="pagination.pageSize"
+    />
 
     <re-title @click="handleClick('checkbox')">多選框</re-title>
     <div v-if="comps['checkbox']">
@@ -249,9 +259,6 @@
     <re-title @click="handleClick('tree')">樹型結構</re-title>
     <re-tree :treeList="treeList" />
 
-    <re-title @click="handleClick('pagination')">頁碼</re-title>
-    <re-pagination :pageInfo="pageInfo" @handleJumpPage="handleJumpPage" />
-
     <re-title @click="handleClick('tooltip')">文字提示</re-title>
     <div style="margin-left: 100px">
       <re-row>
@@ -319,6 +326,17 @@ export default {
     return {
       DialogTemplate,
       DrawerTemplate,
+      // paginationOrder: ['total', 'page-size', 'pager', 'to'],
+
+      pagination: {
+        order: ['total', 'page-size', 'pager', 'to'],
+        pageSize: [10, 50, 100],
+        pager: {
+          totalPage: 6,
+          pageIndex: 1,
+          pageSize: 10,
+        },
+      },
       comps: {
         button: true,
         buttonGroup: true,
@@ -373,10 +391,7 @@ export default {
           },
         ],
       },
-      pageInfo: {
-        totalPage: 6,
-        pageIndex: 1,
-      },
+
       dialogVisible: {
         slot: false,
         prop: false,
@@ -436,10 +451,7 @@ export default {
     handleTab(tabInfo) {
       this.val.tab = tabInfo.name;
     },
-    handleJumpPage(pageIndex) {
-      console.log('pageIndex', pageIndex);
-      this.pageInfo.pageIndex = pageIndex;
-    },
+
     openDialog(type) {
       console.log('openDialog');
       this.dialogVisible[type] = true;
@@ -471,6 +483,22 @@ export default {
       if (this.val.checkAll) {
         this.val.checkbox3 = this.checkboxOptions.map((ele) => ele.value);
       }
+    },
+    handlePageInfo(info) {
+      console.log('info...', info);
+    },
+
+    handlePageSize(pageSize) {
+      console.log('handlePager-pageSize', pageSize);
+      this.pagination.pager.pageSize = pageSize;
+    },
+    handlePager(pageIndex) {
+      console.log('handlePager-pageIndex', pageIndex);
+      this.pagination.pager.pageIndex = pageIndex;
+    },
+    handleTo(pageIndex) {
+      console.log('handleTo-pageIndex', pageIndex);
+      this.pagination.pager.pageIndex = pageIndex;
     },
   },
   created() {

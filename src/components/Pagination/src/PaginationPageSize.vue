@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <re-select v-model="innerValue" :options="options" />
+  <div class="re-pagination-page-size">
+    <re-select v-model="innerValue" :options="options" @change="handleChange">
+      <template #suffix>筆/頁</template>
+    </re-select>
+
   </div>
 </template>
 
@@ -29,6 +32,21 @@ export default {
         const obj = {
           label: String(ele),
           value: String(ele),
+          render: () => ({
+            render(h) {
+              return h(
+                're-row',
+                {
+                  props:
+                  { justifyContent: 'space-between' },
+                },
+                [
+                  h('span', ele),
+                  h('span', '筆/頁'),
+                ],
+              );
+            },
+          }),
         };
 
         return obj;
@@ -41,6 +59,14 @@ export default {
     setInnerValue() {
       this.innerValue = this.value;
     },
+    handleChange() {
+      const value = Number(this.innerValue);
+      this.$emit('handlePageSize', value);
+      this.$emit('handlePageInfo', {
+        from: 'page-size',
+        pageSize: value,
+      });
+    },
   },
   created() {
     this.setInnerValue();
@@ -48,5 +74,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.re-pagination-page-size {
+  /* width: 50px; */
+
+  /* .re-input {
+    &__content {
+      border: 0px transparent;
+    }
+  } */
+}
 </style>

@@ -26,8 +26,8 @@
         class="re-input__content__native"
         :class="{
           're-input__content__native--disabled': disabled,
-          're-input__content__native--readonly':
-            !disabled && cursorPointer,
+          're-input__content__native--readonly': !disabled && cursorPointer,
+          're-input__content__native--number': $attrs.type === 'number',
         }"
         v-bind="$attrs"
         :disabled="disabled"
@@ -76,7 +76,11 @@ export default {
       type: String,
       default: 'input',
       validate(val) {
-        return ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(val) > -1;
+        return (
+          ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(
+            val,
+          ) > -1
+        );
       },
     },
   },
@@ -124,7 +128,6 @@ export default {
       }
       return nativeInput;
     },
-
   },
   mounted() {
     this.setNativeInputValue();
@@ -141,7 +144,7 @@ export default {
 $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
 
 .re-input {
-  width: 200px;
+  width: 100%;
   @include flex();
   @include font-style($c-main, 14px);
   // display: inline-block;
@@ -210,6 +213,7 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       border: 0px transparent;
       outline: 0px transparent;
       color: $c-assist;
+      width: 100%;
 
       &--disabled {
         cursor: not-allowed;
@@ -219,6 +223,14 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       &--readonly {
         cursor: pointer;
       }
+
+      &--number {
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none !important;
+          margin: 0;
+        }
+      }
     }
 
     &__prefix {
@@ -226,7 +238,8 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 6px;
+      @include font-style($c-main, 12px);
     }
 
     &__suffix {
@@ -234,7 +247,8 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      margin-left: 10px;
+      margin-left: 6px;
+      @include font-style($c-main, 12px);
     }
   }
 

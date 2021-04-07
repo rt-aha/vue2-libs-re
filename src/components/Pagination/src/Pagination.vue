@@ -1,9 +1,18 @@
  <template>
   <div class="re-pagination">
-    <re-pagination-show-total :totalInfo="100" />
+    <!-- <re-pagination-total :totalInfo="100" />
     <re-pagination-page-size :pageSize="[10, 20, 30, 40]" />
     <re-pagination-pager :pageInfo="pageInfo" v-on="$listeners"/>
-    <re-pagination-to-page @handleToPage="handleToPage"/>
+    <re-pagination-to @handleToPage="handleToPage"/> -->
+
+    <component
+      :is="`re-pagination-${comp}`"
+      v-for="comp of order"
+      :key="comp"
+      v-bind="{...$attrs, ...$props}"
+      v-on="$listeners"
+    />
+
   </div>
 </template>
 
@@ -19,6 +28,25 @@ export default {
     pageInfo: {
       type: Object,
       default: () => ({}),
+    },
+    order: {
+      type: Array,
+      default: () => ['pager'],
+    },
+    // total設定
+    total: {
+      type: [Object, String, Number],
+      default: () => ({
+        total: '100',
+      }),
+    },
+    // pageSize設定
+    pageSize: {
+      type: [Array],
+      default: () => [10, 20, 30, 40, 50],
+    },
+    to: {
+
     },
   },
   data() {
@@ -45,7 +73,6 @@ export default {
         this.pageInfo.pageIndex,
         this.pageInfo.pageIndex + 1,
         this.pageInfo.pageIndex + 2,
-
       ];
 
       pageList = pageList.filter(
@@ -106,13 +133,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 .re-pagination {
+  @include flex();
   /* position: fixed;
   bottom: 50px;
   right: 15px; */
   /* text-align: center; */
+
+  > * + * {
+    margin-left: 10px;
+  }
 }
 
 .re-pager-list {

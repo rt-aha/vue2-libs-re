@@ -27,7 +27,7 @@ export const selectOptions = [
     value: 6,
   },
   {
-    render: CusSelectOption,
+    render: () => CusSelectOption,
     label: 'Custom',
     value: 789,
   },

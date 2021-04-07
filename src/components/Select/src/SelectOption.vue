@@ -10,7 +10,7 @@
 
     :selected="String(currOption) === String(value)"
   >
-    <component v-if="render" :is="render"/>
+    <component v-if="render" :is="render()"/>
     <span v-else class="re-select-option__item">{{ label }}</span>
   </li>
 </template>
@@ -29,7 +29,7 @@ export default {
       default: '',
     },
     render: {
-      // type: Function,
+      type: Function,
       // defualt: null,
     },
     currOption: {
