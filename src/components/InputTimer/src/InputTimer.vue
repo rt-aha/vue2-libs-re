@@ -38,6 +38,10 @@ export default {
       type: Function,
       default: () => {},
     },
+    timerKey: {
+      type: String,
+      default: 'timer',
+    },
   },
   data() {
     return {
@@ -52,13 +56,12 @@ export default {
   methods: {
 
     async handleClick() {
-      this.disabled = true;
+      this.setDisabled(true);
       this.isLoading = true;
 
       try {
         await this.api();
-        this.init();
-        this.handleTimer();
+        this.startTimer();
       } catch (e) {
         console.log('e...', e);
       }
@@ -67,30 +70,74 @@ export default {
     handleTimer() {
       this.timer = setTimeout(() => {
         this.totalTime += -1;
-        this.btnText = `${this.totalTime}s`;
+        this.setBtnText('', `${this.totalTime}s`);
 
         if (this.totalTime === 0) {
-          this.disabled = false;
-          this.init();
-          this.clearTimer();
+          this.setDisabled(false);
+          this.endTimer();
         } else {
           this.handleTimer();
         }
       }, 1000);
     },
-    init() {
-      this.totalTime = Number(this.timeLength) + 1;
-      this.btnText = this.btnName;
+    saveStartRecord() {
+      localStorage.setItem(this.timerKey, Date.now());
     },
-    clearTimer() {
+    removeStartRecord() {
+      localStorage.removeItem(this.timerKey, Date.now());
+    },
+    continueTimer() {
+      const lastRecord = localStorage.getItem(this.timerKey);
+      const duration = Number(((Date.now() - Number(lastRecord)) / 1000).toFixed());
+      if (lastRecord && duration <= 59) {
+        const remainSeconds = 60 - duration;
+        this.setTotalTime('', remainSeconds);
+        this.setDisabled(true);
+        this.handleTimer();
+        return;
+      }
+
+      this.initTimer();
+    },
+    setTotalTime(type = 'init', value) {
+      if (type === 'init') {
+        this.totalTime = Number(this.timeLength) + 1;
+        return;
+      }
+      this.totalTime = value;
+    },
+    setBtnText(type = 'init', value) {
+      console.log(1);
+      if (type === 'init') {
+        console.log(2);
+        this.btnText = this.btnName;
+        return;
+      }
+      this.btnText = value;
+    },
+    setDisabled(value) {
+      this.disabled = value;
+    },
+    initTimer() {
+      this.setDisabled(false);
+      this.removeStartRecord();
+      this.setBtnText();
+    },
+    startTimer() {
+      this.setTotalTime();
+      this.saveStartRecord();
+      this.handleTimer();
+    },
+    endTimer() {
       clearTimeout(this.timer);
       this.timer = null;
+      this.setTotalTime();
+      this.removeStartRecord();
+      this.setBtnText();
     },
   },
-  created() {
-    this.init();
-
-    // sendMailAPI();
+  mounted() {
+    this.continueTimer();
   },
 };
 </script>

@@ -89,7 +89,7 @@ TODO
 - [ ] re-textarea 顯示字數
 - [ ] re-tooltip 增加判斷視窗位置要動態調整顯示位置
 - [ ] 耦合 pagination 到 table
-- [ ] re-input-timer 加入重整後 仍維持倒數
+- [x] re-input-timer 加入重整後 仍維持倒數
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
