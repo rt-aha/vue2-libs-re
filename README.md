@@ -55,7 +55,7 @@ TODO
   2. 展開
   3. checkbox 選項
   4. fixed欄位
-- [ ] 耦合 pagination 到 table
+
 - [ ] 搜尋功能
 - [ ] 小後台實驗 1. 登入頁面 2.兩個table
 - [ ] scss 換皮/換style
@@ -86,6 +86,7 @@ TODO
 - [ ] re-input 密碼顯示要有眼睛
 - [ ] re-textarea 顯示字數
 - [ ] re-tooltip 增加判斷視窗位置要動態調整顯示位置
+- [ ] 耦合 pagination 到 table
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED

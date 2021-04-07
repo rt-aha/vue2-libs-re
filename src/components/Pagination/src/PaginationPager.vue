@@ -212,8 +212,8 @@ export default {
 }
 
 .r-arrow {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   transition: 0.3s;
 
   &--prev {

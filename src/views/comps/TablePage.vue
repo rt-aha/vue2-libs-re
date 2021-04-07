@@ -14,23 +14,12 @@
       :stripe="false"
       :rowColor="rowColor"
       :maxHeight="200"
+      @handlePageInfo="handlePageInfo"
+      :pagination="pagination"
     >
       <template v-slot:name="scope"> {{ scope.data.value }} 111 </template>
     </re-table>
 
-    <re-row justifyContent="flex-end">
-      <re-pagination
-        @handlePageInfo="handlePageInfo"
-        @handleTo="handleTo"
-        @handlePageSize="handlePageSize"
-        @handlePager="handlePager"
-        :order="pagination.order"
-        :total="pagination.total"
-        :to="pagination.to"
-        :pager="pagination.pager"
-        :pageSize="pagination.pageSize"
-      />
-    </re-row>
   </div>
 </template>
 
@@ -253,20 +242,36 @@ export default {
     },
     handlePageInfo(info) {
       console.log('info...', info);
+
+      switch (info.from) {
+        case 'pageSize':
+          this.pagination.pager.pageSize = info.pageSize;
+          break;
+        case 'pager':
+          this.pagination.pager.pageIndex = info.pageIndex;
+          break;
+
+        case 'to':
+          this.pagination.pager.pageIndex = info.pageIndex;
+          break;
+
+        default:
+          break;
+      }
     },
 
-    handlePageSize(pageSize) {
-      console.log('handlePager-pageSize', pageSize);
-      this.pagination.pager.pageSize = pageSize;
-    },
-    handlePager(pageIndex) {
-      console.log('handlePager-pageIndex', pageIndex);
-      this.pagination.pager.pageIndex = pageIndex;
-    },
-    handleTo(pageIndex) {
-      console.log('handleTo-pageIndex', pageIndex);
-      this.pagination.pager.pageIndex = pageIndex;
-    },
+    // handlePageSize(pageSize) {
+    //   console.log('handlePager-pageSize', pageSize);
+    //   this.pagination.pager.pageSize = pageSize;
+    // },
+    // handlePager(pageIndex) {
+    //   console.log('handlePager-pageIndex', pageIndex);
+    //   this.pagination.pager.pageIndex = pageIndex;
+    // },
+    // handleTo(pageIndex) {
+    //   console.log('handleTo-pageIndex', pageIndex);
+    //   this.pagination.pager.pageIndex = pageIndex;
+    // },
   },
 };
 </script>

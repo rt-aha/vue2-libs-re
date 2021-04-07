@@ -7,9 +7,9 @@
 
     <component
       :is="`re-pagination-${comp}`"
-      v-for="comp of order"
+      v-for="comp of pagination.order"
       :key="comp"
-      v-bind="{...$attrs, ...$props}"
+      v-bind="{...$attrs, ...$props, ...$props.pagination}"
       v-on="$listeners"
     />
 
@@ -20,6 +20,22 @@
 export default {
   name: 'RePagination',
   props: {
+    pagination: {
+      type: Object,
+      default: () => ({
+        pager: {
+          totalPage: 6,
+          pageIndex: 1,
+          pageSize: 10,
+        },
+        order: ['pager'],
+        total: {
+          total: '100',
+        },
+        pageSize: [10, 20, 30, 40, 50],
+        to: {},
+      }),
+    },
     size: {
       type: String,
       default: 'default',
@@ -45,9 +61,7 @@ export default {
       type: [Array],
       default: () => [10, 20, 30, 40, 50],
     },
-    to: {
-
-    },
+    to: {},
   },
   data() {
     return {
@@ -136,113 +150,10 @@ export default {
 <style lang="scss">
 .re-pagination {
   @include flex();
-  /* position: fixed;
-  bottom: 50px;
-  right: 15px; */
-  /* text-align: center; */
 
   > * + * {
     margin-left: 10px;
   }
 }
 
-.re-pager-list {
-  display: inline-flex;
-  /* flex-direction: column; */
-}
-
-.re-pager-item {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  position: relative;
-  background-color: $c-white;
-  border-radius: 50%;
-  cursor: pointer;
-
-  /* & + & {
-    margin-top: 8px;
-  } */
-}
-
-.page-number {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  @include font-style($c-assist, 12px);
-}
-
-// 刪節號
-.more-sign-bg {
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.more-sign {
-  /* writing-mode: vertical-lr; */
-}
-
-// 當前頁
-.page-index-bg {
-  border: 1px solid $c-main;
-}
-
-.page-index {
-  color: $c-main;
-}
-
-// 前一頁 後一頁
-.pager-jump-bg {
-  background-color: transparent;
-}
-
-.page-jump {
-  display: inline-block;
-  width: 20px;
-  vertical-align: bottom;
-}
-
-.r-arrow {
-  width: 30px;
-  height: 30px;
-  transition: 0.3s;
-
-  &--prev {
-    transform: rotate(270deg);
-  }
-
-  &--next {
-    transform: rotate(90deg);
-  }
-
-  &__icon {
-    @include position(center);
-
-    &::before,
-    &::after {
-      content: "";
-      width: 6px;
-      height: 2px;
-      border-radius: 1px;
-      background-color: $c-assist;
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-
-      transform: translateY(-50%);
-      // transform-origin: 50% 50%;
-    }
-
-    &::before {
-      transform: rotate(45deg) translateY(-50%);
-      left: -2px;
-    }
-
-    &::after {
-      transform: rotate(-45deg) translateY(-50%);
-      right: -2px;
-    }
-  }
-}
 </style>

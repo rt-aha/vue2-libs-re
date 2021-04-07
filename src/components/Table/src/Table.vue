@@ -8,7 +8,7 @@
           :hasFixedColumn="hasFixedColumn"
           @setColumnsWidthMapping="setColumnsWidthMapping"
         />
-        <re-table-col-group :columnsConfig="reOrderColumnConfig"/>
+        <re-table-col-group :columnsConfig="reOrderColumnConfig" />
         <re-table-body
           :tableData="tableData"
           :columnsConfig="reOrderColumnConfig"
@@ -17,7 +17,6 @@
           :maxHeight="maxHeight"
           :scopedSlotList="scopedSlotList"
         >
-
           <span
             :slot="col.prop"
             slot-scope="scope"
@@ -57,10 +56,14 @@
           </re-table-body>
         </table>
       </re-table-fixed>
-      <div><slot name="sss"></slot></div>
-      <!-- <slot></slot> -->
-      <!-- <div class="hidden-table-column"><slot></slot></div> -->
     </div>
+
+    <re-row justifyContent="flex-end">
+      <re-pagination
+        v-on="$listeners"
+        :pagination="pagination"
+      />
+    </re-row>
   </div>
 </template>
 
@@ -103,6 +106,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    pagination: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -121,6 +128,9 @@ export default {
   },
   computed: {},
   methods: {
+    handlePageInfo(info) {
+      console.log('info...', info);
+    },
     setColumnsWidthMapping(val) {
       this.columnsWidthMapping = val;
     },
@@ -220,7 +230,8 @@ export default {
 <style lang="scss">
 .re-table {
   display: block;
-  border: 1px solid $c-lightgrey;
+  /* border: 1px solid $c-lightgrey; */
+
   /* @include cus-radius(0, 0, 4px, 4px); */
   // overflow: hidden;
   // width: 200px;
@@ -231,6 +242,8 @@ export default {
   &__wrapper {
     width: 100%;
     overflow: auto;
+    border-radius: 4px;
+    border: 1px solid $c-lightgrey;
   }
 }
 
@@ -241,6 +254,7 @@ export default {
   // overflow: hidden;
   table-layout: fixed;
   word-wrap: break-word;
+
 }
 
 .hidden-table-column {
