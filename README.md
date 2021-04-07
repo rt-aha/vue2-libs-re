@@ -25,7 +25,7 @@ TODO
 - [x] re-formitem
 - [-] re-table
 - [-] re-pagination
-- [ ] re-time line
+- [ ] re-time-line
 - [ ] re-tag
 - [ ] re-progress
 - [ ] re-colorpicker
@@ -41,6 +41,7 @@ TODO
 - [ ] re-notification
 - [ ] re-dropdown
 - [ ] re-copy (寫在Vue.prototype)
+- [x] re-input-timer
 
 
 ## 待開發 後台部分
@@ -56,7 +57,7 @@ TODO
   3. checkbox 選項
   4. fixed欄位
 
-- [ ] 搜尋功能
+- [x] 搜尋功能
 - [ ] 小後台實驗 1. 登入頁面 2.兩個table
 - [ ] scss 換皮/換style
 - [ ] icon
@@ -64,7 +65,7 @@ TODO
 
 ## 待開發 前台部分
 - [ ] re-nav
-- [ ] re-input-timer
+
 - [ ] re-step
 - [ ] re-accordion
 - [ ] re-timeline
@@ -75,7 +76,8 @@ TODO
 ## 待開發 大型組件
 - [ ] re-chatroom
 - [ ] re-carousel
-- [ ] re-rich-editor
+- [ ] re-rich-editor quill
+- [ ] re-markdown markdown-it
 - [ ] re-waterfall
 - [ ] re-virtual-list (不確定是否可以做成組件)
 
@@ -87,10 +89,10 @@ TODO
 - [ ] re-textarea 顯示字數
 - [ ] re-tooltip 增加判斷視窗位置要動態調整顯示位置
 - [ ] 耦合 pagination 到 table
+- [ ] re-input-timer 加入重整後 仍維持倒數
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
-
 
 ## tool
 

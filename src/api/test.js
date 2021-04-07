@@ -15,4 +15,10 @@ const getTableDataAPI = async () => {
   return res.data;
 };
 
-export { getTableDataAPI, getUsersAPI };
+const sendMailAPI = async () => {
+  console.log('sendMailAPI!');
+  const res = await localRequest({ method: 'post', url: '/send/email' });
+  return res.data;
+};
+
+export { getTableDataAPI, getUsersAPI, sendMailAPI };

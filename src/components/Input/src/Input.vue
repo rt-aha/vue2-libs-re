@@ -7,6 +7,7 @@
         're-input--disabled': disabled,
       },
     ]"
+
     @click.stop="handleClick"
   >
     <div class="re-input__prepend" v-if="$slots.prepend">
@@ -145,7 +146,7 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
 
 .re-input {
   width: 100%;
-  @include flex();
+  @include inline-flex();
   @include font-style($c-main, 14px);
   // display: inline-block;
 
@@ -191,7 +192,7 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
   &__content {
     width: 100%;
     @include flex();
-    @include box-padding(8px 10px 8px 10px);
+    @include box-padding(8px 6px);
     border: 1px solid $c-main;
     // height: 40px;
     border-radius: 4px;
@@ -256,11 +257,12 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    @include box-padding(0 10px);
+    @include box-padding(0);
     width: auto;
     // height: 40px;
     @include cus-radius(0, 4px, 4px, 0);
     border: 1px solid $c-main;
+
   }
 }
 </style>

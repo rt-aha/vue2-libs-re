@@ -3,6 +3,9 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-title @click="handleClick('inputTimer')" >驗證碼輸入框</re-title>
+    <re-input-timer :api="sendMailAPI" timeLength="60"/>
+
     <re-title @click="handleClick('upload')">上傳圖片/影片</re-title>
     <re-upload />
 
@@ -309,6 +312,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import { sendMailAPI } from '@/api/test';
 import {
   selectOptions,
   radioOptions,
@@ -324,6 +328,7 @@ export default {
   name: 'General',
   data() {
     return {
+      sendMailAPI,
       DialogTemplate,
       DrawerTemplate,
       // paginationOrder: ['total', 'page-size', 'pager', 'to'],
@@ -358,8 +363,10 @@ export default {
         inputNumber: true,
         textarea: true,
         upload: true,
+        inputTimer: true,
       },
       val: {
+        inpuTimer: '',
         input: 'input-val',
         inputPw: 'input-val',
         switch1: true,
@@ -442,6 +449,7 @@ export default {
     };
   },
   methods: {
+
     beforeClose() {
       this.dialogVisible.prop = false;
     },
