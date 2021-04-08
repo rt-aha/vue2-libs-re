@@ -20,9 +20,9 @@
         }"
       >
         <div>
-          <span v-if="col.isEmptyRow">
-          </span>
-          <span v-else>
+          <!-- <span v-if="col.isEmptyRow">
+          </span> -->
+          <span  :class="'invisible' && col.isEmptyRow">
             <span v-if="scopedSlotList.includes(col.prop)">
               <slot :name="col.prop" :data="{value: rowData[col.prop], rowData, col}" />
             </span>
@@ -178,5 +178,9 @@ export default {
       border-bottom: 0px transparent;
     }
   }
+}
+
+.invisible {
+  opacity: 0;
 }
 </style>

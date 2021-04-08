@@ -43,7 +43,7 @@ const columnsConfig = (instance) => {
       prop: 'action',
       header: '操作',
       width: 158,
-      // fixed: 'right',
+      fixed: 'right',
       render: (data, rowData, col) => ({
         render(h) {
           return h('div', [
