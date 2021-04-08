@@ -65,13 +65,13 @@ TODO
 
 ## 待開發 前台部分
 - [ ] re-nav
-
 - [ ] re-step
 - [ ] re-accordion
 - [ ] re-timeline
 - [ ] re-infinite-scroll
 - [ ] re-image 1. 做大圖預覽
 - [ ] re-backtop
+- [ ] re-smooth-scroll
 
 ## 待開發 大型組件
 - [ ] re-chatroom
@@ -80,6 +80,8 @@ TODO
 - [ ] re-markdown markdown-it
 - [ ] re-waterfall
 - [ ] re-virtual-list (不確定是否可以做成組件)
+- [ ] re-player
+- [ ] re-comment
 
 ## 優化
 - [ ] re-tab 動畫

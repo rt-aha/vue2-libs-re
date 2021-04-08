@@ -5,6 +5,7 @@ const validator = {
   ruleList: [],
 
   vldFunc(value, errMsg, rule, args, options) {
+    // console.log('value', value);
     const validate = {
       ...allRules,
     };
@@ -52,6 +53,7 @@ const validator = {
       // const vv = value ? `${value}` : undefined;
       // console.log('check vv', vv);
       // 記錄現在驗證的資訊
+
       this.ruleList.push(() => this.vldFunc.call(this, value, errMsg, rule, args, options));
       // this.ruleList.push(() => {
       //   const vv = value;

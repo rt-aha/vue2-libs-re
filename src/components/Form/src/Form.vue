@@ -41,6 +41,7 @@ export default {
       formErrMsg: () => this.formErrMsg,
       labelConfig: () => this.labelConfig,
       formValue: () => this.form,
+      // testReForm: () => this
     };
   },
   data() {

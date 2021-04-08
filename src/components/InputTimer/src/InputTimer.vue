@@ -107,9 +107,7 @@ export default {
       this.totalTime = value;
     },
     setBtnText(type = 'init', value) {
-      console.log(1);
       if (type === 'init') {
-        console.log(2);
         this.btnText = this.btnName;
         return;
       }

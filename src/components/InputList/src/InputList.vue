@@ -35,8 +35,8 @@ export default {
   },
   methods: {
     handleBlur(e) {
-      this.triggerValidate('blur');
       this.updateValue();
+      this.triggerValidate('blur', this.inputList);
     },
     updateValue() {
       this.$emit('input', this.inputList);

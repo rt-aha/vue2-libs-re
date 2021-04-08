@@ -36,7 +36,7 @@ export default {
   methods: {
     handleInput(value) {
       this.$emit('input', value);
-      this.triggerValidate('change');
+      this.triggerValidate('change', value);
     },
     closeTimeList() {
       console.log('close?');

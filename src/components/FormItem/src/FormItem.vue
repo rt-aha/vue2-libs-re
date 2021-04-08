@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     validateValue(val) {
-      if (this.prop in this.reForm.rules) {
+      if (this.reForm.rules[this.prop]) {
         this.isPassValidate = this.reForm.rules[this.prop](val);
       }
     },
@@ -125,20 +125,15 @@ export default {
 
       let targetValue = value;
       // 若由父層form組件call此function，value會是obj要解構出來
-      if (typeof value === 'object' && this.prop in value) {
+
+      const propExist = Object.prototype.hasOwnProperty.call(value, this.prop);
+
+      if (typeof value === 'object' && propExist) {
         targetValue = value[this.prop];
       }
 
       const validator = new Schema(this.itemRule);
       const valueObj = { [this.prop]: targetValue };
-      // console.log('valueObj', valueObj);
-
-      // console.log('targetValue', targetValue);
-      // vld({
-      //   value: targetValue,
-      //   ruleList: ['t1:t1arg', 't2'],
-      //   // ruleError: { t1: 't1 error' },
-      // });
 
       return new Promise((resolve) => {
         try {
@@ -178,7 +173,7 @@ $form-item: ".re-form-item";
 
 .re-form-item {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 
   &:last-child {
     margin-bottom: 0px;

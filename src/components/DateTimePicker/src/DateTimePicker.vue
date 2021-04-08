@@ -93,7 +93,7 @@ export default {
     },
     updateValue(fullValue) {
       this.$emit('input', fullValue);
-      this.triggerValidate('change');
+      this.triggerValidate('change', fullValue);
       this.closeCalendar();
     },
     openCalendar() {

@@ -73,7 +73,7 @@ export default {
       if (this.disabled) return;
 
       this.$emit('handleRadio', e.target.value);
-      this.triggerValidate('change');
+      this.triggerValidate('change', e.target.value);
     },
   },
 };

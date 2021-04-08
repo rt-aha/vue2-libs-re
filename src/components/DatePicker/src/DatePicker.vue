@@ -43,7 +43,7 @@ export default {
     handleInput(value) {
       console.log('do');
       this.$emit('input', value);
-      this.triggerValidate('change');
+      this.triggerValidate('change', value);
       this.closeCalendar();
     },
     openCalendar() {

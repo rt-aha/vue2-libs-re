@@ -108,11 +108,11 @@ export default {
     },
     handleInput(e) {
       this.$emit('input', e.target.value);
-      this.triggerValidate('input');
+      this.triggerValidate('input', e.target.value);
     },
     handleChange(e) {
       this.$emit('change', e.target.value);
-      this.triggerValidate('change', null, 'input!');
+      this.triggerValidate('change', e.target.value);
     },
     handleBlur(e) {
       this.$emit('blur', e.target.value);
