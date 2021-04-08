@@ -13,8 +13,8 @@
         <div class="re-dialog__box__header">
           <div class="re-dialog__box__header__content">
             <!-- 若純文字可直接傳入 title -->
-            <re-title v-if="$attrs.title" type="dialog" :mt="false">{{
-              $attrs.title
+            <re-title v-if="$attrs.dialogTitle" type="dialog" :mt="false">{{
+              $attrs.dialogTitle
             }}</re-title>
             <!-- 若更複雜可用 slot -->
             <template v-else>
@@ -81,7 +81,6 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('beforeClose');
-      console.log('update:visible ~~~');
       this.$emit('update:visible', false);
     },
   },

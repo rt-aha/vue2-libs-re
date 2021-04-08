@@ -8,17 +8,41 @@
       :pagination="pagination"
     />
 
+    <re-dialog :visible.sync="dialog.add" footerPosition="center">
+      <template #header>
+        <re-title type="dialog" :mt="false">新增</re-title>
+      </template>
+      <template>
+        <div class="add-content">
+          新增的內容 ... {{ rowData.name }}({{ rowData.symbol }})
+        </div>
+      </template>
+      <template #footer>
+        <re-button @click="closeDialog('add')">取消</re-button>
+      </template>
+    </re-dialog>
+
+    <re-dialog
+      dialogTitle="刪除"
+      :visible.sync="dialog.remove"
+      :template="removeTemplate"
+      :data="rowData"
+      @close="closeDialog('add')"
+    >
+    </re-dialog>
   </div>
 </template>
 
 <script>
 import { getDividendListAPI } from '@/api/test';
 import { columnsConfig } from '@/views/stock/dividendListConfig';
+import RemoveContent from './RemoveContent.vue';
 
 export default {
   name: 'DividendList',
   data() {
     return {
+      removeTemplate: RemoveContent,
       tableData: [],
       // columnsConfig: [],
       pagination: {
@@ -34,14 +58,26 @@ export default {
           count: 100,
         },
       },
+      dialog: {
+        add: false,
+        remove: false,
+      },
+      rowData: {},
     };
   },
   computed: {
     columnsConfig() {
-      return columnsConfig();
+      return columnsConfig(this);
     },
   },
   methods: {
+
+    openDialog(type) {
+      this.dialog[type] = true;
+    },
+    closeDialog(type) {
+      this.dialog[type] = false;
+    },
     async getDividendList() {
       try {
         const res = await getDividendListAPI({ params: this.pagination.pager });
@@ -75,6 +111,20 @@ export default {
 
       this.getDividendList();
     },
+    handlClick(type, rowData) {
+      console.log('type...', type);
+      this.rowData = rowData;
+      switch (type) {
+        case 'add':
+          this.openDialog('add');
+          break;
+        case 'remove':
+          this.openDialog('remove');
+          break;
+        default:
+          break;
+      }
+    },
   },
 
   created() {
@@ -84,4 +134,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.add-content {
+  @include box-padding(10px);
+  @include font-style($c-assist, 14px);
+}
 </style>
