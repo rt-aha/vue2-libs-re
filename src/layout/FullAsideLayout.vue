@@ -56,7 +56,7 @@ export default {
     height: 100%;
     width: 200px;
     overflow-y: auto;
-    background-color: $c-lightgrey;
+    background-color: $c-aside;
   }
 
   &__hb-wrapper {
@@ -64,6 +64,7 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
+    overflow: scroll;
 
     &__header {
       flex: none;

@@ -26,7 +26,7 @@ export default [
       },
     ],
     meta: {
-      title: '股市',
+      title: '股市(測試用)',
       mainCategoryType: 'stock',
       authCode: 'S',
       // order: ,

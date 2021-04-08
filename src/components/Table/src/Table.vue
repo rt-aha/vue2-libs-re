@@ -33,7 +33,7 @@
           <!-- </template> -->
         </re-table-body>
       </table>
-      <re-table-fixed v-if="tableContentWidth > fullTableWidth">
+      <!-- <re-table-fixed v-if="tableContentWidth > fullTableWidth">
         <table class="table" :style="{ width: fixedTableWidth + 'px' }">
           <re-table-header
             :tableData="tableData"
@@ -55,7 +55,7 @@
           >
           </re-table-body>
         </table>
-      </re-table-fixed>
+      </re-table-fixed> -->
     </div>
 
     <re-row justifyContent="flex-end">
@@ -78,10 +78,10 @@ export default {
       type: Array,
       default: () => [],
     },
-    columnConfig: {
-      type: Array,
-      default: () => [],
-    },
+    // columnConfig: {
+    //   type: Array,
+    //   default: () => [],
+    // },
     stripe: {
       type: Boolean,
       default: false,

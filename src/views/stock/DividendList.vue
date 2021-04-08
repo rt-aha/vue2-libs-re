@@ -6,9 +6,8 @@
       :maxHeight="500"
       @handlePageInfo="handlePageInfo"
       :pagination="pagination"
-    >
+    />
 
-    </re-table>
   </div>
 </template>
 
@@ -25,10 +24,14 @@ export default {
       pagination: {
         order: ['total', 'page-size', 'pager', 'to'],
         pageSize: [10, 50, 100],
+        total: {
+          total: '100',
+        },
         pager: {
           totalPage: 6,
           pageIndex: 1,
           pageSize: 10,
+          count: 100,
         },
       },
     };
@@ -41,8 +44,10 @@ export default {
   methods: {
     async getDividendList() {
       try {
-        const data = await getDividendListAPI();
-        this.tableData = data;
+        const res = await getDividendListAPI({ params: this.pagination.pager });
+        this.tableData = res.data;
+        this.pagination.pager = res.pageInfo;
+        this.pagination.total.total = res.pageInfo.count;
       } catch (e) {
         console.log('e...', e);
       }
@@ -51,19 +56,24 @@ export default {
       console.log('info...', info);
 
       switch (info.from) {
-        case 'pageSize':
-          this.pagination.pager.pageSize = info.pageSize;
+        case 'page-size':
+          console.log('?');
+          this.pagination.pager.pageSize = Number(info.pageSize);
           break;
         case 'pager':
-          this.pagination.pager.pageIndex = info.pageIndex;
+          this.pagination.pager.pageIndex = Number(info.pageIndex);
           break;
         case 'to':
-          this.pagination.pager.pageIndex = info.pageIndex;
+          this.pagination.pager.pageIndex = Number(info.pageIndex);
           break;
 
         default:
           break;
       }
+
+      console.log(this.pagination.pager);
+
+      this.getDividendList();
     },
   },
 

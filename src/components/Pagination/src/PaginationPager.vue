@@ -15,7 +15,7 @@
         class="re-pager-item"
         :class="[
           { 'more-sign-bg': typeof item !== 'number' },
-          { 'page-index-bg': pager.pageIndex === item },
+          { 'page-index-bg': Number(pager.pageIndex) === Number(item) },
         ]"
         v-for="(item, index) of pageList"
         :key="index"
@@ -25,7 +25,7 @@
           class="page-number"
           :class="[
             { 'more-sign': typeof item !== 'number' },
-            { 'page-index': pager.pageIndex === item },
+            { 'page-index': Number(pager.pageIndex) === Number(item) },
           ]"
           >{{ item }}</span
         >

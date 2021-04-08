@@ -25,13 +25,13 @@ const getPermissionAPI = async () => {
   return res.data;
 };
 
-const getDividendListAPI = async () => {
-  const res = await localRequest({ method: 'get', url: '/stock/dividend' });
+const getDividendListAPI = async (data = {}) => {
+  const res = await localRequest({ method: 'get', url: '/stock/dividend', ...data });
   return res.data;
 };
 
-const getSemiconductorAPI = async () => {
-  const res = await localRequest({ method: 'get', url: '/stock/semiconductor' });
+const getSemiconductorAPI = async (data = {}) => {
+  const res = await localRequest({ method: 'get', url: '/stock/semiconductor', ...data });
   return res.data;
 };
 

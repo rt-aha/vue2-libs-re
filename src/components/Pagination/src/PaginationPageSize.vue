@@ -33,10 +33,12 @@ export default {
           label: String(ele),
           value: String(ele),
           render: () => ({
+            name: 'PageSizeOption',
             render(h) {
               return h(
                 're-row',
                 {
+
                   props:
                   { justifyContent: 'space-between' },
                 },
@@ -49,6 +51,8 @@ export default {
           }),
         };
 
+        console.log('obj', obj);
+
         return obj;
       });
 
@@ -59,8 +63,10 @@ export default {
     setInnerValue() {
       this.innerValue = this.value;
     },
-    handleChange() {
-      const value = Number(this.innerValue);
+    handleChange(val) {
+      // console.log('val', val);
+      const value = Number(val);
+      console.log('value~~~', value);
       this.$emit('handlePageSize', value);
       this.$emit('handlePageInfo', {
         from: 'page-size',
