@@ -2,13 +2,15 @@
   <div class="re-table">
     <div class="re-table__wrapper" ref="tableWrapper">
       <table class="table" :style="{ width: fullTableWidthValue }">
+        <re-table-col-group
+          :columnsConfig="reOrderColumnConfig"
+          :columnsWidthMapping="columnsWidthMapping" />
         <re-table-header
           :tableData="tableData"
           :columnsConfig="reOrderColumnConfig"
           :hasFixedColumn="hasFixedColumn"
-          @setColumnsWidthMapping="setColumnsWidthMapping"
         />
-        <re-table-col-group :columnsConfig="reOrderColumnConfig" />
+          <!-- @setColumnsWidthMapping="setColumnsWidthMapping" -->
         <re-table-body
           :tableData="tableData"
           :columnsConfig="reOrderColumnConfig"
@@ -33,17 +35,18 @@
           <!-- </template> -->
         </re-table-body>
       </table>
-      <!-- <re-table-fixed v-if="tableContentWidth > fullTableWidth">
+      <re-table-fixed v-if="tableContentWidth > fullTableWidth">
         <table class="table" :style="{ width: fixedTableWidth + 'px' }">
-          <re-table-header
-            :tableData="tableData"
-            :columnsConfig="tableFixedColumns"
-          />
-          <re-table-col-group
+           <re-table-col-group
             :columnsConfig="tableFixedColumns"
             :columnsWidthMapping="columnsWidthMapping"
             :isFixedColumn="true"
           />
+          <re-table-header
+            :tableData="tableData"
+            :columnsConfig="tableFixedColumns"
+          />
+
           <re-table-body
             :tableData="tableData"
             :columnsConfig="tableFixedColumns"
@@ -55,7 +58,7 @@
           >
           </re-table-body>
         </table>
-      </re-table-fixed> -->
+      </re-table-fixed>
     </div>
 
     <re-row justifyContent="flex-end">
@@ -123,17 +126,25 @@ export default {
       scopedSlotList: [],
       isSetResizeListener: false,
       hasFixedColumn: false,
-      columnsWidthMapping: {},
+      // columnsWidthMapping: {},
     };
   },
-  computed: {},
+  computed: {
+    columnsWidthMapping() {
+      return this.columnsConfig.reduce((obj, ele) => {
+        obj[ele.prop] = ele.width ? ele.width : 150;
+
+        return obj;
+      }, {});
+    },
+  },
   methods: {
     handlePageInfo(info) {
       console.log('info...', info);
     },
-    setColumnsWidthMapping(val) {
-      this.columnsWidthMapping = val;
-    },
+    // setColumnsWidthMapping(val) {
+    //   this.columnsWidthMapping = val;
+    // },
     calcReOrderColumnConfig() {
       const emptyTableColumn = this.columnsConfig
         .filter((ele) => ele.fixed)
@@ -220,7 +231,9 @@ export default {
     this.setScopedSlotList();
     window.addEventListener('resize', this.showFixedColumnDebounce);
   },
-  created() {},
+  created() {
+    // this.setColumnsWidthMapping();
+  },
   beforeDestroy() {
     window.removeEventListener('resize', this.showFixedColumnDebounce);
   },

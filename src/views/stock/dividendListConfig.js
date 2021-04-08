@@ -1,6 +1,5 @@
 const columnsConfig = (instance) => {
   const self = instance;
-  console.log('self?', self);
 
   return [
     {
@@ -16,6 +15,7 @@ const columnsConfig = (instance) => {
     {
       header: '日期',
       prop: 'date',
+      width: 200,
 
     },
     {
@@ -26,6 +26,7 @@ const columnsConfig = (instance) => {
     {
       header: 'EPS',
       prop: 'eps',
+      width: 80,
 
     },
     {
@@ -41,7 +42,8 @@ const columnsConfig = (instance) => {
     {
       prop: 'action',
       header: '操作',
-      width: 280,
+      width: 158,
+      // fixed: 'right',
       render: (data, rowData, col) => ({
         render(h) {
           return h('div', [
