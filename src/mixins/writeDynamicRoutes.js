@@ -2,6 +2,7 @@ import testAuthList from '@/utils/testAuthList';
 import genMenu from '@/router/genMenu';
 import { routeObservable, routeMutation } from '@/observable/route';
 import router from '@/router';
+import { getPermissionAPI } from '@/api/test';
 
 const page404route = {
   path: '*',
@@ -20,16 +21,20 @@ export default {
   },
   methods: {
     setMenuList: routeMutation.setMenuList,
-    writeDynamicRoutes() {
+    async writeDynamicRoutes() {
       if (this.isWriteDynamicRoutes) return;
 
       routeMutation.setisWriteDynamicRoutes();
 
       const token = true;
       if (token) {
-        // testAuthList 由api取得
-        const menuList = genMenu(testAuthList);
-        this.setMenuList(menuList);
+        try {
+          const authList = await getPermissionAPI();
+          const menuList = genMenu(authList);
+          this.setMenuList(menuList);
+        } catch (e) {
+          console.log('e...', e);
+        }
       }
 
       // 404 page 必須在routes最後面

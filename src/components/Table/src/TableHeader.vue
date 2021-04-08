@@ -82,7 +82,7 @@ export default {
     &__td {
       @include box-padding(10px);
       border-right: 1px solid $c-lightgrey;
-      @include font-style($c-assist, 14px);
+      @include font-style($c-assist, 14px, 600);
 
       &:last-child {
         border-right: 0px transparent;

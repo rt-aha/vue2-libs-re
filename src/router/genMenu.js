@@ -30,7 +30,9 @@ const genMenuOrder = (() => {
           // 渲染有權限的路由
           if (subCodeList.includes(route.meta.authCode)) {
             menuChildren.push(route);
-          } else if (route.meta.show) {
+          }
+
+          if (route.meta.show) {
             menuChildren.push(route);
           }
 

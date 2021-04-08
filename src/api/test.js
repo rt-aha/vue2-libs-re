@@ -16,9 +16,30 @@ const getTableDataAPI = async () => {
 };
 
 const sendMailAPI = async () => {
-  console.log('sendMailAPI!');
   const res = await localRequest({ method: 'post', url: '/send/email' });
   return res.data;
 };
 
-export { getTableDataAPI, getUsersAPI, sendMailAPI };
+const getPermissionAPI = async () => {
+  const res = await localRequest({ method: 'get', url: '/auth/permission' });
+  return res.data;
+};
+
+const getDividendListAPI = async () => {
+  const res = await localRequest({ method: 'get', url: '/stock/dividend' });
+  return res.data;
+};
+
+const getSemiconductorAPI = async () => {
+  const res = await localRequest({ method: 'get', url: '/stock/semiconductor' });
+  return res.data;
+};
+
+export {
+  getTableDataAPI,
+  getUsersAPI,
+  sendMailAPI,
+  getPermissionAPI,
+  getDividendListAPI,
+  getSemiconductorAPI,
+};
