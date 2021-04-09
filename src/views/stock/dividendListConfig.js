@@ -15,7 +15,7 @@ const columnsConfig = (instance) => {
     {
       header: '日期',
       prop: 'date',
-      width: 200,
+      width: 60,
 
     },
     {
@@ -37,16 +37,17 @@ const columnsConfig = (instance) => {
     {
       header: '股票股利',
       prop: 'stockDividend',
-
+      fixed: 'right',
     },
     {
       prop: 'action',
       header: '操作',
-      width: 158,
+      width: 160,
       fixed: 'right',
       render: (data, rowData, col) => ({
         render(h) {
-          return h('div', [
+          return h('div', {
+          }, [
             h('re-button',
               {
                 on: { click: () => self.handlClick('add', rowData) },
@@ -58,7 +59,7 @@ const columnsConfig = (instance) => {
                 on: { click: () => self.handlClick('remove', rowData) },
                 props: { type: 'border' },
               },
-              '刪除'),
+              rowData.symbol),
           ]);
         },
       }),

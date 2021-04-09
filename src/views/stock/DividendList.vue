@@ -6,9 +6,11 @@
       :maxHeight="500"
       @handlePageInfo="handlePageInfo"
       :pagination="pagination"
+      :stripe="true"
     />
 
-    <re-dialog :visible.sync="dialog.add" footerPosition="center">
+    <!-- slot dialog -->
+    <!-- <re-dialog :visible.sync="dialog.add" footerPosition="center">
       <template #header>
         <re-title type="dialog" :mt="false">新增</re-title>
       </template>
@@ -20,16 +22,16 @@
       <template #footer>
         <re-button @click="closeDialog('add')">取消</re-button>
       </template>
-    </re-dialog>
-
-    <re-dialog
+    </re-dialog> -->
+    <!-- template dialog -->
+    <!-- <re-dialog
       dialogTitle="刪除"
       :visible.sync="dialog.remove"
       :template="removeTemplate"
       :data="rowData"
       @close="closeDialog('add')"
     >
-    </re-dialog>
+    </re-dialog> -->
   </div>
 </template>
 
@@ -71,7 +73,6 @@ export default {
     },
   },
   methods: {
-
     openDialog(type) {
       this.dialog[type] = true;
     },

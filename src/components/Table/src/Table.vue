@@ -1,78 +1,127 @@
 <template>
   <div class="re-table">
-    <div class="re-table__wrapper" ref="tableWrapper">
-      <table class="table" :style="{ width: fullTableWidthValue }">
-        <re-table-col-group
-          :columnsConfig="reOrderColumnConfig"
-          :columnsWidthMapping="columnsWidthMapping" />
-        <re-table-header
-          :tableData="tableData"
-          :columnsConfig="reOrderColumnConfig"
-          :hasFixedColumn="hasFixedColumn"
-        />
-          <!-- @setColumnsWidthMapping="setColumnsWidthMapping" -->
-        <re-table-body
-          :tableData="tableData"
-          :columnsConfig="reOrderColumnConfig"
-          :stripe="stripe"
-          :rowColor="rowColor"
-          :maxHeight="maxHeight"
-          :scopedSlotList="scopedSlotList"
-        >
-          <span
-            :slot="col.prop"
-            slot-scope="scope"
-            v-for="col of columnsConfig"
-            :key="col.prop"
-          >
-            <slot
-              :name="col.prop"
-              :data="{
-                ...scope.data,
-              }"
-            ></slot>
-          </span>
-          <!-- </template> -->
-        </re-table-body>
-      </table>
-      <re-table-fixed v-if="tableContentWidth > fullTableWidth">
-        <table class="table" :style="{ width: fixedTableWidth + 'px' }">
-           <re-table-col-group
-            :columnsConfig="tableFixedColumns"
-            :columnsWidthMapping="columnsWidthMapping"
-            :isFixedColumn="true"
-          />
-          <re-table-header
-            :tableData="tableData"
-            :columnsConfig="tableFixedColumns"
-          />
+    <div class="re-table-wrapper">
+      <div
+        class="re-table-wrapper__normal"
+        ref="normalTable"
+        @scroll="(e) => handleTableScroll(e, 'fixedTable')"
+      >
+        <div class="re-table-wrapper__normal__header">
+          <table class="table" :style="{ width: fullTableWidthValue }">
+            <re-table-col-group
+              :columnsConfig="reOrderColumnConfig"
+              :columnsWidthMapping="columnsWidthMapping"
+            />
+            <re-table-header
+              :tableData="tableData"
+              :columnsConfig="reOrderColumnConfig"
+              :hasFixedColumn="hasFixedColumn"
+            />
+          </table>
+        </div>
+        <div class="re-table-wrapper__normal__content">
+          <table class="table" :style="{ width: fullTableWidthValue }">
+            <re-table-col-group
+              :columnsConfig="reOrderColumnConfig"
+              :columnsWidthMapping="columnsWidthMapping"
+            />
 
-          <re-table-body
-            :tableData="tableData"
-            :columnsConfig="tableFixedColumns"
-            :stripe="stripe"
-            :rowColor="rowColor"
-            :maxHeight="maxHeight"
-            :isFixedColumn="true"
-            ref="tableBody"
-          >
-          </re-table-body>
-        </table>
-      </re-table-fixed>
+            <re-table-body
+              :tableData="tableData"
+              :columnsConfig="reOrderColumnConfig"
+              :stripe="stripe"
+              :rowColor="rowColor"
+              :maxHeight="maxHeight"
+              :scopedSlotList="scopedSlotList"
+            >
+              <span
+                :slot="col.prop"
+                slot-scope="scope"
+                v-for="col of columnsConfig"
+                :key="col.prop"
+              >
+                <slot
+                  :name="col.prop"
+                  :data="{
+                    ...scope.data,
+                  }"
+                ></slot>
+              </span>
+            </re-table-body>
+          </table>
+        </div>
+      </div>
+
+      <div
+        class="re-table-wrapper__fixed"
+        v-if="tableContentWidth > fullTableWidth"
+        ref="fixedTable"
+        :style="{ width: `${fixedTableWidth}px` }"
+        @scroll="(e) => handleTableScroll(e, 'normalTable')"
+      >
+       <div class="re-table-wrapper__fixed__content">
+
+        <div class="re-table-wrapper__fixed__header">
+          <table class="table" :style="{ width: fullTableWidthValue }">
+            <re-table-col-group
+              :columnsConfig="reOrderColumnConfig"
+              :columnsWidthMapping="columnsWidthMapping"
+              :isFixedColumn="true"
+            />
+            <re-table-header
+              :tableData="tableData"
+              :columnsConfig="reOrderColumnConfig"
+              :hasFixedColumn="hasFixedColumn"
+              :isFixedColumn="true"
+            />
+          </table>
+        </div>
+        <div class="re-table-wrapper__fixed__content">
+
+          <table class="table" :style="{ width: fullTableWidthValue }">
+            <re-table-col-group
+              :columnsConfig="reOrderColumnConfig"
+              :columnsWidthMapping="columnsWidthMapping"
+              :isFixedColumn="true"
+            />
+
+            <re-table-body
+              :tableData="tableData"
+              :columnsConfig="reOrderColumnConfig"
+              :stripe="stripe"
+              :rowColor="rowColor"
+              :maxHeight="maxHeight"
+              :scopedSlotList="scopedSlotList"
+              :isFixedColumn="true"
+            >
+              <span
+                :slot="col.prop"
+                slot-scope="scope"
+                v-for="col of columnsConfig"
+                :key="col.prop"
+              >
+                <slot
+                  :name="col.prop"
+                  :data="{
+                    ...scope.data,
+                  }"
+                ></slot>
+              </span>
+            </re-table-body>
+          </table>
+        </div>
+        </div>
+      </div>
     </div>
 
     <re-row justifyContent="flex-end">
-      <re-pagination
-        v-on="$listeners"
-        :pagination="pagination"
-      />
+      <re-pagination v-on="$listeners" :pagination="pagination" />
     </re-row>
   </div>
 </template>
 
 <script>
-import { cloneDeep, debounce } from 'lodash';
-import { v4 as uuid } from 'uuid';
+import { debounce } from 'lodash';
 
 export default {
   name: 'ReTable',
@@ -139,6 +188,11 @@ export default {
     },
   },
   methods: {
+    handleTableScroll(e, refName) {
+      const scrollPostion = e.target.scrollTop;
+      this.$refs[refName].scrollTop = scrollPostion;
+    },
+
     handlePageInfo(info) {
       console.log('info...', info);
     },
@@ -160,13 +214,6 @@ export default {
       const columns = this.columnsConfig.filter((ele) => !ele.fixed);
 
       this.reOrderColumnConfig = [...columns, ...emptyTableColumn];
-
-      // 若有固定欄位且未設定監聽器才執行
-      // if (columns.length > 0 && this.isSetResizeListener === false) {
-      //   window.addEventListener('resize', this.showFixedColumnDebounce);
-
-      //   this.isSetResizeListener = true;
-      // }
     },
 
     isShowFixedColumn() {
@@ -207,7 +254,7 @@ export default {
         }, 0);
     },
     getFullTableWidth() {
-      this.fullTableWidth = this.$refs.tableWrapper.clientWidth;
+      this.fullTableWidth = this.$refs.normalTable.clientWidth;
     },
     setScopedSlotList() {
       this.scopedSlotList = Object.keys(this.$scopedSlots);
@@ -242,32 +289,69 @@ export default {
 
 <style lang="scss">
 .re-table {
+}
+
+.re-table-wrapper {
   display: block;
-  /* border: 1px solid $c-lightgrey; */
-
-  /* @include cus-radius(0, 0, 4px, 4px); */
-  // overflow: hidden;
-  // width: 200px;
   width: 100%;
-  // overflow: auto;
   position: relative;
+  overflow: hidden;
+  height: 500px;
 
-  &__wrapper {
-    width: 100%;
+  &::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+
+  &__normal {
+    height: 500px;
+    position: relative;
     overflow: auto;
-    border-radius: 4px;
-    border: 1px solid $c-lightgrey;
+
+    &__header {
+      position: sticky;
+      top: 0;
+      background-color: $c-white;
+      z-index: 1000;
+    }
+
+    &__content {
+      position: relative;
+    }
+  }
+
+  &__fixed {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 500px;
+    @include position(tr, 0, 0px);
+    z-index: 100000;
+
+    &__content
+
+    &::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+
+    &__header {
+      position: sticky;
+      top: 0;
+      background-color: $c-white;
+      z-index: 1000;
+    }
+
+    &__content {
+      position: relative;
+      height: 400px;
+    }
   }
 }
 
 .table {
-  // width: auto;
-  // width: 500px;
-  width: 100%;
-  // overflow: hidden;
   table-layout: fixed;
   word-wrap: break-word;
-
+  word-break: break-all;
 }
 
 .hidden-table-column {

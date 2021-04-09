@@ -13,25 +13,30 @@
     >
       <td
         class="re-table-body__tr__td"
-        v-for="(col) of columnsConfig"
+        v-for="col of innerColumnsConfig"
         :key="col.prop"
         :style="{
           ...col.cssStyle,
         }"
       >
-        <div>
+        <div
+          class="re-table-body__tr__td__content"
+          :class="'invisible' && col.isEmptyRow"
+        >
           <!-- <span v-if="col.isEmptyRow">
           </span> -->
-          <span  :class="'invisible' && col.isEmptyRow">
-            <span v-if="scopedSlotList.includes(col.prop)">
-              <slot :name="col.prop" :data="{value: rowData[col.prop], rowData, col}" />
-            </span>
-            <span v-else-if="col.render">
-              <component :is="col.render(rowData[col.prop], rowData, col)" />
-            </span>
-            <span v-else :style="cusStyle(rowData[col.prop], rowData, col)">
-              {{ formatter(rowData[col.prop], rowData, col) }}
-            </span>
+
+          <span v-if="scopedSlotList.includes(col.prop)">
+            <slot
+              :name="col.prop"
+              :data="{ value: rowData[col.prop], rowData, col }"
+            />
+          </span>
+          <span v-else-if="col.render">
+            <component :is="col.render(rowData[col.prop], rowData, col)" />
+          </span>
+          <span v-else :style="cusStyle(rowData[col.prop], rowData, col)">
+            {{ formatter(rowData[col.prop], rowData, col) }}
           </span>
         </div>
       </td>
@@ -40,6 +45,7 @@
 </template>
 
 <script>
+import { cloneDeep } from 'lodash';
 
 export default {
   name: 'ReTableBody',
@@ -83,7 +89,7 @@ export default {
   },
   data() {
     return {
-      // scopedSlotList: [],
+      innerColumnsConfig: [],
     };
   },
   computed: {
@@ -142,36 +148,62 @@ export default {
 
       return bgColor;
     },
+    setFixedColumn() {
+      if (this.isFixedColumn) {
+        const fixedColumns = [];
+        const normalColumns = [];
 
+        this.columnsConfig.forEach((item) => {
+          if (item.fixed === 'right') {
+            fixedColumns.push(item);
+          } else {
+            normalColumns.push(item);
+          }
+        });
+
+        this.innerColumnsConfig = [...fixedColumns, ...normalColumns];
+      } else {
+        this.innerColumnsConfig = cloneDeep(this.columnsConfig);
+      }
+    },
   },
   mounted() {
-
+    this.setFixedColumn();
+  },
+  // FIXED 不知為何要監聽值
+  watch: {
+    columnsConfig: {
+      handler: 'setFixedColumn',
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .re-table-body {
-  // display: inline-block;
-  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+
   &__tr {
     border-bottom: 1px solid $c-lightgrey;
     position: relative;
+    background-color: $c-white;
 
     &--stripe {
       &:nth-child(2n) {
-        background-color: $c-lightgrey;
+        background-color: #efefef;
       }
     }
     &__td {
-      @include box-padding(10px);
-      border-right: 1px solid $c-lightgrey;
       @include font-style($c-assist, 14px);
+      width: 100%;
 
-      &:last-child {
-        border-right: 0px solid $c-lightgrey;
+      &__content {
+        @include box-padding(10px);
+        display: inline-block;
       }
-
     }
 
     &:last-child {
