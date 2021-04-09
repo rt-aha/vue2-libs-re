@@ -1,5 +1,13 @@
 <template>
   <div class="view-dividend-list">
+    <re-search-filter :searchConfig="searchConfig" @search="handleSearch">
+      <template v-slot:default="{search}">
+        <re-row justifyContent="flex-end">
+          <re-button @click="handleSearch(search)">搜尋</re-button>
+        </re-row>
+      </template>
+    </re-search-filter>
+
     <re-table
       :tableData="tableData"
       :columnsConfig="columnsConfig"
@@ -37,13 +45,14 @@
 
 <script>
 import { getDividendListAPI } from '@/api/test';
-import { columnsConfig } from '@/views/stock/dividendListConfig';
+import { columnsConfig, searchConfig } from '@/views/stock/dividendListConfig';
 import RemoveContent from './RemoveContent.vue';
 
 export default {
   name: 'DividendList',
   data() {
     return {
+      searchConfig: searchConfig(),
       removeTemplate: RemoveContent,
       tableData: [],
       // columnsConfig: [],
@@ -73,6 +82,15 @@ export default {
     },
   },
   methods: {
+    handleSearch(data) {
+      console.log('handle SEarch', data, typeof data);
+      console.log(
+        data.reduce((obj, item) => {
+          obj[item.prop] = item.value;
+          return obj;
+        }, {}),
+      );
+    },
     openDialog(type) {
       this.dialog[type] = true;
     },

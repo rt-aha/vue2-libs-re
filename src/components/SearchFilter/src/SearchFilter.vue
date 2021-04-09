@@ -12,10 +12,14 @@
         {{ item.label }}
       </div>
       <div class="re-search-filter-box__content">
-      <component :is="`re-${item.type}`" v-model="item.value" v-bind="item" />
+        <component :is="`re-${item.type}`" v-model="item.value" v-bind="item" />
       </div>
     </re-row>
-    <re-row>
+    <div v-if="$scopedSlots.default">
+      <!-- {{innerValue}} -->
+      <slot :search="innerValue" />
+    </div>
+    <re-row v-else>
       <re-button @click="setDefaultValue">預設</re-button>
       <re-button @click="handleSearch">搜尋</re-button>
     </re-row>
@@ -64,6 +68,10 @@ export default {
   created() {
     this.setInnerValue();
     this.saveDefaultValue();
+  },
+  mounted() {
+    console.log('$slots', this.$slots);
+    console.log('$scopedSlots', this.$scopedSlots);
   },
 };
 </script>
