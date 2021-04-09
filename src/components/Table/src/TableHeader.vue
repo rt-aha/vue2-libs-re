@@ -71,15 +71,12 @@ export default {
         const normalColumns = [];
 
         this.columnsConfig.forEach((item) => {
-          console.log('item', item);
           if (item.fixed === 'right') {
             fixedColumns.push(item);
           } else {
             normalColumns.push(item);
           }
         });
-
-        console.log('fixedColumns', fixedColumns);
 
         this.innerColumnsConfig = [...fixedColumns, ...normalColumns];
       } else {

@@ -5,6 +5,9 @@
         class="re-table-wrapper__normal"
         ref="normalTable"
         @scroll="(e) => handleTableScroll(e, 'fixedTable')"
+        :style="{
+          height: `${maxHeight ? maxHeight + 'px' : 'auto'}`,
+        }"
       >
         <div class="re-table-wrapper__normal__header">
           <table class="table" :style="{ width: fullTableWidthValue }">
@@ -56,8 +59,9 @@
         class="re-table-wrapper__fixed"
         v-if="tableContentWidth > fullTableWidth"
         ref="fixedTable"
-        :style="{ width: `${fixedTableWidth}px` }"
+        :style="{ width: `${fixedTableWidth}px`,height: `${maxHeight ? maxHeight + 'px' : 'auto'}` }"
         @scroll="(e) => handleTableScroll(e, 'normalTable')"
+
       >
        <div class="re-table-wrapper__fixed__content">
 
@@ -192,13 +196,9 @@ export default {
       const scrollPostion = e.target.scrollTop;
       this.$refs[refName].scrollTop = scrollPostion;
     },
-
     handlePageInfo(info) {
       console.log('info...', info);
     },
-    // setColumnsWidthMapping(val) {
-    //   this.columnsWidthMapping = val;
-    // },
     calcReOrderColumnConfig() {
       const emptyTableColumn = this.columnsConfig
         .filter((ele) => ele.fixed)
@@ -312,7 +312,7 @@ export default {
       position: sticky;
       top: 0;
       background-color: $c-white;
-      z-index: 1000;
+      z-index: 99;
     }
 
     &__content {
@@ -325,9 +325,7 @@ export default {
     overflow-y: auto;
     height: 500px;
     @include position(tr, 0, 0px);
-    z-index: 100000;
-
-    &__content
+    z-index: 99;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -338,7 +336,7 @@ export default {
       position: sticky;
       top: 0;
       background-color: $c-white;
-      z-index: 1000;
+      z-index: 99;
     }
 
     &__content {
@@ -350,11 +348,8 @@ export default {
 
 .table {
   table-layout: fixed;
-  word-wrap: break-word;
+  /* word-wrap: break-word; */
   word-break: break-all;
 }
 
-.hidden-table-column {
-  display: none;
-}
 </style>
