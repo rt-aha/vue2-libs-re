@@ -12,40 +12,15 @@ const searchConfig = () => [
     value: '',
     type: 'input',
   },
-  {
-    label: '啟用',
-    prop: 'enable',
-    value: true,
-    type: 'switch',
-  },
+
   {
     label: '年收入',
     prop: 'income',
-    value: 0,
+    value: 1,
     type: 'select',
     options: selectOptions,
   },
-  {
-    label: '職業',
-    prop: 'occupation',
-    value: 0,
-    type: 'radio',
-    options: radioOptions,
-  },
-  {
-    label: '興趣愛好',
-    prop: 'interest',
-    value: [],
-    type: 'checkbox-group',
-    options: checkboxOptions,
-  },
-  {
-    label: '手續費',
-    prop: 'fee',
-    value: 9,
-    type: 'input-number',
-    placeholder: 'fee',
-  },
+
   {
     label: '日期',
     prop: 'date',
@@ -63,6 +38,20 @@ const searchConfig = () => [
     prop: 'dateTime',
     value: new Date(),
     type: 'date-time-picker',
+  },
+  {
+    label: '職業',
+    prop: 'occupation',
+    value: 0,
+    type: 'radio',
+    options: radioOptions,
+  },
+  {
+    label: '興趣愛好',
+    prop: 'interest',
+    value: [],
+    type: 'checkbox-group',
+    options: checkboxOptions,
   },
 ];
 

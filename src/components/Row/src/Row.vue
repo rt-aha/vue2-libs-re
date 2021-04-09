@@ -26,10 +26,15 @@ export default {
       type: String,
       default: 'center',
     },
+    flex: {
+      type: String,
+      default: 'row',
+    },
   },
   computed: {
     rowStyle() {
       return {
+        'flex-direction': this.flex,
         'justify-content': this.justifyContent,
         'align-items': this.alignItems,
       };

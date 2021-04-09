@@ -99,7 +99,7 @@ export default {
       const disabledStatus = targetEle.getAttribute('data-disabled-status');
       if (disabledStatus) return;
       const selectedValue = targetEle.getAttribute('data-option-value');
-      // this.$emit('input', selectedValue);
+      this.$emit('input', selectedValue);
       this.$emit('change', selectedValue);
       this.triggerValidate('change', selectedValue);
       this.closeOptions();

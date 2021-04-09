@@ -1,17 +1,23 @@
 <template>
   <div class="view-dividend-list">
-    <re-search-filter :searchConfig="searchConfig" @search="handleSearch">
-      <template v-slot:default="{search}">
-        <re-row justifyContent="flex-end">
-          <re-button @click="handleSearch(search)">搜尋</re-button>
-        </re-row>
-      </template>
-    </re-search-filter>
+    <re-card>
+      <re-search-filter
+        :labelConfig="labelConfig"
+        :searchConfig="searchConfig"
+        @search="handleSearch"
+      >
+        <template v-slot:default="{ search }">
+          <div class="btn-wrapper">
+            <re-button @click="handleSearch(search)">搜尋</re-button>
+          </div>
+        </template>
+      </re-search-filter>
+    </re-card>
 
     <re-table
       :tableData="tableData"
       :columnsConfig="columnsConfig"
-      :maxHeight="500"
+      :maxHeight="400"
       @handlePageInfo="handlePageInfo"
       :pagination="pagination"
       :stripe="true"
@@ -54,6 +60,11 @@ export default {
     return {
       searchConfig: searchConfig(),
       removeTemplate: RemoveContent,
+      labelConfig: {
+        position: 'top',
+        width: '80',
+        textAlign: 'left',
+      },
       tableData: [],
       // columnsConfig: [],
       pagination: {
@@ -153,5 +164,9 @@ export default {
 .add-content {
   @include box-padding(10px);
   @include font-style($c-assist, 14px);
+}
+
+.btn-wrapper {
+  @include flex(flex-end)
 }
 </style>

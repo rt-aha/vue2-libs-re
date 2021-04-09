@@ -296,7 +296,7 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
-  height: 500px;
+  /* height: 500px; */
 
   &::-webkit-scrollbar {
     width: 0;
@@ -304,7 +304,7 @@ export default {
   }
 
   &__normal {
-    height: 500px;
+    /* height: 500px; */
     position: relative;
     overflow: auto;
 

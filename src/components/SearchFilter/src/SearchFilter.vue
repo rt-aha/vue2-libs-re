@@ -2,6 +2,13 @@
   <div class="re-search-filter">
     <re-row
       class="re-search-filter-box"
+      :class="[
+        {
+          're-search-filter-box--w100': ['radio','checkbox'].includes(item.type)
+        }
+      ]"
+      flex="column"
+      alignItems="flex-start"
       v-for="item of innerValue"
       :key="item.prop"
     >
@@ -69,23 +76,27 @@ export default {
     this.setInnerValue();
     this.saveDefaultValue();
   },
-  mounted() {
-    console.log('$slots', this.$slots);
-    console.log('$scopedSlots', this.$scopedSlots);
-  },
 };
 </script>
 
 <style lang="scss">
 .re-search-filter {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 .re-search-filter-box {
-  /* display: inline-block; */
+  display: inline-block;
+  margin-right: 10px;
+  /* width: 100%; */
+
   /* width: 200px; */
+  /* @include flex(flex-start, flex-start,column); */
+  &--w100 {
+    width: 100%;
+  }
 
   &__label {
-    @include font-style($c-assist, 14px);
+    @include font-style($c-assist, 12px);
+    margin-bottom: 5px;
   }
 
   &__content {
