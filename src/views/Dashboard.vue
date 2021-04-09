@@ -21,7 +21,14 @@ export default {
   data() {
     return {
       btns: [
-        'general', 'form', 'table', 'test', 'render', 'accounList',
+        'general',
+        'form',
+        'table',
+        'test',
+        'render',
+        'accounList',
+        'carousel',
+        'accordion',
       ],
     };
   },

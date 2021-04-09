@@ -2,8 +2,16 @@
   <div class="view-general">
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
+    <re-title @click="handleClick('textarea')">文本輸入框</re-title>
+    <re-row>
+      <re-textarea v-model="val.textarea" countLimit="5" />
+    </re-row>
+    <re-row>
+      <re-textarea v-model="val.textarea" />
+    </re-row>
+    <!-- <re-textarea v-model="val.textarea" disabled /> -->
 
-    <re-title @click="handleClick('tag')" >標籤</re-title>
+    <re-title @click="handleClick('tag')">標籤</re-title>
     <re-tags>標籤</re-tags>
     <re-row>
       <re-tags size="small">標籤</re-tags>
@@ -14,19 +22,23 @@
       <re-tags type="plain">標籤</re-tags>
       <re-tags type="border">標籤</re-tags>
     </re-row>
-     <re-row>
+    <re-row>
       <re-tags round="none">標籤</re-tags>
       <re-tags round="round">標籤</re-tags>
     </re-row>
     <re-row>
-      <re-tags :style="{
-        border: '1px solid #CD5C5C',
-       'background-color': '#CD5C5C',
-       color: '#ffffff'}">標籤</re-tags>
+      <re-tags
+        :style="{
+          border: '1px solid #CD5C5C',
+          'background-color': '#CD5C5C',
+          color: '#ffffff',
+        }"
+        >標籤</re-tags
+      >
     </re-row>
 
-    <re-title @click="handleClick('inputTimer')" >驗證碼輸入框</re-title>
-    <re-input-timer :api="sendMailAPI" timeLength="60"/>
+    <re-title @click="handleClick('inputTimer')">驗證碼輸入框</re-title>
+    <re-input-timer :api="sendMailAPI" timeLength="60" />
 
     <re-title @click="handleClick('upload')">上傳圖片/影片</re-title>
     <re-upload />
@@ -472,7 +484,6 @@ export default {
     };
   },
   methods: {
-
     beforeClose() {
       this.dialogVisible.prop = false;
     },

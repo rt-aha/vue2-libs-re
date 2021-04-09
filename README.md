@@ -73,7 +73,19 @@ TODO
 
 ## 待開發 大型組件
 - [ ] re-chatroom
+    1. 上方有目前聊天對象頭貼、名字
+    2. 上方聊天對象下方有次要內容
+    3. 右方有可聊天對象
+    4. 顯示內容
+    5. 輸入框
+    6. 輸入框可傳送文字、檔案
+    7. 可輸入特定文字字段並反白
 - [ ] re-carousel
+    1. 單方向循環輪播
+    2. 循環輪播
+    3. 可用指標拖拉
+    4. 自動播放
+    5. 可點擊上下箭頭直接跳頁
 - [ ] re-rich-editor quill
 - [ ] re-markdown markdown-it
 - [ ] re-waterfall
@@ -86,9 +98,9 @@ TODO
 - [ ] re-upload多種顯示方式
 - [ ] re-input-number 加上可格式化顯示
 - [ ] re-input 密碼顯示要有眼睛
-- [ ] re-textarea 顯示字數
+- [x] re-textarea 顯示字數
 - [ ] re-tooltip 增加判斷視窗位置要動態調整顯示位置
-- [ ] 耦合 pagination 到 table
+- [x] 耦合 pagination 到 table
 - [x] re-input-timer 加入重整後 仍維持倒數
 ## FIXED
 

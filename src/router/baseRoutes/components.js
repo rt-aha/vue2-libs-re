@@ -44,6 +44,24 @@ export default [
         },
       },
       {
+        path: 'accordion',
+        name: 'accordion',
+        component: () => import(/* webpackChunkName: "accordion" */ '@/views/comps/AccordionPage.vue'),
+        meta: {
+          title: '手風琴',
+          mainCategoryType: 'components',
+        },
+      },
+      {
+        path: 'carousel',
+        name: 'carousel',
+        component: () => import(/* webpackChunkName: "Carousel" */ '@/views/comps/CarouselPage.vue'),
+        meta: {
+          title: '輪播',
+          mainCategoryType: 'components',
+        },
+      },
+      {
         path: 'render',
         name: 'render',
         component: () => import(/* webpackChunkName: "Render" */ '@/views/play/Render.vue'),

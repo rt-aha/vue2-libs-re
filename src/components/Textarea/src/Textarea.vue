@@ -17,11 +17,22 @@
       :rows="textAreaRows"
       ref="textarea"
     />
+    <div class="count-limit" v-if="countLimit !== ''"
+    :class="[
+      {
+        'count-limit--warning': isOverTextLimit,
+      }
+    ]">
+      <span class="count-limit__curr-text-count">{{currTextCount}}</span>
+      <span class="count-limit__slash">/</span>
+      <span class="count-limit__limit-text">{{countLimit}}字</span>
+    </div>
   </div>
 </template>
 
 <script>
 import triggerValidate from '@/mixins/triggerValidate';
+import { isNumber } from 'lodash';
 
 export default {
   name: 'ReTextarea',
@@ -47,8 +58,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    countLimit: {
+      type: [String, Number],
+      default: '',
+      validator: (val) => isNumber(Number(val)),
+    },
+  },
+  data() {
+    return {
+      currTextCount: 0,
+    };
   },
   computed: {
+    isOverTextLimit() {
+      return Number(this.currTextCount) > Number(this.countLimit);
+    },
     textAreaRows() {
       return String(this.rows);
     },
@@ -67,11 +91,13 @@ export default {
       console.log('input', e.target.value);
       this.$emit('input', e.target.value);
       this.triggerValidate('input', e.target.value);
+      this.currTextCount = e.target.value.length;
     },
     handleChange(e) {
       console.log('change', e.target.value);
       this.$emit('change', e.target.value);
       this.triggerValidate('change', e.target.value);
+      this.currTextCount = e.target.value.length;
     },
     getTextarea() {
       return this.$refs.textarea;
@@ -83,6 +109,8 @@ export default {
 
 <style lang="scss">
 .re-textarea {
+  position: relative;
+  display: inline-block;
 
   &__native {
     border: 1px solid $c-main;
@@ -108,6 +136,29 @@ export default {
         resize: horizontal;
       }
     }
+
+  }
+
+}
+
+.count-limit {
+  @include position(br, 10px ,10px);
+  @include font-style($c-assist, 14px);
+
+  &--warning {
+    color: $c-error-message
+
+  }
+
+  &__curr-text-count {
+
+  }
+
+  &__slash {
+
+  }
+
+  &__limit-text {
 
   }
 }
