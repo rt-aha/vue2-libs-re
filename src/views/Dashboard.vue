@@ -27,8 +27,8 @@ export default {
         'test',
         'render',
         'accounList',
-        'carousel',
-        'accordion',
+        'carouselPage',
+        'accordionPage',
       ],
     };
   },

@@ -44,8 +44,8 @@ export default [
         },
       },
       {
-        path: 'accordion',
-        name: 'accordion',
+        path: 'AccordionPage',
+        name: 'AccordionPage',
         component: () => import(/* webpackChunkName: "accordion" */ '@/views/comps/AccordionPage.vue'),
         meta: {
           title: '手風琴',
@@ -53,8 +53,8 @@ export default [
         },
       },
       {
-        path: 'carousel',
-        name: 'carousel',
+        path: 'carouselPage',
+        name: 'carouselPage',
         component: () => import(/* webpackChunkName: "Carousel" */ '@/views/comps/CarouselPage.vue'),
         meta: {
           title: '輪播',
