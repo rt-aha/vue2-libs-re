@@ -2,6 +2,10 @@
   <div class="view-general">
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
+
+    <re-title @click="handleClick('timeline')">時間軸</re-title>
+    <re-timeline :timelineData="timelineData"/>
+
     <re-title @click="handleClick('textarea')">文本輸入框</re-title>
     <re-row>
       <re-textarea v-model="val.textarea" countLimit="5" />
@@ -366,6 +370,33 @@ export default {
       DialogTemplate,
       DrawerTemplate,
       // paginationOrder: ['total', 'page-size', 'pager', 'to'],
+      timelineData: [
+        {
+          title: '標題一',
+          desc: '敘述一',
+        },
+        {
+          title: '標題二',
+          desc: '敘述二',
+        },
+        {
+          title: '標題三',
+          desc: '敘述三',
+          render: () => ({
+            render(h) {
+              return h('div', [
+                h('p', '我是自定義內容'),
+                h('p', { style: { 'margin-top': '5px' } }, '我是自定義內容'),
+
+              ]);
+            },
+          }),
+        },
+        {
+          title: '標題四',
+          desc: '敘述四',
+        },
+      ],
 
       pagination: {
         order: ['total', 'page-size', 'pager', 'to'],
@@ -399,6 +430,7 @@ export default {
         upload: true,
         inputTimer: true,
         tag: true,
+        timeline: true,
       },
       val: {
         inpuTimer: '',

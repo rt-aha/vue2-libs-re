@@ -65,7 +65,7 @@ TODO
 - [ ] re-nav
 - [ ] re-step
 - [ ] re-accordion
-- [ ] re-timeline
+- [x] re-timeline
 - [ ] re-infinite-scroll
 - [ ] re-image 1. 做大圖預覽
 - [ ] re-backtop
