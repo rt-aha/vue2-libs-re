@@ -80,12 +80,6 @@ TODO
     5. 輸入框
     6. 輸入框可傳送文字、檔案
     7. 可輸入特定文字字段並反白
-- [ ] re-carousel
-    1. 單方向循環輪播
-    2. 循環輪播
-    3. 可用指標拖拉
-    4. 自動播放
-    5. 可點擊上下箭頭直接跳頁
 - [ ] re-rich-editor quill
 - [ ] re-markdown markdown-it
 - [ ] re-waterfall
@@ -102,6 +96,7 @@ TODO
 - [ ] re-tooltip 增加判斷視窗位置要動態調整顯示位置
 - [x] 耦合 pagination 到 table
 - [x] re-input-timer 加入重整後 仍維持倒數
+- [ ] re-carousel 可用滑鼠拖拉
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED

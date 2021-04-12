@@ -62,6 +62,25 @@ export default [
         },
       },
       {
+        path: 'richtexteditorPage',
+        name: 'richtexteditorPage',
+        component: () => import(/* webpackChunkName: "RichTextEditor" */ '@/views/comps/RichTextEditorPage.vue'),
+        meta: {
+          title: '富文本編輯器',
+          mainCategoryType: 'components',
+        },
+      },
+
+      {
+        path: 'chatroomPage',
+        name: 'chatroomPage',
+        component: () => import(/* webpackChunkName: "Chatroom" */ '@/views/comps/ChatroomPage.vue'),
+        meta: {
+          title: '聊天室',
+          mainCategoryType: 'components',
+        },
+      },
+      {
         path: 'render',
         name: 'render',
         component: () => import(/* webpackChunkName: "Render" */ '@/views/play/Render.vue'),

@@ -29,6 +29,8 @@ export default {
         'accounList',
         'carouselPage',
         'accordionPage',
+        'richtexteditorPage',
+        'chatroomPage',
       ],
     };
   },
