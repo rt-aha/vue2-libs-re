@@ -3,6 +3,8 @@
     <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
+    <re-back-top/>
+
     <re-title @click="handleClick('timeline')">時間軸</re-title>
     <re-timeline :timelineData="timelineData"/>
 

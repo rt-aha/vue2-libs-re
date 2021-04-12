@@ -80,7 +80,6 @@ TODO
     5. 輸入框
     6. 輸入框可傳送文字、檔案
     7. 可輸入特定文字字段並反白
-- [ ] re-rich-editor quill
 - [ ] re-markdown markdown-it
 - [ ] re-waterfall
 - [ ] re-virtual-list (不確定是否可以做成組件)
@@ -97,6 +96,7 @@ TODO
 - [x] 耦合 pagination 到 table
 - [x] re-input-timer 加入重整後 仍維持倒數
 - [ ] re-carousel 可用滑鼠拖拉
+- [ ] re-rich-editor 可以再增加一些常用功能
 ## FIXED
 
 1. 多輸入框列表 有個奇怪的 `in` 問題，搜尋FIXED
