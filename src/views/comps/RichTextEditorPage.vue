@@ -1,7 +1,12 @@
 <template>
   <div class="view-rich-text-editor">
 
-      <re-rich-text-editor v-model="editorValue"/>
+    <re-rich-text-editor
+      v-model="editorValue"
+      :getHtml="false"
+      :getMarkdown="false"
+      @getHtml="getHtml"
+      @getMarkdown="getMarkdown" />
 
   </div>
 </template>
@@ -13,6 +18,14 @@ export default {
     return {
       editorValue: 'allalls',
     };
+  },
+  methods: {
+    getHtml(html) {
+      console.log('html...', html);
+    },
+    getMarkdown(md) {
+      console.log('md...', md);
+    },
   },
 };
 </script>
