@@ -68,18 +68,13 @@ TODO
 - [x] re-timeline
 - [ ] re-infinite-scroll
 - [ ] re-image 1. 做大圖預覽
-- [ ] re-backtop
+- [x] re-backtop
 - [ ] re-smooth-scroll
 
 ## 待開發 大型組件
 - [ ] re-chatroom
-    1. 上方有目前聊天對象頭貼、名字
-    2. 上方聊天對象下方有次要內容
-    3. 右方有可聊天對象
-    4. 顯示內容
-    5. 輸入框
-    6. 輸入框可傳送文字、檔案
-    7. 可輸入特定文字字段並反白
+    1. 輸入框可傳送文字、檔案
+    2. 可輸入特定文字字段並反白
 - [ ] re-markdown markdown-it
 - [ ] re-waterfall
 - [ ] re-virtual-list (不確定是否可以做成組件)
