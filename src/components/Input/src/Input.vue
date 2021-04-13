@@ -215,6 +215,7 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
       outline: 0px transparent;
       color: $c-assist;
       width: 100%;
+      background-color: transparent;
 
       &--disabled {
         cursor: not-allowed;

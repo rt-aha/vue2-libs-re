@@ -118,6 +118,7 @@ export default {
     @include box-padding(10px);
     width: 200px;
     outline: 0px transparent;
+    background-color: transparent;
 
     &--disabled {
       @include disabled;
