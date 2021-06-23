@@ -1,12 +1,28 @@
 <template>
   <div class="view-general">
-    <re-title :mt="false" @click="handleClick('divider')">分隔線</re-title>
+    <re-title :mt="false">message</re-title>
+    <re-button @click="newMessage">new message</re-button>
+
+    <re-title>avatar</re-title>
+    <re-avatar size="large" />
+    <re-avatar src="https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png" />
+    <re-avatar size="small" name="Vicky" />
+    <re-avatar
+      src="https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png"
+      size="custom"
+      customSize="80px"
+    />
+
+    <re-title>loading</re-title>
+    <re-button @click="switchLoading" v-loading="isLoading">測試loading按鈕</re-button>
+
+    <re-title @click="handleClick('divider')">分隔線</re-title>
     <re-divider />
 
-    <re-back-top/>
+    <re-back-top />
 
     <re-title @click="handleClick('timeline')">時間軸</re-title>
-    <re-timeline :timelineData="timelineData"/>
+    <re-timeline :timelineData="timelineData" />
 
     <re-title @click="handleClick('textarea')">文本輸入框</re-title>
     <re-row>
@@ -138,30 +154,18 @@
       </re-row>
 
       <re-row>
-        <re-checkbox-group
-          v-model="val.checkbox2"
-          :options="checkboxOptions"
-          :inline="false"
-        />
+        <re-checkbox-group v-model="val.checkbox2" :options="checkboxOptions" :inline="false" />
       </re-row>
 
       <re-row>
-        <re-checkbox
-          v-model="val.checkAll"
-          label="全選"
-          @change="handleCheckbox"
-        />
+        <re-checkbox v-model="val.checkAll" label="全選" @change="handleCheckbox" />
       </re-row>
       <re-row :style="{ 'margin-top': '0px' }">
         <re-checkbox-group v-model="val.checkbox3" :options="checkboxOptions" />
       </re-row>
 
       <re-row>
-        <re-checkbox-group
-          v-model="val.checkbox4"
-          :options="limitedCheckboxOptions"
-          :limit="[1, 3]"
-        />
+        <re-checkbox-group v-model="val.checkbox4" :options="limitedCheckboxOptions" :limit="[1, 3]" />
       </re-row>
     </div>
 
@@ -172,11 +176,7 @@
       </re-row>
 
       <re-row>
-        <re-radio
-          v-model="val.radio2"
-          :options="radioOptions"
-          :inline="false"
-        />
+        <re-radio v-model="val.radio2" :options="radioOptions" :inline="false" />
       </re-row>
     </div>
 
@@ -220,11 +220,7 @@
       <re-row>
         <re-button extra="circle">circle</re-button>
         <re-button bgColor="#CD5C5C">按紐</re-button>
-        <re-button
-          :style="{ 'border-color': '#CD5C5C', color: '#CD5C5C' }"
-          type="border"
-          >按紐</re-button
-        >
+        <re-button :style="{ 'border-color': '#CD5C5C', color: '#CD5C5C' }" type="border">按紐</re-button>
       </re-row>
     </div>
 
@@ -288,11 +284,7 @@
         <re-switch v-model="val.switch1" />
       </re-row>
       <re-row>
-        <re-switch
-          v-model="val.switch2"
-          :switchLabel="{ on: '啟用', off: '關閉' }"
-          :disabled="true"
-        />
+        <re-switch v-model="val.switch2" :switchLabel="{ on: '啟用', off: '關閉' }" :disabled="true" />
       </re-row>
     </div>
 
@@ -303,7 +295,7 @@
     <re-tree :treeList="treeList" />
 
     <re-title @click="handleClick('tooltip')">文字提示</re-title>
-    <div style="margin-left: 100px">
+    <div style="margin-left: 100px;">
       <re-row>
         <re-tooltip position="top">
           <re-button>文字提示</re-button>
@@ -340,11 +332,7 @@
         <re-select v-model="val.select1" :options="selectOptions" />
       </re-row>
       <re-row>
-        <re-select
-          v-model="val.select2"
-          :options="selectOptions"
-          :disabled="true"
-        />
+        <re-select v-model="val.select2" :options="selectOptions" :disabled="true" />
       </re-row>
     </div>
   </div>
@@ -353,13 +341,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import { sendMailAPI } from '@/api/test';
-import {
-  selectOptions,
-  radioOptions,
-  checkboxOptions,
-  treeList,
-  limitedCheckboxOptions,
-} from './test-config';
+import { selectOptions, radioOptions, checkboxOptions, treeList, limitedCheckboxOptions } from './test-config';
 import TabsTesting from './TabsTesting.vue';
 import DialogTemplate from './DialogTemplate.vue';
 import DrawerTemplate from './DrawerTemplate.vue';
@@ -371,6 +353,7 @@ export default {
       sendMailAPI,
       DialogTemplate,
       DrawerTemplate,
+      isLoading: false,
       // paginationOrder: ['total', 'page-size', 'pager', 'to'],
       timelineData: [
         {
@@ -386,11 +369,7 @@ export default {
           desc: '敘述三',
           render: () => ({
             render(h) {
-              return h('div', [
-                h('p', '我是自定義內容'),
-                h('p', { style: { 'margin-top': '5px' } }, '我是自定義內容'),
-
-              ]);
+              return h('div', [h('p', '我是自定義內容'), h('p', { style: { 'margin-top': '5px' } }, '我是自定義內容')]);
             },
           }),
         },
@@ -518,6 +497,13 @@ export default {
     };
   },
   methods: {
+    newMessage() {
+      this.Message();
+    },
+    switchLoading() {
+      console.log('switchLoading', this.isLoading);
+      this.isLoading = !this.isLoading;
+    },
     beforeClose() {
       this.dialogVisible.prop = false;
     },

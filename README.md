@@ -14,7 +14,7 @@ TODO
 - [x] re-datetimepicker
 - [-] re-tree 
 - [-] re-badge
-- [ ] re-loading
+- [x] re-loading
 - [-] re-tabs 
 - [x] re-drawer 
 - [x] re-dialog 
@@ -35,8 +35,7 @@ TODO
 - [ ] re-space
 - [x] re-divider
 - [ ] re-link
-- [ ] re-avatar
-- [ ] re-loading
+- [x] re-avatar
 - [ ] re-message
 - [ ] re-notification
 - [ ] re-dropdown

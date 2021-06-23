@@ -11,7 +11,13 @@ const currFolderFiles = require.context('./', true, /\.vue$/);
 
 // 取得目錄下所有路徑，並過濾不需要的檔案
 const getModuleFiles = currFolderFiles.keys().filter((item) => {
+  const splitPath = item.split('/');
+  const compName = splitPath[splitPath.length - 1].replace('.vue', '');
+
+  const excludeComp = ['CheckList', 'Message'];
+
   let isRemain = true;
+
   if (item.indexOf('CheckList') > -1) {
     isRemain = false;
   }

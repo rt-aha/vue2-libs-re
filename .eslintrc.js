@@ -3,10 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-  ],
+  extends: ['plugin:vue/essential', '@vue/airbnb'],
   parserOptions: {
     parser: 'babel-eslint',
   },
@@ -22,22 +19,17 @@ module.exports = {
     'prefer-promise-reject-errors': 'off',
     'no-shadow': 'off',
     'consistent-return': 'off',
+    'object-curly-newline': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          '.storybook/**',
-          'stories/**' 
-        ]
-      }
-    ]
+        devDependencies: ['.storybook/**', 'stories/**'],
+      },
+    ],
   },
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true,
       },
