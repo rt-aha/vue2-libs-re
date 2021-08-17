@@ -5,8 +5,8 @@
       `re-title__${type}`,
       {
         're-title--mt': mt,
-        're-title--inline': inline
-      }
+        're-title--inline': inline,
+      },
     ]"
     @click="$emit('click')"
   >
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ReTitle',
   props: {
@@ -27,7 +26,7 @@ export default {
       // required: true,
       type: String,
       default: 'demo',
-      validator: (value) => ['demo', 'dialog'].includes(value),
+      validator: (value) => ['app', 'demo', 'dialog'].includes(value),
     },
     inline: {
       type: Boolean,
@@ -39,9 +38,12 @@ export default {
 
 <style lang="scss">
 .re-title {
+  &__app {
+    @include font-style($c-main, 48px, 700);
+  }
+
   &__demo {
     @include font-style($c-assist, 18px, 300);
-    margin-top: 0px;
     margin-bottom: 10px;
   }
 

@@ -29,8 +29,11 @@ export default {
       const token = true;
       if (token) {
         try {
+          console.log(1);
           const authList = await getPermissionAPI();
+          console.log(2);
           const menuList = genMenu(authList);
+          console.log(3, menuList);
           this.setMenuList(menuList);
         } catch (e) {
           console.log('e...', e);

@@ -36,7 +36,7 @@ TODO
 - [x] re-divider
 - [ ] re-link
 - [x] re-avatar
-- [ ] re-message
+- [x] re-message
 - [ ] re-notification
 - [ ] re-dropdown
 - [ ] re-copy (寫在Vue.prototype)
