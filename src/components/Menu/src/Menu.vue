@@ -4,8 +4,15 @@
       <li class="re-main-menu__item" v-for="mainMenu of menuConfig" :key="mainMenu.meta.authGroup">
         <p class="re-main-menu__item__title">{{ mainMenu.meta.title }}</p>
         <ul class="re-sub-menu" v-if="mainMenu.children">
-          <li class="re-sub-menu__item" v-for="subMenu of mainMenu.children" :key="subMenu.meta.authItem">
-            <p class="re-sub-menu__item__text" @click="toPage(subMenu.name)">{{ subMenu.meta.title }}</p>
+          <li
+            class="re-sub-menu__item"
+            :class="{ 're-sub-menu__item--active': subMenu.name === $route.name }"
+            v-for="subMenu of mainMenu.children"
+            :key="subMenu.meta.authItem"
+            @click="toPage(subMenu.name)"
+          >
+            <p class="re-sub-menu__item__text">{{ subMenu.meta.title.split(' ')[0] }}</p>
+            <p class="re-sub-menu__item__text">{{ subMenu.meta.title.split(' ')[1] }}</p>
           </li>
         </ul>
       </li>
@@ -32,7 +39,7 @@ export default {
 
 <style lang="scss">
 .re-menu {
-  min-width: 240px;
+  min-width: 200px;
 }
 
 .re-main-menu {
@@ -47,10 +54,23 @@ export default {
 .re-sub-menu {
   &__item {
     @include box-padding(10px 15px);
+    @include font-style($c-text1, 14px);
+    transition: 0.4s;
+
+    &:hover {
+      color: $c-aside-hover;
+    }
+
+    &--active {
+      color: $c-aside-hover;
+    }
 
     &__text {
-      @include font-style($c-text1, 14px);
       cursor: pointer;
+
+      & + & {
+        margin-top: 5px;
+      }
     }
   }
 }
