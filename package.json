@@ -13,6 +13,7 @@
     "lint": "vue-cli-service lint",
     "plop:comp": "plop  --plopfile ./plop/executor/comp.js",
     "plop:view": "plop  --plopfile ./plop/executor/view.js",
+    "genComp": "node generateComponent.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "commit": "node commit.js",
