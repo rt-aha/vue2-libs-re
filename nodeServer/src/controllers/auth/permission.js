@@ -35,6 +35,16 @@ function permission(ctx) {
       subCode: 'S-2',
       permission: 7,
     },
+    {
+      parentCode: 'layout',
+      subCode: 'layout-1',
+      permission: 7,
+    },
+    {
+      parentCode: 'layout',
+      subCode: 'layout-2',
+      permission: 7,
+    },
   ];
 }
 
