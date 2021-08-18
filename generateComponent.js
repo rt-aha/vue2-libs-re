@@ -53,9 +53,7 @@ class GenComp {
       throw new error('格式錯誤');
     }
 
-    return name.replace(/-\w/g, (matchValue) => {
-      return matchValue.slice(1).toUpperCase();
-    });
+    return name.replace(/-\w/g, (matchValue) => matchValue.slice(1).toUpperCase());
   }
 
   genFiles() {
@@ -79,7 +77,7 @@ class GenComp {
 
     this.pipeline.push(genComponent, genView);
 
-    for (let fn of this.pipeline) {
+    for (const fn of this.pipeline) {
       fn();
     }
 

@@ -2,11 +2,13 @@ module.exports = function (plop) {
   // controller generator
   plop.setGenerator('comp', {
     description: 'create a component',
-    prompts: [{
-      type: 'input',
-      name: 'name',
-      message: 'component name',
-    }],
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'component name',
+      },
+    ],
     actions: [
       {
         type: 'add',
@@ -17,11 +19,6 @@ module.exports = function (plop) {
         type: 'add',
         path: '../../src/components/{{name}}/src/{{name}}.vue',
         templateFile: '../component.hbs',
-      },
-      {
-        type: 'add',
-        path: '../../src/components/{{name}}/src/{{name}}.stories.js',
-        templateFile: '../component-story.hbs',
       },
     ],
   });
