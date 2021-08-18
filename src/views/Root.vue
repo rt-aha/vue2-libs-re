@@ -31,11 +31,11 @@ export default {
           label: 'Layout-Demo',
         },
         {
-          routeName: 'vertical-layout',
+          routeName: 'layout-vertical',
           label: '垂直佈局',
         },
         {
-          routeName: 'horizontal-layout',
+          routeName: 'layout-horizontal',
           label: '水平佈局',
         },
       ],

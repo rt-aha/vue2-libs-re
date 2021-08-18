@@ -1,15 +1,8 @@
 <template>
   <div class="r-menu">
     <ul class="main-menu__list">
-      <li
-        class="main-menu__list__item"
-        v-for="menu of menuList"
-        :key="menu.meta.title"
-      >
-        <p
-          class="main-menu__list__item__title"
-          @click="handleExpand(menu.name)"
-        >
+      <li class="main-menu__list__item" v-for="menu of menuList" :key="menu.meta.title">
+        <p class="main-menu__list__item__title" @click="handleExpand(menu.name)">
           {{ menu.meta.title }}
         </p>
         <template v-if="menu.children && expandStatus[menu.name]">
@@ -22,9 +15,7 @@
             >
               <span
                 class="sub-menu__list__item__text"
-                :class="
-                  activeRoute === subMenu.name &&
-                  'sub-menu__list__item__text--active'"
+                :class="activeRoute === subMenu.name && 'sub-menu__list__item__text--active'"
                 >{{ subMenu.meta.title }}</span
               >
             </li>

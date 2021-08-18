@@ -35,4 +35,6 @@ const allRouteFunc = {
 
 const viewRoutes = allRouteFunc.getRouteData();
 
+viewRoutes.sort((x, y) => x.order - y.order);
+
 export default viewRoutes;

@@ -1,5 +1,4 @@
 import pages from '@/router/baseRoutes/pages';
-import dashboard from '@/router/baseRoutes/dashboard';
 
 /**
  * @params

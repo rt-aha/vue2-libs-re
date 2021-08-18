@@ -1,28 +1,26 @@
 <template>
   <div class="page-ui-lab">
-    <re-vertical-layout>
-      <template v-slot:header>
-        <re-layout-header title="Re-UI Labotary" />
-      </template>
-      <template v-slot:body>
-        <re-layout-aside />
-        <router-view />
-      </template>
-    </re-vertical-layout>
+    <re-menu :menuConfig="menuConfig" />
   </div>
 </template>
 
 <script>
-import ReVerticalLayout from '@/layout/ReVerticalLayout.vue';
-import ReLayoutHeader from '@/layout/ReLayoutHeader.vue';
-import ReLayoutAside from '@/layout/ReLayoutAside.vue';
+import ReMenu from '@/components/Menu';
+
+import form from '@/router/viewRoutes/form';
+import viewRoutes from '@/router/viewRoutes';
+
+const menuConfig = [...form];
 
 export default {
   name: 'UiLab',
   components: {
-    ReVerticalLayout,
-    ReLayoutHeader,
-    ReLayoutAside,
+    ReMenu,
+  },
+  data() {
+    return {
+      menuConfig: viewRoutes,
+    };
   },
 };
 </script>
