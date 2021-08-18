@@ -1,9 +1,9 @@
 <template>
-  <div class="ly-full-aside-layout">
-    <div class="ly-fa__aside">
+  <div class="ly-horizontal-layout">
+    <div class="ly__aside">
       <slot name="aside" />
     </div>
-    <div class="ly-fa__body">
+    <div class="ly__body">
       <slot name="body" />
     </div>
   </div>
@@ -27,48 +27,27 @@ export default {
 </script>
 
 <style lang="scss">
-.ly-full-aside-layout {
+.ly-horizontal-layout {
+  display: flex;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: flex;
 }
 
-.ly-fa {
-  &__header {
+.ly {
+  &__aside {
     height: 100%;
-    width: 200px;
     overflow-y: auto;
-    background-color: $c-aside;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
   }
 
-  &__right {
-    height: 100%;
+  &__body {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    height: 100%;
+    flex-direction: column;
     overflow: scroll;
-
-    &__header {
-      flex: none;
-      height: 60px;
-    }
-
-    &__body {
-      flex: 1;
-      overflow-y: auto;
-      @include box-padding(15px);
-    }
-  }
-}
-
-.system-name-box {
-  text-align: center;
-  @include box-padding(15px);
-
-  &__text {
-    display: inline-block;
-    @include font-style($c-white, 30px);
   }
 }
 </style>

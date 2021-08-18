@@ -4,7 +4,8 @@
       <re-title type="app">Re-UI</re-title>
       <ul class="route-list">
         <li class="route-list__item" v-for="r of routeList" :key="r.route">
-          <span class="route-list__item__text" @click="handleRoute(r.routeName)">{{ r.label }}</span>
+          <span v-if="r.type === 'title'" class="route-list__item__title">{{ r.label }}</span>
+          <span v-else class="route-list__item__text" @click="handleRoute(r.routeName)">{{ r.label }}</span>
         </li>
       </ul>
     </div>
@@ -17,6 +18,18 @@ export default {
   data() {
     return {
       routeList: [
+        {
+          type: 'title',
+          label: 'UI-Lab',
+        },
+        {
+          routeName: 'ui-lab',
+          label: 'UI 實驗室',
+        },
+        {
+          type: 'title',
+          label: 'Layout-Demo',
+        },
         {
           routeName: 'vertical-layout',
           label: '垂直佈局',
@@ -48,6 +61,7 @@ export default {
 }
 
 .route-list {
+  @include box-padding(0 0 0 10px);
   margin-top: 30px;
 
   &__item {
@@ -55,9 +69,13 @@ export default {
       margin-top: 15px;
     }
 
+    &__title {
+      @include font-style($c-text1, 16px, 700);
+    }
+
     &__text {
-      @include font-style($c-text1, 16px);
-      @include box-padding(0 0 0 30px);
+      @include font-style($c-text1, 16px, 300);
+      @include box-padding(0 0 0 15px);
       position: relative;
       cursor: pointer;
 
@@ -65,7 +83,7 @@ export default {
         content: '';
         position: absolute;
         top: 50%;
-        left: 10px;
+        left: 0;
         width: 8px;
         height: 1px;
         background-color: $c-text1;

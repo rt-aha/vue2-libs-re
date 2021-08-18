@@ -1,13 +1,16 @@
-import Root from '@/views/Root.vue';
-
 export default [
   {
     path: '/',
-    component: Root,
     name: 'root',
+    component: () => import(/* webpackChunkName: "root" */ '@/views/Root.vue'),
     meta: {
       title: '根路由',
       mainCategoryType: 'page',
     },
+  },
+  {
+    path: '/ui-lab',
+    name: 'ui-lab',
+    component: () => import(/* webpackChunkName: "ui-lab" */ '@/views/UiLab.vue'),
   },
 ];

@@ -1,13 +1,10 @@
 <template>
   <div class="page-horizontal-layout">
     <re-horizontal-layout>
-      <template v-slot:aside>
-        aside
-        <router-view />
-      </template>
+      <template v-slot:aside> aside </template>
       <template v-slot:body>
         <re-layout-header />
-        horizontal-body
+        <router-view />
       </template>
     </re-horizontal-layout>
   </div>
@@ -35,3 +32,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.page-horizontal-layout {
+  width: 100%;
+  height: 100%;
+}
+</style>

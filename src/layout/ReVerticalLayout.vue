@@ -1,9 +1,9 @@
 <template>
-  <div class="ly-full-header-layout">
-    <header class="ly-fh__header">
+  <div class="ly-vertical-layout">
+    <header class="ly__header">
       <slot name="header" />
     </header>
-    <div class="ly-fh__body">
+    <div class="ly__body">
       <slot name="body" />
     </div>
   </div>
@@ -16,40 +16,26 @@ export default {
 </script>
 
 <style lang="scss">
-.ly-full-header-layout {
+.ly-vertical-layout {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-.ly-fh {
+.ly {
   &__header {
-    height: 60px;
+    flex: none;
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
+    height: auto;
   }
 
   &__body {
     display: flex;
+    flex: 1;
     height: 100%;
-    @include box-padding(60px 0 0);
-
-    &__aside {
-      flex: none;
-      width: 200px;
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    &__body {
-      flex: 1;
-      height: 100%;
-      overflow-y: auto;
-    }
+    overflow-y: auto;
   }
 }
 </style>

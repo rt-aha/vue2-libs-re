@@ -5,20 +5,20 @@
 </template>
 
 <script>
-import { routeObservable } from '@/observable/route';
-import writeDynamicRoutes from '@/mixins/writeDynamicRoutes';
+// import { routeObservable } from '@/observable/route';
+// import writeDynamicRoutes from '@/mixins/writeDynamicRoutes';
 
 export default {
   name: 'App',
-  mixins: [writeDynamicRoutes],
-  computed: {
-    menuList() {
-      return routeObservable.menuList;
-    },
+  // mixins: [writeDynamicRoutes],
+  // computed: {
+  //   menuList() {
+  //     return routeObservable.menuList;
+  //   },
 
-  },
-  created() {
-    this.writeDynamicRoutes('app');
-  },
+  // },
+  // created() {
+  //   this.writeDynamicRoutes('app');
+  // },
 };
 </script>

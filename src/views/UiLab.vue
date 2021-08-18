@@ -1,10 +1,11 @@
 <template>
-  <div class="page-horizontal-layout">
+  <div class="page-ui-lab">
     <re-vertical-layout>
       <template v-slot:header>
-        <re-layout-header />
+        <re-layout-header title="Re-UI Labotary" />
       </template>
       <template v-slot:body>
+        <re-layout-aside />
         <router-view />
       </template>
     </re-vertical-layout>
@@ -14,26 +15,20 @@
 <script>
 import ReVerticalLayout from '@/layout/ReVerticalLayout.vue';
 import ReLayoutHeader from '@/layout/ReLayoutHeader.vue';
+import ReLayoutAside from '@/layout/ReLayoutAside.vue';
 
 export default {
-  name: 'VerticalLayout',
+  name: 'UiLab',
   components: {
     ReVerticalLayout,
     ReLayoutHeader,
-  },
-  data() {
-    const { SYSTEM_NAME: systemName } = this;
-    return {
-      isInit: true,
-      menuList: [],
-      systemName,
-    };
+    ReLayoutAside,
   },
 };
 </script>
 
 <style lang="scss">
-.page-horizontal-layout {
+.page-ui-lab {
   width: 100%;
   height: 100%;
 }
