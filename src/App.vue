@@ -14,6 +14,7 @@
               <re-menu :menuConfig="menuConfig" />
             </div>
             <div class="layout-body-content__body">
+              <re-title>{{ $route.meta.title }}</re-title>
               <router-view />
             </div>
           </div>
@@ -70,6 +71,7 @@ export default {
     width: 240px;
     height: 100%;
     border-right: 1px solid #ccc;
+    overflow-y: auto;
   }
 
   &__body {

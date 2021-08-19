@@ -7,7 +7,6 @@
         're-input--disabled': disabled,
       },
     ]"
-
     @click.stop="handleClick"
   >
     <div class="re-input__prepend" v-if="$slots.prepend">
@@ -77,11 +76,7 @@ export default {
       type: String,
       default: 'input',
       validate(val) {
-        return (
-          ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(
-            val,
-          ) > -1
-        );
+        return ['input', 'select', 'switch', 'datePicker', 'dateTimePicker'].valueOf(val) > -1;
       },
     },
   },
@@ -142,19 +137,18 @@ export default {
 </script>
 
 <style lang="scss">
-$input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
+$input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
 
 .re-input {
-  width: 100%;
   @include inline-flex();
   @include font-style($c-main, 14px);
-  // display: inline-block;
+  width: 100%;
 
   &--disabled {
     #{$input-size-els} {
       background-color: #efefef;
-      cursor: not-allowed;
       opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 
@@ -179,47 +173,49 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
   }
 
   &__prepend {
+    @include box-padding(0 10px);
+    @include cus-radius(4px, 0, 0, 4px);
     display: inline-flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    @include box-padding(0 10px);
-    @include cus-radius(4px, 0, 0, 4px);
     border: 1px solid $c-main;
-    // height: 40px;
   }
 
   &__content {
-    width: 100%;
     @include flex();
     @include box-padding(8px 6px);
+    width: 100%;
     border: 1px solid $c-main;
-    // height: 40px;
     border-radius: 4px;
 
     &--prepend {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border-left: 0px;
+      flex: none;
+      width: auto;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: 0;
     }
 
     &--append {
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-right: 0px;
+      flex: none;
+      width: auto;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 0;
     }
 
     &__native {
       flex: 1;
-      border: 0px transparent;
-      outline: 0px transparent;
-      color: $c-assist;
       width: 100%;
+      color: $c-assist;
       background-color: transparent;
+      border: 0 transparent;
+      outline: 0 transparent;
 
       &--disabled {
-        cursor: not-allowed;
         opacity: 0.5;
+        cursor: not-allowed;
       }
 
       &--readonly {
@@ -236,34 +232,32 @@ $input-size-els: ".re-input__prepend, .re-input__content, .re-input__append";
     }
 
     &__prefix {
-      flex: none;
+      @include font-style($c-main, 12px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      flex: none;
       margin-right: 6px;
-      @include font-style($c-main, 12px);
     }
 
     &__suffix {
-      flex: none;
+      @include font-style($c-main, 12px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      flex: none;
       margin-left: 6px;
-      @include font-style($c-main, 12px);
     }
   }
 
   &__append {
+    @include box-padding(0 10px);
+    @include cus-radius(0, 4px, 4px, 0);
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    @include box-padding(0);
     width: auto;
-    // height: 40px;
-    @include cus-radius(0, 4px, 4px, 0);
     border: 1px solid $c-main;
-
   }
 }
 </style>

@@ -12,6 +12,8 @@ export default {
 
 <style>
 .re-layout-aside {
+  height: 100%;
   border-right: 1px solid #ccc;
+  overflow-y: auto;
 }
 </style>

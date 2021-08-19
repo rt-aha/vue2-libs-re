@@ -20,7 +20,7 @@ export default {
   props: {
     mt: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     type: {
       // required: true,

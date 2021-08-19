@@ -1,10 +1,11 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import ReFormIndex from '@/layout/custom/ReFormIndex.vue';
 
 export default [
   {
     path: '/form',
     name: 'form',
-    component: NoLayout,
+    component: ReFormIndex,
     children: [
       {
         path: 'input',
