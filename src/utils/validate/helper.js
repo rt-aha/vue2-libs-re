@@ -1,39 +1,37 @@
 import * as allRules from '@/utils/validate/rules';
-import * as defaultErrorMessage from '@/utils/validate/defaultErrorMessage';
+import * as errorMessage from '@/utils/validate/errorMessage';
 
 const validator = {
   ruleList: [],
 
-  vldFunc(value, errMsg, rule, args, options) {
-    // console.log('value', value);
+  vldFunc(value, ruleError, rule, args, options) {
     const validate = {
       ...allRules,
     };
 
-    const isPass = validate[rule](value, errMsg, rule, args, options);
+    const isPass = validate[rule](value, ruleError, rule, args, options);
 
     if (!isPass) {
-      return this.errMsg(errMsg, rule, args);
+      return this.errMsg(ruleError, rule, args, options);
     }
   },
 
-  // 預設錯誤訊息
-  defaultError(rule, args) {
+  // 取得錯誤訊息
+  getErrorMessage(rule, args, options) {
     const defaultErrMsg = {
-      ...defaultErrorMessage,
+      ...errorMessage,
     };
 
-    return defaultErrMsg[rule](args);
+    return defaultErrMsg[rule](args, options);
   },
 
   // 回傳錯誤訊息
-  errMsg(err, rule, args) {
+  errMsg(ruleError, rule, args, options) {
     let msg = '';
-
-    if (!err) {
-      msg = this.defaultError(rule, args);
+    if (rule in ruleError) {
+      msg = this.getErrorMessage(ruleError[rule], args, options);
     } else {
-      msg = err;
+      msg = this.getErrorMessage(rule, args, options);
     }
 
     return {
@@ -44,23 +42,12 @@ const validator = {
   },
 
   // 將驗證規則加入陣列
-  add(value, rules, error, options) {
+  add(value, rules, ruleError, options) {
     rules.forEach((r) => {
       const rule = r.split(':')[0]; // 規則名稱
       const args = r.split(':')[1] || null; // 額外參數
-      const errMsg = rule in error ? error[rule] : '';
 
-      // const vv = value ? `${value}` : undefined;
-      // console.log('check vv', vv);
-      // 記錄現在驗證的資訊
-
-      this.ruleList.push(() => this.vldFunc.call(this, value, errMsg, rule, args, options));
-      // this.ruleList.push(() => {
-      //   const vv = value;
-      //   console.log('v2', 1, value, 2, errMsg, 3, rule, 4, args, 5, options);
-      //   return this.vldFunc.call(this, vv, errMsg, rule, args, options);
-      // });
-      // this.ruleList.push([vv, errMsg, rule, args, options]);
+      this.ruleList.push(() => this.vldFunc.call(this, value, ruleError, rule, args, options));
     });
   },
 
@@ -68,8 +55,6 @@ const validator = {
   start() {
     for (const fn of this.ruleList) {
       const msg = fn();
-      // console.log('check fn', [...fn]);
-      // const msg = this.vldFunc(...fn);
 
       if (msg) {
         this.cleanRuleList();

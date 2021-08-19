@@ -1,12 +1,14 @@
 import validator from '@/utils/validate/helper';
 
-function vld({
-  value = '',
-  ruleList = [],
-  ruleError = {},
-  options,
-}) {
-  validator.add(value, ruleList, ruleError, options);
+function vld({ value = '', ruleList = [], ruleError = {}, options, label }) {
+  const opts = {
+    ...options,
+    label,
+  };
+
+  console.log('ruleError', ruleError);
+
+  validator.add(value, ruleList, ruleError, opts);
   const result = validator.start();
 
   if (result.pass) return true;
@@ -14,13 +16,12 @@ function vld({
   // return true;
 }
 
-function asyncVld({
-  value = '',
-  ruleList = [],
-  ruleError = {},
-  options,
-  asyncFn,
-}) {
+function asyncVld({ value = '', ruleList = [], ruleError = {}, options, label, asyncFn }) {
+  const opts = {
+    ...options,
+    label,
+  };
+
   return new Promise((resolve, reject) => {
     // 先驗證同步的，若通過了，再往下驗證非同步的
     if (ruleList.length > 0) {

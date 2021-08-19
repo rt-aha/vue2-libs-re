@@ -14,7 +14,7 @@ export const t2 = (value, errMsg, rule, args) => {
 };
 // 測試用 end
 
-export const vldRequire = (value, errMsg, rule, args) => {
+export const vldRequired = (value, errMsg, rule, args) => {
   if (value) {
     return true;
   }
