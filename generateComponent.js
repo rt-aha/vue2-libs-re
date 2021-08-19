@@ -36,7 +36,7 @@ class GenComp {
           '訊息 Notice',
           '導航 Navigation',
           '其他 Others',
-          '好組件不用嗎 Utils',
+          '小工具 Widgets',
           '開發用 Dev',
         ],
       },

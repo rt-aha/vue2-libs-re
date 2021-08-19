@@ -26,6 +26,7 @@ module.exports = {
         devDependencies: ['.storybook/**', 'stories/**'],
       },
     ],
+    'implicit-arrow-linebreak': 'off',
   },
   overrides: [
     {

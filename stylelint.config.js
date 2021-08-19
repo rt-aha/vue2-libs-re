@@ -20,8 +20,8 @@ module.exports = {
     'order/properties-order': [
       'content',
       'display',
-      'align-items',
       'justify-content',
+      'align-items',
       'flex',
       'float',
       'clear',
