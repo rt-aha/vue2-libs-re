@@ -1,23 +1,22 @@
 <template>
-  <div
-    class="re-expand-container"
-    v-show="visible"
-    v-on-clickaway="handleVisible"
-    :style="{
-      'max-width': `${maxWidth}px`
-    }"
-  >
-    <div class="re-expand-container__content">
-      <slot></slot>
+  <CollapseTransition>
+    <div class="re-expand-container" v-show="visible" v-on-clickaway="handleVisible">
+      <div class="re-expand-container__content">
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </CollapseTransition>
 </template>
 
 <script>
 import { directive as onClickaway } from 'vue-clickaway';
+import CollapseTransition from '@/utils/collapse-transition';
 
 export default {
   name: 'ReExpandContainer',
+  components: {
+    CollapseTransition,
+  },
   directives: {
     onClickaway,
   },
@@ -25,10 +24,6 @@ export default {
     visible: {
       type: Boolean,
       default: true,
-    },
-    maxWidth: {
-      type: [String, Number],
-      default: 200,
     },
   },
   methods: {
@@ -41,12 +36,13 @@ export default {
 
 <style lang="scss">
 .re-expand-container {
-  @include position(tl, calc(100%), 0);
+  @include position(tl, 100%, 0);
   z-index: 100;
+  width: 100%;
 
   &__content {
-    background-color: $c-white;
     margin-top: 5px;
+    background-color: $c-white;
     box-sizing: border-box;
     border: 1px solid $c-main;
     border-radius: 4px;

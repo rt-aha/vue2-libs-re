@@ -10,18 +10,18 @@
       <re-button @click.prevent="submitEasyForm">送出</re-button>
     </re-easy-form>
     <re-divider></re-divider> -->
-    <re-title>Form模板(一個一個寫)</re-title>
+    <re-title>Form Widget (一個一個寫)</re-title>
     <re-form :rules="rules" :form="form" ref="testingForm" :labelConfig="labelConfig">
       <re-form-item label="姓名" prop="name">
         <re-input v-model="form.name" />
       </re-form-item>
-      <!-- <re-form-item label="啟用" prop="enable">
+      <re-form-item label="啟用" prop="enable">
         <re-switch v-model="form.enable" />
       </re-form-item>
       <re-form-item label="年收入" prop="income">
         <re-select v-model="form.income" :options="selectOptions" />
       </re-form-item>
-      <re-form-item label="職業" prop="occupation">
+      <!--<re-form-item label="職業" prop="occupation">
         <re-radio v-model="form.occupation" :options="radioOptions" />
       </re-form-item>
       <re-form-item label="興趣愛好" prop="interest">
@@ -145,7 +145,7 @@ export default {
       form: {
         name: '',
         enable: true,
-        income: 0,
+        income: null,
         occupation: 0,
         interest: [],
         agree: false,
@@ -171,8 +171,18 @@ export default {
           // triggerEvent: ['change'],
         },
         income: {
-          message: '請至少選擇一個選項',
-          validator: (rule, value) => Number(value) > 2,
+          // validator: (rule, value) => Number(value) > 2,
+          // validator: (rule, value) => {
+          //   console.log('val...', value);
+          //   return value;
+          // },
+          validator: (rule, value, cb, src, options) =>
+            vld({
+              value,
+              ruleList: ['vldRequired'],
+              options,
+              label: '年收入',
+            }),
           trigger: ['change'],
         },
         occupation: {

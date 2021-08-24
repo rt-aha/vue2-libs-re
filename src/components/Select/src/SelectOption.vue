@@ -1,22 +1,30 @@
 <template>
   <li
-   class="re-select-option"
-   :class="[{
-       're-select-option--active':  String(currOption) === String(value),
-       're-select-option--disabled': disabled
-   }]"
+    class="re-select-option"
+    :class="[
+      {
+        're-select-option--active': String(currOption) === String(value),
+        're-select-option--label': $attrs.type === 'label',
+        're-select-option--disabled': disabled,
+      },
+    ]"
     :data-option-value="value"
     :data-disabled-status="disabled"
-
+    :data-label="$attrs.type === 'label'"
     :selected="String(currOption) === String(value)"
+    @click.stop="handleOption(value, $attrs.type)"
   >
-    <component v-if="render" :is="render()"/>
-    <span v-else class="re-select-option__item">{{ label }}</span>
+    <template v-if="$attrs.type === 'label'">
+      <span class="re-select-option__item">{{ label }}</span>
+    </template>
+    <template v-else>
+      <component v-if="render" :is="render()" v-bind="$attrs" />
+      <span v-else class="re-select-option__item">{{ label }}</span>
+    </template>
   </li>
 </template>
 
 <script>
-
 export default {
   name: 'ReSelectOption',
 
@@ -40,33 +48,56 @@ export default {
       default: false,
     },
   },
+  methods: {
+    handleOption(value) {
+      this.$emit('handleOption', value);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .re-select-option {
+  @include box-padding(10px);
+  @include font-style($c-assist, 14px);
   display: inline-block;
   width: 100%;
-  cursor: pointer;
   color: $c-assist;
-  @include font-style($c-assist, 14px);
-  @include box-padding(10px 0);
+  cursor: pointer;
 
-  &:not([data-disabled-status="true"]) {
+  &:not([data-label='true']),
+  &[data-disabled-status='true'] {
     &:hover {
       color: $c-main;
-      @include font-style($c-main, 14px)
+      background-color: rgba($c-main, 0.1);
+    }
+  }
+
+  &--active {
+    color: $c-main;
+    background-color: rgba($c-main, 0.1);
+  }
+
+  &--label {
+    @include font-style($c-text1, 12px);
+    position: relative;
+    background-color: transparent;
+    cursor: default;
+
+    &::after {
+      @include position(tl, 100%, 50%);
+      transform: translateX(-50%);
+      content: '';
+      display: inline-block;
+      width: calc(100% - 20px);
+      height: 1px;
+      background-color: #ccc;
     }
   }
 
   &--disabled {
-    cursor: not-allowed;
     opacity: 0.5;
-  }
-
-  &--active {
-    @include font-style($c-main, 14px)
+    cursor: not-allowed;
   }
 }
 </style>
