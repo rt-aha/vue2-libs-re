@@ -19,7 +19,7 @@
     </div>
     <re-expand-container :visible.sync="expandConfig.status">
       <div class="re-select__option__content">
-        <div class="re-select__option__content__list" v-on-clickaway="closeOptions">
+        <ul class="re-select__option__content__list" v-on-clickaway="closeOptions">
           <re-select-option
             v-for="opt of formatOptions"
             :key="opt.value"
@@ -27,7 +27,7 @@
             :currOption="value"
             @handleOption="handleOption"
           />
-        </div>
+        </ul>
       </div>
     </re-expand-container>
   </div>
@@ -146,19 +146,6 @@ export default {
 
     &__content {
       position: relative;
-      height: auto;
-      max-height: 200px;
-      overflow: auto;
-
-      /* &__list {
-        > .re-select-option:first-child {
-          padding-top: 0;
-        }
-
-        > .re-select-option:last-child {
-          padding-bottom: 0;
-        }
-      } */
     }
   }
 }
@@ -173,7 +160,7 @@ export default {
   }
 
   &--active {
-    transform: translateY(-50%) rotate(0deg);
+    transform: translateY(-50%) rotate(360deg);
   }
 }
 </style>

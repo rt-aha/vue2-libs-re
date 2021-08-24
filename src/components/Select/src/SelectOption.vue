@@ -49,7 +49,9 @@ export default {
     },
   },
   methods: {
-    handleOption(value) {
+    handleOption(value, type) {
+      // 點到標題時，沒有值
+      if (type === 'label') return;
       this.$emit('handleOption', value);
     },
   },
@@ -85,7 +87,7 @@ export default {
     cursor: default;
 
     &::after {
-      @include position(tl, 100%, 50%);
+      @include position(tl, calc(100% - 1px), 50%);
       transform: translateX(-50%);
       content: '';
       display: inline-block;

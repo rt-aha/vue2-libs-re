@@ -41,12 +41,14 @@ export default {
   width: 100%;
 
   &__content {
+    height: auto;
+    max-height: 200px;
     margin-top: 5px;
     background-color: $c-white;
     box-sizing: border-box;
     border: 1px solid $c-main;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: auto;
   }
 }
 </style>
