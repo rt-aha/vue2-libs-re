@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 import { cloneDeep, xor } from 'lodash';
 import triggerValidate from '@/mixins/triggerValidate';
 
@@ -107,7 +106,8 @@ export default {
       }
 
       this.$emit('input', cloneValue);
-      this.triggerValidate('change');
+      this.$emit('change', cloneValue);
+      this.triggerValidate('change', cloneValue);
     },
 
     setInnerOptions() {
@@ -121,12 +121,7 @@ export default {
   watch: {
     value: {
       handler: 'checkLimit',
-      // immediate: true,
     },
   },
 };
 </script>
-
-<style lang="scss">
-
-</style>

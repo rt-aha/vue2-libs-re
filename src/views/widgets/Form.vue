@@ -21,13 +21,13 @@
       <re-form-item label="年收入" prop="income">
         <re-select v-model="form.income" :options="selectOptions" />
       </re-form-item>
-      <!--<re-form-item label="職業" prop="occupation">
+      <re-form-item label="職業" prop="occupation">
         <re-radio v-model="form.occupation" :options="radioOptions" />
       </re-form-item>
       <re-form-item label="興趣愛好" prop="interest">
         <re-checkbox-group v-model="form.interest" :options="checkboxOptions" />
       </re-form-item>
-      <re-form-item label="手續費" prop="fee">
+      <!--<re-form-item label="手續費" prop="fee">
         <re-input-number v-model="form.fee" placeholder="fee" />
       </re-form-item>
       <re-form-item label="日期" prop="date">
@@ -187,7 +187,11 @@ export default {
         },
         occupation: {
           message: '請勾選一個選項',
-          validator: (rule, value) => value > 0,
+          validator: (rule, value) => {
+            console.log('value', value);
+            // 隨便寫的規則
+            return value > 1;
+          },
           trigger: ['change'],
         },
         interest: {

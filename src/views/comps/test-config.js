@@ -36,7 +36,7 @@ export const selectOptions = [
 export const radioOptions = [
   {
     label: '單選1',
-    value: 1,
+    value: 'one',
   },
   {
     label: '單選2',
@@ -54,7 +54,7 @@ export const radioOptions = [
   },
   {
     label: '單選5',
-    value: 5,
+    value: true,
   },
   // {
   //   render: CusSelectOption,
@@ -120,7 +120,6 @@ export const limitedCheckboxOptions = [
   {
     label: '多選5',
     value: 5,
-
   },
 ];
 
@@ -158,7 +157,6 @@ export const treeList = [
           },
         ],
       },
-
     ],
   },
 ];

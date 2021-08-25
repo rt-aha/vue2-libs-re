@@ -1,4 +1,6 @@
 import FruitOption from '@/devComponents/Select/FruitOption.vue';
+import PhoneOption from '@/devComponents/Radio/PhoneOption.vue';
+import MeatOption from '@/devComponents/Checkbox/MeatOption.vue';
 
 export const selectOptions = [
   {
@@ -69,6 +71,7 @@ export const fruitOption = fruitData.map((item) => ({
   render: () => FruitOption,
   label: item.name,
   value: item.id,
+  disabled: item.disabled,
   fruitData: item,
 }));
 
@@ -108,3 +111,166 @@ export const groupOptions = [
     ],
   },
 ];
+
+export const radioOptions = [
+  {
+    label: '單選1',
+    value: 'one',
+  },
+  {
+    label: '單選2',
+    value: 2,
+  },
+  {
+    label: '單選3',
+    value: 3,
+    disabled: true,
+  },
+  {
+    label: '單選4',
+    value: true,
+    disabled: true,
+  },
+  {
+    label: '單選5',
+    value: false,
+  },
+  {
+    render: () => PhoneOption,
+    label: 'Custom ?',
+    value: 789,
+
+    phoneData: {
+      name: 'iPhone 11',
+      desc: '大尺寸、M1晶片',
+    },
+  },
+];
+
+const phoneData = [
+  {
+    id: 111,
+    name: 'iPhone 11',
+    desc: '白色',
+  },
+  {
+    id: 222,
+    name: 'iPhone 10',
+    desc: '白色',
+  },
+  {
+    id: 333,
+    name: 'iPhone 7s',
+    desc: '白色、黑色',
+    disabled: true,
+  },
+  {
+    id: 444,
+    name: 'iPhone X',
+    desc: '鵝黃色',
+  },
+];
+
+export const phoneOptions = phoneData.map((item) => ({
+  render: () => PhoneOption,
+  label: item.name,
+  value: item.id,
+  disabled: item.disabled,
+  phoneData: item,
+}));
+
+export const checkboxOptions = [
+  {
+    label: '多選1',
+    value: 1,
+    disabled: true,
+  },
+  {
+    label: '多選2',
+    value: 2,
+  },
+  {
+    label: '多選3',
+    value: 3,
+  },
+  {
+    label: '多選4',
+    value: 4,
+  },
+  {
+    label: '多選5',
+    value: 5,
+    disabled: true,
+  },
+  {
+    render: () => MeatOption,
+    label: 'Custom',
+    value: 789,
+    meatData: {
+      id: 111,
+      name: '雞肉',
+      protein: '20g',
+    },
+  },
+];
+
+export const limitedCheckboxOptions = [
+  {
+    label: '多選1',
+    value: 1,
+  },
+  {
+    label: '多選2',
+    value: 2,
+  },
+  {
+    label: '多選3',
+    value: 3,
+  },
+  {
+    label: '多選4',
+    value: 4,
+  },
+  {
+    label: '多選5',
+    value: 5,
+  },
+];
+
+const meatData = [
+  {
+    id: 111,
+    name: '雞肉',
+    protein: '20g',
+  },
+  {
+    id: 222,
+    name: '豬肉',
+    protein: '21g',
+    disabled: true,
+  },
+  {
+    id: 333,
+    name: '牛肉',
+    protein: '25g',
+  },
+  {
+    id: 444,
+    name: '羊肉',
+    protein: '22g',
+  },
+];
+
+export const meatOptions = meatData.map((item) => {
+  console.log(item.disabled);
+
+  return {
+    render: () => MeatOption,
+    label: item.name,
+    value: item.id,
+    disabled: false,
+    meatData: item,
+  };
+});
+
+console.log('meatOptions', meatOptions);

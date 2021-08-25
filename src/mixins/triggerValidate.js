@@ -12,6 +12,9 @@ export default {
      * @param {object} options 額外資訊
      */
     triggerValidate(event, value, options) {
+      console.log('event', event);
+      console.log('value', value);
+      console.log('options', options);
       if (this.reFormItem) {
         this.$nextTick(() => {
           this.reFormItem.validateFormValue(value, event, options);
