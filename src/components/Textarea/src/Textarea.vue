@@ -4,12 +4,12 @@
       :style="cssStyle"
       class="re-textarea__native"
       :class="[
-          {
-            're-textarea__native--autosize--none': autosize === 'none',
-            're-textarea__native--autosize--vertical': autosize === 'vertical',
-            're-textarea__native--autosize--horizontal': autosize === 'horizontal',
-            're-textarea__native--disabled': disabled,
-          }
+        {
+          're-textarea__native--autosize--none': autosize === 'none',
+          're-textarea__native--autosize--vertical': autosize === 'vertical',
+          're-textarea__native--autosize--horizontal': autosize === 'horizontal',
+          're-textarea__native--disabled': disabled,
+        },
       ]"
       @input="handleInput"
       @change="handleChange"
@@ -17,15 +17,18 @@
       :rows="textAreaRows"
       ref="textarea"
     />
-    <div class="count-limit" v-if="countLimit !== ''"
-    :class="[
-      {
-        'count-limit--warning': isOverTextLimit,
-      }
-    ]">
-      <span class="count-limit__curr-text-count">{{currTextCount}}</span>
+    <div
+      class="count-limit"
+      v-if="countLimit !== ''"
+      :class="[
+        {
+          'count-limit--warning': isOverTextLimit,
+        },
+      ]"
+    >
+      <span class="count-limit__curr-text-count">{{ currTextCount }}</span>
       <span class="count-limit__slash">/</span>
-      <span class="count-limit__limit-text">{{countLimit}}字</span>
+      <span class="count-limit__limit-text">{{ countLimit }}字</span>
     </div>
   </div>
 </template>
@@ -70,6 +73,10 @@ export default {
     };
   },
   computed: {
+    nativeTextareaValue() {
+      if (!this.value) return '';
+      return String(this.value);
+    },
     isOverTextLimit() {
       return Number(this.currTextCount) > Number(this.countLimit);
     },
@@ -88,37 +95,48 @@ export default {
   },
   methods: {
     handleInput(e) {
-      console.log('input', e.target.value);
       this.$emit('input', e.target.value);
       this.triggerValidate('input', e.target.value);
       this.currTextCount = e.target.value.length;
     },
     handleChange(e) {
-      console.log('change', e.target.value);
       this.$emit('change', e.target.value);
       this.triggerValidate('change', e.target.value);
       this.currTextCount = e.target.value.length;
     },
     getTextarea() {
-      return this.$refs.textarea;
+      const nativeTextarea = this.$refs.textarea;
+
+      if (!nativeTextarea) {
+        return null;
+      }
+
+      return nativeTextarea;
+    },
+    setNativeTextareaValue() {
+      const textarea = this.getTextarea();
+      if (textarea.value === this.nativeTextareaValue) return;
+      textarea.value = this.nativeTextareaValue;
     },
   },
-
+  mounted() {
+    this.setNativeTextareaValue();
+  },
 };
 </script>
 
 <style lang="scss">
 .re-textarea {
-  position: relative;
   display: inline-block;
+  position: relative;
 
   &__native {
-    border: 1px solid $c-main;
-    border-radius: 4px;
     @include box-padding(10px);
     width: 200px;
-    outline: 0px transparent;
     background-color: transparent;
+    border: 1px solid $c-main;
+    border-radius: 4px;
+    outline: 0 transparent;
 
     &--disabled {
       @include disabled;
@@ -137,30 +155,24 @@ export default {
         resize: horizontal;
       }
     }
-
   }
-
 }
 
 .count-limit {
-  @include position(br, 10px ,10px);
+  @include position(br, 10px, 10px);
   @include font-style($c-assist, 14px);
 
   &--warning {
-    color: $c-error-message
-
+    color: $c-error-message;
   }
-
+  /*
   &__curr-text-count {
-
   }
 
   &__slash {
-
   }
 
   &__limit-text {
-
-  }
+  } */
 }
 </style>

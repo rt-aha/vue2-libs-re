@@ -41,11 +41,11 @@
       </re-form-item>
       <re-form-item label="水果列表" prop="fruitList">
         <re-input-list v-model="form.fruitList" />
-      </re-form-item>
+      </re-form-item>-->
 
       <re-form-item label="備註" prop="memo">
         <re-textarea v-model="form.memo" />
-      </re-form-item> -->
+      </re-form-item>
 
       <re-button @click.prevent="submit">送出</re-button>
     </re-form>

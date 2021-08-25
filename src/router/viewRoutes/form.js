@@ -117,6 +117,16 @@ export default [
           authItem: 'form-date-time-picker',
         },
       },
+      {
+        path: 'textarea',
+        name: 'form-textarea',
+        component: () => import(/* webpackChunkName: "form-textarea" */ '@/views/form/Textarea.vue'),
+        meta: {
+          title: '文本輸入框 ReTextarea',
+          authGroup: 'form',
+          authItem: 'form-textarea',
+        },
+      },
     ],
     meta: {
       title: '表單 Form',
