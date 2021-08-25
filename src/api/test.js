@@ -5,7 +5,7 @@ const getUsersAPI = async () => {
 
   const r = {
     data: res.data,
-    error: 't error',
+    error: '不可為小數',
   };
   return r;
 };
@@ -35,11 +35,4 @@ const getSemiconductorAPI = async (data = {}) => {
   return res.data;
 };
 
-export {
-  getTableDataAPI,
-  getUsersAPI,
-  sendMailAPI,
-  getPermissionAPI,
-  getDividendListAPI,
-  getSemiconductorAPI,
-};
+export { getTableDataAPI, getUsersAPI, sendMailAPI, getPermissionAPI, getDividendListAPI, getSemiconductorAPI };

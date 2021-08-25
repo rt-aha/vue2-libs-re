@@ -20,8 +20,7 @@
         class="re-input-number__content__native"
         :class="{
           're-input-number__content__native--disabled': disabled,
-          're-input-number__content__native--readonly':
-            !disabled && cursorPointer,
+          're-input-number__content__native--readonly': !disabled && cursorPointer,
         }"
         v-bind="$attrs"
         :disabled="disabled"
@@ -30,6 +29,7 @@
         type="number"
         ref="input"
       />
+
       <div class="re-input-number__content__suffix" v-if="$slots.suffix">
         <slot name="suffix"></slot>
       </div>
@@ -42,6 +42,7 @@
 
 <script>
 import triggerValidate from '@/mixins/triggerValidate';
+import { debounce } from 'lodash';
 
 export default {
   name: 'ReInputNumber',
@@ -70,6 +71,9 @@ export default {
       type: [Number, String],
       default: 1,
     },
+    formatFn: {
+      default: null,
+    },
   },
   data() {
     return {
@@ -93,17 +97,29 @@ export default {
       this.$emit('click', e);
     },
     handleInput(e) {
-      this.$emit('input', e.target.value);
-      this.triggerValidate('input', e.target.value);
-    },
-    handleChange(e) {
       this.$emit('change', e.target.value);
       this.triggerValidate('change', e.target.value);
+    },
+    handleChange(e) {
+      let val = e.target.value;
+
+      if (this.formatFn) {
+        val = this.formatFn(val);
+      }
+      this.$emit('input', val);
+      this.$emit('change', val);
+      this.triggerValidate('change', val);
     },
     setNativeInputValue() {
       const input = this.getInput();
       if (input.value === this.nativeInputValue) return;
-      input.value = this.nativeInputValue;
+
+      let val = this.nativeInputValue;
+      if (this.formatFn) {
+        val = this.formatFn(this.nativeInputValue);
+      }
+
+      input.value = val;
     },
     getInput() {
       const nativeInput = this.$refs.input;
@@ -112,17 +128,28 @@ export default {
       }
       return nativeInput;
     },
-    minusNumber() {
-      const inputValue = this.getInput().value;
-      const val = Number(inputValue) - Number(this.step);
-      this.$emit('input', String(val));
-      this.triggerValidate('change');
-    },
+
     plusNumber() {
       const inputValue = this.getInput().value;
-      const val = Number(inputValue) + Number(this.step);
-      this.$emit('input', String(val));
-      this.triggerValidate('change');
+      let val = Number(inputValue) + Number(this.step);
+
+      if (this.formatFn) {
+        val = this.formatFn(val);
+      }
+
+      this.$emit('input', val);
+      this.triggerValidate('change', val);
+    },
+    minusNumber() {
+      const inputValue = this.getInput().value;
+      let val = Number(inputValue) - Number(this.step);
+
+      if (this.formatFn) {
+        val = this.formatFn(val);
+      }
+
+      this.$emit('input', val);
+      this.triggerValidate('change', val);
     },
   },
   mounted() {
@@ -137,19 +164,18 @@ export default {
 </script>
 
 <style lang="scss">
-$input-size-els: ".re-input-number__prepend, .re-input-number__content, .re-input-number__append";
+$input-size-els: '.re-input-number__prepend, .re-input-number__content, .re-input-number__append';
 
 .re-input-number {
-  width: 200px;
   @include flex();
   @include font-style($c-main, 14px);
-  // display: inline-block;
+  width: 200px;
 
   &--disabled {
     #{$input-size-els} {
       background-color: #efefef;
-      cursor: not-allowed;
       opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 
@@ -174,30 +200,31 @@ $input-size-els: ".re-input-number__prepend, .re-input-number__content, .re-inpu
   }
 
   &__prepend {
+    @include box-padding(0 10px);
+    @include cus-radius(4px, 0, 0, 4px);
     display: inline-flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    @include box-padding(0 10px);
-    @include cus-radius(4px, 0, 0, 4px);
     border: 1px solid $c-main;
     cursor: pointer;
   }
 
   &__content {
-    width: 100%;
     @include flex();
     @include box-padding(8px 10px 8px 10px);
+    width: 100%;
     border: 1px solid $c-main;
-    border-radius: 0px;
-    border-left: 0px;
-    border-right: 0px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
 
     &__native {
       flex: 1;
-      border: 0px transparent;
-      outline: 0px transparent;
       color: $c-assist;
+      border: 0 transparent;
+      outline: 0 transparent;
+
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none !important;
@@ -205,8 +232,8 @@ $input-size-els: ".re-input-number__prepend, .re-input-number__content, .re-inpu
       }
 
       &--disabled {
-        cursor: not-allowed;
         opacity: 0.5;
+        cursor: not-allowed;
       }
 
       &--readonly {
@@ -215,30 +242,29 @@ $input-size-els: ".re-input-number__prepend, .re-input-number__content, .re-inpu
     }
 
     &__prefix {
-      flex: none;
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      flex: none;
       margin-right: 10px;
     }
 
     &__suffix {
-      flex: none;
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      flex: none;
       margin-left: 10px;
     }
   }
 
   &__append {
+    @include box-padding(0 10px);
+    @include cus-radius(0, 4px, 4px, 0);
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    @include box-padding(0 10px);
     width: auto;
-    // height: 40px;
-    @include cus-radius(0, 4px, 4px, 0);
     border: 1px solid $c-main;
     cursor: pointer;
   }

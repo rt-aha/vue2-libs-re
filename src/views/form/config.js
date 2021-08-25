@@ -261,16 +261,10 @@ const meatData = [
   },
 ];
 
-export const meatOptions = meatData.map((item) => {
-  console.log(item.disabled);
-
-  return {
-    render: () => MeatOption,
-    label: item.name,
-    value: item.id,
-    disabled: false,
-    meatData: item,
-  };
-});
-
-console.log('meatOptions', meatOptions);
+export const meatOptions = meatData.map((item) => ({
+  render: () => MeatOption,
+  label: item.name,
+  value: item.id,
+  disabled: false,
+  meatData: item,
+}));

@@ -27,10 +27,10 @@
       <re-form-item label="興趣愛好" prop="interest">
         <re-checkbox-group v-model="form.interest" :options="checkboxOptions" />
       </re-form-item>
-      <!--<re-form-item label="手續費" prop="fee">
-        <re-input-number v-model="form.fee" placeholder="fee" />
+      <re-form-item label="手續費" prop="fee">
+        <re-input-number v-model="form.fee" placeholder="請輸入手續費" />
       </re-form-item>
-      <re-form-item label="日期" prop="date">
+      <!--<re-form-item label="日期" prop="date">
         <re-date-picker v-model="form.date" />
       </re-form-item>
       <re-form-item label="時間" prop="time">
@@ -202,10 +202,11 @@ export default {
         agree: {
           message: '請勾選同意事項',
           validator: (rule, value) => value,
-          // trigger: ['change'],
         },
         fee: {
-          asyncValidator: (rule, value) => asyncVld({ value, ruleList: ['t2'], asyncFn: getUsersAPI }),
+          message: '不可小於0',
+          validator: (rule, value) => value > 0,
+          // asyncValidator: (rule, value) => asyncVld({ value, ruleList: ['t2'], asyncFn: getUsersAPI }),
         },
         date: {
           message: '請選擇日期',
