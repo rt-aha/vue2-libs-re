@@ -23,13 +23,14 @@
         />
         <span
           class="re-radio-box__input__actural"
-          :class="
-            String(currValue) === String(value) &&
-            're-radio-box__input__actural--active'"
+          :class="String(currValue) === String(value) && 're-radio-box__input__actural--active'"
         >
         </span>
       </div>
-      <span class="re-radio-box__label">{{ label }}</span>
+      <div class="re-radio-box__content">
+        <component v-if="render" :is="render()" v-bind="$attrs" />
+        <span v-else class="re-radio-box__content__label">{{ label }}</span>
+      </div>
     </label>
   </div>
 </template>
@@ -60,7 +61,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    inline: Boolean,
+    inline: {
+      type: Boolean,
+      default: true,
+    },
+    render: {
+      default: null,
+    },
   },
   data() {
     return {
@@ -69,11 +76,11 @@ export default {
     };
   },
   methods: {
-    handleChange(e) {
+    handleChange() {
       if (this.disabled) return;
 
-      this.$emit('handleRadio', e.target.value);
-      this.triggerValidate('change', e.target.value);
+      this.$emit('handleRadio', this.value);
+      this.triggerValidate('change', this.value);
     },
   },
 };
@@ -81,6 +88,7 @@ export default {
 
 <style lang="scss">
 .re-radio-option {
+  height: auto;
   margin: 5px 10px 5px 0;
   cursor: inherit;
 
@@ -89,8 +97,8 @@ export default {
   }
 
   &--disabled {
-    cursor: not-allowed;
     opacity: 0.5;
+    cursor: not-allowed;
 
     .re-radio-box {
       cursor: not-allowed;
@@ -99,16 +107,17 @@ export default {
 }
 
 .re-radio-box {
-  display: inline-block;
+  display: inline-flex;
   cursor: pointer;
 
   &__input {
-    padding: 0;
-    display: inline-block;
-    vertical-align: middle;
     @include circle(16px);
     @include box-padding(2px);
+    display: inline-block;
+    flex: none;
     position: relative;
+    vertical-align: middle;
+    padding: 0;
     border: 1px solid $c-assist;
 
     &__native {
@@ -116,21 +125,23 @@ export default {
     }
 
     &__actural {
-      display: inline-block;
+      @include position(center);
       @include circle(10px);
+      display: inline-block;
 
       &--active {
-        @include position(center);
         background-color: $c-main;
       }
     }
   }
 
-  &__label {
-    display: inline-block;
-    vertical-align: middle;
-    padding-left: 5px;
-    @include font-style($c-assist, 14px);
+  &__content {
+    flex: 1;
+    margin-left: 5px;
+
+    &__label {
+      @include font-style($c-assist, 14px);
+    }
   }
 }
 </style>
