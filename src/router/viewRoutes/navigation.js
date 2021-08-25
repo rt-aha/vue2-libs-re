@@ -11,7 +11,7 @@ export default [
         name: 'navigation-tabs',
         component: () => import(/* webpackChunkName: "navigation-tabs" */ '@/views/navigation/Tabs.vue'),
         meta: {
-          title: '輸入框 ReTabs',
+          title: '頁籤 ReTabs',
           authGroup: 'navigation',
           authItem: 'navigation-tabs',
         },
