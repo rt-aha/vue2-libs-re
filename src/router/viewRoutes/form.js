@@ -127,6 +127,17 @@ export default [
           authItem: 'form-textarea',
         },
       },
+      {
+        path: 'email-auto-complete',
+        name: 'form-email-auto-complete',
+        component: () =>
+          import(/* webpackChunkName: "form-email-auto-complete" */ '@/views/form/EmailAutoComplete.vue'),
+        meta: {
+          title: 'Email自動完成 ReEmailAutoComplete',
+          authGroup: 'form',
+          authItem: 'form-email-auto-complete',
+        },
+      },
     ],
     meta: {
       title: '表單 Form',

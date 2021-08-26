@@ -6,8 +6,6 @@ function vld({ value = '', ruleList = [], ruleError = {}, options, label }) {
     label,
   };
 
-  console.log('ruleError', ruleError);
-
   validator.add(value, ruleList, ruleError, opts);
   const result = validator.start();
 

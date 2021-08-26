@@ -1,3 +1,4 @@
+import regExps from '@/utils/validate/regExp';
 // 測試用 start
 export const t1 = (value, errMsg, rule, args) => {
   if (value.length > 3) {
@@ -25,6 +26,22 @@ export const vldRequired = (value, errMsg, rule, args) => {
 export const vldLengthMoreThen = (value, errMsg, rule, args = 6) => {
   if (value.length >= args) {
     return true;
+  }
+
+  return false;
+};
+
+export const vldEmail = (value, errMsg, rule, args) => {
+  if (value) {
+    return regExps.email.test(value);
+  }
+
+  return false;
+};
+
+export const vldAllEmail = (value, errMsg, rule, args) => {
+  if (value) {
+    return value.every((item) => regExps.email.test(item.value));
   }
 
   return false;

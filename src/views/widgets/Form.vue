@@ -30,23 +30,25 @@
       <re-form-item label="手續費" prop="fee">
         <re-input-number v-model="form.fee" placeholder="請輸入手續費" />
       </re-form-item>
-      <!--<re-form-item label="日期" prop="date">
+      <!-- <re-form-item label="日期" prop="date">
         <re-date-picker v-model="form.date" />
-      </re-form-item>
+      </re-form-item> -->
       <re-form-item label="時間" prop="time">
         <re-time-picker v-model="form.time" />
       </re-form-item>
-      <re-form-item label="日期時間" prop="dateTime">
+      <!--<re-form-item label="日期時間" prop="dateTime">
         <re-date-time-picker v-model="form.dateTime" />
-      </re-form-item>
-      <re-form-item label="水果列表" prop="fruitList">
-        <re-input-list v-model="form.fruitList" />
       </re-form-item>-->
+      <re-form-item label="Email 列表" prop="emailList">
+        <re-input-list v-model="form.emailList" />
+      </re-form-item>
 
       <re-form-item label="備註" prop="memo">
         <re-textarea v-model="form.memo" />
       </re-form-item>
-
+      <re-form-item label="Email" prop="email">
+        <re-email-auto-complete v-model="form.email" :options="domainList" />
+      </re-form-item>
       <re-button @click.prevent="submit">送出</re-button>
     </re-form>
   </div>
@@ -55,7 +57,8 @@
 <script>
 import { vld, asyncVld } from '@/utils/validate/vld';
 import { getUsersAPI } from '@/api/test';
-import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree } from './test-config';
+import regExps from '@/utils/validate/regExp';
+import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree, domainList } from './test-config';
 
 export default {
   name: 'ReFormTesting',
@@ -65,6 +68,7 @@ export default {
       radioOptions,
       checkboxOptions,
       checkboxOptionsAgree,
+      domainList,
       labelConfig: {
         position: 'left', // top, left
         width: '80',
@@ -131,7 +135,7 @@ export default {
         // },
         // {
         //   label: '水果列表',
-        //   prop: 'fruitList',
+        //   prop: 'emailList',
         //   value: [],
         //   type: 'input-list',
         // },
@@ -153,8 +157,9 @@ export default {
         date: new Date(),
         time: new Date(),
         dateTime: new Date(),
-        fruitList: [],
+        emailList: [],
         memo: '',
+        email: '',
       },
       rules: {
         name: {
@@ -215,7 +220,10 @@ export default {
         },
         time: {
           message: '請選擇時間',
-          validator: (rule, value) => !value,
+          validator: (rule, value) => {
+            console.log('val..', value);
+            return value;
+          },
           // trigger: ['change'],
         },
         dateTime: {
@@ -223,17 +231,32 @@ export default {
           validator: (rule, value) => !value,
           // trigger: ['change'],
         },
-        fruitList: {
-          message: '請選擇水果，不可有空值',
-          validator: (rule, value, cb, src, options) => {
-            if (options.event === 'remove') return true;
-            return value.every((item) => item.value.length > 0);
-          },
+        emailList: {
+          // message: '請輸入 0~1 個 email',
+          // validator: (rule, value, cb, src, options) => {
+          //   if (options.event === 'remove') return true;
+          //   return value.every((item) => regExps.email.test(item));
+          // },
+          validator: (rule, value, cb, src, options) =>
+            vld({
+              value,
+              ruleList: ['vldAllEmail'],
+              options,
+            }),
           trigger: ['blur'], // FIXED: 這裡寫了change會噴錯
         },
         memo: {
           message: '請填寫備註',
           validator: (rule, value) => value.length > 0,
+          trigger: ['change', 'input'],
+        },
+        email: {
+          validator: (rule, value, cb, src, options) =>
+            vld({
+              value,
+              ruleList: ['vldRequired', 'vldEmail'],
+              options,
+            }),
           trigger: ['change', 'input'],
         },
       },
