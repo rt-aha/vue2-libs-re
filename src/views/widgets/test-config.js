@@ -120,7 +120,6 @@ export const limitedCheckboxOptions = [
   {
     label: '多選5',
     value: 5,
-
   },
 ];
 
@@ -158,7 +157,21 @@ export const treeList = [
           },
         ],
       },
-
     ],
+  },
+];
+
+export const domainList = [
+  {
+    value: 'gmail.com',
+    label: 'gmail.com',
+  },
+  {
+    value: 'yahoo.com',
+    label: 'yahoo.com',
+  },
+  {
+    value: 'msn.com',
+    label: 'msn.com',
   },
 ];

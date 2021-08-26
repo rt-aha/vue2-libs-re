@@ -16,7 +16,7 @@
     <span class="re-button__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
     </span>
-    <span class="re-button__content" :class="[{'re-button__content--circle': extra === 'circle'}]">
+    <span class="re-button__content" :class="[{ 're-button__content--circle': extra === 'circle' }]">
       <slot></slot>
     </span>
     <span class="re-button__suffix" v-if="$slots.suffix">
@@ -119,7 +119,6 @@ export default {
     handleClick(e) {
       this.$emit('click', e);
     },
-
   },
 };
 </script>
@@ -129,10 +128,10 @@ export default {
   @include box-padding(8px 16px);
   @include set-btn-default();
   @include font-style($c-white, 14px);
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
+  /* align-items: center; */
   position: relative;
-  border: 0px;
+  border: 0;
 
   &:hover {
     opacity: 0.8;
@@ -157,8 +156,10 @@ export default {
   }
 
   &--round {
+    border-radius: 4px;
+
     &--none {
-      border-radius: 0px;
+      border-radius: 0;
     }
 
     &--default {
@@ -185,12 +186,8 @@ export default {
   }
 
   &--disabled {
-    cursor: not-allowed;
     opacity: 0.5;
-  }
-
-  &--round {
-    border-radius: 4px;
+    cursor: not-allowed;
   }
 
   &__prefix {
@@ -213,14 +210,14 @@ export default {
 
   &__loading {
     &__icon {
-      margin-left: 4px;
-      box-sizing: border-box;
       display: inline-block;
+      box-sizing: border-box;
       width: 10px;
       height: 10px;
+      margin-left: 4px;
       border: 1px solid $c-white;
-      border-radius: 50%;
       border-left-color: transparent;
+      border-radius: 50%;
       animation: btn-loading 2s linear infinite;
 
       &--main-color {

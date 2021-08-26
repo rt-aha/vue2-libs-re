@@ -268,3 +268,18 @@ export const meatOptions = meatData.map((item) => ({
   disabled: false,
   meatData: item,
 }));
+
+export const domainList = [
+  {
+    value: 'gmail.com',
+    label: 'gmail.com',
+  },
+  {
+    value: 'yahoo.com',
+    label: 'yahoo.com',
+  },
+  {
+    value: 'msn.com',
+    label: 'msn.com',
+  },
+];
