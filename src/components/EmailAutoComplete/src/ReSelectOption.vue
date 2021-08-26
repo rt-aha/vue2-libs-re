@@ -75,7 +75,7 @@ export default {
 
   &:not([data-disabled-status='true']) {
     &:hover {
-      background-color: rgba($c-orange, 0.2);
+      background-color: rgba($c-main, 0.2);
     }
   }
 
@@ -84,7 +84,7 @@ export default {
   }
 
   &--active {
-    background-color: rgba($c-orange, 0.2);
+    background-color: rgba($c-main, 0.2);
   }
 
   &__remove {

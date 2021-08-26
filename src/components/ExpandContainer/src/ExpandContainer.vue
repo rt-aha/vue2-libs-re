@@ -46,9 +46,10 @@ export default {
     margin-top: 5px;
     background-color: $c-white;
     box-sizing: border-box;
-    border: 1px solid $c-main;
+    border: 1px solid #cdcdcd;
     border-radius: 4px;
     overflow: auto;
+    box-shadow: 0 0 10px #cdcdcd;
   }
 }
 </style>

@@ -1,14 +1,7 @@
 <template>
   <div class="re-select">
     <div class="re-select__input">
-      <input
-        class="re-select__input__field"
-        v-model="emailValue"
-        @click.stop
-        @input="handleChange"
-        @change="handleChange"
-        @focus="expandOptions"
-      />
+      <re-input v-model="emailValue" @click.stop @input="handleChange" @change="handleChange" @focus="expandOptions" />
     </div>
     <re-expand-container :visible.sync="isExpand">
       <div class="re-select__option__content">
@@ -29,20 +22,13 @@
 </template>
 
 <script>
-import ReSelectOption from '@/components/global/ReEmailAutoComplete/ReSelectOption.vue';
-import ReExpandContainer from '@/components/global/ReEmailAutoComplete/ReExpandContainer.vue';
-import CategoryTitle from '@/components/global/ReEmailAutoComplete/CategoryTitle.vue';
+import ReSelectOption from '@/components/EmailAutoComplete/src/ReSelectOption.vue';
+import CategoryTitle from '@/components/EmailAutoComplete/src/CategoryTitle.vue';
 
 export default {
-  $_veeValidate: {
-    value() {
-      return this.emailValue;
-    },
-  },
   name: 'ReEmailAutoComplete',
   components: {
     ReSelectOption,
-    ReExpandContainer,
   },
   props: {
     disabled: {
@@ -96,9 +82,7 @@ export default {
       const emailOptions = JSON.parse(storageOptions);
 
       // 要移除的 domain
-      const filterOptions = emailOptions.filter((item) => {
-        return item.value !== val;
-      });
+      const filterOptions = emailOptions.filter((item) => item.value !== val);
 
       if (filterOptions.length === 0) {
         localStorage.removeItem('laborRewardEmail');
@@ -116,11 +100,11 @@ export default {
 
       this.isExpand = true;
     },
-    handleChange(e) {
-      this.$emit('input', e.target.value);
+    handleChange(value) {
+      this.$emit('input', value);
 
       if (this.disabled) return;
-      if (!e.target.value || this.emailValue.split('@').length !== 2) {
+      if (!value || this.emailValue.split('@').length !== 2) {
         this.isExpand = false;
         return;
       }
@@ -151,7 +135,7 @@ export default {
           render: () => CategoryTitle,
           label: 'historyTitle',
           value: '222',
-          title: '曾使用 Email（儲存上限 100 筆）',
+          title: '曾使用 Email',
           disabled: true,
         };
 
@@ -169,14 +153,10 @@ export default {
       });
 
       if (domain) {
-        const isMatchDomain = this.emailDomains.some((item) => {
-          return item.value.includes(domain);
-        });
+        const isMatchDomain = this.emailDomains.some((item) => item.value.includes(domain));
 
         if (isMatchDomain) {
-          this.extraOptions = this.extraOptions.filter((item) => {
-            return item.value.includes(domain);
-          });
+          this.extraOptions = this.extraOptions.filter((item) => item.value.includes(domain));
         }
       }
     },
@@ -199,8 +179,8 @@ export default {
 
 <style lang="scss">
 .re-select {
-  width: 100%;
   position: relative;
+  width: 100%;
 
   &__input {
     width: 100%;
@@ -209,26 +189,26 @@ export default {
     &__field {
       @include box-padding(10px);
       width: 100%;
-      border-radius: 10px;
-      border: 2px solid $c-orange;
       background: $c-white;
+      border: 2px solid $c-main;
+      border-radius: 10px;
     }
   }
 
   &__option {
+    @include position(tl, 100%, 0);
+    z-index: 100;
     margin-top: 5px;
-    @include position(tl, 100%, 0px);
+    background-color: $c-white;
     border: 1px solid $c-main;
     border-radius: 4px;
     overflow: hidden;
-    z-index: 100;
-    background-color: $c-white;
 
     &__content {
+      position: relative;
       height: auto;
       max-height: 200px;
       overflow: auto;
-      position: relative;
     }
   }
 }
