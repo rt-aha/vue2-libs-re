@@ -1,14 +1,8 @@
 <template>
-  <div class="r-time-picker">
-    <re-input
-      :value="timeString"
-      :style="{ width: '200px' }"
-      placeholder="請選擇時間"
-      readonly
-      @click.stop="openTimeList"
-    />
+  <div class="re-time-picker">
+    <re-input :value="timeString" placeholder="請選擇時間" readonly @click.stop="openTimeList" />
     <re-expand-container :visible.sync="visible">
-      <re-time-list :value="innerValue" @input="handleInput" ref="timelist"/>
+      <re-time-list :value="innerValue" @input="handleInput" ref="timelist" />
     </re-expand-container>
   </div>
 </template>
@@ -69,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.r-time-picker {
+.re-time-picker {
   position: relative;
 }
 .time-list-wrapper {

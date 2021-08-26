@@ -1,32 +1,21 @@
 <template>
   <div class="r-time-list">
     <div class="time-list">
-      <div class="time-list__col time-list__hour"
-        ref="tlh"
-        @scroll="setPositionDebounce('tlh')">
-        <span  class="time-list__col__item time-list__hour__item"
-         v-for="(h, index) of timeList.h" :key="h + index">
-          {{h}}
+      <div class="time-list__col time-list__hour" ref="tlh" @scroll="setPositionDebounce('tlh')">
+        <span class="time-list__col__item time-list__hour__item" v-for="(h, index) of timeList.h" :key="h + index">
+          {{ h }}
         </span>
       </div>
-      <div class="time-list__col time-list__minute"
-        ref="tlm"
-        @scroll="setPositionDebounce('tlm')">
-        <span  class="time-list__col__item time-list__minute__item"
-          v-for="(m, index) of timeList.m" :key="m + index">
-          {{m}}
-        </span>
-
-      </div>
-      <div class="time-list__col time-list__second"
-        ref="tls"
-        @scroll="setPositionDebounce('tls')">
-        <span class="time-list__col__item time-list__second__item"
-         v-for="(s,index) of timeList.s" :key="s + index">
-          {{s}}
+      <div class="time-list__col time-list__minute" ref="tlm" @scroll="setPositionDebounce('tlm')">
+        <span class="time-list__col__item time-list__minute__item" v-for="(m, index) of timeList.m" :key="m + index">
+          {{ m }}
         </span>
       </div>
-
+      <div class="time-list__col time-list__second" ref="tls" @scroll="setPositionDebounce('tls')">
+        <span class="time-list__col__item time-list__second__item" v-for="(s, index) of timeList.s" :key="s + index">
+          {{ s }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -48,7 +37,9 @@ export default {
     return {
       isInit: false,
       timeList: {
-        h, m, s,
+        h,
+        m,
+        s,
       },
       timeValue: {
         h: '00',
@@ -139,73 +130,63 @@ export default {
       }
     },
   },
-
 };
 </script>
 
 <style lang="scss" scoped>
 $item-height: 30px;
-/* $item-width: $item-height *2; */
 
 .r-time-list {
   background-color: $c-white;
-
-  width: 200px;
 }
 
 .time-list {
-  width: 100%;
   display: inline-flex;
-  height: $item-height * 7;
   position: relative;
+  width: 100%;
+  height: $item-height * 7;
   box-sizing: border-box;
 
   &::before {
     content: '';
-    background-color: #ccc;
-    width: 180px;
-    height: 1px;
     position: absolute;
     top: $item-height * 3;
     left: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
     transform: translateX(-50%);
-    /* box-shadow: 0px 1px 10px rgba($c-black, .5); */
   }
 
   &::after {
     content: '';
-    background-color: #ccc;
-    width: 180px;
-    height: 1px;
     position: absolute;
     top: $item-height * 4 - 1;
     left: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
     transform: translateX(-50%);
-    /* box-shadow: 0px 1px 10px rgba($c-black, .5); */
   }
 
   &__col {
     display: inline-block;
     vertical-align: top;
-    /* width: $item-width; */
     flex: 1;
     height: 100%;
-    overflow-y: auto;
     font-size: 0;
+    overflow-y: auto;
 
     &__item {
+      @include font-style($c-assist, 14px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      text-align: center;
       height: $item-height;
-      @include font-style($c-assist, 14px);
+      text-align: center;
       box-sizing: border-box;
-      /* border: 1px solid #f00; */
-
     }
-
   }
 
   &__minute {
@@ -214,6 +195,5 @@ $item-height: 30px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
   }
-
 }
 </style>
