@@ -30,15 +30,15 @@
       <re-form-item label="手續費" prop="fee">
         <re-input-number v-model="form.fee" placeholder="請輸入手續費" />
       </re-form-item>
-      <!-- <re-form-item label="日期" prop="date">
+      <re-form-item label="日期" prop="date">
         <re-date-picker v-model="form.date" />
-      </re-form-item> -->
+      </re-form-item>
       <re-form-item label="時間" prop="time">
         <re-time-picker v-model="form.time" />
       </re-form-item>
-      <!--<re-form-item label="日期時間" prop="dateTime">
+      <re-form-item label="日期時間" prop="dateTime">
         <re-date-time-picker v-model="form.dateTime" />
-      </re-form-item>-->
+      </re-form-item>
       <re-form-item label="Email 列表" prop="emailList">
         <re-input-list v-model="form.emailList" />
       </re-form-item>
@@ -61,7 +61,7 @@ import regExps from '@/utils/validate/regExp';
 import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree, domainList } from './test-config';
 
 export default {
-  name: 'ReFormTesting',
+  name: 'ReWidgetForm',
   data() {
     return {
       selectOptions,
@@ -215,7 +215,7 @@ export default {
         },
         date: {
           message: '請選擇日期',
-          validator: (rule, value) => !value,
+          validator: (rule, value) => value,
           // trigger: ['change'],
         },
         time: {
