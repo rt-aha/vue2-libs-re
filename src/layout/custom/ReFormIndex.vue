@@ -29,12 +29,13 @@ export default {
 }
 
 .router-view-wrap {
-  flex: 1;
+  flex: none;
+  width: auto;
+  min-width: 420px;
 }
 
 .form-demo-wrap {
-  flex: none;
-  width: 500px;
+  flex: 1;
   height: 100%;
   margin-left: 30px;
 }

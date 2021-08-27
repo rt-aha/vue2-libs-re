@@ -9,3 +9,4 @@ export const vldLengthMoreThen = (args) => `長度需大於${args}位數`;
 export const vldEmail = (args) => '請填寫正確格式的 Email';
 
 export const vldAllEmail = (args) => '所有輸入框都必須符合 Email 格式';
+export const vldOnlyOneAvatar = (args) => '請上傳一張照片';

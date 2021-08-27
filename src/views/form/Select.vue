@@ -1,7 +1,7 @@
 <template>
   <div class="page-select">
     <re-dev-sheet>
-      <re-dev-desc>一般使用，含一個自定義</re-dev-desc>
+      <re-dev-desc>基本使用，含一個自定義</re-dev-desc>
       <re-select v-model="select1" :options="selectOptions" />
     </re-dev-sheet>
     <re-dev-sheet>

@@ -10,10 +10,7 @@
   >
     <label
       class="re-form-item__label"
-      :class="[
-        labelConfig().position === 'left' &&
-          `re-form-item__label--${labelConfig().textAlign}`,
-      ]"
+      :class="[labelConfig().position === 'left' && `re-form-item__label--${labelConfig().textAlign}`]"
       :style="`width: ${labelWidthValue}`"
     >
       {{ $attrs.label }}
@@ -52,7 +49,7 @@ export default {
   data() {
     return {
       isPassValidate: true,
-      addLabelPaddingList: ['ReTextarea', 'ReInputList'],
+      addLabelPaddingList: ['ReTextarea', 'ReInputList', 'ReUpload'],
       currFormItemChildrenName: [],
       errMsgText: '',
       validateStatus: true,
@@ -96,7 +93,6 @@ export default {
     itemRule() {
       return { [this.prop]: this.reForm.rules[this.prop] };
     },
-
   },
   methods: {
     validateValue(val) {
@@ -137,18 +133,21 @@ export default {
 
       return new Promise((resolve) => {
         try {
-          validator.validate(valueObj, options, (errors, fields) => {
-            if (errors) {
-              this.handleErrors(errors, fields);
-            } else {
-              this.validatePass();
-            }
-          }).then(() => {
-            // 通過直接回true
-            resolve(true);
-          }).catch(() => {
-            resolve(false);
-          });
+          validator
+            .validate(valueObj, options, (errors, fields) => {
+              if (errors) {
+                this.handleErrors(errors, fields);
+              } else {
+                this.validatePass();
+              }
+            })
+            .then(() => {
+              // 通過直接回true
+              resolve(true);
+            })
+            .catch(() => {
+              resolve(false);
+            });
         } catch (e) {
           resolve(false);
         }
@@ -159,7 +158,6 @@ export default {
         this.currFormItemChildrenName.push(ele.$options.name);
       });
     },
-
   },
 
   mounted() {
@@ -169,7 +167,7 @@ export default {
 </script>
 
 <style lang="scss">
-$form-item: ".re-form-item";
+$form-item: '.re-form-item';
 
 .re-form-item {
   display: flex;
@@ -217,12 +215,11 @@ $form-item: ".re-form-item";
 
   // 一般情況下，form item高度最高為40px(最大的input),
   // 但content中的高度若高於40，label置中會有點微妙，所以這裡移除置中並設一點margin
-   &--top-padding {
+  &--top-padding {
     align-items: flex-start;
 
     > #{$form-item}__label {
       margin-top: 11px;
-
     }
   }
 
@@ -237,7 +234,6 @@ $form-item: ".re-form-item";
     &--right {
       text-align: right;
     }
-
   }
 
   &__box {

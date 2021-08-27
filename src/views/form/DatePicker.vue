@@ -1,6 +1,9 @@
 <template>
   <div class="page-date-picker">
-    <re-date-picker v-model="dateValue" />
+    <re-dev-sheet>
+      <re-dev-desc>基本使用</re-dev-desc>
+      <re-date-picker v-model="dateValue" />
+    </re-dev-sheet>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="page-input">
     <re-dev-sheet>
-      <re-dev-desc>一般使用</re-dev-desc>
+      <re-dev-desc>基本使用</re-dev-desc>
       <re-input v-model="val.input" placeholder="請輸入姓名" />
     </re-dev-sheet>
     <re-dev-sheet>

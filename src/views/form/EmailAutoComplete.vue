@@ -1,6 +1,9 @@
 <template>
   <div class="page-email-auto-complete">
-    <re-email-auto-complete v-model="emailValue" :options="domainList" />
+    <re-dev-sheet>
+      <re-dev-desc>基本使用</re-dev-desc>
+      <re-email-auto-complete v-model="emailValue" :options="domainList" />
+    </re-dev-sheet>
   </div>
 </template>
 

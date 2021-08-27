@@ -46,3 +46,11 @@ export const vldAllEmail = (value, errMsg, rule, args) => {
 
   return false;
 };
+
+export const vldOnlyOneAvatar = (value, errMsg, rule, args) => {
+  if (value) {
+    return value.length === 1;
+  }
+
+  return false;
+};
