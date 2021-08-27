@@ -11,10 +11,7 @@
       >
         <div class="re-table-wrapper__normal__header">
           <table class="table" :style="{ width: fullTableWidthValue }">
-            <re-table-col-group
-              :columnsConfig="reOrderColumnConfig"
-              :columnsWidthMapping="columnsWidthMapping"
-            />
+            <re-table-col-group :columnsConfig="reOrderColumnConfig" :columnsWidthMapping="columnsWidthMapping" />
             <re-table-header
               :tableData="tableData"
               :columnsConfig="reOrderColumnConfig"
@@ -24,10 +21,7 @@
         </div>
         <div class="re-table-wrapper__normal__content">
           <table class="table" :style="{ width: fullTableWidthValue }">
-            <re-table-col-group
-              :columnsConfig="reOrderColumnConfig"
-              :columnsWidthMapping="columnsWidthMapping"
-            />
+            <re-table-col-group :columnsConfig="reOrderColumnConfig" :columnsWidthMapping="columnsWidthMapping" />
 
             <re-table-body
               :tableData="tableData"
@@ -37,19 +31,6 @@
               :maxHeight="maxHeight"
               :scopedSlotList="scopedSlotList"
             >
-              <span
-                :slot="col.prop"
-                slot-scope="scope"
-                v-for="col of columnsConfig"
-                :key="col.prop"
-              >
-                <slot
-                  :name="col.prop"
-                  :data="{
-                    ...scope.data,
-                  }"
-                ></slot>
-              </span>
             </re-table-body>
           </table>
         </div>
@@ -59,61 +40,53 @@
         class="re-table-wrapper__fixed"
         v-if="tableContentWidth > fullTableWidth"
         ref="fixedTable"
-        :style="{ width: `${fixedTableWidth}px`,height: `${maxHeight ? maxHeight + 'px' : 'auto'}` }"
+        :style="{ width: `${fixedTableWidth}px`, height: `${maxHeight ? maxHeight + 'px' : 'auto'}` }"
         @scroll="(e) => handleTableScroll(e, 'normalTable')"
-
       >
-       <div class="re-table-wrapper__fixed__content">
-
-        <div class="re-table-wrapper__fixed__header">
-          <table class="table" :style="{ width: fullTableWidthValue }">
-            <re-table-col-group
-              :columnsConfig="reOrderColumnConfig"
-              :columnsWidthMapping="columnsWidthMapping"
-              :isFixedColumn="true"
-            />
-            <re-table-header
-              :tableData="tableData"
-              :columnsConfig="reOrderColumnConfig"
-              :hasFixedColumn="hasFixedColumn"
-              :isFixedColumn="true"
-            />
-          </table>
-        </div>
         <div class="re-table-wrapper__fixed__content">
+          <div class="re-table-wrapper__fixed__header">
+            <table class="table" :style="{ width: fullTableWidthValue }">
+              <re-table-col-group
+                :columnsConfig="reOrderColumnConfig"
+                :columnsWidthMapping="columnsWidthMapping"
+                :isFixedColumn="true"
+              />
+              <re-table-header
+                :tableData="tableData"
+                :columnsConfig="reOrderColumnConfig"
+                :hasFixedColumn="hasFixedColumn"
+                :isFixedColumn="true"
+              />
+            </table>
+          </div>
+          <div class="re-table-wrapper__fixed__content">
+            <table class="table" :style="{ width: fullTableWidthValue }">
+              <re-table-col-group
+                :columnsConfig="reOrderColumnConfig"
+                :columnsWidthMapping="columnsWidthMapping"
+                :isFixedColumn="true"
+              />
 
-          <table class="table" :style="{ width: fullTableWidthValue }">
-            <re-table-col-group
-              :columnsConfig="reOrderColumnConfig"
-              :columnsWidthMapping="columnsWidthMapping"
-              :isFixedColumn="true"
-            />
-
-            <re-table-body
-              :tableData="tableData"
-              :columnsConfig="reOrderColumnConfig"
-              :stripe="stripe"
-              :rowColor="rowColor"
-              :maxHeight="maxHeight"
-              :scopedSlotList="scopedSlotList"
-              :isFixedColumn="true"
-            >
-              <span
-                :slot="col.prop"
-                slot-scope="scope"
-                v-for="col of columnsConfig"
-                :key="col.prop"
+              <re-table-body
+                :tableData="tableData"
+                :columnsConfig="reOrderColumnConfig"
+                :stripe="stripe"
+                :rowColor="rowColor"
+                :maxHeight="maxHeight"
+                :scopedSlotList="scopedSlotList"
+                :isFixedColumn="true"
               >
-                <slot
-                  :name="col.prop"
-                  :data="{
-                    ...scope.data,
-                  }"
-                ></slot>
-              </span>
-            </re-table-body>
-          </table>
-        </div>
+                <span :slot="col.prop" slot-scope="scope" v-for="col of columnsConfig" :key="col.prop">
+                  <slot
+                    :name="col.prop"
+                    :data="{
+                      ...scope.data,
+                    }"
+                  ></slot>
+                </span>
+              </re-table-body>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -288,19 +261,18 @@ export default {
 </script>
 
 <style lang="scss">
-.re-table {
-}
+/* .re-table {
+} */
 
 .re-table-wrapper {
   display: block;
-  width: 100%;
   position: relative;
+  width: 100%;
   overflow: hidden;
-  /* height: 500px; */
 
   &::-webkit-scrollbar {
-    width: 0;
     display: none;
+    width: 0;
   }
 
   &__normal {
@@ -311,8 +283,8 @@ export default {
     &__header {
       position: sticky;
       top: 0;
-      background-color: $c-white;
       z-index: 99;
+      background-color: $c-white;
     }
 
     &__content {
@@ -321,22 +293,22 @@ export default {
   }
 
   &__fixed {
+    @include position(tr, 0, 0);
+    z-index: 99;
+    height: 500px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 500px;
-    @include position(tr, 0, 0px);
-    z-index: 99;
 
     &::-webkit-scrollbar {
-      width: 0;
       display: none;
+      width: 0;
     }
 
     &__header {
       position: sticky;
       top: 0;
-      background-color: $c-white;
       z-index: 99;
+      background-color: $c-white;
     }
 
     &__content {
@@ -348,8 +320,6 @@ export default {
 
 .table {
   table-layout: fixed;
-  /* word-wrap: break-word; */
   word-break: break-all;
 }
-
 </style>
