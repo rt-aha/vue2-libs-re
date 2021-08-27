@@ -1,27 +1,31 @@
 <template>
-  <div class="r-upload-image">
-    <div class="image-upload-box">
+  <div class="re-upload-file">
+    <div class="upload-box">
       <input
-        id="photoFile"
         type="file"
-        class="video-input"
+        class="file-input"
+        :ref="inputUuid"
         :multiple="multiple && 'multiple'"
         @change="handleFileChange"
-        @click="handleClick"
+        :disabled="isDisabled"
       />
+      <!-- @click="handleClick" -->
 
-      <label class="default-box" for="photoFile">
-        <div class="default-content-cell">
-          <div class="plus-box">
-            <div class="plus-box__icon"></div>
-          </div>
-          <p class="label-cell">上傳</p>
-          <p class="label-cell">圖片/影片</p>
-        </div>
-      </label>
+      <!-- FIXED: 不知為何包了 re-button/button 無法生效-->
+
+      <div class="trigger-scope" @click="handleClick">
+        <slot>
+          <re-button @click.prevent>
+            <div class="btn-wrap">
+              <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
+              <span class="btn-wrap__upload">上傳</span>
+            </div>
+          </re-button>
+        </slot>
+      </div>
     </div>
 
-    <div class="image-preview-box-wrapper" v-if="preview.use">
+    <div class="preview-box-wrapper" v-if="preview.use">
       <re-preview-box
         v-for="(attachment, index) of attachments"
         :key="attachment.name + index"
@@ -35,10 +39,16 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import triggerValidate from '@/mixins/triggerValidate';
 
 export default {
   name: 'ReUpload',
+  mixins: [triggerValidate],
   props: {
+    value: {
+      type: Array,
+      default: () => [],
+    },
     // 允許上傳多個圖片
     multiple: {
       type: Boolean,
@@ -90,15 +100,26 @@ export default {
       attachments: [],
       files: [],
       acceptExt: [],
+      inputUuid: uuid(), // 避免同個頁面有兩個 re-upload 導致，id-for 關聯錯誤
     };
   },
-  created() {
-    this.init();
+
+  computed: {
+    isDisabled() {
+      if (!this.multiple) {
+        if (this.attachments.length === 1) {
+          return true;
+        }
+      }
+
+      return false;
+    },
   },
-  computed: {},
   methods: {
     init() {
-      // this.acceptExt = this.accept.replace(' ', '').split(',');
+      if (this.value.length !== 0) {
+        this.attachments = this.value;
+      }
     },
     isAllowedUpdate(type) {
       if (type === 'single') {
@@ -110,11 +131,7 @@ export default {
           return true;
         }
 
-        if (
-          this.multiple
-          && this.files.length + this.attachments.length
-            > this.uploadCountLimit
-        ) {
+        if (this.multiple && this.files.length + this.attachments.length > this.uploadCountLimit) {
           return true;
         }
       }
@@ -142,8 +159,23 @@ export default {
 
       return false;
     },
+    handleMessage(info) {
+      const { code, errorMessage } = info;
+
+      this.$emit('handleMessage', {
+        isDisabled: this.isDisabled,
+        error: {
+          code,
+          message: errorMessage,
+        },
+      });
+    },
+    updateValue() {
+      this.$emit('input', this.attachments);
+      this.triggerValidate('change', this.attachments);
+      this.handleMessage({});
+    },
     updateFiles(file, fileName, fileSize, fileType) {
-      console.log('fileType', fileType);
       const name = this.preview.name ? fileName : '';
       const size = this.preview.size ? `${(fileSize / 1024).toFixed(2)}Kb` : '';
 
@@ -154,37 +186,48 @@ export default {
         file,
         type: fileType,
       });
+      this.updateValue();
     },
     removeFile(id) {
       this.attachments = this.attachments.filter((ele) => ele.id !== id);
+      this.updateValue();
+      this.handleMessage({});
     },
     handleClick(e) {
-      e.target.value = null;
+      this.$refs[this.inputUuid].value = null;
+      this.$refs[this.inputUuid].click();
     },
     handleFileChange(event) {
-      console.log('image!');
       this.files = event.target.files;
       // 僅能上傳一張時，判斷是否已上傳
       if (this.isAllowedUpdate('single')) {
-        console.error('檔案上傳限制1張');
+        const err = '檔案上傳限制1張';
+        console.error(err);
+        this.handleMessage({ code: 1, errorMessage: err });
         return;
       }
 
       // 可上傳多張時，判斷是否是否已達上傳個數限制
       if (this.isAllowedUpdate('multiple')) {
-        console.error(`檔案上傳限制${this.uploadCountLimit}張`);
+        const err = `檔案上傳限制${this.uploadCountLimit}張`;
+        console.error(err);
+        this.handleMessage({ code: 2, errorMessage: err });
         return;
       }
 
       // 驗證副檔名是否正確
       if (this.isAllowedUpdate('ext')) {
-        console.error('不支援该格式，请确认');
+        const err = '不支援該格式，請確認';
+        console.error(err);
+        this.handleMessage({ code: 3, errorMessage: err });
         return;
       }
 
       // 驗證檔案大小是否過大
       if (this.isAllowedUpdate('size')) {
-        console.error(`請勿上傳超過${this.uploadSizeLimit}Kb的檔案`);
+        const err = `請勿上傳超過${this.uploadSizeLimit}Kb的檔案`;
+        console.error(err);
+        this.handleMessage({ code: 4, errorMessage: err });
         return;
       }
 
@@ -194,20 +237,13 @@ export default {
       const self = this;
 
       this.files.forEach((file) => {
-        console.log('file', file);
         const fileType = file.type.split('/')[1];
-        console.log('file', file);
-        console.log('fileType', fileType);
 
         if (this.accept.image.includes(fileType)) {
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = (e) => {
-            const {
-              use: useCompress,
-              limitWidth: w,
-              limitHeight: h,
-            } = self.compress;
+            const { use: useCompress, limitWidth: w, limitHeight: h } = self.compress;
             const targetResult = e.target.result;
 
             if (useCompress) {
@@ -233,7 +269,6 @@ export default {
       img.src = imgBase64Data;
       // 讀取完圖片後
       img.onload = () => {
-        // console.log('img', img);
         // 圖片原始尺寸
         const originWidth = img.width;
         const originHeight = img.height;
@@ -271,35 +306,39 @@ export default {
       };
     },
   },
+  created() {
+    this.init();
+    this.handleMessage({});
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .upload-desc {
-  font-size: 12px;
   color: $c-black;
+  font-size: 12px;
   margin-bottom: 5px;
 }
 
 .video-box {
+  display: inline-block;
+  position: relative;
   width: 100px;
   height: 100px;
+  margin-top: 10px;
+  margin-right: 10px;
   border-radius: 6px;
   overflow: hidden;
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-  margin-top: 10px;
 }
 
 .vidoe-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
   width: 100%;
   height: 100%;
   background-color: rgba($c-black, 0.5);
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 100;
 }
 
 .video-img {
@@ -319,33 +358,33 @@ export default {
   position: absolute;
   bottom: 5px;
   left: 50%;
+  z-index: 120;
   transform: translateX(-50%);
   width: 92px;
   height: 3px;
-  border-radius: 1.5px;
   background-color: rgba($c-black, 0.3);
-  z-index: 120;
+  border-radius: 1.5px;
 }
 
 .ing-persent {
+  width: 30%;
+  height: 3px;
   background-color: $c-main;
   border-radius: 1.5px;
-  height: 3px;
-  width: 30%;
 }
 
 .re-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   left: 50%;
+  z-index: 120;
   transform: translateX(-50%);
   width: 100px;
   height: 36px;
   background-color: rgba($c-black, 0.5);
-  z-index: 120;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   &__box {
   }
@@ -364,30 +403,8 @@ export default {
   }
 }
 
-.default-box {
-  width: 100px;
-  height: 100px;
-  border-radius: 6px;
-  overflow: hidden;
-  position: relative;
+.trigger-scope {
   display: inline-block;
-  justify-content: center;
-  align-items: center;
-  background-color: #f3f3f3;
-  margin-right: 10px;
-  margin-top: 10px;
-}
-
-.default-content-cell {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 6px;
-  overflow: hidden;
-  text-align: center;
-  width: 80px;
-  @include font-style($c-assist, 14px);
 }
 
 .plus-box {
@@ -400,60 +417,62 @@ export default {
     height: 40px;
 
     &::before {
+      @include position(center);
       content: '';
+      display: inline-block;
       width: 20px;
       height: 2px;
-      border-radius: 1px;
       background-color: $c-assist;
-      display: inline-block;
-      @include position(center);
+      border-radius: 1px;
     }
 
     &::after {
+      @include position(center);
       content: '';
+      display: inline-block;
       width: 2px;
       height: 20px;
-      border-radius: 1px;
       background-color: $c-assist;
-      display: inline-block;
-      @include position(center);
+      border-radius: 1px;
     }
   }
 }
 
-.img-cell {
-}
-
-.video-input {
+.file-input {
   display: none;
 }
 
 .label-cell {
   font-size: 14px;
   text-align: center;
+
+  & + & {
+    margin-top: 5px;
+  }
 }
 
 .photo-box {
   width: 100px;
   height: 100px;
-  overflow: hidden;
-  border-radius: 6px;
   background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .error-wrapper {
   width: 100%;
   height: 16px;
   line-height: 16px;
+
   &__text {
-    font-size: 12px;
     color: #f00;
+    font-size: 12px;
   }
 }
 
-.image-preview-box-wrapper {
+.preview-box-wrapper {
   width: 500px;
   margin-top: 10px;
 }

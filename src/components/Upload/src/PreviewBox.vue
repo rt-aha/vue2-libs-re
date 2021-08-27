@@ -1,11 +1,8 @@
 <template>
   <div class="r-preview-box">
     <div class="r-preview-box__content">
-      <div
-        class="r-preview-box__content__photo"
-        :style="`background-image: url(${snapImage || attachment.file });`"
-      />
-        <!-- v-if="$attrs.preview.image" -->
+      <div class="r-preview-box__content__photo" :style="`background-image: url(${snapImage || attachment.file});`" />
+      <!-- v-if="$attrs.preview.image" -->
       <p class="r-preview-box__content__info">
         <span v-if="$attrs.preview.name">{{ attachment.name }}</span>
         <span v-if="$attrs.preview.size">({{ attachment.size }})</span>
@@ -27,7 +24,6 @@
       <span class="r-preview-box__action__delete" @click="removeFile">刪除</span>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -54,7 +50,6 @@ export default {
           type: 'previewVideo',
           visible: false,
         },
-
       },
     };
   },
@@ -153,13 +148,8 @@ export default {
 
       fileReader.readAsArrayBuffer(this.attachment.file);
     },
-
   },
   mounted() {
-    // console.log('mounted ...');
-
-    console.log('this.attachment', this.attachment);
-
     if (this.attachment.type === 'video') {
       this.handlePreview();
     }
@@ -173,24 +163,23 @@ export default {
   margin-top: 5px;
 
   &__content {
-    flex: 1;
     @include flex();
+    flex: 1;
 
     &__photo {
+      display: inline-block;
       width: 30px;
       height: 30px;
-      overflow: hidden;
-      display: inline-block;
-      /* border-radius: 6px; */
       background-position: center;
-      background-size: cover;
       background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
     }
 
     &__info {
+      @include font-style($c-assist, 14px);
       display: inline-block;
       margin-left: 10px;
-      @include font-style($c-assist, 14px);
     }
   }
 
@@ -206,9 +195,5 @@ export default {
 
 .invisible-video {
   display: none;
-}
-.temp {
-  width: 300px;
-  height: 300px;
 }
 </style>
