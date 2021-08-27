@@ -143,6 +143,6 @@ export default [
       title: '表單 Form',
       authGroup: 'form',
     },
-    order: 2,
+    order: 3,
   },
 ];

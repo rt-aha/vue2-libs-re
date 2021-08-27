@@ -21,6 +21,6 @@ export default [
       title: '開發 dev',
       authGroup: 'dev',
     },
-    order: 3,
+    order: 9,
   },
 ];

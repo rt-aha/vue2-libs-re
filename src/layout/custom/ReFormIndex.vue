@@ -5,13 +5,13 @@
     </div>
 
     <div class="form-demo-wrap">
-      <form-page />
+      <form-page :hasDivide="true" />
     </div>
   </div>
 </template>
 
 <script>
-import FormPage from '@/views/widgets/Form.vue';
+import FormPage from '@/views/widget/Form.vue';
 
 export default {
   name: 'ReFormIndex',
@@ -35,8 +35,8 @@ export default {
 }
 
 .form-demo-wrap {
+  margin-left: 30px;
   flex: 1;
   height: 100%;
-  margin-left: 30px;
 }
 </style>

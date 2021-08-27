@@ -1,5 +1,5 @@
 <template>
-  <div class="page-form">
+  <div class="page-form" :class="{ 'page-form--divide-line': hasDivide }">
     <div class="page-form__loop">
       <re-title>Form模板 Widget (迴圈版)</re-title>
       <re-easy-form v-model="easyForm" :rules="rules" :labelConfig="labelConfig" ref="reEasyForm">
@@ -65,10 +65,16 @@
 import { vld, asyncVld } from '@/utils/validate/vld';
 import { getUsersAPI } from '@/api/test';
 import regExps from '@/utils/validate/regExp';
-import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree, domainList } from './test-config';
+import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree, domainList } from './formTestConfig';
 
 export default {
   name: 'ReWidgetForm',
+  props: {
+    hasDivide: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       selectOptions,
@@ -317,7 +323,10 @@ export default {
 .page-form {
   @include flex(flex-start, flex-start);
   @include box-padding(10px);
-  border-left: 1px solid #ccc;
+
+  &--divide-line {
+    border-left: 1px solid #ccc;
+  }
 
   &__loop {
     flex: 1;
