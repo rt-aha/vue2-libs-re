@@ -1,42 +1,16 @@
 <template>
   <div class="re-date-time-picker">
-    <re-input
-      :value="dateTimeString"
-      readonly
-      @click.stop="openCalendar"
-      cus-type="dateTimePicker"
-    />
-    <re-expand-container :visible.sync="visible" maxWidth="200">
-      <re-row justifyContent="flex-end">
-        <div class="picker-switcher">
-          <span
-            class="picker-switcher__item"
-            @click="showPicker('date')"
-            size="small"
-            type="plain"
-            >日期</span
-          >
-          <span
-            class="picker-switcher__item"
-            @click="showPicker('time')"
-            size="small"
-            type="plain"
-            >時間</span
-          >
-        </div>
-      </re-row>
-      <re-row>
-        <re-calendar
-          v-show="currPicker === 'date'"
-          :value="innerValue"
-          @input="handleDateInput"
-          :defaultDate="value"
-        />
-        <re-time-list
-          v-show="currPicker === 'time'"
-          :value="innerValue"
-          @input="handleTimeInput"
-        />
+    <re-input :value="dateTimeString" readonly @click.stop="openCalendar" cus-type="dateTimePicker" />
+    <re-expand-container :visible.sync="visible" maxHeight="auto">
+      <div class="picker-switcher">
+        <re-row :mt="false">
+          <span class="picker-switcher__item" @click="showPicker('date')" size="small" type="plain">日期</span>
+          <span class="picker-switcher__item" @click="showPicker('time')" size="small" type="plain">時間</span>
+        </re-row>
+      </div>
+      <re-row :mt="false">
+        <re-calendar v-show="currPicker === 'date'" :value="innerValue" @input="handleDateInput" :defaultDate="value" />
+        <re-time-list v-show="currPicker === 'time'" :value="innerValue" @input="handleTimeInput" />
       </re-row>
     </re-expand-container>
   </div>
@@ -94,7 +68,7 @@ export default {
     updateValue(fullValue) {
       this.$emit('input', fullValue);
       this.triggerValidate('change', fullValue);
-      this.closeCalendar();
+      // this.closeCalendar();
     },
     openCalendar() {
       this.visible = true;
@@ -126,11 +100,12 @@ export default {
 
 <style lang="scss">
 .re-date-time-picker {
-  position: ralative;
+  position: relative;
 }
 
 .picker-switcher {
-  @include box-padding(0 10px);
+  @include box-padding(10px);
+  border-bottom: 1px solid $c-lightgrey;
 
   &__item {
     @include font-style($c-main, 14px);

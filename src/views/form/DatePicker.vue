@@ -1,14 +1,16 @@
 <template>
   <div class="page-date-picker">
-    DatePicker
+    <re-date-picker v-model="dateValue" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'PageDatePicker',
+  data() {
+    return {
+      dateValue: new Date(),
+    };
+  },
 };
 </script>
-
-<style lang="scss">
-</style>

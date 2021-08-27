@@ -1,7 +1,12 @@
 <template>
   <CollapseTransition>
     <div class="re-expand-container" v-show="visible" v-on-clickaway="handleVisible">
-      <div class="re-expand-container__content">
+      <div
+        class="re-expand-container__content"
+        :style="{
+          'max-height': maxHeight,
+        }"
+      >
         <slot></slot>
       </div>
     </div>
@@ -25,10 +30,22 @@ export default {
       type: Boolean,
       default: true,
     },
+    maxHeight: {
+      type: [String, Number],
+      default: '200px',
+    },
   },
   methods: {
     handleVisible() {
       this.$emit('update:visible', false);
+    },
+  },
+  computed: {
+    width() {
+      if (Number.isNaN(Number(this.maxHeight))) {
+        return `${this.maxHeight}px`;
+      }
+      return this.maxHeight;
     },
   },
 };
@@ -42,7 +59,7 @@ export default {
 
   &__content {
     height: auto;
-    max-height: 200px;
+    /* max-height: 200px; */
     margin-top: 5px;
     background-color: $c-white;
     box-sizing: border-box;

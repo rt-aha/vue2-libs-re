@@ -1,12 +1,7 @@
 <template>
   <div class="re-date-picker">
-    <re-input
-      :value="dateString"
-      readonly
-      @click.stop="openCalendar"
-      cus-type="datePicker"
-    />
-    <re-expand-container :visible.sync="visible">
+    <re-input :value="dateString" readonly @click.stop="openCalendar" cus-type="datePicker" />
+    <re-expand-container :visible.sync="visible" maxHeight="'auto'">
       <re-calendar :value="innerValue" @input="handleInput" :defaultDate="innerValue" />
     </re-expand-container>
   </div>
@@ -41,7 +36,6 @@ export default {
     //   this.triggerValidate('change');
     // },
     handleInput(value) {
-      console.log('do');
       this.$emit('input', value);
       this.triggerValidate('change', value);
       this.closeCalendar();
@@ -75,4 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.re-date-picker {
+  position: relative;
+}
 </style>
