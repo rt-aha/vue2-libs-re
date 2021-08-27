@@ -14,7 +14,7 @@
         </template>
       </re-input>
       <div class="expand-down" :class="{ 'expand-down--active': expandConfig.status }">
-        <img class="expand-down__icon" src="@/assets/icon/down.svg" />
+        <img class="expand-down__icon" src="@/assets/icon/arrow-down.svg" />
       </div>
     </div>
     <re-expand-container :visible.sync="expandConfig.status">
@@ -156,7 +156,7 @@ export default {
   transition: 0.4s;
 
   &__icon {
-    width: 25px;
+    width: 15px;
   }
 
   &--active {
