@@ -91,9 +91,9 @@
       </div>
     </div>
 
-    <re-row justifyContent="flex-end">
+    <!-- <re-row justifyContent="flex-end" v-if="pagination">
       <re-pagination v-on="$listeners" :pagination="pagination" />
-    </re-row>
+    </re-row> -->
   </div>
 </template>
 
@@ -136,8 +136,9 @@ export default {
       default: () => [],
     },
     pagination: {
-      type: Object,
-      default: () => ({}),
+      // type: Object,
+      // default: () => ({}),
+      default: null,
     },
   },
   data() {

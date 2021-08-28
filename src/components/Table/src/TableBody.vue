@@ -20,12 +20,11 @@
         }"
       >
         <div class="re-table-body__tr__td__content" :class="'invisible' && col.isEmptyRow">
-          <span v-if="col.render">
-            <component :is="col.render(rowData[col.prop], rowData, col)" />
-          </span>
-          <span v-else :style="cusStyle(rowData[col.prop], rowData, col)">
+          <component v-if="col.render" :is="col.render(rowData[col.prop], rowData, col)" />
+
+          <div v-else :style="cusStyle(rowData[col.prop], rowData, col)">
             {{ formatter(rowData[col.prop], rowData, col) }}
-          </span>
+          </div>
         </div>
       </td>
     </tr>
@@ -189,6 +188,7 @@ export default {
       &__content {
         @include box-padding(10px);
         display: inline-block;
+        vertical-align: middle;
       }
     }
 

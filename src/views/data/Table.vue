@@ -5,46 +5,42 @@
       :columnsConfig="columnsConfig"
       :maxHeight="400"
       @handlePageInfo="handlePageInfo"
-      :pagination="pagination"
       :stripe="true"
     />
+
+    <!-- :pagination="pagination" -->
   </div>
 </template>
 
 <script>
 import { getDividendListAPI } from '@/api/test';
-import { columnsConfig, searchConfig } from './tableTestConfig';
+import { columnsConfig } from './tableTestConfig';
 
 export default {
   name: 'PageReTable',
   data() {
     return {
-      searchConfig: searchConfig(),
-      labelConfig: {
-        position: 'top',
-        width: '80',
-        textAlign: 'left',
-      },
+      // searchConfig: searchConfig(),
+      // labelConfig: {
+      //   position: 'top',
+      //   width: '80',
+      //   textAlign: 'left',
+      // },
       tableData: [],
       // columnsConfig: [],
-      pagination: {
-        order: ['total', 'page-size', 'pager', 'to'],
-        pageSize: [10, 50, 100],
-        total: {
-          total: '100',
-        },
-        pager: {
-          totalPage: 6,
-          pageIndex: 1,
-          pageSize: 10,
-          count: 100,
-        },
-      },
-      dialog: {
-        add: false,
-        remove: false,
-      },
-      rowData: {},
+      // pagination: {
+      //   order: ['total', 'page-size', 'pager', 'to'],
+      //   pageSize: [10, 50, 100],
+      //   total: {
+      //     total: '100',
+      //   },
+      //   pager: {
+      //     totalPage: 6,
+      //     pageIndex: 1,
+      //     pageSize: 10,
+      //     count: 100,
+      //   },
+      // },
     };
   },
   computed: {
@@ -55,10 +51,10 @@ export default {
   methods: {
     async getDividendList() {
       try {
-        const res = await getDividendListAPI({ params: this.pagination.pager });
+        const res = await getDividendListAPI({});
         this.tableData = res.data;
-        this.pagination.pager = res.pageInfo;
-        this.pagination.total.total = res.pageInfo.count;
+        // this.pagination.pager = res.pageInfo;
+        // this.pagination.total.total = res.pageInfo.count;
       } catch (e) {
         console.log('e...', e);
       }
@@ -83,6 +79,11 @@ export default {
       }
 
       this.getDividendList();
+    },
+    testHandleClick(type, rowData) {
+      console.log('testHandleClick func...');
+      console.log('type', type);
+      console.log('rowData', rowData);
     },
   },
 
