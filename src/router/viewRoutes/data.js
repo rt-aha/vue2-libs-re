@@ -26,6 +26,36 @@ export default [
           authItem: 'data-search',
         },
       },
+      {
+        path: 'data-tree',
+        name: 'data-tree',
+        component: () => import(/* webpackChunkName: "data-tree" */ '@/views/data/Tree.vue'),
+        meta: {
+          title: '樹形 ReTree',
+          authGroup: 'data',
+          authItem: 'data-tree',
+        },
+      },
+      {
+        path: 'data-badge',
+        name: 'data-badge',
+        component: () => import(/* webpackChunkName: "data-badge" */ '@/views/data/Badge.vue'),
+        meta: {
+          title: '標記 ReBadge',
+          authGroup: 'data',
+          authItem: 'data-badge',
+        },
+      },
+      {
+        path: 'data-avatar',
+        name: 'data-avatar',
+        component: () => import(/* webpackChunkName: "data-avatar" */ '@/views/data/Avatar.vue'),
+        meta: {
+          title: '頭像 ReAvatar',
+          authGroup: 'data',
+          authItem: 'data-avatar',
+        },
+      },
     ],
     meta: {
       title: '資料 data',

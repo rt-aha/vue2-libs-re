@@ -1,12 +1,12 @@
 <template>
-  <div class="page-{{kebabName}}">
-    {{ name }} 施工中 ...
+  <div class="re-">
+    Dropdown
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Page{{name}}',
+  name: 'ReDropdown',
 };
 </script>
 

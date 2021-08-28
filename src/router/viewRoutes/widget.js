@@ -27,6 +27,26 @@ export default [
           authItem: 'widget-table-with-search',
         },
       },
+      {
+        path: 'widget-accordion',
+        name: 'widget-carousel',
+        component: () => import(/* webpackChunkName: "widget-carousel" */ '@/views/widgets/Carousel.vue'),
+        meta: {
+          title: '幻燈片 ReCarousel',
+          authGroup: 'widget',
+          authItem: 'widget-carousel',
+        },
+      },
+      {
+        path: 'widget-accordion',
+        name: 'widget-accordion',
+        component: () => import(/* webpackChunkName: "widget-accordion" */ '@/views/widgets/Accordion.vue'),
+        meta: {
+          title: '手風琴 ReAccordion',
+          authGroup: 'widget',
+          authItem: 'widget-accordion',
+        },
+      },
     ],
     meta: {
       title: '小工具 widget',

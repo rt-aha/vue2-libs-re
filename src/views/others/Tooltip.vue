@@ -1,12 +1,12 @@
 <template>
-  <div class="page-{{kebabName}}">
-    {{ name }} 施工中 ...
+  <div class="page-tooltip">
+    Tooltip 施工中 ...
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Page{{name}}',
+  name: 'PageTooltip',
 };
 </script>
 

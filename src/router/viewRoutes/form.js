@@ -138,6 +138,16 @@ export default [
           authItem: 'form-email-auto-complete',
         },
       },
+      {
+        path: 'slider',
+        name: 'form-slider',
+        component: () => import(/* webpackChunkName: "form-slider" */ '@/views/form/Slider.vue'),
+        meta: {
+          title: '滑塊 Slider',
+          authGroup: 'form',
+          authItem: 'form-slider',
+        },
+      },
     ],
     meta: {
       title: '表單 Form',
