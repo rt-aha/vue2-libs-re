@@ -1,6 +1,7 @@
 <template>
   <div class="page-accordion">
     Accordion 施工中 ...
+    <re-accordion></re-accordion>
   </div>
 </template>
 
@@ -10,5 +11,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

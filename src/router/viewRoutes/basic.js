@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -22,6 +23,6 @@ export default [
       authGroup: 'basics',
       authItem: 'basics',
     },
-    order: 2,
+    order: routeOrder.basic,
   },
 ];

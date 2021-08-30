@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -41,7 +42,7 @@ export default [
         name: 'navigation-steps',
         component: () => import(/* webpackChunkName: "navigation-steps" */ '@/views/navigation/Steps.vue'),
         meta: {
-          title: '頁籤 ReSteps',
+          title: '步驟條 ReSteps',
           authGroup: 'navigation',
           authItem: 'navigation-steps',
         },
@@ -51,6 +52,6 @@ export default [
       title: '導航 Navigation',
       authGroup: 'navigation',
     },
-    order: 3,
+    order: routeOrder.navigation,
   },
 ];

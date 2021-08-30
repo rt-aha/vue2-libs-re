@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -16,16 +17,7 @@ export default [
           authItem: 'data-table',
         },
       },
-      {
-        path: 'data-search',
-        name: 'data-search',
-        component: () => import(/* webpackChunkName: "data-search" */ '@/views/data/Search.vue'),
-        meta: {
-          title: '搜尋 ReSearch',
-          authGroup: 'data',
-          authItem: 'data-search',
-        },
-      },
+
       {
         path: 'data-tree',
         name: 'data-tree',
@@ -34,6 +26,16 @@ export default [
           title: '樹形 ReTree',
           authGroup: 'data',
           authItem: 'data-tree',
+        },
+      },
+      {
+        path: 'data-tag',
+        name: 'data-tag',
+        component: () => import(/* webpackChunkName: "data-tag" */ '@/views/data/Tag.vue'),
+        meta: {
+          title: '標籤 ReTag',
+          authGroup: 'data',
+          authItem: 'data-tag',
         },
       },
       {
@@ -62,6 +64,6 @@ export default [
       authGroup: 'data',
       authItem: 'data',
     },
-    order: 4,
+    order: routeOrder.data,
   },
 ];

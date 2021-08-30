@@ -1,6 +1,6 @@
 <template>
   <div class="page-divider">
-    Divider 施工中 ...
+    <re-divider />
   </div>
 </template>
 
@@ -10,5 +10,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

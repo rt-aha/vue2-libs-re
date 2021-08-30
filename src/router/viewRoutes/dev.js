@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -11,7 +12,7 @@ export default [
         name: 'dev-desc',
         component: () => import(/* webpackChunkName: "dev-desc" */ '@/views/dev/Desc.vue'),
         meta: {
-          title: '敘述 ReDesc',
+          title: '敘述 ReDevDesc',
           authGroup: 'dev',
           authItem: 'dev-desc',
         },
@@ -21,6 +22,6 @@ export default [
       title: '開發 dev',
       authGroup: 'dev',
     },
-    order: 9,
+    order: routeOrder.dev,
   },
 ];

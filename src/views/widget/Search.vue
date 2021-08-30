@@ -15,7 +15,7 @@
 <script>
 import { getDividendListAPI } from '@/api/test';
 import RemoveContent from '@/views/stock/RemoveContent.vue';
-import { columnsConfig, searchConfig } from './tableTestConfig';
+import searchConfig from '@/config/widget/search';
 
 export default {
   name: 'PageReSearch',

@@ -1,5 +1,6 @@
 import NoLayout from '@/layout/NoLayout.vue';
 import ReFormIndex from '@/layout/custom/ReFormIndex.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -148,11 +149,21 @@ export default [
           authItem: 'form-slider',
         },
       },
+      {
+        path: 'input-timer',
+        name: 'form-input-timer',
+        component: () => import(/* webpackChunkName: "form-input-timer" */ '@/views/form/InputTimer.vue'),
+        meta: {
+          title: '輸入框計時器 ReInputTimer',
+          authGroup: 'form',
+          authItem: 'form-input-timer',
+        },
+      },
     ],
     meta: {
       title: '表單 Form',
       authGroup: 'form',
     },
-    order: 3,
+    order: routeOrder.form,
   },
 ];

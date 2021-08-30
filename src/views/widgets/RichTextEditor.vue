@@ -1,5 +1,5 @@
 <template>
-  <div class="view-rich-text-editor">
+  <div class="page-rich-text-editor">
     <re-rich-text-editor
       v-model="editorValue"
       :getHtml="false"
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'RichTextEditorPage',
+  name: 'PageRichTextEditor',
   data() {
     return {
       editorValue: 'test text',

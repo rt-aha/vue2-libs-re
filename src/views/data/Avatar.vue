@@ -1,6 +1,13 @@
 <template>
   <div class="page-avatar">
-    Avatar 施工中 ...
+    <re-avatar size="large" />
+    <re-avatar src="https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png" />
+    <re-avatar size="small" name="Vicky" />
+    <re-avatar
+      src="https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png"
+      size="custom"
+      customSize="80px"
+    />
   </div>
 </template>
 
@@ -10,5 +17,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

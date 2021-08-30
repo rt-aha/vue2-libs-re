@@ -1,6 +1,8 @@
 <template>
   <div class="page-backtop">
     Backtop 施工中 ...
+
+    <re-back-top />
   </div>
 </template>
 
@@ -10,5 +12,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

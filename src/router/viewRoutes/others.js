@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -7,13 +8,13 @@ export default [
     component: NoLayout,
     children: [
       {
-        path: 'others-Dialog',
-        name: 'others-Dialog',
+        path: 'others-dialog',
+        name: 'others-dialog',
         component: () => import(/* webpackChunkName: "others-dialog" */ '@/views/others/Dialog.vue'),
         meta: {
           title: '彈窗 ReDialog',
           authGroup: 'others',
-          authItem: 'others-Dialog',
+          authItem: 'others-dialog',
         },
       },
       {
@@ -47,11 +48,21 @@ export default [
         },
       },
       {
+        path: 'others-timeline',
+        name: 'others-timeline',
+        component: () => import(/* webpackChunkName: "others-timeline" */ '@/views/others/Timeline.vue'),
+        meta: {
+          title: '時間軸 ReTimeline',
+          authGroup: 'others',
+          authItem: 'others-timeline',
+        },
+      },
+      {
         path: 'others-divider',
         name: 'others-divider',
         component: () => import(/* webpackChunkName: "others-divider" */ '@/views/others/Divider.vue'),
         meta: {
-          title: '抽屜 ReDivider',
+          title: '分隔線 ReDivider',
           authGroup: 'others',
           authItem: 'others-divider',
         },
@@ -61,7 +72,7 @@ export default [
         name: 'others-backtop',
         component: () => import(/* webpackChunkName: "others-backtop" */ '@/views/others/Backtop.vue'),
         meta: {
-          title: '抽屜 ReBacktop',
+          title: '回最上 ReBacktop',
           authGroup: 'others',
           authItem: 'others-backtop',
         },
@@ -72,6 +83,6 @@ export default [
       authGroup: 'others',
       authItem: 'others',
     },
-    order: 2,
+    order: routeOrder.others,
   },
 ];

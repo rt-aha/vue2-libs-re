@@ -1,4 +1,5 @@
 import NoLayout from '@/layout/NoLayout.vue';
+import routeOrder from '@/config/routeOrder';
 
 export default [
   {
@@ -14,6 +15,16 @@ export default [
           title: '表單 ReWidgetForm',
           authGroup: 'widget',
           authItem: 'widget-form',
+        },
+      },
+      {
+        path: 'widget-search',
+        name: 'widget-search',
+        component: () => import(/* webpackChunkName: "widget-search" */ '@/views/widget/Search.vue'),
+        meta: {
+          title: '搜尋 ReSearch',
+          authGroup: 'widget',
+          authItem: 'widget-search',
         },
       },
       {
@@ -47,12 +58,32 @@ export default [
           authItem: 'widget-accordion',
         },
       },
+      {
+        path: 'widget-rich-text-editor',
+        name: 'widget-rich-text-editor',
+        component: () => import(/* webpackChunkName: "widget-rich-text-editor" */ '@/views/widgets/RichTextEditor.vue'),
+        meta: {
+          title: '富文本編輯器 ReRichTextEditor',
+          authGroup: 'widget',
+          authItem: 'widget-rich-text-editor',
+        },
+      },
+      {
+        path: 'widget-markdown-editor',
+        name: 'widget-markdown-editor',
+        component: () => import(/* webpackChunkName: "widget-markdown-editor" */ '@/views/widgets/MarkdownEditor.vue'),
+        meta: {
+          title: 'Markdown編輯器 ReMarkdownEditor',
+          authGroup: 'widget',
+          authItem: 'widget-markdown-editor',
+        },
+      },
     ],
     meta: {
       title: '小工具 widget',
       authGroup: 'widget',
       authItem: 'widget',
     },
-    order: 2,
+    order: routeOrder.widget,
   },
 ];

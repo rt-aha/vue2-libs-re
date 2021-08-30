@@ -1,6 +1,8 @@
 <template>
   <div class="page-badge">
-    Badge 施工中 ...
+    <re-badge>
+      <re-button>按鈕</re-button>
+    </re-badge>
   </div>
 </template>
 
@@ -9,6 +11,3 @@ export default {
   name: 'PageBadge',
 };
 </script>
-
-<style lang="scss">
-</style>

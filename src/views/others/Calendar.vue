@@ -1,6 +1,8 @@
 <template>
   <div class="page-calendar">
     Calendar 施工中 ...
+
+    <re-calendar />
   </div>
 </template>
 
@@ -10,5 +12,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

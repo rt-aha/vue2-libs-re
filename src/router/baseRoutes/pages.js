@@ -13,4 +13,9 @@ export default [
     name: 'ui-lab',
     component: () => import(/* webpackChunkName: "ui-lab" */ '@/views/UiLab.vue'),
   },
+  {
+    path: '/general',
+    name: 'general',
+    component: () => import(/* webpackChunkName: "ui-lab" */ '@/views/comps/General.vue'),
+  },
 ];
