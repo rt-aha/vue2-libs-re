@@ -1,0 +1,28 @@
+stages:
+  - build
+  - deploy
+
+test:
+  stage: build
+  image: node
+  before_script:
+    - yarn add @vue/cli-service
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - ./dist
+
+deploy:
+  stage: deploy
+  image: alpine:3.7
+  before_script:
+    - apk update
+    - apk add openssh
+  script:
+    - ls
+    - mkdir -p ~/.ssh
+    - echo "$AWS_KEY" > ~/.ssh/$KEY_NAME
+    - chmod 600 ~/.ssh/$KEY_NAME
+    - ssh -tt -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME $HOST "cd /sp && sudo rm -rf /$TARGET_FOLDER && cd /sp && sudo mkdir re-ui && sudo chmod 777 re-ui"
+    - scp -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME -r dist/* $HOST:/$TARGET_FOLDER
