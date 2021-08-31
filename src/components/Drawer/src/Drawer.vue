@@ -1,9 +1,6 @@
 <template>
   <transition name="fade">
     <div class="re-drawer" v-show="visible" @click.self="closeDialog">
-      <!--   -->
-      <!-- ref="drawerBox" -->
-      <!-- :class="[{'re-drawer__box--slideIn': visible, 're-drawer__box--slideOut': !visible}]" -->
       <div
         class="re-drawer__box"
         :class="[
@@ -13,7 +10,6 @@
           },
         ]"
       >
-        <!-- <div class="re-drawer__box"  ref="drawerBox"> -->
         <div class="re-drawer__box__header">
           <div class="re-drawer__box__header__content">
             <!-- 若純文字可直接傳入 title -->
@@ -76,21 +72,16 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('beforeClose');
-      console.log('update:visible ~~~');
       this.$emit('update:visible', false);
     },
   },
   watch: {
     visible(val) {
       if (val) {
-        console.log('hi');
         document.body.appendChild(this.$el);
-        document.body.style = 'overflow: hidden';
-
-        console.log('t...', this.$refs.drawerBox);
+        document.body.classList.add('freeze-body');
       } else {
-        document.body.style = '';
-        console.log('f...', this.$refs.drawerBox);
+        document.body.classList.remove('freeze-body');
       }
     },
   },
@@ -98,25 +89,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.freeze-body {
+  overflow: hidden;
+}
+
 .re-drawer {
   position: fixed;
-  z-index: 100;
   top: 0;
   left: 0;
+  z-index: 100;
   width: 100%;
   height: 100%;
   background-color: rgba(#333, 0.5);
 
   &__box {
-    @include position(tr, 0px, 0px);
+    @include position(tr, 0, 0);
     @include cus-radius(4px, 0, 0, 4px);
     @include flex(flex-start, flex-start, column);
-    background-color: $c-white;
     min-width: 320px;
     height: 100%;
-    /* transform: translateX(0px); */
+    background-color: $c-white;
 
-    /* transition: transform 3s; */
     &--slide-left-in {
       animation: slideLeftIn 0.4s;
     }
@@ -126,14 +119,11 @@ export default {
     }
 
     &__header {
-      flex: none;
-      height: auto;
-      position: relative;
       @include box-padding(15px 10px);
       @include flex(space-between);
-
-      &__content {
-      }
+      flex: none;
+      position: relative;
+      height: auto;
 
       &__close {
         position: relative;
@@ -142,28 +132,27 @@ export default {
         cursor: pointer;
 
         &__cell {
+          @include position(center);
           width: 10px;
           height: 10px;
-          @include position(center);
-          /* @include flex(center, center); */
 
           &::before {
-            content: '';
-            height: 2px;
-            width: 14px;
-            border-radius: 1px;
             @include position(center);
+            content: '';
+            width: 14px;
+            height: 2px;
             background-color: $c-assist;
+            border-radius: 1px;
             transform: translate(-50%, -50%) rotate(45deg);
           }
 
           &::after {
-            content: '';
-            height: 2px;
-            width: 14px;
-            border-radius: 1px;
             @include position(center);
+            content: '';
+            width: 14px;
+            height: 2px;
             background-color: $c-assist;
+            border-radius: 1px;
             transform: translate(-50%, -50%) rotate(-45deg);
           }
         }
@@ -171,17 +160,16 @@ export default {
     }
 
     &__body {
-      width: 100%;
       flex: 1;
+      width: 100%;
       overflow-y: auto;
-      /* @include box-padding(10px); */
     }
 
     &__footer {
+      @include box-padding(15px 10px);
+      display: flex;
       flex: none;
       height: auto;
-      display: flex;
-      @include box-padding(15px 10px);
 
       &--left {
         justify-content: flex-start;
@@ -204,13 +192,13 @@ export default {
   }
 
   to {
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 }
 
 @keyframes slideLeftOut {
   from {
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 
   to {
