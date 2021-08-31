@@ -1,18 +1,18 @@
 <template>
   <div class="page-tabs">
-    123
     <re-tabs v-model="tab" @change="handleTab" :tabsConfig="tabsConfig">
       <template #tab111>content - tab111</template>
       <template #tab222>content - tab222</template>
-      <template #tab333>content - tab333</template>
+      <template #tab333>content - 渲染 tab</template>
       <template #tab444>content - tab444</template>
       <template #tab555>content - tab555</template>
-      <template #tab666>content - tab666</template>
     </re-tabs>
   </div>
 </template>
 
 <script>
+import CusTab from '@/devComponents/Tabs/CusTab.vue';
+
 export default {
   name: 'PageTabs',
   data() {
@@ -31,11 +31,14 @@ export default {
         {
           label: 'tab333',
           name: 'tab333',
-          render: {
-            render(h) {
-              return h('p', [h('span', 'render '), h('span', 'test')]);
-            },
-          },
+          // 直接寫 render function
+          // render: {
+          //   render(h) {
+          //     return h('p', [h('span', 'render '), h('span', 'test')]);
+          //   },
+          // },
+          // 或者寫組件
+          render: CusTab,
         },
         {
           label: 'tab444',
@@ -44,11 +47,6 @@ export default {
         {
           label: 'tab555',
           name: 'tab555',
-        },
-
-        {
-          label: 'tab666',
-          name: 'tab666',
         },
       ],
     };
