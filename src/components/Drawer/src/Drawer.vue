@@ -78,8 +78,10 @@ export default {
   watch: {
     visible(val) {
       if (val) {
-        document.body.appendChild(this.$el);
         document.body.classList.add('freeze-body');
+        if (this.appendToBody) {
+          document.body.appendChild(this.$el);
+        }
       } else {
         document.body.classList.remove('freeze-body');
       }

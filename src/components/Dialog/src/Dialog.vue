@@ -77,9 +77,12 @@ export default {
   watch: {
     visible(val) {
       if (val) {
+        document.body.classList.add('freeze-body');
         if (this.appendToBody) {
           document.body.appendChild(this.$el);
         }
+      } else {
+        document.body.classList.remove('freeze-body');
       }
     },
   },
@@ -88,6 +91,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/re/transition.scss';
+
+.freeze-body {
+  overflow: hidden;
+}
 
 .re-dialog {
   position: fixed;
@@ -159,7 +166,6 @@ export default {
 @keyframes slideTopIn {
   from {
     transform: translate(-50%, calc(-50% - 30px));
-    /* transform: translate(-50%, -50%); */
   }
 
   to {
@@ -174,7 +180,6 @@ export default {
 
   to {
     transform: translate(-50%, calc(-50% - 30px));
-    /* transform: translate(-50%, -50%); */
   }
 }
 </style>
