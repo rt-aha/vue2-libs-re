@@ -1,7 +1,7 @@
 <template>
   <div class="re-radio">
     <re-radio-option
-      v-for="(radio) of options"
+      v-for="radio of options"
       :key="radio.value"
       v-bind="radio"
       @handleRadio="handleRadio"
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ReRadio',
   props: {
@@ -36,6 +35,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss" scoped></style>

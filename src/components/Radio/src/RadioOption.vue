@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-radio-option {
   height: auto;
   margin: 5px 10px 5px 0;

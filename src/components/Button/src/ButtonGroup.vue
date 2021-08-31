@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-button-group {
   &--default {
     .re-button + .re-button {

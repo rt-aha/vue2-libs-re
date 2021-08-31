@@ -22,18 +22,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-chatroom-from-message {
   width: 100%;
   @include flex();
 }
 
 .from-message {
-
   @include flex();
 
   &__avatar {
-
     flex: none;
     /* @include box-padding(5px); */
 
@@ -41,7 +39,6 @@ export default {
       @include circle(30px);
       background-color: #444;
     }
-
   }
 
   &__message-box {

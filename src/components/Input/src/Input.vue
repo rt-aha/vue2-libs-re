@@ -136,7 +136,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $input-size-els: '.re-input__prepend, .re-input__content, .re-input__append';
 
 .re-input {

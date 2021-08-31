@@ -1,22 +1,12 @@
 <template>
   <div class="view-comp-dev">
     <re-title>Form模板(迴圈版)</re-title>
-    <re-easy-form
-      v-model="easyForm"
-      :rules="rules"
-      :labelConfig="labelConfig"
-      ref="reEasyForm"
-    >
+    <re-easy-form v-model="easyForm" :rules="rules" :labelConfig="labelConfig" ref="reEasyForm">
       <re-button @click.prevent="submitEasyForm">送出</re-button>
     </re-easy-form>
     <re-divider></re-divider>
     <re-title>Form模板(一個一個寫)</re-title>
-    <re-form
-      :rules="rules"
-      :form="form"
-      ref="testingForm"
-      :labelConfig="labelConfig"
-    >
+    <re-form :rules="rules" :form="form" ref="testingForm" :labelConfig="labelConfig">
       <re-form-item label="姓名" prop="name">
         <re-input v-model="form.name" />
       </re-form-item>
@@ -60,12 +50,7 @@
 <script>
 import { vld, asyncVld } from '@/utils/validate/vld';
 import { getUsersAPI } from '@/api/test';
-import {
-  selectOptions,
-  radioOptions,
-  checkboxOptions,
-  checkboxOptionsAgree,
-} from './test-config';
+import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree } from './test-config';
 
 export default {
   name: 'ReFormTesting',
@@ -168,12 +153,13 @@ export default {
       },
       rules: {
         name: {
-          validator: (rule, value, cb, src, options) => vld({
-            value,
-            ruleList: ['t1:t1arg', 't2'],
-            // ruleError: { t1: 't1 error' },
-            options,
-          }),
+          validator: (rule, value, cb, src, options) =>
+            vld({
+              value,
+              ruleList: ['t1:t1arg', 't2'],
+              // ruleError: { t1: 't1 error' },
+              options,
+            }),
           trigger: ['input'],
           // triggerEvent: ['change'],
         },
@@ -231,8 +217,7 @@ export default {
       },
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     submitEasyForm() {
       this.$refs.reEasyForm.validateForm();
@@ -257,7 +242,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view-comp-dev {
   @include box-padding(10px);
 }

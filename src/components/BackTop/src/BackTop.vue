@@ -1,8 +1,8 @@
 <template>
   <div class="re-back-top">
     <div class="go-top-box">
-        <div class="go-top-box__arrow"></div>
-      </div>
+      <div class="go-top-box__arrow"></div>
+    </div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-back-top {
   @include circle(30px);
   border: 1px solid $c-main;
@@ -33,7 +33,7 @@ export default {
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       width: 9px;
       height: 1px;
       background-color: $c-main;
@@ -55,7 +55,5 @@ export default {
       transform: rotate(55deg);
     }
   }
-
 }
-
 </style>

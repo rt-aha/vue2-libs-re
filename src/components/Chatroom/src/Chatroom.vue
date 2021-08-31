@@ -7,11 +7,7 @@
         </div>
         <div class="chatroom__contact__list">
           <ul class="contact">
-            <re-chatroom-contact-item
-              v-for="contact of contactList"
-              :key="contact.id"
-              :contact="contact"
-            />
+            <re-chatroom-contact-item v-for="contact of contactList" :key="contact.id" :contact="contact" />
           </ul>
         </div>
         <div class="chatroom__contact__footer">footer</div>
@@ -33,7 +29,10 @@
         <div class="chatroom__content__message">
           <div class="content__message">
             <div class="content__message__row" v-for="message of messageList" :key="message.id">
-              <component :is="message.type === 'from' ? 're-chatroom-from-message' : 're-chatroom-to-message'" v-bind="message" />
+              <component
+                :is="message.type === 'from' ? 're-chatroom-from-message' : 're-chatroom-to-message'"
+                v-bind="message"
+              />
             </div>
           </div>
         </div>
@@ -125,11 +124,10 @@ export default {
       ],
     };
   },
-
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-chatroom {
   width: 100%;
   height: 100%;
@@ -188,7 +186,6 @@ export default {
     &__message {
       width: 100%;
       flex: 1;
-
     }
 
     &__textarea {
@@ -306,8 +303,8 @@ export default {
     width: 100%;
 
     &__row {
-        @include box-padding(5px 0);
-      }
+      @include box-padding(5px 0);
+    }
   }
 
   &__textarea {

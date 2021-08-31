@@ -113,7 +113,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-checkbox {
   margin: 5px 10px 5px 0;
   cursor: inherit;

@@ -3,7 +3,6 @@
     <re-select v-model="innerValue" :options="options" @change="handleChange">
       <template #suffix>筆/頁</template>
     </re-select>
-
   </div>
 </template>
 
@@ -38,14 +37,9 @@ export default {
               return h(
                 're-row',
                 {
-
-                  props:
-                  { justifyContent: 'space-between' },
+                  props: { justifyContent: 'space-between' },
                 },
-                [
-                  h('span', ele),
-                  h('span', '筆/頁'),
-                ],
+                [h('span', ele), h('span', '筆/頁')],
               );
             },
           }),
@@ -78,7 +72,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-pagination-page-size {
   /* width: 50px; */
 

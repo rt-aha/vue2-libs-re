@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="re-tag"
-    :class="[
-      `re-tag--size--${size}`,
-      `re-tag--type--${type}`,
-      `re-tag--round--${round}`,
-    ]"
-  >
+  <div class="re-tag" :class="[`re-tag--size--${size}`, `re-tag--type--${type}`, `re-tag--round--${round}`]">
     <span class="re-tag__text"><slot></slot></span>
   </div>
 </template>
@@ -40,7 +33,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-tag {
   margin: 5px 5px 5px 0;
   display: inline-block;
@@ -60,7 +53,6 @@ export default {
     &--large {
       height: 40px;
       @include box-padding(10px);
-
     }
   }
 
@@ -71,12 +63,12 @@ export default {
     }
 
     &--plain {
-      background-color:transparent;
-      border: 0px transparent
+      background-color: transparent;
+      border: 0px transparent;
     }
 
     &--border {
-      background-color:transparent;
+      background-color: transparent;
     }
   }
 
@@ -91,7 +83,6 @@ export default {
   }
 
   &__text {
-
   }
 }
 </style>

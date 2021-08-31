@@ -2,10 +2,9 @@
   <div class="home">
     <check-list />
     <re-title>頁面</re-title>
-    <div class="btn-wrapper"  v-for="item of btns" :key="item">
-      <re-button class="btn" @click="toDevComp(item)">Develop {{item}}</re-button>
+    <div class="btn-wrapper" v-for="item of btns" :key="item">
+      <re-button class="btn" @click="toDevComp(item)">Develop {{ item }}</re-button>
     </div>
-
   </div>
 </template>
 
@@ -39,11 +38,10 @@ export default {
       this.$router.push({ name });
     },
   },
-
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-wrapper {
   margin-top: 10px;
 

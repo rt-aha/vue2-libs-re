@@ -1,7 +1,5 @@
 <template>
-  <div class="page-breadcrumb">
-    Breadcrumb 施工中 ...
-  </div>
+  <div class="page-breadcrumb">Breadcrumb 施工中 ...</div>
 </template>
 
 <script>
@@ -10,5 +8,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

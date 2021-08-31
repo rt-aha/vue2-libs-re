@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $input-size-els: '.re-input-number__prepend, .re-input-number__content, .re-input-number__append';
 
 .re-input-number {

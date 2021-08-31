@@ -1,14 +1,12 @@
 <template>
   <div class="re-input-timer">
-
-    <re-input v-model="innerValue" :style="{width: '200px'}">
+    <re-input v-model="innerValue" :style="{ width: '200px' }">
       <template #append>
-        <div class="send-btn-box" :style="{width: `${sendBtnWidth}px`}">
-          <re-button @click="handleClick" :disabled="disabled" :isLoading="isLoading">{{btnText}}</re-button>
+        <div class="send-btn-box" :style="{ width: `${sendBtnWidth}px` }">
+          <re-button @click="handleClick" :disabled="disabled" :isLoading="isLoading">{{ btnText }}</re-button>
         </div>
       </template>
     </re-input>
-
   </div>
 </template>
 
@@ -54,7 +52,6 @@ export default {
     };
   },
   methods: {
-
     async handleClick() {
       this.setDisabled(true);
       this.isLoading = true;
@@ -140,7 +137,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-input-timer {
   @include flex();
 }

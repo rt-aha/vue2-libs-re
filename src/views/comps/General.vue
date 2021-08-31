@@ -295,7 +295,7 @@
     <re-tree :treeList="treeList" />
 
     <re-title @click="handleClick('tooltip')">文字提示</re-title>
-    <div style="margin-left: 100px;">
+    <div style="margin-left: 100px">
       <re-row>
         <re-tooltip position="top">
           <re-button>文字提示</re-button>
@@ -569,7 +569,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view-general {
   @include box-padding(10px);
 }

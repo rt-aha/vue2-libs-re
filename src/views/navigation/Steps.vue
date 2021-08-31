@@ -1,7 +1,5 @@
 <template>
-  <div class="page-steps">
-    Steps 施工中 ...
-  </div>
+  <div class="page-steps">Steps 施工中 ...</div>
 </template>
 
 <script>
@@ -10,5 +8,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

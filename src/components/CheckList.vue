@@ -7,7 +7,6 @@
 
     <re-title class="mt-10">lib: scss</re-title>
     <p class="scss">this text should <strong>not be black</strong></p>
-
   </div>
 </template>
 
@@ -38,7 +37,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .scss {
   color: $c-main;
 }

@@ -3,7 +3,7 @@
     <div class="to-message">
       <div class="to-message__info">
         <span class="to-message__info__is-read">
-          {{ $attrs.isRead ? "已讀" : "" }}
+          {{ $attrs.isRead ? '已讀' : '' }}
         </span>
         <span class="to-message__info__time">
           {{ $attrs.time }}
@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-chatroom-to-message {
   width: 100%;
   @include flex(flex-end);

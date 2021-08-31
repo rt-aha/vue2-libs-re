@@ -3,7 +3,7 @@
     <div class="login-box">
       <re-form :form="loginForm" :rules="loginFormRules" ref="loginForm">
         <re-form-item label="帳號" prop="account">
-          <re-input v-model="loginForm.account"/>
+          <re-input v-model="loginForm.account" />
         </re-form-item>
 
         <re-form-item label="密碼" prop="password">
@@ -35,17 +35,19 @@ export default {
       },
       loginFormRules: {
         account: {
-          validator: (rule, value) => vld({
-            value,
-            ruleList: ['vldRequire', 'vldLengthMoreThen:8'],
-          }),
+          validator: (rule, value) =>
+            vld({
+              value,
+              ruleList: ['vldRequire', 'vldLengthMoreThen:8'],
+            }),
           trigger: ['change'],
         },
         password: {
-          validator: (rule, value) => vld({
-            value,
-            ruleList: ['vldRequire', 'vldLengthMoreThen:8'],
-          }),
+          validator: (rule, value) =>
+            vld({
+              value,
+              ruleList: ['vldRequire', 'vldLengthMoreThen:8'],
+            }),
           trigger: ['change'],
         },
       },
@@ -66,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view-login {
   width: 100%;
   height: 100%;

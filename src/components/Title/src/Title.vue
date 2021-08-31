@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-title {
   &__app {
     @include font-style($c-main, 48px, 700);

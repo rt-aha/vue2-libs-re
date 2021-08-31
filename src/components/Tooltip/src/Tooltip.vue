@@ -1,9 +1,7 @@
 <template>
   <div class="re-tooltip">
     <slot></slot>
-    <div class="tooltip-box" :class="[`tooltip-box--direction--${position}`]">
-      tooltip
-    </div>
+    <div class="tooltip-box" :class="[`tooltip-box--direction--${position}`]">tooltip</div>
   </div>
 </template>
 
@@ -20,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-tooltip {
   display: inline-block;
   position: relative;
@@ -43,7 +41,7 @@ export default {
   z-index: 200;
 
   &::before {
-    content: "";
+    content: '';
     display: inline-block;
     position: absolute;
     width: 0;

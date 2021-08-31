@@ -319,7 +319,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-form {
   @include flex(flex-start, flex-start);
   @include box-padding(10px);

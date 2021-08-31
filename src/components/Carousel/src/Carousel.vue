@@ -1,10 +1,6 @@
 <template>
   <div class="re-carousel">
-    <div
-      class="carouesel-wrapper"
-      @mouseenter="handleMouseOver"
-      @mouseleave="handleMouseLeave"
-    >
+    <div class="carouesel-wrapper" @mouseenter="handleMouseOver" @mouseleave="handleMouseLeave">
       <div
         class="carousel-box"
         :class="{
@@ -54,7 +50,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ReCarousel',
   props: {
@@ -157,7 +152,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .carouesel-wrapper {
   /* outline: 1px solid #f00; */
   margin: 30px auto;
@@ -235,7 +230,7 @@ export default {
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       width: 12px;
       height: 2px;
       background-color: $c-lightgrey;
@@ -277,11 +272,7 @@ export default {
 
 .next-box {
   @include position(tr, 0, 0);
-  background: linear-gradient(
-    -90deg,
-    rgba($c-assist, 0.3) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(-90deg, rgba($c-assist, 0.3) 0%, transparent 100%);
 
   .next-arrow {
     &::before {

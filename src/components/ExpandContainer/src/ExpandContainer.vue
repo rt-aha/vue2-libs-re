@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-expand-container {
   @include position(tl, 100%, 0);
   z-index: 100;

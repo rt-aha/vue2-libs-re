@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-table-body {
   &::-webkit-scrollbar {
     display: none;

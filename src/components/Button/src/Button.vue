@@ -123,7 +123,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-button {
   @include box-padding(8px 16px);
   @include set-btn-default();

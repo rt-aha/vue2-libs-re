@@ -17,9 +17,7 @@
         <div class="re-drawer__box__header">
           <div class="re-drawer__box__header__content">
             <!-- 若純文字可直接傳入 title -->
-            <re-title v-if="$attrs.title" type="dialog" :mt="false">{{
-              $attrs.title
-            }}</re-title>
+            <re-title v-if="$attrs.title" type="dialog" :mt="false">{{ $attrs.title }}</re-title>
             <!-- 若更複雜可用 slot -->
             <template v-else>
               <slot name="header"></slot>
@@ -34,27 +32,16 @@
           <div class="re-drawer__box__body">
             <slot>body content</slot>
 
-            <div
-              style="width: 30px; height: 2000px; background-color: #ccc"
-            ></div>
+            <div style="width: 30px; height: 2000px; background-color: #ccc"></div>
           </div>
         </template>
         <!-- 若傳入template -->
         <template v-else>
           <div class="re-drawer__box__body">
-            <component
-              :is="template"
-              v-bind="data"
-              v-on="$listeners"
-              @close="closeDialog"
-            />
+            <component :is="template" v-bind="data" v-on="$listeners" @close="closeDialog" />
           </div>
         </template>
-        <div
-          class="re-drawer__box__footer"
-          :class="[`re-drawer__box__footer--${footerPosition}`]"
-          v-if="$slots.footer"
-        >
+        <div class="re-drawer__box__footer" :class="[`re-drawer__box__footer--${footerPosition}`]" v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -110,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-drawer {
   position: fixed;
   z-index: 100;
@@ -161,7 +148,7 @@ export default {
           /* @include flex(center, center); */
 
           &::before {
-            content: "";
+            content: '';
             height: 2px;
             width: 14px;
             border-radius: 1px;
@@ -171,7 +158,7 @@ export default {
           }
 
           &::after {
-            content: "";
+            content: '';
             height: 2px;
             width: 14px;
             border-radius: 1px;

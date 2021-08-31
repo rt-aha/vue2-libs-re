@@ -1,7 +1,5 @@
 <template>
-  <div class="re-">
-    MarkdownEditor
-  </div>
+  <div class="re-">MarkdownEditor</div>
 </template>
 
 <script>
@@ -10,5 +8,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

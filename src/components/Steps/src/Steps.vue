@@ -1,7 +1,5 @@
 <template>
-  <div class="re-">
-    Steps
-  </div>
+  <div class="re-">Steps</div>
 </template>
 
 <script>
@@ -10,5 +8,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

@@ -1,29 +1,14 @@
 <template>
   <div class="re-easy-form">
     <div class="re-easy-form__content">
-      <re-form
-        :rules="rules"
-        :form="filterForm"
-        ref="easyForm"
-        :labelConfig="labelConfig"
-      >
-        <re-form-item
-          :label="item.label"
-          :prop="item.prop"
-          v-for="item of innerform"
-          :key="item.prop"
-        >
-          <component
-            :is="`re-${item.type}`"
-            v-model="item.value"
-            v-bind="item"
-          />
+      <re-form :rules="rules" :form="filterForm" ref="easyForm" :labelConfig="labelConfig">
+        <re-form-item :label="item.label" :prop="item.prop" v-for="item of innerform" :key="item.prop">
+          <component :is="`re-${item.type}`" v-model="item.value" v-bind="item" />
         </re-form-item>
       </re-form>
     </div>
 
     <slot />
-
   </div>
 </template>
 
@@ -93,7 +78,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-easy-form {
   &__content {
     margin-bottom: 30px;

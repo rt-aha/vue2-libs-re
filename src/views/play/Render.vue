@@ -5,9 +5,9 @@
     <p v-get-ele:currency.stock="obj"></p>
     <p v-get-ele:stock="obj"></p>
 
-    {{cptd}}
+    {{ cptd }}
 
-    {{renderComp}}
+    {{ renderComp }}
   </div>
 </template>
 
@@ -78,14 +78,30 @@ export default {
       return 'cptd';
     },
   },
-  beforeCreate() { console.log('beforeCreate'); },
-  created() { console.log('created'); },
-  beforeMount() { console.log('beforeMount'); },
-  mounted() { console.log('mounted'); },
-  beforeUpdate() { console.log('beforeUpdate'); },
-  updated() { console.log('updated'); },
-  beforeDestroy() { console.log('beforeDestroy'); },
-  destroyed() { console.log('destroyed'); },
+  beforeCreate() {
+    console.log('beforeCreate');
+  },
+  created() {
+    console.log('created');
+  },
+  beforeMount() {
+    console.log('beforeMount');
+  },
+  mounted() {
+    console.log('mounted');
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate');
+  },
+  updated() {
+    console.log('updated');
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy');
+  },
+  destroyed() {
+    console.log('destroyed');
+  },
   watch: {
     renderComp: {
       handler() {
@@ -98,8 +114,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .render-text {
-  color: #f00
+  color: #f00;
 }
 </style>

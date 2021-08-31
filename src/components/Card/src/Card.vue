@@ -1,11 +1,13 @@
 <template>
-  <div class="re-card"
-  :class="[
-    {
-      're-card--border': border
-    }
-  ]"
-  :style="{padding: pd}">
+  <div
+    class="re-card"
+    :class="[
+      {
+        're-card--border': border,
+      },
+    ]"
+    :style="{ padding: pd }"
+  >
     <slot />
   </div>
 </template>
@@ -26,8 +28,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .re-card {
   margin-bottom: 30px;
 

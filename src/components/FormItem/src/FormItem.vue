@@ -166,7 +166,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $form-item: '.re-form-item';
 
 .re-form-item {

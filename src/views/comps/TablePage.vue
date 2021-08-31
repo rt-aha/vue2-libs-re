@@ -2,11 +2,7 @@
   <div class="view-table">
     <re-title :mt="false">表格</re-title>
 
-    <re-search-filter
-      :searchConfig="searchFilter"
-      :labelConfig="labelConfig"
-      @search="handleSearch"
-    />
+    <re-search-filter :searchConfig="searchFilter" :labelConfig="labelConfig" @search="handleSearch" />
 
     <re-table
       :tableData="tableData"
@@ -19,19 +15,13 @@
     >
       <template v-slot:name="scope"> {{ scope.data.value }} 111 </template>
     </re-table>
-
   </div>
 </template>
 
 <script>
 import { getTableDataAPI } from '@/api/test';
 import { isNumber } from 'lodash';
-import {
-  selectOptions,
-  radioOptions,
-  checkboxOptions,
-  checkboxOptionsAgree,
-} from './test-config';
+import { selectOptions, radioOptions, checkboxOptions, checkboxOptionsAgree } from './test-config';
 
 export default {
   name: 'Table',
@@ -276,7 +266,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view-table {
   @include box-padding(10px);
 }

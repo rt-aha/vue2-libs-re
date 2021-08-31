@@ -8,7 +8,7 @@
         :ref="col.prop"
         :style="{
           ...col.cssStyle,
-          width: `${col.width || 150}px `
+          width: `${col.width || 150}px `,
         }"
       >
         <div class="re-table-header__tr__td__content">
@@ -50,9 +50,7 @@ export default {
   methods: {
     setFixedColumnsWidth() {
       if (!this.hasFixedColumn) return;
-      const columnsProps = Object.keys(this.$refs).filter(
-        (ele) => ele !== 'tableHeader',
-      );
+      const columnsProps = Object.keys(this.$refs).filter((ele) => ele !== 'tableHeader');
       const columnsWidthMapping = columnsProps.reduce((obj, key) => {
         obj[key] = this.$refs[key][0].clientWidth;
 
@@ -99,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-table-header {
   &__tr {
     border-bottom: 1px solid $c-lightgrey;

@@ -34,10 +34,7 @@ export default {
       quillEditor: null,
       options: {
         modules: {
-          toolbar: [
-            [{ header: [1, 2, 3, 4, false] }],
-            ['bold', 'italic', 'underline'],
-          ],
+          toolbar: [[{ header: [1, 2, 3, 4, false] }], ['bold', 'italic', 'underline']],
         },
         theme: 'snow',
         formats: ['bold', 'underline', 'header', 'italic'],
@@ -78,5 +75,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

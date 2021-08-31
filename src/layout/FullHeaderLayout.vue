@@ -1,16 +1,13 @@
 <template>
   <div class="ly-full-header-layout">
     <header class="ly-fh__header">
-
       <div class="system-name-box">
         <h1 class="system-name-box__text">[系統名稱]</h1>
       </div>
     </header>
     <div class="ly-fh__ab-wrapper">
-      <aside  class="ly-fh__ab-wrapper__aside">
-        aside
-      </aside>
-      <div  class="ly-fh__ab-wrapper__body">
+      <aside class="ly-fh__ab-wrapper__aside">aside</aside>
+      <div class="ly-fh__ab-wrapper__body">
         <router-view />
       </div>
     </div>
@@ -18,14 +15,12 @@
 </template>
 
 <script>
-
 export default {
   name: 'FullHeaderLayout',
 };
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .ly-full-header-layout {
   width: 100%;
   height: 100%;
@@ -35,7 +30,6 @@ export default {
 }
 
 .ly-fh {
-
   &__header {
     height: 60px;
     width: 100%;
@@ -54,7 +48,6 @@ export default {
       width: 200px;
       height: 100%;
       overflow-y: auto;
-
     }
 
     &__body {
@@ -64,5 +57,4 @@ export default {
     }
   }
 }
-
 </style>

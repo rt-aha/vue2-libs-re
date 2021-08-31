@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .ly-vertical-layout {
   display: flex;
   flex-direction: column;

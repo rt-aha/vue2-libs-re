@@ -19,18 +19,12 @@
           ...col.cssStyle,
         }"
       >
-        <div
-          class="re-table-body__tr__td__content"
-          :class="'invisible' && col.isEmptyRow"
-        >
+        <div class="re-table-body__tr__td__content" :class="'invisible' && col.isEmptyRow">
           <!-- <span v-if="col.isEmptyRow">
           </span> -->
 
           <span v-if="scopedSlotList.includes(col.prop)">
-            <slot
-              :name="col.prop"
-              :data="{ value: rowData[col.prop], rowData, col }"
-            />
+            <slot :name="col.prop" :data="{ value: rowData[col.prop], rowData, col }" />
           </span>
           <span v-else-if="col.render">
             <component :is="col.render(rowData[col.prop], rowData, col)" />
@@ -136,10 +130,7 @@ export default {
 
       existKeys.forEach((key) => {
         if (this.rowColorObj[key].condition) {
-          const isMatchCondition = this.rowColorObj[key].condition(
-            rowData[key],
-            rowData,
-          );
+          const isMatchCondition = this.rowColorObj[key].condition(rowData[key], rowData);
           if (isMatchCondition) {
             bgColor = { backgroundColor: this.rowColorObj[key].color };
           }
@@ -179,7 +170,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-table-body {
   &::-webkit-scrollbar {
     width: 0;

@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-table-fixed {
   @include position(tr, 0, 0);
   z-index: 99;

@@ -4,18 +4,15 @@
       class="re-search-filter-box"
       :class="[
         {
-          're-search-filter-box--w100': ['radio','checkbox'].includes(item.type)
-        }
+          're-search-filter-box--w100': ['radio', 'checkbox'].includes(item.type),
+        },
       ]"
       flex="column"
       alignItems="flex-start"
       v-for="item of innerValue"
       :key="item.prop"
     >
-      <div
-        class="re-search-filter-box__label"
-        :style="{ width: `${labelConfig.width}px` }"
-      >
+      <div class="re-search-filter-box__label" :style="{ width: `${labelConfig.width}px` }">
         {{ item.label }}
       </div>
       <div class="re-search-filter-box__content">
@@ -79,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-search-filter {
   /* margin-bottom: 30px; */
 }

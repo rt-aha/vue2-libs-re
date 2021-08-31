@@ -1,6 +1,6 @@
 <template>
   <div class="view-chatroom">
-   <re-chatroom></re-chatroom>
+    <re-chatroom></re-chatroom>
   </div>
 </template>
 
@@ -10,10 +10,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view-chatroom {
   width: 100%;
   height: 100%;
 }
-
 </style>

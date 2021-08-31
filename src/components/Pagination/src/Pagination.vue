@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="re-pagination">
     <!-- <re-pagination-total :totalInfo="100" />
     <re-pagination-page-size :pageSize="[10, 20, 30, 40]" />
@@ -9,14 +9,13 @@
       :is="`re-pagination-${comp}`"
       v-for="comp of pagination.order"
       :key="comp"
-      v-bind="{...$attrs, ...$props, ...$props.pagination}"
+      v-bind="{ ...$attrs, ...$props, ...$props.pagination }"
       v-on="$listeners"
     />
-
   </div>
 </template>
 
-<script >
+<script>
 export default {
   name: 'RePagination',
   props: {
@@ -89,9 +88,7 @@ export default {
         this.pageInfo.pageIndex + 2,
       ];
 
-      pageList = pageList.filter(
-        (ele) => ele >= this.firstPage && ele <= this.pageInfo.totalPage,
-      );
+      pageList = pageList.filter((ele) => ele >= this.firstPage && ele <= this.pageInfo.totalPage);
 
       // 補1
       if (this.pageInfo.pageIndex - 2 - this.firstPage === 1) {
@@ -147,7 +144,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .re-pagination {
   @include flex();
 
@@ -155,5 +152,4 @@ export default {
     margin-left: 10px;
   }
 }
-
 </style>

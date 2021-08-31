@@ -1,7 +1,5 @@
 <template>
-  <div class="re-">
-    Search
-  </div>
+  <div class="re-">Search</div>
 </template>
 
 <script>
@@ -10,5 +8,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>
