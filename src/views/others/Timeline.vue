@@ -1,7 +1,14 @@
 <template>
   <div class="page-timeline">
-    Timeline 施工中 ...
-    <re-timeline :timelineData="timelineData" />
+    <re-dev-sheet>
+      <re-dev-desc>基本使用</re-dev-desc>
+      <re-timeline :timelineData="timelineData"
+    /></re-dev-sheet>
+
+    <re-dev-sheet>
+      <re-dev-desc>倒敘</re-dev-desc>
+      <re-timeline :timelineData="timelineData" reverse />
+    </re-dev-sheet>
   </div>
 </template>
 
