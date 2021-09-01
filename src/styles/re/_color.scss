@@ -1,14 +1,21 @@
 $c-main: #1e90ff;
-$c-error-message: #cd5c5c;
+$c-green: #4caf50;
+$c-brown: #cd853f;
+$c-red: #cd5c5c;
+$c-text1: #7d7d7d;
 $c-lightgrey: #dcdcdc;
-$c-badge: #cd853f;
+
+$c-error-message: $c-red;
+
 $c-aside: #ffa07a;
 $c-aside-hover: #ffa07a;
-$c-green: #4caf50;
-
-$c-text1: #7d7d7d;
 
 // layout
 $c-layout-header: $c-main;
 
 $c-calendar-not-curr-month: #b9b9b9;
+
+$c-badge--default: $c-main;
+$c-badge--brown: $c-brown;
+$c-badge--green: $c-green;
+$c-badge--red: $c-red;
