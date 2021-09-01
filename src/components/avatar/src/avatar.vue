@@ -10,11 +10,13 @@
       <p class="re-avatar__bg-name__text">{{ name | firstLetter }}</p>
     </div>
 
-    <img v-if="avatarType === 'default'" src="@/assets/avatar.png" :style="{ width: wh, height: wh }" />
+    <img v-if="avatarType === 'default'" :src="defaultAvatar" :style="{ width: wh, height: wh }" />
   </div>
 </template>
 
 <script>
+import avatarPlacholder from '@/assets/icon/avatar.svg';
+
 export default {
   name: 'ReAvatar',
   props: {
@@ -34,6 +36,10 @@ export default {
     customSize: {
       type: String,
       default: '',
+    },
+    defaultAvatar: {
+      type: String,
+      default: avatarPlacholder,
     },
   },
   filters: {
