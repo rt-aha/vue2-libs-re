@@ -32,7 +32,7 @@ export default [
         name: 'others-tooltip',
         component: () => import(/* webpackChunkName: "others-tooltip" */ '@/views/others/Tooltip.vue'),
         meta: {
-          title: '文字提示 ReTooltip',
+          title: '*文字提示 ReTooltip',
           authGroup: 'others',
           authItem: 'others-tooltip',
         },
