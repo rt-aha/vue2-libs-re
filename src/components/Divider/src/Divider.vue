@@ -1,15 +1,19 @@
 <template>
-  <div class="re-divider" :style="{'margin-top': margin, 'margin-bottom': margin}">
-
-  </div>
+  <re-dev-sheet>
+    <re-dev-desc>基本使用</re-dev-desc>
+    <div class="re-divider" :style="{ 'margin-top': mt, 'margin-bottom': mb }"></div>
+  </re-dev-sheet>
 </template>
 
 <script>
-
 export default {
   name: 'ReDivider',
   props: {
-    margin: {
+    mt: {
+      type: String,
+      default: '10px',
+    },
+    mb: {
       type: String,
       default: '10px',
     },
