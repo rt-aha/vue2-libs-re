@@ -77,6 +77,36 @@ export default [
           authItem: 'others-backtop',
         },
       },
+      {
+        path: 'others-title',
+        name: 'others-title',
+        component: () => import(/* webpackChunkName: "others-title" */ '@/views/others/Title.vue'),
+        meta: {
+          title: '標題 ReTitle',
+          authGroup: 'others',
+          authItem: 'others-title',
+        },
+      },
+      {
+        path: 'others-row',
+        name: 'others-row',
+        component: () => import(/* webpackChunkName: "others-row" */ '@/views/others/Row.vue'),
+        meta: {
+          title: '橫向排列 ReRow',
+          authGroup: 'others',
+          authItem: 'others-row',
+        },
+      },
+      {
+        path: 'others-link',
+        name: 'others-link',
+        component: () => import(/* webpackChunkName: "others-link" */ '@/views/others/Link.vue'),
+        meta: {
+          title: '連結 ReLink',
+          authGroup: 'others',
+          authItem: 'others-link',
+        },
+      },
     ],
     meta: {
       title: '其他 others',

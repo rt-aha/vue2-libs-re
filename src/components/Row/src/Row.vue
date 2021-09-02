@@ -26,7 +26,7 @@ export default {
       type: String,
       default: 'center',
     },
-    flex: {
+    flexDirection: {
       type: String,
       default: 'row',
     },
@@ -34,7 +34,7 @@ export default {
   computed: {
     rowStyle() {
       return {
-        'flex-direction': this.flex,
+        'flex-direction': this.flexDirection,
         'justify-content': this.justifyContent,
         'align-items': this.alignItems,
       };
