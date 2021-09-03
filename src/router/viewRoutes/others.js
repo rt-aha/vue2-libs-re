@@ -58,6 +58,16 @@ export default [
         },
       },
       {
+        path: 'others-auto-input',
+        name: 'others-auto-input',
+        component: () => import(/* webpackChunkName: "others-auto-input" */ '@/views/others/AutoInput.vue'),
+        meta: {
+          title: '自動輸入 ReAutoInput',
+          authGroup: 'others',
+          authItem: 'others-auto-input',
+        },
+      },
+      {
         path: 'others-divider',
         name: 'others-divider',
         component: () => import(/* webpackChunkName: "others-divider" */ '@/views/others/Divider.vue'),
