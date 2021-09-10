@@ -20,7 +20,12 @@
     </re-row>
 
     <re-expand-container :visible.sync="visible" maxHeight="auto">
-      <re-date-range-calendar :value="innerValue" @input="handleInput" />
+      <re-date-range-calendar
+        :value="innerValue"
+        @input="handleInput"
+        :notBeforeDate="notBeforeDate"
+        :notAfterDate="notAfterDate"
+      />
     </re-expand-container>
   </div>
 </template>
@@ -40,6 +45,14 @@ export default {
     value: {
       type: Array,
       default: () => [new Date(), new Date()],
+    },
+    notBeforeDate: {
+      type: Date,
+      default: () => null,
+    },
+    notAfterDate: {
+      type: Date,
+      default: () => null,
     },
   },
   data() {
