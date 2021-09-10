@@ -109,13 +109,23 @@ export default [
         },
       },
       {
-        path: 'dat-time-picker',
+        path: 'date-time-picker',
         name: 'form-date-time-picker',
         component: () => import(/* webpackChunkName: "form-date-time-picker" */ '@/views/form/DateTimePicker.vue'),
         meta: {
           title: '日期時間選擇器 ReDateTimePicker',
           authGroup: 'form',
           authItem: 'form-date-time-picker',
+        },
+      },
+      {
+        path: 'date-range-picker',
+        name: 'form-date-range-picker',
+        component: () => import(/* webpackChunkName: "form-date-range-picker" */ '@/views/form/DateRangePicker.vue'),
+        meta: {
+          title: '日期範圍選擇器 ReDateRangePicker',
+          authGroup: 'form',
+          authItem: 'form-date-range-picker',
         },
       },
       {

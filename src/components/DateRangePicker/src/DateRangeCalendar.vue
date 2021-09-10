@@ -66,6 +66,7 @@
                 :class="[
                   {
                     'date__list__item__text--active': matchDate(date),
+                    'date__list__item__text--between': matchBetweenDate(date),
                     'date__list__item__text--is-curr-month': date.isCurrMonth,
                   },
                 ]"
@@ -83,12 +84,16 @@
 
 <script>
 import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
 
 export default {
-  name: 'ReCalendar',
+  name: 'ReDateRangeCalendar',
   props: {
     value: {
-      type: [Date, String],
+      type: Array,
+      default: () => [new Date(), new Date()],
     },
   },
   data() {
@@ -108,30 +113,31 @@ export default {
         m: '2',
       },
       dateList: [],
-      selectedDate: '',
+      selectedDate: [new Date(), new Date()],
+      clickType: 'start', // start / end 交替
     };
   },
-  // 初始化月曆
-  created() {
-    this.setTimeInfo();
-    this.initSelectedDate();
-    this.renderDate();
-  },
+
   methods: {
     matchDate(dateObj) {
       const date = `${dateObj.y}-${dateObj.m}-${dateObj.d}`;
       if (!date) return false;
       const currDate = dayjs(date).format('YYYY-MM-DD');
-      const selectedDate = dayjs(this.selectedDate.date()).format('YYYY-MM-DD');
-      return currDate === selectedDate;
+      const selectedStartDate = dayjs(this.selectedDate[0].date()).format('YYYY-MM-DD');
+      const selectedEndDate = dayjs(this.selectedDate[1].date()).format('YYYY-MM-DD');
+      return currDate === selectedStartDate || currDate === selectedEndDate;
+    },
+    matchBetweenDate(dateObj) {
+      const currDate = `${dateObj.y}-${dateObj.m}-${dateObj.d}`;
+      const selectedStartDate = dayjs(this.selectedDate[0].date()).format('YYYY-MM-DD');
+      const selectedEndDate = dayjs(this.selectedDate[1].date()).format('YYYY-MM-DD');
+      return dayjs(currDate).isBetween(selectedStartDate, dayjs(selectedEndDate));
     },
     // 更新日期
     update(timeInfo) {
       this.setTimeInfo(timeInfo);
-
       this.renderDate();
     },
-
     // 取得二月天數
     getFebDayCount() {
       const condition1 = this.currDateConfig.y % 4;
@@ -141,27 +147,33 @@ export default {
     },
     // 設定現在選到的日期
     initSelectedDate() {
-      // if has default date
+      // init
+      const startDate = new Date(this.value[0]);
+      const endDate = new Date(this.value[1]);
 
-      if (this.defaultDate) {
-        this.splitDate(this.defaultDate);
-      } else {
-        // init
-        this.selectedDate = {
-          y: this.currDateConfig.y,
-          m: this.currDateConfig.m,
-          d: new Date().getDate(),
+      this.selectedDate = [
+        {
+          y: startDate.getFullYear(),
+          m: startDate.getMonth(),
+          d: startDate.getDate(),
           date() {
             return new Date(this.y, this.m, this.d);
           },
-        };
-      }
+        },
+        {
+          y: endDate.getFullYear(),
+          m: endDate.getMonth(),
+          d: endDate.getDate(),
+          date() {
+            return new Date(this.y, this.m, this.d);
+          },
+        },
+      ];
     },
 
     setTimeInfo(currDate = { y: '', m: '' }) {
-      //
       // 當天資料
-      const day = dayjs(this.value);
+      const day = dayjs(this.value[0]);
 
       const currYear = currDate.y !== '' ? currDate.y : day.$y;
       const currMonth = currDate.m !== '' ? currDate.m : day.$M;
@@ -231,7 +243,7 @@ export default {
     splitDate(date) {
       const ymd = dayjs(date).format('YYYY-MM-DD').split('-');
 
-      this.selectedDate = {
+      const dateInfo = {
         y: Number(ymd[0]),
         m: Number(ymd[1]),
         d: Number(ymd[2]),
@@ -239,6 +251,16 @@ export default {
           return new Date(this.y, this.m - 1, this.d);
         },
       };
+
+      console.log('this.selectedDate before', this.selectedDate);
+
+      if (this.clickType === 'start') {
+        this.selectedDate.splice(0, 1, dateInfo);
+      } else {
+        this.selectedDate.splice(1, 1, dateInfo);
+      }
+
+      console.log('this.selectedDate after', this.selectedDate);
     },
 
     // 點擊日期事件
@@ -246,7 +268,8 @@ export default {
       e.stopPropagation();
 
       this.splitDate(e.target.getAttribute('data-date'));
-      this.$emit('input', this.selectedDate.date());
+      this.handleClickType();
+      this.$emit('input', [this.selectedDate[0].date(), this.selectedDate[1].date()]);
     },
 
     // 點擊上一個月時
@@ -287,6 +310,20 @@ export default {
       const nextYear = this.currDateConfig.y + 1;
       this.update({ y: nextYear, m: '' });
     },
+    handleClickType() {
+      if (this.clickType === 'start') {
+        this.clickType = 'end';
+        return;
+      }
+
+      this.clickType = 'start';
+    },
+  },
+  // 初始化月曆
+  created() {
+    this.setTimeInfo();
+    this.initSelectedDate();
+    this.renderDate();
   },
 };
 </script>
@@ -408,6 +445,15 @@ export default {
         &--active {
           color: $c-white;
           background-color: $c-main;
+
+          &:hover {
+            color: $c-white;
+          }
+        }
+
+        &--between {
+          color: $c-white;
+          background-color: rgba($c-main, 0.3);
 
           &:hover {
             color: $c-white;
