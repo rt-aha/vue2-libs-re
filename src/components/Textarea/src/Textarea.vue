@@ -19,7 +19,7 @@
     />
     <div
       class="count-limit"
-      v-if="countLimit !== ''"
+      v-if="textLimit !== ''"
       :class="[
         {
           'count-limit--warning': isOverTextLimit,
@@ -28,7 +28,7 @@
     >
       <span class="count-limit__curr-text-count">{{ currTextCount }}</span>
       <span class="count-limit__slash">/</span>
-      <span class="count-limit__limit-text">{{ countLimit }}字</span>
+      <span class="count-limit__limit-text">{{ textLimit }}字</span>
     </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    countLimit: {
+    textLimit: {
       type: [String, Number],
       default: '',
       validator: (val) => isNumber(Number(val)),
@@ -78,7 +78,7 @@ export default {
       return String(this.value);
     },
     isOverTextLimit() {
-      return Number(this.currTextCount) > Number(this.countLimit);
+      return Number(this.currTextCount) > Number(this.textLimit);
     },
     textAreaRows() {
       return String(this.rows);
