@@ -25,7 +25,7 @@
       </div>
       <div class="re-checkbox-box__content">
         <component v-if="render" :is="render()" v-bind="$attrs" />
-        <span v-else class="re-radio-box__content__label">{{ label }}</span>
+        <span v-else class="re-checkbox-box__content__label">{{ label }}</span>
       </div>
     </label>
   </div>
