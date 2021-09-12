@@ -125,11 +125,10 @@ export default {
 
 <style lang="scss" scoped>
 .re-button {
-  @include box-padding(8px 16px);
+  @include box-padding(0px 16px);
   @include set-btn-default();
   @include font-style($c-white, 14px);
   display: inline-block;
-  /* align-items: center; */
   position: relative;
   border: 0;
 
@@ -172,7 +171,6 @@ export default {
   }
 
   &--default {
-    // border: 1px solid $c-main;
     background-color: $c-main;
   }
 
@@ -196,7 +194,8 @@ export default {
   }
 
   &__content {
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
 
     &--circle {
       @include position(center);
