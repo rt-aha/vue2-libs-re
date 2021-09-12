@@ -1,7 +1,5 @@
 <template>
   <div class="re-date-range-picker">
-    <re-button @click="selectedShortcutWeek">最近七天</re-button>
-    <re-button @click="selectedShortcutMonth">最近一個月</re-button>
     <re-row>
       <div class="date-value-wrap">
         <p class="date-value-wrap__from-to">
@@ -82,10 +80,6 @@ export default {
       this.startDate = dayjs(dateValue[0]).format('YYYY-MM-DD');
       this.endDate = dayjs(dateValue[1]).format('YYYY-MM-DD');
     },
-    // 選擇 最近七天
-    selectedShortcutWeek() {},
-    // 選擇 最近一個月
-    selectedShortcutMonth() {},
   },
   created() {
     this.setDateString(this.innerValue);

@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       dateValue: [new Date(), new Date(2021, 8, 20)],
-      notBeforeDate: new Date(2021, 8, 5), // 2021/9/5
+      notBeforeDate: new Date(2021, 8, 10), // 2021/9/5
       notAfterDate: new Date(2021, 8, 25), // 2021/9/25
     };
   },

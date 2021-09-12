@@ -1,6 +1,8 @@
 <template>
   <div class="re-calendar">
     <div class="calendar-content">
+      <re-button size="small" type="border" @click="selectedShortcutWeek">最近七天</re-button>
+      <re-button size="small" type="border" @click="selectedShortcutMonth">最近一個月</re-button>
       <div class="calendar__header">
         <div class="calendar__header__prev">
           <div class="re-arrow-wrap">
@@ -272,7 +274,7 @@ export default {
         });
       }
     },
-    splitDate(date) {
+    setDate(date, type = this.clickType) {
       const ymd = dayjs(date).format('YYYY-MM-DD').split('-');
 
       const dateInfo = {
@@ -284,24 +286,20 @@ export default {
         },
       };
 
-      console.log('this.selectedDate before', this.selectedDate);
-
-      if (this.clickType === 'start') {
+      if (type === 'start') {
         this.selectedDate.splice(0, 1, dateInfo);
       } else {
         this.selectedDate.splice(1, 1, dateInfo);
       }
 
-      console.log('this.selectedDate after', this.selectedDate);
+      this.switchClickType();
     },
-
     // 點擊日期事件
     handleActiveDate(e, date) {
       e.stopPropagation();
       if (this.matchDisabledDate(date)) return;
 
-      this.splitDate(e.target.getAttribute('data-date'));
-      this.handleClickType();
+      this.setDate(e.target.getAttribute('data-date'));
       this.$emit('input', [this.selectedDate[0].date(), this.selectedDate[1].date()]);
     },
 
@@ -343,13 +341,39 @@ export default {
       const nextYear = this.currDateConfig.y + 1;
       this.update({ y: nextYear, m: '' });
     },
-    handleClickType() {
-      if (this.clickType === 'start') {
-        this.clickType = 'end';
-        return;
+    switchClickType() {
+      this.clickType = this.clickType === 'start' ? 'end' : 'start';
+    },
+    // 如果有限制某天之前無法點選
+    startDateBeforeDisabledDate(startDate) {
+      const validBeforeDate = dayjs(this.notBeforeDate).format('YYYY-MM-DD');
+      const isBeforeDate = dayjs(startDate).isBefore(dayjs(validBeforeDate));
+
+      if (isBeforeDate) {
+        return dayjs(this.notBeforeDate).format('YYYY-MM-DD');
       }
 
-      this.clickType = 'start';
+      return startDate;
+    },
+    // 選擇 最近七天
+    selectedShortcutWeek() {
+      let startDate = dayjs().subtract(7, 'day').format('YYYY-MM-DD');
+      const endDate = dayjs().format('YYYY-MM-DD');
+      startDate = this.startDateBeforeDisabledDate(startDate);
+
+      this.setDate(startDate, 'start');
+      this.setDate(endDate);
+      this.$emit('input', [this.selectedDate[0].date(), this.selectedDate[1].date()]);
+    },
+    // 選擇 最近一個月
+    selectedShortcutMonth() {
+      let startDate = dayjs().subtract(1, 'month').format('YYYY-MM-DD');
+      const endDate = dayjs().format('YYYY-MM-DD');
+      startDate = this.startDateBeforeDisabledDate(startDate);
+
+      this.setDate(startDate, 'start');
+      this.setDate(endDate);
+      this.$emit('input', [this.selectedDate[0].date(), this.selectedDate[1].date()]);
     },
   },
   // 初始化月曆
