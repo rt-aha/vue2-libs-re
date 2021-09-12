@@ -43,7 +43,7 @@ export default {
   }
 
   &__demo {
-    @include font-style($c-assist, 18px, 300);
+    @include font-style($c-main, 24px, 400);
     margin-bottom: 10px;
   }
 

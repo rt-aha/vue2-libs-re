@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss" scoped>
 .re-dev-desc {
-  @include font-style($c-assist, 16px, 300);
+  @include font-style(#252525, 16px, 400);
   margin-bottom: 10px;
 }
 </style>
