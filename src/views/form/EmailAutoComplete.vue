@@ -18,5 +18,36 @@ export default {
       domainList,
     };
   },
+  methods: {
+    storeUsedEmail() {
+      const domain = this.labor.email.split('@')[1];
+      if (!domain) return;
+
+      const emailConfig = {
+        label: domain,
+        value: domain,
+      };
+      const storageOption = localStorage.getItem('laborRewardEmail') || '';
+
+      if (storageOption === '') {
+        localStorage.setItem('laborRewardEmail', JSON.stringify([emailConfig]));
+      } else {
+        const laborRewardEmailOption = JSON.parse(storageOption);
+
+        const existEmailDomain = [...domainList, ...laborRewardEmailOption];
+
+        const isInStorage = existEmailDomain.some((item) => item.value === emailConfig.value);
+
+        if (!isInStorage) {
+          const options = [emailConfig, ...laborRewardEmailOption];
+
+          // 上限 100 筆，超過 100 筆不儲存
+          if (options.length < 100) {
+            localStorage.setItem('laborRewardEmail', JSON.stringify(options));
+          }
+        }
+      }
+    },
+  },
 };
 </script>
