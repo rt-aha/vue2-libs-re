@@ -2,7 +2,10 @@
   <div class="page-email-auto-complete">
     <re-dev-sheet>
       <re-dev-desc>基本使用</re-dev-desc>
-      <re-email-auto-complete v-model="emailValue" :options="domainList" />
+      <re-email-auto-complete v-model="emailValue" :options="domainList" storageKey="testKey" />
+      <re-row>
+        <re-button @click="storeUsedEmail">存入 local host</re-button>
+      </re-row>
     </re-dev-sheet>
   </div>
 </template>
@@ -20,17 +23,17 @@ export default {
   },
   methods: {
     storeUsedEmail() {
-      const domain = this.labor.email.split('@')[1];
+      const domain = this.emailValue.split('@')[1];
       if (!domain) return;
 
       const emailConfig = {
         label: domain,
         value: domain,
       };
-      const storageOption = localStorage.getItem('laborRewardEmail') || '';
+      const storageOption = localStorage.getItem('testKey') || '';
 
       if (storageOption === '') {
-        localStorage.setItem('laborRewardEmail', JSON.stringify([emailConfig]));
+        localStorage.setItem('testKey', JSON.stringify([emailConfig]));
       } else {
         const laborRewardEmailOption = JSON.parse(storageOption);
 
@@ -43,7 +46,7 @@ export default {
 
           // 上限 100 筆，超過 100 筆不儲存
           if (options.length < 100) {
-            localStorage.setItem('laborRewardEmail', JSON.stringify(options));
+            localStorage.setItem('testKey', JSON.stringify(options));
           }
         }
       }

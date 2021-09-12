@@ -42,6 +42,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    storageKey: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -76,7 +80,7 @@ export default {
       this.closeOptions();
     },
     removeOption(val) {
-      const storageOptions = localStorage.getItem('laborRewardEmail');
+      const storageOptions = localStorage.getItem(this.storageKey);
       if (!storageOptions) return;
 
       const emailOptions = JSON.parse(storageOptions);
@@ -85,9 +89,9 @@ export default {
       const filterOptions = emailOptions.filter((item) => item.value !== val);
 
       if (filterOptions.length === 0) {
-        localStorage.removeItem('laborRewardEmail');
+        localStorage.removeItem(this.storageKey);
       } else {
-        localStorage.setItem('laborRewardEmail', JSON.stringify(filterOptions));
+        localStorage.setItem(this.storageKey, JSON.stringify(filterOptions));
       }
 
       this.combineEmailDomains();
@@ -114,11 +118,11 @@ export default {
     combineEmailDomains() {
       this.emailDomains = this.options;
 
-      const storageOptions = localStorage.getItem('laborRewardEmail');
+      const storageOptions = localStorage.getItem(this.storageKey);
 
       if (storageOptions) {
-        let laborRewardEmailOption = JSON.parse(storageOptions);
-        laborRewardEmailOption = laborRewardEmailOption.map((item) => {
+        let emailOptions = JSON.parse(storageOptions);
+        emailOptions = emailOptions.map((item) => {
           item.allowedDelete = true;
           return item;
         });
@@ -126,7 +130,7 @@ export default {
         const frequentTitle = {
           render: () => CategoryTitle,
           label: 'frequentTitle',
-          value: '111',
+          value: '111', // 只是一個隨機 id，渲染用
           title: '常用 Email',
           disabled: true,
         };
@@ -134,12 +138,12 @@ export default {
         const historyTitle = {
           render: () => CategoryTitle,
           label: 'historyTitle',
-          value: '222',
+          value: '222', // 只是一個隨機 id，渲染用
           title: '曾使用 Email',
           disabled: true,
         };
 
-        this.emailDomains = [frequentTitle, ...this.options, historyTitle, ...laborRewardEmailOption];
+        this.emailDomains = [frequentTitle, ...this.options, historyTitle, ...emailOptions];
       }
 
       this.setOptions();
