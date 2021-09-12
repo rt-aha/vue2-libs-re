@@ -23,11 +23,7 @@
 export default {
   name: 'PageAutoInput',
   methods: {
-    handleChange(val) {
-      console.log('value ...', val);
-    },
+    handleChange(val) {},
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
