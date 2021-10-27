@@ -1,5 +1,17 @@
 stages:
+  - build
   - deploy
+
+test:
+  stage: build
+  image: node
+  before_script:
+    - yarn add @vue/cli-service
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - ./dist
 
 deploy:
   stage: deploy
@@ -12,5 +24,5 @@ deploy:
     - mkdir -p ~/.ssh
     - echo "$AWS_KEY" > ~/.ssh/$KEY_NAME
     - chmod 600 ~/.ssh/$KEY_NAME
-    - ssh -tt -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME $HOST "cd /www && touch test.txt"
-    - scp -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME -r dist/* $HOST:/$TARGET_FOLDER
+    - ssh -tt -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME $HOST "cd /www && sudo rm -rf /www/$TARGET && cd /www && sudo mkdir $TARGET && sudo chmod 777 $TARGET"
+    - scp -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME -r dist/* $HOST:/www/$TARGET
