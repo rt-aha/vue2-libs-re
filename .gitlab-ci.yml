@@ -1,17 +1,5 @@
 stages:
-  - build
   - deploy
-
-test:
-  stage: build
-  image: node
-  before_script:
-    - yarn add @vue/cli-service
-  script:
-    - yarn build
-  artifacts:
-    paths:
-      - ./dist
 
 deploy:
   stage: deploy
