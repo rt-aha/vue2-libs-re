@@ -24,5 +24,5 @@ deploy:
     - mkdir -p ~/.ssh
     - echo "$AWS_KEY" > ~/.ssh/$KEY_NAME
     - chmod 600 ~/.ssh/$KEY_NAME
-    - ssh -tt -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME $HOST "cd /www && sudo rm -rf /www/$TARGET && cd /www && sudo mkdir $TARGET && sudo chmod 777 $TARGET"
+    - ssh -tt -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME $HOST "cd /www && rm -rf /www/$TARGET && cd /www && mkdir $TARGET && chmod 777 $TARGET"
     - scp -o StrictHostKeyChecking=No -i ~/.ssh/$KEY_NAME -r dist/* $HOST:/www/$TARGET
