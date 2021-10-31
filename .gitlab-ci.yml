@@ -4,7 +4,7 @@ stages:
 
 test:
   stage: build
-  image: node
+  image: node:12.22.1
   before_script:
     - yarn add @vue/cli-service
   script:
