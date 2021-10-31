@@ -12,9 +12,7 @@
       :maxHeight="200"
       @handlePageInfo="handlePageInfo"
       :pagination="pagination"
-    >
-      <template v-slot:name="scope"> {{ scope.data.value }} 111 </template>
-    </re-table>
+    />
   </div>
 </template>
 

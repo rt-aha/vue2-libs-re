@@ -65,10 +65,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    scopedSlotList: {
-      type: Array,
-      default: () => [],
-    },
+
     fixedTableWidth: {
       type: Number,
       default: 0,

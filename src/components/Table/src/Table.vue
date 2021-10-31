@@ -75,25 +75,12 @@
                 :maxHeight="maxHeight"
                 :scopedSlotList="scopedSlotList"
                 :isFixedColumn="true"
-              >
-                <span :slot="col.prop" slot-scope="scope" v-for="col of columnsConfig" :key="col.prop">
-                  <slot
-                    :name="col.prop"
-                    :data="{
-                      ...scope.data,
-                    }"
-                  ></slot>
-                </span>
-              </re-table-body>
+              />
             </table>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <re-row justifyContent="flex-end" v-if="pagination">
-      <re-pagination v-on="$listeners" :pagination="pagination" />
-    </re-row> -->
   </div>
 </template>
 
@@ -230,9 +217,6 @@ export default {
     getFullTableWidth() {
       this.fullTableWidth = this.$refs.normalTable.clientWidth;
     },
-    setScopedSlotList() {
-      this.scopedSlotList = Object.keys(this.$scopedSlots);
-    },
     // eslint-disable-next-line
     showFixedColumnDebounce: debounce(function () {
       this.isShowFixedColumn();
@@ -243,13 +227,11 @@ export default {
      * 1. 取得table寬
      * 2. 取得table內欄位總和
      * 3. 取得固定欄位及固定欄位的寬
-     * 4. 設定使用scoped-slot的prop // 似乎有anti-design?
      */
     this.getFullTableWidth();
     this.calcTableWidth();
     this.getFixedTableColumns();
     this.calcFixedTableWidth();
-    this.setScopedSlotList();
     window.addEventListener('resize', this.showFixedColumnDebounce);
   },
   created() {

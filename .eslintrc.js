@@ -20,12 +20,7 @@ module.exports = {
     'no-shadow': 'off',
     'consistent-return': 'off',
     'object-curly-newline': 'off',
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: ['.storybook/**', 'stories/**'],
-      },
-    ],
+    'import/no-extraneous-dependencies': ['error'],
     'implicit-arrow-linebreak': 'off',
   },
   overrides: [

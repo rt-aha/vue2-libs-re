@@ -14,8 +14,6 @@
     "plop:comp": "plop  --plopfile ./plop/executor/comp.js",
     "plop:view": "plop  --plopfile ./plop/executor/view.js",
     "genComp": "node generateComponent.js",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
     "commit": "node commit.js",
     "release": "standard-version && git push --follow-tags origin master && git add ."
   },
@@ -45,10 +43,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
-    "@storybook/addon-actions": "^6.1.21",
-    "@storybook/addon-essentials": "^6.1.21",
-    "@storybook/addon-links": "^6.1.21",
-    "@storybook/vue": "^6.1.21",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-e2e-cypress": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
