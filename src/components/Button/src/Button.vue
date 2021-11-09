@@ -196,6 +196,7 @@ export default {
   &__content {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
 
     &--circle {
       @include position(center);

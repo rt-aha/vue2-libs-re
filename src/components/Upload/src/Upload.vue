@@ -16,10 +16,10 @@
       <div class="trigger-scope" @click="handleClick">
         <slot>
           <re-button @click.prevent>
-            <div class="btn-wrap">
-              <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
-              <span class="btn-wrap__upload">上傳</span>
-            </div>
+            <!-- <div class="btn-wrap"> -->
+            <!-- <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" /> -->
+            <span class="btn-wrap__upload">上傳</span>
+            <!-- </div> -->
           </re-button>
         </slot>
       </div>

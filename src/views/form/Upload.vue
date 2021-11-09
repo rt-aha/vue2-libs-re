@@ -4,10 +4,10 @@
       <re-dev-desc>基本使用</re-dev-desc>
       <re-upload v-model="fileList1">
         <re-button>
-          <div class="btn-wrap">
-            <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
-            <span class="btn-wrap__upload">上傳</span>
-          </div>
+          <!-- <div class="btn-wrap"> -->
+          <!-- <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" /> -->
+          <span class="btn-wrap__upload">上傳</span>
+          <!-- </div> -->
         </re-button>
       </re-upload>
     </re-dev-sheet>
@@ -16,10 +16,10 @@
       <re-dev-desc>僅能上傳一張</re-dev-desc>
       <re-upload v-model="fileList2" @handleMessage="handleMessage2" :multiple="false">
         <re-button :disabled="isDisabled2">
-          <div class="btn-wrap">
-            <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
-            <span class="btn-wrap__upload">上傳</span>
-          </div>
+          <!-- <div class="btn-wrap"> -->
+          <!-- <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" /> -->
+          <span class="btn-wrap__upload">上傳</span>
+          <!-- </div> -->
         </re-button>
       </re-upload>
     </re-dev-sheet>
@@ -28,10 +28,10 @@
       <re-dev-desc>限制上傳大小</re-dev-desc>
       <re-upload v-model="fileList3" @handleMessage="handleMessage3" :uploadSizeLimit="10">
         <re-button :disabled="isDisabled3">
-          <div class="btn-wrap">
-            <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
-            <span class="btn-wrap__upload">上傳</span>
-          </div>
+          <!-- <div class="btn-wrap"> -->
+          <!-- <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" /> -->
+          <span class="btn-wrap__upload">上傳</span>
+          <!-- </div> -->
         </re-button>
       </re-upload>
     </re-dev-sheet>
@@ -95,7 +95,7 @@ export default {
   &__upload {
     @include font-style($c-white, 14px);
     display: inline-block;
-    margin-left: 5px;
+    /* margin-left: 5px; */
   }
 }
 </style>

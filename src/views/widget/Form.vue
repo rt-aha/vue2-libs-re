@@ -48,10 +48,10 @@
         <re-form-item label="頭像" prop="avatar">
           <re-upload v-model="form.avatar" :multiple="false">
             <re-button @click.prevent>
-              <div class="btn-wrap">
-                <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" />
-                <span class="btn-wrap__upload">上傳</span>
-              </div>
+              <!-- <div class="btn-wrap"> -->
+              <!-- <img class="btn-wrap__icon" src="@/assets/icon/upload.svg" /> -->
+              <span class="btn-wrap__upload">上傳</span>
+              <!-- </div> -->
             </re-button>
           </re-upload>
         </re-form-item>
