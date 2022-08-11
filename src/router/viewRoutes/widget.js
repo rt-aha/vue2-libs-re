@@ -16,6 +16,9 @@ export default [
           authGroup: 'widget',
           authItem: 'widget-form',
         },
+        props: {
+          aaa: '111',
+        },
       },
       {
         path: 'widget-search',

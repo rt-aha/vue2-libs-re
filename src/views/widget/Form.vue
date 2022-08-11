@@ -172,7 +172,7 @@ export default {
         },
       ],
       form: {
-        name: '',
+        name: '12312',
         enable: true,
         income: null,
         occupation: 0,
@@ -315,6 +315,9 @@ export default {
         }, 1000);
       });
     },
+  },
+  created() {
+    console.log('this.$route...', this.$route);
   },
 };
 </script>

@@ -7,7 +7,6 @@
         </re-form-item>
       </re-form>
     </div>
-
     <slot />
   </div>
 </template>
